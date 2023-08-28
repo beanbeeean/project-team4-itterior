@@ -3,18 +3,31 @@ body {
 	font-family: "Montserrat", sans-serif;
 }
 
+.modal_wrap {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
 .container {
 	position: absolute;
 	margin-top: 40px;
 	transform: translate(-50%, -50%);
 	top: 50%;
 	left: 50%;
+	width: 500px;
+	background-color: rgba(255, 255, 255, 0.7);
 }
 
 form {
 	background: rgba(255, 255, 255, 0.3);
 	padding: 3em;
-	height: 300px;
+	height: 360px;
 	border-radius: 20px;
 	border-left: 1px solid rgba(255, 255, 255, 0.3);
 	border-top: 1px solid rgba(255, 255, 255, 0.3);
@@ -24,6 +37,41 @@ form {
 	position: relative;
 	transition: all 0.2s ease-in-out;
 }
+
+span {
+	width: 50px;
+	text-align: right;
+	display: inline-block;
+	padding-right: 8px;
+}
+
+span.addr{
+	position: relative;
+	left: -145px;
+}
+
+.login_modal{
+	display: block;
+	/*display: none;*/
+}
+
+.create_account_modal{
+	display: none;
+	/*display: block;*/
+}
+.create_account_modal input {
+	margin-bottom: 10px;
+}
+
+
+.create_account_modal form{
+	height: 700px;
+}
+.create_account_modal input[name="u_main_addr"],
+.create_account_modal input[name="u_detail_addr"]{
+	width: 330px;
+}
+
 
 form p {
 	font-weight: 500;
@@ -96,6 +144,11 @@ input[type="button"]:active {
 	background: rgba(255, 255, 255, 0.2);
 }
 
+input#searchAddr {
+	font-size: .8em;
+	width: 150px;
+}
+
 form input::placeholder {
 	font-family: Montserrat, sans-serif;
 	font-weight: 400;
@@ -106,7 +159,7 @@ form input::placeholder {
 .drop {
 	background: rgba(237, 175, 175, 0.3);
 	backdrop-filter: blur(10px);
-	border-radius: 10px;
+	border-radius: 20px;
 	border-left: 1px solid rgba(237, 175, 175, 0.3);
 	border-top: 1px solid rgba(237, 175, 175, 0.3);
 	box-shadow: 10px 10px 60px -8px rgba(237, 175, 175, 0.2);
@@ -147,17 +200,18 @@ form input::placeholder {
 .drop-5 {
 	height: 60px;
 	width: 60px;
-	bottom: 170px;
-	left: 90px;
-	z-index: -1;
+	bottom: -20px;
+	left: -20px;
 }
 
-.go_create_account_form {
+.go_create_account_form,
+.go_login_form {
 	text-align: center;
 	color: rgb(237, 175, 175);
 }
 
-.go_create_account_form a {
+.go_create_account_form a,
+.go_login_form a{
 	color: rgb(237, 175, 175);
 	text-decoration: underline;
 }
