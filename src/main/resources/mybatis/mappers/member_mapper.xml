@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.office.house.member.IMemberDaoMapper">
+
+    <select id="isMember" parameterType="String" resultType="Boolean">
+
+        select count(*) from tbl_member where m_id = #{m_id}
+
+    </select>
+
+    <insert id="insertNewAccount" parameterType="com.office.house.member.MemberDto">
+
+        insert into tbl_member(m_id, m_pw, m_name, m_mail, m_phone, m_zipcode, m_main_addr, m_detail_addr, m_reg_date, m_mod_date)
+        values (#{m_id}, #{m_pw}, #{m_name}, #{m_mail} ,#{m_phone}, #{m_zipcode}, #{m_main_addr}, #{m_detail_addr}, now(), now())
+
+    </insert>
+
+    <select id="selectMemberForLogin" parameterType="com.office.house.member.MemberDto" resultType="com.office.house.member.MemberDto">
+
+        select * from tbl_member where m_id = #{m_id}
+
+    </select>
+
+    <update id="updateAccount" parameterType="com.office.house.member.MemberDto">
+
+        update tbl_member set m_name = #{m_name}, m_mail = #{m_mail} , m_phone = #{m_phone} , m_main_addr = #{m_main_addr}, m_detail_addr = #{m_detail_addr}, m_mod_date = now() where m_no = #{m_no}
+
+    </update>
+
+    <select id="getLatestAccountInfo" parameterType="com.office.house.member.MemberDto" resultType="com.office.house.member.MemberDto">
+
+        select * from tbl_member where m_no = #{m_no}
+
+    </select>
+
+    <delete id="deleteAccount" parameterType="Integer">
+
+        delete from tbl_member where m_no = #{m_no}
+
+    </delete>
+
+</mapper>
