@@ -6,29 +6,29 @@
 
 <link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
-<link rel="stylesheet" th:href="@{/css/create_account_form.css}">
 
 </head>
 <body>
 	
 	<header th:replace="~{/include/header_nav_footer.html::header}">
 	</header>
+
 	
 	<section>
 		<div id="section_wrap">
 		
 			<div class="word">
-				CREATE ACCOUNT FAIL
+				CREATE ACCOUNT SUCCESS
 			</div>
-			
-			<div class="go_create_account_form">
-				<a th:href="@{/member/create_account_form}">Sorry. Please try again create account.</a>
+			<br>
+			<div class="go_login_form">
+				로그인 하러 가기<a th:href="@{/member/member_login_form}">로그인</a>
 			</div>
 			
 		</div>
 	</section>
 	
-	<footer th:replace="~{/include/header_nav_footer.html::footer}">
+	<footer>
 	</footer>
 	
 </body>

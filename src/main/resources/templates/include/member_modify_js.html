@@ -7,29 +7,29 @@ $(document).ready(function(){
 	
 });
 
-function memberModifyForm() {
-	console.log('memberModifyForm() CALLED!!');
+function userModifyForm() {
+	console.log('userModifyForm() CALLED!!');
 	
-	let form = document.member_modify_form;
-	if (form.m_name.value==''){
+	let form = document.user_modify_form;
+	if (form.u_name.value==''){
 		alert('INPUT NAME');
-		form.m_name.focus();
+		form.u_name.focus();
 		
-	} else if (form.m_mail.value == '') {
+	} else if (form.u_mail.value == '') {
 		alert('INPUT MAIL');
-		form.m_mail.focus();
+		form.u_mail.focus();
 		
-	} else if (form.m_phone.value == '') {
+	} else if (form.u_phone.value == '') {
 		alert('INPUT PHONE');
-		form.m_phone.focus();
+		form.u_phone.focus();
 		
-	} else if (form.m_main_addr.value == '') {
+	} else if (form.u_main_addr.value == '') {
 		alert('INPUT MAIN ADDRESS');
-		form.m_main_addr.focus();
+		form.u_main_addr.focus();
 		
-	} else if (form.m_detail_addr.value == '') {
+	} else if (form.u_detail_addr.value == '') {
 		alert('INPUT DETAIL ADDRESS');
-		form.m_detail_addr.focus();
+		form.u_detail_addr.focus();
 		
 	} else {
 		form.submit();
@@ -57,10 +57,10 @@ function ajax_deleteAccount() {
 	console.log('ajax_deleteAccount() CALLED!!');
 
 	let msg = {
-		'm_no' : [[${session.loginedMemberDto}]].m_no
+		'm_no' : [[${session.loginedMemberDto}]].u_no
 	};
 	$.ajax({
-		url:			'/member/member_delete_confirm',
+		url:			'/user/user_delete_confirm',
 		type:			'POST',
 		data: 			JSON.stringify(msg),
 		contentType:	'application/json; chartset=utf-8;',

@@ -2,33 +2,33 @@ function createAccountForm() {
 	console.log('createAccountForm() CALLED!!');
 	
 	let form = document.create_account_form;
-	if (form.m_id.value == '') {
+	if (form.u_id.value == '') {
 		alert('INPUT ID');
-		form.m_id.focus();
+		form.u_id.focus();
 		
-	} else if (form.m_pw.value == '') {
+	} else if (form.u_pw.value == '') {
 		alert('INPUT PW');
-		form.m_pw.focus();
+		form.u_pw.focus();
 		
-	} else if (form.m_mail.value == '') {
+	} else if (form.u_mail.value == '') {
 		alert('INPUT MAIL');
-		form.m_mail.focus();
+		form.u_mail.focus();
 		
-	} else if (form.m_phone.value == '') {
+	} else if (form.u_phone.value == '') {
 		alert('INPUT PHONE');
-		form.m_phone.focus();
+		form.u_phone.focus();
 		
-	} else if (form.m_zipcode.value == '') {
+	} else if (form.u_zipcode.value == '') {
 		alert('INPUT ZIP CODE');
-		form.m_zipcode.focus();
+		form.u_zipcode.focus();
 		
-	} else if (form.m_main_addr.value == '') {
+	} else if (form.u_main_addr.value == '') {
 		alert('INPUT ADDRESS1');
-		form.m_main_addr.focus();
+		form.u_main_addr.focus();
 		
-	} else if (form.m_detail_addr.value == '') {
+	} else if (form.u_detail_addr.value == '') {
 		alert('INPUT ADDRESS2');
-		form.m_detail_addr.focus();
+		form.u_detail_addr.focus();
 		
 	} else {
 		form.submit();

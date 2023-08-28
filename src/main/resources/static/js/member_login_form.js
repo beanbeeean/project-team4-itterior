@@ -1,14 +1,14 @@
-function memberLoginForm() {
-	console.log('memberLoginForm() CALLED!!');
+function userLoginForm() {
+	console.log('userLoginForm() CALLED!!');
 	
-	let form = document.member_login_form;
-	if (form.m_id.value == '') {
+	let form = document.user_login_form;
+	if (form.u_id.value == '') {
 		alert('INPUT ID');
-		form.m_id.focus();
+		form.u_id.focus();
 		
-	} else if (form.m_pw.value == '') {
+	} else if (form.u_pw.value == '') {
 		alert('INPUT PW');
-		form.m_pw.focus();
+		form.u_pw.focus();
 		
 	} else {
 		form.submit();

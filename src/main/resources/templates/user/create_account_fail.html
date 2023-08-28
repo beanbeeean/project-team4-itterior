@@ -6,25 +6,28 @@
 
 <link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
-<link rel="stylesheet" th:href="@{/css/create_account_form.css}">
 
 </head>
 <body>
 	
 	<header th:replace="~{/include/header_nav_footer.html::header}">
 	</header>
-
+	
 	<section>
 		<div id="section_wrap">
 		
 			<div class="word">
-				MEMBER LOGIN SUCCESS
+				CREATE ACCOUNT FAIL
+			</div>
+			
+			<div class="go_create_account_form">
+				<a th:href="@{/member/create_account_form}">Sorry. Please try again create account.</a>
 			</div>
 			
 		</div>
 	</section>
 	
-	<footer>
+	<footer th:replace="~{/include/header_nav_footer.html::footer}">
 	</footer>
 	
 </body>

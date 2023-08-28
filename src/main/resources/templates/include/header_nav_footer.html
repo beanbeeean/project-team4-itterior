@@ -8,14 +8,14 @@
 
     <div id="user-actions" th:if="${session.loginedMemberDto == null}">
         <a th:href="@{/}">Home</a>&nbsp;&nbsp;
-        <a th:href="@{/member/create_account_form}">Sign Up</a>&nbsp;&nbsp;
-        <a th:href="@{/member/member_login_form}">Login</a>&nbsp;&nbsp;
+        <a th:href="@{/user/create_account_form}">Sign Up</a>&nbsp;&nbsp;
+        <a th:href="@{/user/user_login_form}">Login</a>&nbsp;&nbsp;
     </div>
     <!-- 여기는 login시에 이걸 nav에 넣을지 말지 고민해보아야 할 듯 -->
     <div id="user-actions" th:unless="${session.loginedMemberDto == null}">
-        <a th:href="@{/}" th:text=${session.loginedMemberDto.m_id}></a>님, 환영합니다!&nbsp;&nbsp;
-        <a th:href="@{/member/member_modify_form}">modify</a>&nbsp;&nbsp;
-        <a th:href="@{/member/member_logout_confirm}">logout</a>&nbsp;&nbsp;
+        <a th:href="@{/}" th:text=${session.loginedMemberDto.u_id}></a>님, 환영합니다!&nbsp;&nbsp;
+        <a th:href="@{/user/user_modify_form}">modify</a>&nbsp;&nbsp;
+        <a th:href="@{/user/user_logout_confirm}">logout</a>&nbsp;&nbsp;
 
     </div>
 </header>

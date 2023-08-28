@@ -2,42 +2,42 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.office.house.member.IMemberDaoMapper">
+<mapper namespace="com.office.house.user.IUserDaoMapper">
 
-    <select id="isMember" parameterType="String" resultType="Boolean">
+    <select id="isUser" parameterType="String" resultType="Boolean">
 
-        select count(*) from tbl_member where m_id = #{m_id}
+        select count(*) from tbl_user where u_id = #{u_id}
 
     </select>
 
-    <insert id="insertNewAccount" parameterType="com.office.house.member.MemberDto">
+    <insert id="insertNewAccount" parameterType="com.office.house.user.UserDto">
 
-        insert into tbl_member(m_id, m_pw, m_name, m_mail, m_phone, m_zipcode, m_main_addr, m_detail_addr, m_reg_date, m_mod_date)
-        values (#{m_id}, #{m_pw}, #{m_name}, #{m_mail} ,#{m_phone}, #{m_zipcode}, #{m_main_addr}, #{m_detail_addr}, now(), now())
+        insert into tbl_user(u_id, u_pw, u_name, u_mail, u_phone, u_zipcode, u_main_addr, u_detail_addr, u_reg_date, u_mod_date)
+        values (#{u_id}, #{u_pw}, #{u_name}, #{u_mail} ,#{u_phone}, #{u_zipcode}, #{u_main_addr}, #{u_detail_addr}, now(), now())
 
     </insert>
 
-    <select id="selectMemberForLogin" parameterType="com.office.house.member.MemberDto" resultType="com.office.house.member.MemberDto">
+    <select id="selectUserForLogin" parameterType="com.office.house.user.UserDto" resultType="com.office.house.user.UserDto">
 
-        select * from tbl_member where m_id = #{m_id}
+        select * from tbl_user where u_id = #{u_id}
 
     </select>
 
-    <update id="updateAccount" parameterType="com.office.house.member.MemberDto">
+    <update id="updateAccount" parameterType="com.office.house.user.UserDto">
 
-        update tbl_member set m_name = #{m_name}, m_mail = #{m_mail} , m_phone = #{m_phone} , m_main_addr = #{m_main_addr}, m_detail_addr = #{m_detail_addr}, m_mod_date = now() where m_no = #{m_no}
+        update tbl_user set u_name = #{u_name}, u_mail = #{u_mail} , u_phone = #{u_phone} , u_main_addr = #{u_main_addr}, u_detail_addr = #{u_detail_addr}, u_mod_date = now() where u_no = #{u_no}
 
     </update>
 
-    <select id="getLatestAccountInfo" parameterType="com.office.house.member.MemberDto" resultType="com.office.house.member.MemberDto">
+    <select id="getLatestAccountInfo" parameterType="com.office.house.user.UserDto" resultType="com.office.house.user.UserDto">
 
-        select * from tbl_member where m_no = #{m_no}
+        select * from tbl_user where u_no = #{u_no}
 
     </select>
 
     <delete id="deleteAccount" parameterType="Integer">
 
-        delete from tbl_member where m_no = #{m_no}
+        update tbl_user set u_use = 0 where u_no = #{u_no}
 
     </delete>
 

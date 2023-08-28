@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title th:replace="~{/include/title.html::title}"></title>
+
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+	<link rel="stylesheet" th:href="@{/css/user/modify_account_form.css}">
+
+	<script th:fragment="jquery_cdn" src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+	<script th:src="@{/js/member_modify_form.js}" type="text/javascript"></script>
+	<script th:replace="~{/include/member_modify_js.html::js}" type="text/javascript"></script>
+
+</head>
+
+<body>
+
+	<header th:replace="~{/include/header_nav_footer.html::header}"/>
+
+	<section>
+		<div id="section_wrap">
+			<div class="container">
+				<form th:action="@{/user/user_modify_confirm}" name="user_modify_form" method="post">
+					<p>MODIFY ACCOUNT FORM</p>
+					<input type="hidden" name="u_no" th:if="${session.loginedMemberDto != null}"
+						th:value="${session.loginedMemberDto.u_no}">
+
+					<span>ID</span><br><input type="text" name="u_id" th:if="${session.loginedMemberDto != null}"
+						th:value="${session.loginedMemberDto.u_id}" readonly="readonly" disabled="disabled"><br>
+					<span>PW</span><br><input type="password" name="u_pw" value="*****" readonly="readonly" disabled="disable"><br>
+
+					<span>NAME</span><br><input type="text" name="u_name" th:if="${session.loginedMemberDto != null}"
+						th:value="${session.loginedMemberDto.u_name}" placeholder="INPUT NAME"><br>
+					<span>EMAIL</span><br><input type="email" name="u_mail" th:if="${session.loginedMemberDto != null}"
+						th:value="${session.loginedMemberDto.u_mail}" placeholder="INPUT MAIL"><br>
+					<span>PHONE</span><br><input type="text" name="m_phone" th:if="${session.loginedMemberDto != null}"
+						th:value="${session.loginedMemberDto.u_phone}" placeholder="INPUT PHONE"><br><br>
+
+					<span>ADDR</span><br>
+					<input type="text" name="u_zipcode" th:if="${session.loginedMemberDto != null}"
+						th:value="${session.loginedMemberDto.u_zipcode}" placeholder="우편번호" style="width: 170px;">
+					<input type="button" id="searchAddr" onclick="execDaumPostcode()"
+						value="우편번호 찾기">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<br>
+					<input type="text" name="u_main_addr" th:if="${session.loginedMemberDto != null}"
+						th:value="${session.loginedMemberDto.u_main_addr}" placeholder="도로명주소"><br>
+					<input type="text" name="u_detail_addr" th:if="${session.loginedMemberDto != null}"
+						th:value="${session.loginedMemberDto.u_detail_addr}" placeholder="상세주소"><br>
+					<input type="button" value="modify" onclick="userModifyForm();">&nbsp;&nbsp;
+					<input type="reset" value="reset">
+				</form>
+
+				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+				<script>
+					function execDaumPostcode() {
+						new daum.Postcode({
+							oncomplete: function (data) {
+								document.querySelector("input[name='u_zipcode']").value = data.zonecode;
+								document.querySelector("input[name='u_main_addr']").value = data.address;
+							}
+						}).open();
+					}
+				</script>
+
+				<div class="drops">
+					<div class="drop drop-1"></div>
+					<div class="drop drop-2"></div>
+					<div class="drop drop-3"></div>
+					<div class="drop drop-4"></div>
+					<div class="drop drop-5"></div>
+				</div>
+
+				<br>
+				<div class="delete_account">
+					정말로 탈퇴하시겠습니까? <a th:href="@{#}">회원탈퇴</a>
+				</div>
+			</div>
+
+		</div>
+	</section>
+
+	<footer></footer>
+
+</body>
+
+</html>
