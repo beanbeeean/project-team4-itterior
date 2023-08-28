@@ -1,4 +1,4 @@
-package com.office.accountbook;
+package com.office.house;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
