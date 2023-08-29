@@ -25,7 +25,7 @@
 
     <update id="updateAccount" parameterType="com.office.house.user.UserDto">
 
-        update tbl_user set u_name = #{u_name}, u_mail = #{u_mail} , u_phone = #{u_phone} , u_main_addr = #{u_main_addr}, u_detail_addr = #{u_detail_addr}, u_mod_date = now() where u_no = #{u_no}
+        update tbl_user set u_name = #{u_name}, u_mail = #{u_mail} , u_phone = #{u_phone} , u_img = #{u_img}, u_zipcode = #{u_zipcode}, u_main_addr = #{u_main_addr}, u_detail_addr = #{u_detail_addr}, u_mod_date = now() where u_no = #{u_no}
 
     </update>
 

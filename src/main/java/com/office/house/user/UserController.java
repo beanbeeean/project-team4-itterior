@@ -2,16 +2,14 @@ package com.office.house.user;
 
 import java.util.Map;
 
+import com.office.house.user.util.UploadFileService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.multipart.MultipartFile;
 
 @Log4j2
 @Controller
@@ -20,6 +18,9 @@ public class UserController {
 	
 	@Autowired
     UserService userService;
+
+    @Autowired
+    UploadFileService uploadFileService;
 	
 	// create account form
 	@GetMapping("/create_account_form")
@@ -97,12 +98,33 @@ public class UserController {
     
     // modify confirm
     @PostMapping("/user_modify_confirm")
-    public String userModifyConfirm(UserDto userDto, HttpSession session){
+    public String userModifyConfirm(UserDto userDto, HttpSession session, @RequestParam("file") MultipartFile file){
     	log.info("[UserController] userModifyConfirm()");
 
         String nextPage = "user/user_modify_success";
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
 
-        UserDto loginedMemberDto = userService.userModifyConfirm(userDto);
+//        String savedFileName = uploadFileService.upload(loginedMemberDto.getU_id(), file);
+
+        String savedFileName = null;
+
+        log.info(file.getSize());
+        log.info(session.getAttribute("u_img"));
+        log.info(loginedMemberDto.getU_img());
+
+        if(file.getSize()>0) {
+            savedFileName = uploadFileService.upload(loginedMemberDto.getU_id(), file);
+        } else {
+            userDto.setU_img(loginedMemberDto.getU_img());
+        }
+
+        if(savedFileName!=null){
+            userDto.setU_id(loginedMemberDto.getU_id());
+            userDto.setU_img(savedFileName);
+        }
+
+        loginedMemberDto = userService.userModifyConfirm(userDto, session);
+
         if(loginedMemberDto!=null){
             session.setAttribute("loginedMemberDto",loginedMemberDto);
             session.setMaxInactiveInterval(60*30);
@@ -110,6 +132,8 @@ public class UserController {
         } else{
             nextPage = "user/user_modify_fail";
         }
+
+
 
         return nextPage;
     }
@@ -125,6 +149,16 @@ public class UserController {
             session.removeAttribute("loginedMemberDto");
 
         return map;
+    }
+
+    // My Page
+    @GetMapping("/user_myPage")
+    public String usermyPage(UserDto userDto, HttpSession session){
+        log.info("[UserController] usermyPage()");
+
+        String nextPage = "user/user_myPage";
+
+        return nextPage;
     }
 
 }

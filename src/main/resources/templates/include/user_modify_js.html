@@ -9,37 +9,36 @@ $(document).ready(function(){
 
 function userModifyForm() {
 	console.log('userModifyForm() CALLED!!');
-	
+
 	let form = document.user_modify_form;
-	if (form.u_name.value==''){
+
+    if (form.u_name.value==''){
 		alert('INPUT NAME');
 		form.u_name.focus();
-		
+
 	} else if (form.u_mail.value == '') {
 		alert('INPUT MAIL');
 		form.u_mail.focus();
-		
+
 	} else if (form.u_phone.value == '') {
 		alert('INPUT PHONE');
 		form.u_phone.focus();
-		
+
 	} else if (form.u_main_addr.value == '') {
 		alert('INPUT MAIN ADDRESS');
 		form.u_main_addr.focus();
-		
+
 	} else if (form.u_detail_addr.value == '') {
 		alert('INPUT DETAIL ADDRESS');
 		form.u_detail_addr.focus();
-		
+
 	} else {
-		form.submit();
-		
-	}
-	
+            form.submit();
+
+    }
 }
 
 function init_events() {
-	console.log('init_events() CALLED!!');
 	
 	$('#section_wrap .delete_account a').click(function() {
 		console.log('delete_account CLICK HANDLER!!');
@@ -57,7 +56,7 @@ function ajax_deleteAccount() {
 	console.log('ajax_deleteAccount() CALLED!!');
 
 	let msg = {
-		'm_no' : [[${session.loginedMemberDto}]].u_no
+		'u_no' : [[${session.loginedMemberDto}]].u_no
 	};
 	$.ajax({
 		url:			'/user/user_delete_confirm',
