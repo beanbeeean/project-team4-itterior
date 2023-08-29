@@ -1,7 +1,9 @@
 
 <div th:fragment="modal" class="modal_wrap">
+
     <div class="container login_modal">
         <form name="user_login_form">
+            <div class="close_btn">×</div>
             <p>USER LOGIN FORM</p>
             <span>ID</span> &nbsp;&nbsp;&nbsp;<input type="text" name="u_id" placeholder="INPUT ID"><br>
             <span>PW</span> &nbsp;<input type="password" name="u_pw" placeholder="INPUT PW"><br>
@@ -27,6 +29,7 @@
     <div class="container create_account_modal">
         <form name="create_account_form">
             <p>CREATE ACCOUNT FORM</p>
+            <div class="close_btn">×</div>
             <span>ID</span><input type="text" name="u_id" placeholder="INPUT ID"><br>
             <span>PW</span><input type="password" name="u_pw" placeholder="INPUT PW"><br>
             <span>NAME</span><input type="text" name="u_name" placeholder="INPUT NAME"><br>
@@ -59,6 +62,7 @@
     <div class="container find_password_modal">
         <form name="find_password_form">
             <p>FIND PASSWORD FORM</p>
+            <div class="close_btn">×</div>
             <span>ID</span> &nbsp;&nbsp;&nbsp;<input type="text" name="u_id" placeholder="INPUT ID"><br>
             <span>EMAIL</span> &nbsp;<input type="email" name="u_mail" placeholder="INPUT MAIL"><br>
             <input type="button" value="send">

@@ -18,9 +18,16 @@
             $('div.modal_wrap').css('display','block');
         })
 
+        // 모달 닫기 버튼 클릭시
+        $(document).on('click', 'div.modal_wrap div.close_btn', function(){
+            cleanInputValue();
+            $('div.modal_wrap').css('display', 'none');
+        })
+
         // 회원 가입 폼 이동
         $(document).on('click', 'div.modal_wrap a.create_form_btn', function(e){
             e.preventDefault();
+            cleanInputValue();
             $('div.login_modal').css('display','none');
             $('div.create_account_modal').css('display','block');
             $('div.find_password_modal').css('display','none');
@@ -29,6 +36,7 @@
         // 비밀번호 찾기 폼 이동
         $(document).on('click', 'div.modal_wrap a.find_password_btn', function(e){
             e.preventDefault();
+            cleanInputValue();
             $('div.login_modal').css('display','none');
             $('div.create_account_modal').css('display','none');
             $('div.find_password_modal').css('display','block');
@@ -37,6 +45,7 @@
         // 로그인 폼 이동
         $(document).on('click', 'div.modal_wrap a.login_form_btn', function(e){
             e.preventDefault();
+            cleanInputValue();
             $('div.login_modal').css('display','block');
             $('div.create_account_modal').css('display','none');
             $('div.find_password_modal').css('display','none');
@@ -136,10 +145,17 @@
     }
 
 
-    // function showModal(){
-    //     console.log('showModal()!!!!')
-    //
-    // }
+    // 화면 이동시 input의 value값 초기화
+    function cleanInputValue(){
+        $('div.modal_wrap input[name="u_id"]').val('');
+        $('div.modal_wrap input[name="u_pw"]').val('');
+        $('div.modal_wrap input[name="u_name"]').val('');
+        $('div.modal_wrap input[name="u_mail"]').val('');
+        $('div.modal_wrap input[name="u_phone"]').val('');
+        $('div.modal_wrap input[name="u_zipcode"]').val('');
+        $('div.modal_wrap input[name="u_main_addr"]').val('');
+        $('div.modal_wrap input[name="u_detail_addr"]').val('');
+    }
 
     // AJAX START
     function ajax_userLogin(u_id, u_pw){
@@ -195,6 +211,7 @@
                     alert('회원 가입 되었습니다.');
                     $('div.create_account_modal').css('display','none');
                     $('div.login_modal').css('display','block');
+                    cleanInputValue();
                 }
             },
             error: function(data) {
@@ -225,6 +242,7 @@
                     alert('새 비밀번호가 메일로 발송되었습니다.');
                     $('div.find_password_modal').css('display','none');
                     $('div.login_modal').css('display','block');
+                    cleanInputValue();
                 }
 
             },
