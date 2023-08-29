@@ -1,23 +1,31 @@
 package com.office.house.user;
 
+import java.security.SecureRandom;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Log4j2
 @Service
 public class UserService implements IUserService {
-	
+
+
 	@Autowired
     IUserDaoMapper iUserDaoMapper;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
+
+    @Autowired
+    JavaMailSender mailSender;
 
 	@Override
     public Map<String, Object> createAccountConfirm(Map<String, String> msgMap){
@@ -104,5 +112,54 @@ public class UserService implements IUserService {
 
         return map;
 	}
+
+    @Override
+    public Map<String, Object> findPasswordConfirm(Map<String, String> msgMap) {
+        Map<String, Object> map = new HashMap<>();
+        int result = -1;
+        result = iUserDaoMapper.selectUserForFindPassword(msgMap);
+        if(result > 0){
+            String newPassword = createNewPassword();
+            result = iUserDaoMapper.updatePassword(msgMap.get("u_id"), passwordEncoder.encode(newPassword));
+            if(result > 0){
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setFrom("ADMIN");
+                message.setTo(msgMap.get("u_mail"));
+                message.setSubject("새 비밀번호를 발송해드립니다.");
+                message.setText(msgMap.get("u_id") + "님의 새 비밀번호\n " + newPassword);
+                mailSender.send(message);
+            }
+        }
+        map.put("result", result);
+        return map;
+    }
+
+    // 새 비밀번호 만들기
+    private String createNewPassword() {
+        System.out.println("[UserMemberService] createNewPassword()");
+        char[] chars = new char[] {
+                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
+        };
+
+        StringBuffer stringBuffer = new StringBuffer();
+        SecureRandom secureRandom = new SecureRandom();
+        secureRandom.setSeed(new Date().getTime());
+
+        int index = 0;
+        int length = chars.length;
+        for(int i = 0; i < 8; i++) {
+            index = secureRandom.nextInt(length);
+
+            if(index % 2 == 0) {
+                stringBuffer.append(String.valueOf(chars[index]).toUpperCase());
+            }else {
+                stringBuffer.append(String.valueOf(chars[index]).toLowerCase());
+            }
+
+        }
+
+        return stringBuffer.toString();
+    }
 
 }

@@ -41,4 +41,22 @@
 
     </delete>
 
+    <select id="selectUserForFindPassword" parameterType="hashMap" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_user
+        WHERE
+            u_id = #{u_id} AND u_mail = #{u_mail}
+    </select>
+
+    <update id="updatePassword" parameterType="String">
+        UPDATE
+            tbl_user
+        SET
+            u_pw = #{newPassword}, u_mod_date = NOW()
+        WHERE
+            u_id = #{u_id}
+    </update>
+
 </mapper>

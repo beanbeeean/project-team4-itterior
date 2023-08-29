@@ -19,5 +19,7 @@ public interface IUserDaoMapper {
 
 	int deleteAccount(int parseInt);
 
+    int selectUserForFindPassword(Map<String, String> msgMap);
 
+	int updatePassword(String u_id, String newPassword);
 }

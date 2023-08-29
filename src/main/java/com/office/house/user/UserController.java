@@ -10,6 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
@@ -162,4 +167,15 @@ public class UserController {
 
         return nextPage;
     }
+    // FIND PASSWORD
+    @ResponseBody
+    @PostMapping("/find_password_confirm")
+    public Map<String, Object> findPasswordConfirm(@RequestBody Map<String, String> msgMap){
+        log.info("[UserController] userDeleteConfirm()");
+
+        Map<String, Object> resultMap = userService.findPasswordConfirm(msgMap);
+
+        return resultMap;
+    }
+
 }
