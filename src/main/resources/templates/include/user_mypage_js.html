@@ -1,0 +1,110 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+
+    $(document).ready(function(){
+        console.log("DOCUMENT READY!!");
+
+        // 이벤트 핸들러 초기화(등록)
+        init_events();
+
+    });
+
+    function init_events(){
+        // 정보수정 클릭시
+        $(document).on("click","#profileLink", function (e){
+            console.log("profileLink btn clicked!");
+
+            ajax_getProfile(this.getAttribute('data-u_no'));
+
+        });
+
+        // 회원탈퇴 클릭시
+        $(document).on("click","#deleteAccount", function (e){
+            console.log("deleteAccount btn clicked!");
+
+            let result = confirm('정말 탈퇴 하시겠습니까?');
+
+            if (result)
+                ajax_deleteAccount();
+        });
+
+    }
+
+    function ajax_getProfile(no){
+        // user_modify_form.html 페이지를 가져와서 section_body에 삽입
+
+        let data = {
+            'u_no' : no,
+        }
+
+        $.ajax({
+            url: '/user/get_logged_user_info', // 적절한 URL로 변경
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                if (data.u_no !== null) {
+                    // data.u_no 값을 사용하여 필요한 작업 수행
+                    ajax_modifyForm(data.u_no);
+                } else {
+                    console.log("User is not logged in.");
+                }
+            },
+            error: function() {
+                console.log('Error occurred while fetching logged in user info.');
+            }
+        });
+    }
+
+    function ajax_modifyForm(no){
+        // user_modify_form.html 페이지를 가져와서 section_body에 삽입
+
+        let data = {
+            'u_no' : no,
+        }
+
+        $.ajax({
+            url: '/user/user_modify_form', // 적절한 URL로 변경
+            type: 'GET',
+            dataType: 'html',
+            success: function (data) {
+                $('.section_body').html(data);
+            },
+            error: function () {
+                console.log('Error occurred while loading user_modify_form.html');
+            }
+        });
+    }
+
+    function ajax_deleteAccount() {
+        console.log('ajax_deleteAccount() CALLED!!');
+
+        let msg = {
+            'u_no' : [[${session.loginedMemberDto}]].u_no
+        };
+
+        $.ajax({
+            url:			'/user/user_delete_confirm',
+            type:			'POST',
+            data: 			JSON.stringify(msg),
+            contentType:	'application/json; chartset=utf-8;',
+            dataType:		'json',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_deleteAccount()');
+
+                if (data.result >= 1) {
+                    alert('계정 삭제가 완료되었습니다. 메인화면으로 돌아갑니다.');
+                    location.href = "/";
+                }
+
+            },
+            error:function(data) {
+                console.log('AJAX ERROR - ajax_deleteAccount()');
+                alert('삭제에 실패하였습니다. 다시 시도해주세요.');
+
+            }
+
+        });
+
+    }
+
+
+</script>
