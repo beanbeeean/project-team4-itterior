@@ -68,7 +68,8 @@ public class UserService implements IUserService {
         }
 	}
 
-	public UserDto userModifyConfirm(UserDto userDto, HttpSession session) {
+    @Override
+	public UserDto userModifyConfirm(UserDto userDto) {
 		log.info("[UserService] userModifyConfirm()");
 
         int result = iUserDaoMapper.updateAccount(userDto);
@@ -80,6 +81,7 @@ public class UserService implements IUserService {
             return null;
 	}
 
+    @Override
 	public Map<String, Object> userDeleteConfirm(String u_no) {
 		log.info("[UserService] userDeleteConfirm()");
 
