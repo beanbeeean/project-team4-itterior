@@ -27,7 +27,7 @@ body {
 form {
 	background: rgba(255, 255, 255, 0.3);
 	padding: 3em;
-	height: 360px;
+	height: 380px;
 	border-radius: 20px;
 	border-left: 1px solid rgba(255, 255, 255, 0.3);
 	border-top: 1px solid rgba(255, 255, 255, 0.3);
@@ -58,6 +58,10 @@ span.addr{
 .create_account_modal{
 	display: none;
 	/*display: block;*/
+}
+
+.find_password_modal {
+	display: none;
 }
 .create_account_modal input {
 	margin-bottom: 10px;
@@ -205,13 +209,15 @@ form input::placeholder {
 }
 
 .go_create_account_form,
-.go_login_form {
+.go_login_form,
+.find_password_form{
 	text-align: center;
 	color: rgb(237, 175, 175);
 }
 
 .go_create_account_form a,
-.go_login_form a{
+.go_login_form a,
+.find_password_form a{
 	color: rgb(237, 175, 175);
 	text-decoration: underline;
 }
