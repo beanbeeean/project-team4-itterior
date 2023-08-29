@@ -28,15 +28,6 @@ public class UserController {
     @Autowired
     UploadFileService uploadFileService;
 
-	// create account form
-	@GetMapping("/create_account_form")
-	public String createAccountForm() {
-		log.info("[UserController] createAccountForm()");
-		
-		String nextPage = "user/create_account_form";
-		
-		return nextPage;
-	}
 	
 	// create account confirm
     @ResponseBody
@@ -151,6 +142,17 @@ public class UserController {
         String nextPage = "user/user_myPage";
 
         return nextPage;
+    }
+
+    // FIND PASSWORD
+    @ResponseBody
+    @PostMapping("/find_password_confirm")
+    public Map<String, Object> findPasswordConfirm(@RequestBody Map<String, String> msgMap){
+        log.info("[UserController] userDeleteConfirm()");
+
+        Map<String, Object> resultMap = userService.findPasswordConfirm(msgMap);
+
+        return resultMap;
     }
 
 }
