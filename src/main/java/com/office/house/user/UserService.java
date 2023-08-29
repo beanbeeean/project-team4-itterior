@@ -3,6 +3,7 @@ package com.office.house.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -67,12 +68,14 @@ public class UserService implements IUserService {
         }
 	}
 
-	public UserDto userModifyConfirm(UserDto userDto) {
+	public UserDto userModifyConfirm(UserDto userDto, HttpSession session) {
 		log.info("[UserService] userModifyConfirm()");
 
         int result = iUserDaoMapper.updateAccount(userDto);
+
         if(result>0)
             return iUserDaoMapper.getLatestAccountInfo(userDto);
+
         else
             return null;
 	}
