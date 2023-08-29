@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface IUserDaoMapper {
 
-	boolean isMember(String u_id);
+	boolean isUser(String u_id);
 
 	int insertNewAccount(UserDto userDto);
 
