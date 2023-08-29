@@ -2,14 +2,16 @@ package com.office.house.user;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.Map;
+
 @Mapper
 public interface IUserDaoMapper {
 
 	boolean isUser(String u_id);
 
-	int insertNewAccount(UserDto userDto);
+	int insertNewAccount(Map<String, String> msgMap);
 
-	UserDto selectUserForLogin(UserDto userDto);
+	UserDto selectUserForLogin(String u_id);
 
 	int updateAccount(UserDto userDto);
 

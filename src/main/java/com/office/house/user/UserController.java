@@ -6,6 +6,12 @@ import com.office.house.user.util.UploadFileService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
@@ -21,7 +27,7 @@ public class UserController {
 
     @Autowired
     UploadFileService uploadFileService;
-	
+
 	// create account form
 	@GetMapping("/create_account_form")
 	public String createAccountForm() {
@@ -33,46 +39,32 @@ public class UserController {
 	}
 	
 	// create account confirm
+    @ResponseBody
 	@PostMapping("/create_account_confirm")
-    public String createAccountConfirm(UserDto userDto){
+    public Map<String, Object> createAccountConfirm(@RequestBody Map<String, String> msgMap){
         log.info("[UserController] createAccountConfirm()");
 
-        String nextPage = "user/create_account_success";
+        Map<String, Object> resultMap = userService.createAccountConfirm(msgMap);
 
-        int result = userService.createAccountConfirm(userDto);
-        if(result <= 0)
-            nextPage = "user/create_account_fail";
-
-        return nextPage;
-    }
-	
-	// login form
-    @GetMapping("/user_login_form")
-    public String userLoginForm(){
-        log.info("[UserController] userLoginForm()");
-
-        String nextPage = "user/user_login_form";
-
-        return nextPage;
+        return resultMap;
     }
     
     // login confirm
+    @ResponseBody
     @PostMapping("/user_login_confirm")
-    public String userLoginConfirm(UserDto userDto, HttpSession session){
+    public Map<String, Object> userLoginConfirm(@RequestBody Map<String, String> msgMap, HttpSession session, Model model){
     	log.info("[UserController] userLoginConfirm()");
 
-        String nextPage = "user/user_login_success";
+        Map<String, Object> resultMap = userService.userLoginConfirm(msgMap);
 
-        UserDto loginedMemberDto =  userService.userLoginConfirm(userDto);
+        UserDto loginedMemberDto =  (UserDto)resultMap.get("loginedMemberDto");
 
         if(loginedMemberDto != null){
             session.setAttribute("loginedMemberDto",loginedMemberDto);
             session.setMaxInactiveInterval(60*30);
-        } else {
-            nextPage = "user/user_login_fail";
         }
-
-        return nextPage;
+        model.addAttribute("loginedMemberDto", loginedMemberDto);
+        return resultMap;
     }
     
     // logout confirm

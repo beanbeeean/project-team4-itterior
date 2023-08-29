@@ -1,0 +1,56 @@
+
+<div th:fragment="modal" class="modal_wrap">
+    <div class="container login_modal">
+        <form name="user_login_form">
+            <p>USER LOGIN FORM</p>
+            <span>ID</span> &nbsp;&nbsp;&nbsp;<input type="text" name="u_id" placeholder="INPUT ID"><br>
+            <span>PW</span> &nbsp;<input type="password" name="u_pw" placeholder="INPUT PW"><br>
+            <input type="button" value="login">
+            <input type="reset" value="reset">
+            <div class="go_create_account_form">
+                아직 회원이 아니신가요? <a href="#none" class="create_form_btn">회원가입</a>
+            </div>
+        </form>
+        <div class="drops">
+            <div class="drop drop-1"></div>
+            <div class="drop drop-2"></div>
+            <div class="drop drop-3"></div>
+            <div class="drop drop-4"></div>
+            <div class="drop drop-5"></div>
+        </div>
+
+    </div>
+    <div class="container create_account_modal">
+        <form name="create_account_form">
+            <p>CREATE ACCOUNT FORM</p>
+            <span>ID</span><input type="text" name="u_id" placeholder="INPUT ID"><br>
+            <span>PW</span><input type="password" name="u_pw" placeholder="INPUT PW"><br>
+            <span>NAME</span><input type="text" name="u_name" placeholder="INPUT NAME"><br>
+            <span>EMAIL</span><input type="email" name="u_mail" placeholder="INPUT MAIL"><br>
+            <span>PHONE</span><input type="text" name="u_phone" placeholder="INPUT PHONE"><br><br>
+
+            <span class="addr">ADDR</span>
+            <br>
+            <input type="text" name="u_zipcode" placeholder="우편번호" style="width: 170px;">
+            <input type="button" id="searchAddr" value="우편번호 찾기">
+            <input type="text" name="u_main_addr" placeholder="도로명주소"><br>
+            <input type="text" name="u_detail_addr" placeholder="상세주소"><br>
+            <input type="button" value="create account" onclick="createAccountForm();">&nbsp;&nbsp;
+            <input type="reset" value="reset">
+
+            <div class="go_login_form">
+                이미 계정이 있으신가요? <a href="#none" class="login_form_btn">로그인</a>
+            </div>
+        </form>
+        <div class="drops">
+            <div class="drop drop-1"></div>
+            <div class="drop drop-2"></div>
+            <div class="drop drop-3"></div>
+            <div class="drop drop-4"></div>
+            <div class="drop drop-5"></div>
+        </div>
+
+    </div>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</div>
+

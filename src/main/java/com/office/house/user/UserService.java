@@ -20,16 +20,19 @@ public class UserService implements IUserService {
 	PasswordEncoder passwordEncoder;
 
 	@Override
-    public int createAccountConfirm(UserDto userDto) {
+    public Map<String, Object> createAccountConfirm(Map<String, String> msgMap){
         log.info("[UserService] createAccountConfirm()");
 
-        boolean isUser = iUserDaoMapper.isUser(userDto.getU_id());
+        Map<String, Object> map = new HashMap<>();
+        boolean isUser = iUserDaoMapper.isUser(msgMap.get("u_id"));
+        int result = -1;
+        map.put("result", result);
         if(!isUser){
-            userDto.setU_pw(passwordEncoder.encode(userDto.getU_pw()));
+            msgMap.put("u_pw",passwordEncoder.encode(msgMap.get("u_pw")));
 
-            int result = -1;
             try {
-                result = iUserDaoMapper.insertNewAccount(userDto);
+                result = iUserDaoMapper.insertNewAccount(msgMap);
+                map.put("result", result);
 
             } catch(Exception e) {
                 e.printStackTrace();
@@ -41,26 +44,25 @@ public class UserService implements IUserService {
                     break;
 
                 case 0:
-                	log.info("[UserService] INSERT_FAIL_DATABASE");
+                    log.info("[UserService] INSERT_FAIL_DATABASE");
                     break;
 
                 case 1:
-                	log.info("[UserService] INSERT_SUCCESS_DATABASE");
+                    log.info("[UserService] INSERT_SUCCESS_DATABASE");
                     break;
             }
-
-            return result;
-        } else {
-            return 0;
         }
+        return map;
     }
 
-	public UserDto userLoginConfirm(UserDto userDto) {
+    @Override
+	public Map<String, Object> userLoginConfirm(Map<String, String> msgMap) {
 		log.info("[UserService] userLoginConfirm()");
-
-        UserDto idVerifiedUserDto = iUserDaoMapper.selectUserForLogin(userDto);
-        if(idVerifiedUserDto!=null && idVerifiedUserDto.getU_use()==1 && passwordEncoder.matches(userDto.getU_pw(), idVerifiedUserDto.getU_pw())){
-            return idVerifiedUserDto;
+        Map<String, Object> map = new HashMap<>();
+        UserDto idVerifiedUserDto = iUserDaoMapper.selectUserForLogin(msgMap.get("u_id"));
+        if(idVerifiedUserDto!=null && idVerifiedUserDto.getU_use()==1 && passwordEncoder.matches(msgMap.get("u_pw"), idVerifiedUserDto.getU_pw())){
+            map.put("loginedMemberDto", idVerifiedUserDto);
+            return map;
         } else {
             return null;
         }

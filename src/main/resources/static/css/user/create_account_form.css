@@ -11,7 +11,7 @@ body {
 	left: 50%;
 }
 
-form {
+.form {
 	background: rgba(255, 255, 255, 0.3);
 	padding: 3em;
 	height: 870px;

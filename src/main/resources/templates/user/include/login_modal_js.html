@@ -1,0 +1,189 @@
+<script th:fragment="js" type="text/javascript">
+
+    $(document).ready(function(){
+        console.log("DOCUMENT READY!!");
+
+        // 이벤트 핸들러 초기화(등록)
+        init_events();
+
+    });
+
+    function init_events() {
+        console.log('init_events() CALLED!!');
+
+        // header 로그인 클릭 시
+        $(document).on('click', 'header a.show_modal',function(e){
+            e.preventDefault();
+            console.log('showModal()!!!!')
+            $('div.modal_wrap').css('display','block');
+        })
+
+        // 로그인 버튼 클릭시
+        $(document).on('click', 'div.login_modal input[value="login"]', function(e) {
+            console.log('login btn CLICK HANDLER!!');
+            let u_id = $('div.login_modal input[name="u_id"]').val();
+            let u_pw = $('div.login_modal input[name="u_pw"]').val();
+
+            console.log(u_id);
+            console.log(u_pw);
+
+            if(u_id == ''){
+                alert("아이디를 입력해주세요!");
+                $('div.login_modal input[name="u_id"]').focus();
+            }else if(u_pw == ''){
+                alert("패스워드를 입력해주세요!");
+                $('div.login_modal input[name="u_pw"]').focus();
+            }else{
+                ajax_userLogin(u_id, u_pw);
+            }
+        });
+
+        // 로그인 폼에서 회원 가입 폼 이동
+        $(document).on('click', 'div.login_modal a.create_form_btn', function(e){
+            e.preventDefault();
+            $('div.login_modal').css('display','none');
+            $('div.create_account_modal').css('display','block');
+        })
+
+        // 회원가입 버튼 클릭시
+        $(document).on('click', 'div.create_account_modal input[value="create account"]', function(e) {
+            console.log('create account btn CLICK HANDLER!!');
+            let u_id = $('div.create_account_modal input[name="u_id"]').val();
+            let u_pw = $('div.create_account_modal input[name="u_pw"]').val();
+            let u_name = $('div.create_account_modal input[name="u_name"]').val();
+            let u_mail = $('div.create_account_modal input[name="u_mail"]').val();
+            let u_phone = $('div.create_account_modal input[name="u_phone"]').val();
+
+            let u_zipcode = $('div.create_account_modal input[name="u_zipcode"]').val();
+            let u_main_addr = $('div.create_account_modal input[name="u_main_addr"]').val();
+            let u_detail_addr = $('div.create_account_modal input[name="u_detail_addr"]').val();
+
+            if(u_id == ''){
+                alert("아이디를 입력해주세요!");
+                $('div.create_account_modal input[name="u_id"]').focus();
+            }else if(u_pw == ''){
+                alert("패스워드를 입력해주세요!");
+                $('div.create_account_modal input[name="u_pw"]').focus();
+            }else if(u_name == ''){
+                alert("닉네임을 입력해주세요!");
+                $('div.create_account_modal input[name="u_name"]').focus();
+            }else if(u_mail == ''){
+                alert("메일을 입력해주세요!");
+                $('div.create_account_modal input[name="u_mail"]').focus();
+            }else if(u_phone == ''){
+                alert("휴대폰 번호를 입력해주세요!");
+                $('div.create_account_modal input[name="u_phone"]').focus();
+            }else if(u_zipcode == ''){
+                alert("우편번호를 입력해주세요!");
+                $('div.create_account_modal input[name="u_zipcode"]').focus();
+            }else if(u_main_addr == ''){
+                alert("도로명 주소를 입력해주세요!");
+                $('div.create_account_modal input[name="u_main_addr"]').focus();
+            }else if(u_detail_addr == ''){
+                alert("상세 주소를 입력해주세요!");
+                $('div.create_account_modal input[name="u_detail_addr"]').focus();
+            }else{
+                ajax_createUserAccount(u_id, u_pw, u_name, u_mail, u_phone, u_zipcode, u_main_addr, u_detail_addr);
+            }
+        });
+
+        // 우편 번호 찾기 클릭시 주소 찾기 팝업창
+        $(document).on('click', 'div.create_account_modal input#searchAddr', function(e) {
+            console.log('searchAddr btn CLICK HANDLER!!');
+            new daum.Postcode({
+                oncomplete: function (data) {
+                    document.querySelector("input[name='u_zipcode']").value = data.zonecode;
+                    document.querySelector("input[name='u_main_addr']").value = data.address;
+                }
+            }).open();
+        });
+
+        // 회원 가입 폼에서 로그인 폼 이동
+        $(document).on('click', 'div.create_account_modal a.login_form_btn', function(e){
+            e.preventDefault();
+            $('div.login_modal').css('display','block');
+            $('div.create_account_modal').css('display','none');
+        })
+
+
+    }
+
+
+    // function showModal(){
+    //     console.log('showModal()!!!!')
+    //
+    // }
+
+    // AJAX START
+    function ajax_userLogin(u_id, u_pw){
+        console.log('ajax_userLogin() CALLED!!');
+
+        let msgDto = {
+            'u_id': u_id,
+            'u_pw': u_pw,
+        };
+
+        $.ajax({
+            url: '/user/user_login_confirm',
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_userLogin()');
+                alert('로그인이 되었습니다.');
+                $('div.modal_wrap').css('display','none');
+                location.reload();
+            },
+            error: function(data) {
+                console.log('AJAX ERROR - ajax_userLogin()');
+
+                alert('로그인 실패했습니다.');
+
+            }
+        });
+    }
+
+    function ajax_createUserAccount(u_id, u_pw, u_name, u_mail, u_phone, u_zipcode, u_main_addr, u_detail_addr){
+        console.log('ajax_createUserAccount() CALLED!!');
+
+        let msgDto = {
+            'u_id': u_id,
+            'u_pw': u_pw,
+            'u_name': u_name,
+            'u_mail': u_mail,
+            'u_phone': u_phone,
+            'u_zipcode': u_zipcode,
+            'u_main_addr': u_main_addr,
+            'u_detail_addr': u_detail_addr
+        };
+
+        $.ajax({
+            url: '/user/create_account_confirm',
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_userLogin()');
+                if(data.result > 0){
+                    alert('회원 가입 되었습니다.');
+                    $('div.create_account_modal').css('display','none');
+                    $('div.login_modal').css('display','block');
+                }
+            },
+            error: function(data) {
+                console.log('AJAX ERROR - ajax_userLogin()');
+
+                alert('회원 가입을 실패했습니다.');
+
+            }
+        });
+    }
+
+
+    // AJAX END
+
+</script>
+
+
+
+
