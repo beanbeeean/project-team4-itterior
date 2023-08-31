@@ -3,9 +3,11 @@ package com.office.house.user;
 import java.security.SecureRandom;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import jakarta.servlet.http.HttpSession;
+import com.office.house.board.BoardDto;
+import com.office.house.board.IBoardDaoMapper;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -26,6 +28,9 @@ public class UserService implements IUserService {
 
     @Autowired
     JavaMailSender mailSender;
+
+    @Autowired
+    IBoardDaoMapper iBoardDaoMapper;
 
 	@Override
     public Map<String, Object> createAccountConfirm(Map<String, String> msgMap){
@@ -68,7 +73,7 @@ public class UserService implements IUserService {
 		log.info("[UserService] userLoginConfirm()");
         Map<String, Object> map = new HashMap<>();
         UserDto idVerifiedUserDto = iUserDaoMapper.selectUserForLogin(msgMap.get("u_id"));
-        if(idVerifiedUserDto!=null && idVerifiedUserDto.getU_use()==1 && passwordEncoder.matches(msgMap.get("u_pw"), idVerifiedUserDto.getU_pw())){
+        if(idVerifiedUserDto!=null && idVerifiedUserDto.getU_state()==1 && passwordEncoder.matches(msgMap.get("u_pw"), idVerifiedUserDto.getU_pw())){
             map.put("loginedMemberDto", idVerifiedUserDto);
             return map;
         } else {
@@ -162,4 +167,26 @@ public class UserService implements IUserService {
         return stringBuffer.toString();
     }
 
+    @Override
+    public int userWriteConfirm(BoardDto boardDto) {
+        log.info("[UserMemberService] userWriteConfirm()");
+
+        int result = iBoardDaoMapper.insertNewBoard(boardDto);
+
+        return result;
+    }
+
+    @Override
+    public Map<String, Object> getBoardList(UserDto userDto) {
+        log.info("[UserMemberService] getBoardList()");
+
+        Map<String, Object> map = new HashMap<>();
+        List<BoardDto> boardDtos = iUserDaoMapper.selectBoardList(userDto);
+
+        log.info(boardDtos.size());
+
+        map.put("boardDtos",boardDtos);
+
+        return map;
+    }
 }

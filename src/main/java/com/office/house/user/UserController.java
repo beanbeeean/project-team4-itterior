@@ -3,6 +3,7 @@ package com.office.house.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.office.house.board.BoardDto;
 import com.office.house.user.util.UploadFileService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
@@ -167,6 +168,57 @@ public class UserController {
 
         return nextPage;
     }
+
+    @GetMapping("/user_board_list")
+    //@ResponseBody
+    public String userBoardList(){
+        log.info("[UserController] userBoardList()");
+
+        String nextPage = "user/user_board_list";
+
+        return nextPage;
+    }
+
+    @GetMapping("/user_board_list_item")
+    @ResponseBody
+    public Map<String, Object> userBoardListItem(HttpSession session){
+        log.info("[UserController] userBoardList()");
+
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        Map<String, Object> map = userService.getBoardList(loginedMemberDto);
+
+        return map;
+    }
+
+
+
+    @GetMapping("/user_write_form")
+    public String userWriteForm(){
+        log.info("[UserController] userWriteForm()");
+
+        String nextPage = "user/user_write_form";
+
+        return nextPage;
+    }
+
+    @PostMapping("/user_write_confirm")
+    @ResponseBody
+    public Object userWriteConfirm(BoardDto boardDto, HttpSession session , @RequestParam(value="file", required = false) MultipartFile file){
+        log.info("[UserController] userWriteConfirm()");
+
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        boardDto.setU_id(loginedMemberDto.getU_id());
+        boardDto.setU_img(loginedMemberDto.getU_img());
+
+        String savedFileName = uploadFileService.uploadBoardThumbnail(loginedMemberDto.getU_id(), file);
+        boardDto.setB_thumbnail(savedFileName);
+
+        int result = userService.userWriteConfirm(boardDto);
+
+        return result;
+
+    }
+
     // FIND PASSWORD
     @ResponseBody
     @PostMapping("/find_password_confirm")

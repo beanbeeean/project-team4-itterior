@@ -37,7 +37,7 @@
 
     <delete id="deleteAccount" parameterType="Integer">
 
-        update tbl_user set u_use = 0 where u_no = #{u_no}
+        update tbl_user set u_state = 0, u_mod_date = now() where u_no = #{u_no}
 
     </delete>
 
@@ -58,5 +58,9 @@
         WHERE
             u_id = #{u_id}
     </update>
+
+    <select id="selectBoardList" resultType="hashmap">
+        select * from tbl_board where u_id = #{u_id}
+    </select>
 
 </mapper>

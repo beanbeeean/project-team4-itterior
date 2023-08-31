@@ -15,7 +15,7 @@ public class UserDto {
     private int u_zipcode;
     private String u_main_addr;
     private String u_detail_addr;
-    private int u_use;
+    private int u_state;
     private String u_reg_date;
     private String u_mod_date;
     

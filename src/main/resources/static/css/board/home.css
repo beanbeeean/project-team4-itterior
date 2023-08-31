@@ -12,7 +12,6 @@
 }
 
 .detail_category {
-	width: 80%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -36,7 +35,6 @@
 }
 
 .board_wrap {
-	width: 80%;
 	text-align: center;
 }
 

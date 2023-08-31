@@ -1,6 +1,6 @@
 <script th:fragment="js" th:inline="javascript" type="text/javascript">
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         console.log("DOCUMENT READY!!");
 
         // 이벤트 핸들러 초기화(등록)
@@ -8,17 +8,25 @@
 
     });
 
-    function init_events(){
+    function init_events() {
         // 정보수정 클릭시
-        $(document).on("click","#profileLink", function (e){
+        $(document).on("click", "#profileLink", function (e) {
             console.log("profileLink btn clicked!");
 
-            ajax_getProfile(this.getAttribute('data-u_no'));
+            ajax_getProfile();
+
+        });
+
+        // 내가 작성한 글 클릭시
+        $(document).on("click", "#myBoard", function (e) {
+            console.log("myBoard btn clicked!");
+
+            ajax_getMyBoard();
 
         });
 
         // 회원탈퇴 클릭시
-        $(document).on("click","#deleteAccount", function (e){
+        $(document).on("click", "#deleteAccount", function (e) {
             console.log("deleteAccount btn clicked!");
 
             let result = confirm('정말 탈퇴 하시겠습니까?');
@@ -29,18 +37,56 @@
 
     }
 
-    function ajax_getProfile(no){
-        // user_modify_form.html 페이지를 가져와서 section_body에 삽입
+    // 리스트 출력
+    function addUserBoardListTr(boardDtos) {
+        console.log("addUserBoardListTr()");
 
-        let data = {
-            'u_no' : no,
+        console.log(boardDtos);
+
+        let appendTag = '';
+        let cnt = 0;
+        for (let i = 0; i < 3; i++) {
+            appendTag += '<tr>'
+            for (let j = 0; j < 4; j++) {
+                if (boardDtos[j].u_id == [[${session.loginedMemberDto.u_id}]]) {
+                    appendTag += '<td>';
+                    appendTag += '<div>';
+                    appendTag += '<img class="board_img" src="/userBoardThumbnailImg/';
+                    appendTag += boardDtos[cnt].u_id;
+                    appendTag += "/";
+                    appendTag += boardDtos[cnt].b_thumbnail;
+                    appendTag += '"/>'
+                    appendTag += '<p class="title">';
+                    appendTag += boardDtos[cnt].b_title;
+                    appendTag += '</p>';
+                    appendTag += '<img class="profile_img" src="/userUploadImg/';
+                    appendTag += boardDtos[cnt].u_id;
+                    appendTag += "/";
+                    appendTag += boardDtos[cnt].u_img;
+                    appendTag += '"/>'
+                    appendTag += '<span class="user_name">'
+                    appendTag += boardDtos[cnt].u_id;
+                    appendTag += '</span>';
+                    appendTag += '</td>';
+                    appendTag += '</div>';
+
+                    cnt++;
+                }
+            }
+            appendTag += '</tr>';
+            $('div.board_wrap table tbody').append(appendTag);
+
         }
+    }
+
+    function ajax_getProfile() {
+        // user_modify_form.html 페이지를 가져와서 section_body에 삽입
 
         $.ajax({
             url: '/user/get_logged_user_info', // 적절한 URL로 변경
             type: 'POST',
             dataType: 'json',
-            success: function(data) {
+            success: function (data) {
                 if (data.u_no !== null) {
                     // data.u_no 값을 사용하여 필요한 작업 수행
                     ajax_modifyForm(data.u_no);
@@ -48,17 +94,17 @@
                     console.log("User is not logged in.");
                 }
             },
-            error: function() {
+            error: function () {
                 console.log('Error occurred while fetching logged in user info.');
             }
         });
     }
 
-    function ajax_modifyForm(no){
+    function ajax_modifyForm(no) {
         // user_modify_form.html 페이지를 가져와서 section_body에 삽입
 
         let data = {
-            'u_no' : no,
+            'u_no': no,
         }
 
         $.ajax({
@@ -67,9 +113,50 @@
             dataType: 'html',
             success: function (data) {
                 $('.section_body').html(data);
+                console.log(data);
             },
             error: function () {
                 console.log('Error occurred while loading user_modify_form.html');
+            }
+        });
+    }
+
+    function ajax_getMyBoard() {
+        // user_board_list.html 페이지를 가져와서 section_body에 삽입
+
+        $.ajax({
+            url: '/user/user_board_list', // 적절한 URL로 변경
+            type: 'GET',
+            dataType: 'html',
+            success: function (data) {
+                console.log('AJAX SUCCESS - ajax_getMyBoard()');
+
+                $('.section_body').html(data);
+
+                ajax_getMyBoardItem();
+            },
+            error: function () {
+                console.log('Error occurred while loading user_board_list.html');
+            }
+        });
+    }
+
+    function ajax_getMyBoardItem() {
+        // user_board_list.html 페이지를 가져와서 section_body에 삽입
+
+        $.ajax({
+            url: '/user/user_board_list_item', // 적절한 URL로 변경
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log('AJAX SUCCESS - ajax_getMyBoard()');
+                let boardDtos = data.boardDtos;
+                console.log(boardDtos);
+                addUserBoardListTr(boardDtos);
+
+            },
+            error: function () {
+                console.log('Error occurred while loading user_board_list.html');
             }
         });
     }
@@ -78,16 +165,16 @@
         console.log('ajax_deleteAccount() CALLED!!');
 
         let msg = {
-            'u_no' : [[${session.loginedMemberDto}]].u_no
+            'u_no': [[${session.loginedMemberDto}]].u_no
         };
 
         $.ajax({
-            url:			'/user/user_delete_confirm',
-            type:			'POST',
-            data: 			JSON.stringify(msg),
-            contentType:	'application/json; chartset=utf-8;',
-            dataType:		'json',
-            success: function(data) {
+            url: '/user/user_delete_confirm',
+            type: 'POST',
+            data: JSON.stringify(msg),
+            contentType: 'application/json; chartset=utf-8;',
+            dataType: 'json',
+            success: function (data) {
                 console.log('AJAX SUCCESS - ajax_deleteAccount()');
 
                 if (data.result >= 1) {
@@ -96,7 +183,7 @@
                 }
 
             },
-            error:function(data) {
+            error: function (data) {
                 console.log('AJAX ERROR - ajax_deleteAccount()');
                 alert('삭제에 실패하였습니다. 다시 시도해주세요.');
 

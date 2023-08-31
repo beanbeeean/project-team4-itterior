@@ -1,7 +1,9 @@
 package com.office.house.user;
 
+import com.office.house.board.BoardDto;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 @Mapper
@@ -22,4 +24,6 @@ public interface IUserDaoMapper {
     int selectUserForFindPassword(Map<String, String> msgMap);
 
 	int updatePassword(String u_id, String newPassword);
+
+	List<BoardDto> selectBoardList(UserDto userDto);
 }

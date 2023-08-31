@@ -1,0 +1,120 @@
+header {
+    z-index: 1;
+}
+
+.side_bar {
+    text-align: center;
+    background-color: rgba(211, 211, 211, 0.59);
+    width: 250px;
+    height: 250vh;
+}
+
+.side_bar img.user_img,
+.section_body img.user_img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+}
+
+.side_bar p {
+    font-weight: bold;
+    padding-bottom: 10px;
+    position: relative; /* 부모 요소 위치 기준으로 사용하기 위해 */
+}
+
+.side_bar p::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%; /* 조절하여 가운데 정렬 조정 */
+    width: 80%; /* 조절하여 길이 조정 */
+    border-bottom: 1px solid rgba(148, 148, 148, 0.73); /* 회색 수평 구분선 */
+}
+
+.side_bar li {
+    display: inline-block;
+    width: 80%;
+    padding: 10px;
+}
+
+.side_bar li:hover {
+    background-color: #d2d2d2;
+}
+
+.section_body {
+    /*display: flex;*/
+    top: 300px;
+    margin-left: 100px;
+    justify-content: center;
+}
+
+.word::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background-color: gray;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+.detail_category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail_category select {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #eeeeee;
+    padding: 10px;
+}
+
+.detail_category a.write {
+    background-color: rgb(237, 175, 175) ;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+
+.board_wrap {
+    text-align: center;
+}
+
+.board_wrap p {
+    text-align: left;
+    font-size: 0.9em;
+}
+
+.board_wrap table {
+    width: 100%;
+}
+
+.board_wrap td {
+    padding: 10px;
+}
+
+.board_wrap tbody img.board_img {
+    width: 100%;
+    height: 180px;
+}
+
+.board_wrap tbody p.title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.board_wrap tbody img.profile_img {
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+}
+
+.board_wrap tbody span.user_name {
+    vertical-align: 5px;
+    color: #989898;
+}

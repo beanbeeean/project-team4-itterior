@@ -47,7 +47,7 @@ header {
     background-color: #d2d2d2;
 }
 
-#section_body {
+.section_body {
     flex: 1; /* 나머지 공간을 채우기 위해 Flex 비율 설정 */
 }
 
@@ -66,4 +66,23 @@ header {
 .section_body img.user_img {
     width: 200px;
     height: 200px;
+}
+
+div.section_body{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.detail_category {
+    width: 90%;
+    margin: 0 auto;
+    margin-left: 150px;
+}
+
+
+.board_wrap {
+    height: 300px;
+    width: 90%;
+    margin: 0 auto;
+    margin-left: 150px;
 }

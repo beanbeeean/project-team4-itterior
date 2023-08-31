@@ -18,7 +18,6 @@
     <script th:replace="~{/include/user_modify_js.html::js}" type="text/javascript"></script>
 
 
-
 </head>
 
 <body>
@@ -37,81 +36,83 @@
             <p><a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a></p>
             <ul>
                 <li><a id="profileLink" th:href="@{#}">정보수정</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 상품</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 게시물</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 영상</a></li>
+                <li><a id="myBoard" th:href="@{#}">내가 작성한 글</a></li>
                 <li><a id="deleteAccount" th:href="@{#}">회원탈퇴</a></li>
-                <li><a th:href="@{/user/user_like_list}">나의 관심 리스트</a></li>
             </ul>
         </div>
         <div class="section_body">
-            <section>
-                <div id="section_wrap">
-                    <div class="container">
-                        <form th:action="@{/user/user_modify_confirm}" name="user_modify_form" method="post"
-                              enctype="multipart/form-data" style="height: 850px; top: -200px ">
-                            <p>MY PAGE</p>
-                            <input type="hidden" name="u_no" th:if="${session.loginedMemberDto != null}"
-                                   th:value="${session.loginedMemberDto.u_no}">
+            <div id="section_wrap">
+                <div class="container">
+                    <form th:action="@{/user/user_modify_confirm}" name="user_modify_form" method="post"
+                          enctype="multipart/form-data" style="height: 850px; top: -200px ">
+                        <p>MY PAGE</p>
+                        <input type="hidden" name="u_no" th:if="${session.loginedMemberDto != null}"
+                               th:value="${session.loginedMemberDto.u_no}">
 
-                            <img class="image-preview user_img" th:if="${session.loginedMemberDto.getU_img() == null}"
-                                 th:src="@{/imgs/defaultimage.PNG}"><br>
-                            <img class="image-preview user_img"
-                                 th:unless="${session.loginedMemberDto.getU_img() == null}"
-                                 th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"><br>
+                        <img class="image-preview user_img" th:if="${session.loginedMemberDto.getU_img() == null}"
+                             th:src="@{/imgs/defaultimage.PNG}"><br>
+                        <img class="image-preview user_img"
+                             th:unless="${session.loginedMemberDto.getU_img() == null}"
+                             th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"><br>
 
 
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span>ID</span><input type="text" name="u_id"
-                                                      th:if="${session.loginedMemberDto != null}"
-                                                      th:value="${session.loginedMemberDto.u_id}" readonly="readonly"
-                                                      disabled="disabled"><br>
-                            &nbsp;&nbsp;<span>PW</span><input type="password" name="u_pw" value="*****" readonly="readonly"
-                                                      disabled="disable"><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span>ID</span><input type="text" name="u_id"
+                                                                      th:if="${session.loginedMemberDto != null}"
+                                                                      th:value="${session.loginedMemberDto.u_id}"
+                                                                      readonly="readonly"
+                                                                      disabled="disabled"><br>
+                        &nbsp;&nbsp;<span>PW</span><input type="password" name="u_pw" value="*****" readonly="readonly"
+                                                          disabled="disable"><br>
 
-                            <span>NAME</span><input type="text" name="u_name"
-                                                        th:if="${session.loginedMemberDto != null}"
-                                                        th:value="${session.loginedMemberDto.u_name} " readonly="readonly"
-                                                        disabled="disabled"
-                                                        placeholder="INPUT NAME"><br>
-                            <span>EMAIL</span><input type="email" name="u_mail"
-                                                         th:if="${session.loginedMemberDto != null}"
-                                                         th:value="${session.loginedMemberDto.u_mail}" readonly="readonly"
-                                                         disabled="disabled"
-                                                         placeholder="INPUT MAIL"><br>
-                            <span>PHONE</span><input type="text" name="u_phone"
-                                                         th:if="${session.loginedMemberDto != null}"
-                                                         th:value="${session.loginedMemberDto.u_phone}" readonly="readonly"
-                                                         disabled="disabled"
-                                                         placeholder="INPUT PHONE"><br><br>
+                        <span>NAME</span><input type="text" name="u_name"
+                                                th:if="${session.loginedMemberDto != null}"
+                                                th:value="${session.loginedMemberDto.u_name} " readonly="readonly"
+                                                disabled="disabled"
+                                                placeholder="INPUT NAME"><br>
+                        <span>EMAIL</span><input type="email" name="u_mail"
+                                                 th:if="${session.loginedMemberDto != null}"
+                                                 th:value="${session.loginedMemberDto.u_mail}" readonly="readonly"
+                                                 disabled="disabled"
+                                                 placeholder="INPUT MAIL"><br>
+                        <span>PHONE</span><input type="text" name="u_phone"
+                                                 th:if="${session.loginedMemberDto != null}"
+                                                 th:value="${session.loginedMemberDto.u_phone}" readonly="readonly"
+                                                 disabled="disabled"
+                                                 placeholder="INPUT PHONE"><br><br>
 
-                            <span>ADDR</span><br>
-                            <input type="text" name="u_main_addr" th:if="${session.loginedMemberDto != null}"
-                                   th:value="${session.loginedMemberDto.u_main_addr}" readonly="readonly"
-                                   disabled="disabled" placeholder="도로명주소"><br>
-                            <input type="text" name="u_detail_addr" th:if="${session.loginedMemberDto != null}"
-                                   th:value="${session.loginedMemberDto.u_detail_addr}" readonly="readonly"
-                                   disabled="disabled" placeholder="상세주소"><br>
-                        </form>
+                        <span>ADDR</span><br>
+                        <input type="text" name="u_main_addr" th:if="${session.loginedMemberDto != null}"
+                               th:value="${session.loginedMemberDto.u_main_addr}" readonly="readonly"
+                               disabled="disabled" placeholder="도로명주소"><br>
+                        <input type="text" name="u_detail_addr" th:if="${session.loginedMemberDto != null}"
+                               th:value="${session.loginedMemberDto.u_detail_addr}" readonly="readonly"
+                               disabled="disabled" placeholder="상세주소"><br>
+                    </form>
 
-                        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-                        <script>
-                            function execDaumPostcode() {
-                                new daum.Postcode({
-                                    oncomplete: function (data) {
-                                        document.querySelector("input[name='u_zipcode']").value = data.zonecode;
-                                        document.querySelector("input[name='u_main_addr']").value = data.address;
-                                    }
-                                }).open();
-                            }
-                        </script>
+                    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                    <script>
+                        function execDaumPostcode() {
+                            new daum.Postcode({
+                                oncomplete: function (data) {
+                                    document.querySelector("input[name='u_zipcode']").value = data.zonecode;
+                                    document.querySelector("input[name='u_main_addr']").value = data.address;
+                                }
+                            }).open();
+                        }
+                    </script>
 
-                        <div class="drops">
-                            <div class="drop drop-1"></div>
-                            <div class="drop drop-3"></div>
-                            <div class="drop drop-4"></div>
-                            <div class="drop drop-5"></div>
-                        </div>
+                    <div class="drops">
+                        <div class="drop drop-1"></div>
+                        <div class="drop drop-3"></div>
+                        <div class="drop drop-4"></div>
+                        <div class="drop drop-5"></div>
                     </div>
-
                 </div>
-            </section>
+
+            </div>
         </div>
     </div>
 </section>

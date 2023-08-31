@@ -1,0 +1,70 @@
+#section_wrap {
+    margin:  0 150px 0 150px;
+}
+
+.write_content {
+    margin-top: 50px;
+}
+
+.write_content span {
+    font-weight: bold;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.write_content input[type='file'] {
+    margin-bottom: 15px;
+}
+
+.write_content input[type="text"] {
+    width: 98%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.write_content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.write_content input[type="button"],
+.write_content input[type="reset"] {
+    padding: 8px 20px;
+    background-color: rgb(217, 217, 217);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.write_content input[type="reset"] {
+    background-color: rgb(217, 217, 217);
+}
+
+/* 에디터 스타일 */
+.ck.ck-reset.ck-editor.ck-rounded-corners {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.ck-editor__editable {
+    height: 400px;
+}
+
+.ck-content {
+    font-size: 14px;
+}
+
+footer {
+    margin-top: 50px;
+}
+
+/* 헤더 및 푸터 스타일은 별도의 스타일시트에 작성한 것으로 가정 */
