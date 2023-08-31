@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.office.house.user.product.IProductDaoMapper">
+
+    <select id="selectProducts" parameterType="String" resultType="com.office.house.user.product.ProductDto">
+        SELECT
+            *
+        FROM
+            tbl_product
+        <if test="category != null or filter != null">
+            WHERE
+        </if>
+        <choose>
+            <when test="category == null and filter != null">
+                    <choose>
+                        <when test="filter == 1">
+                            p_sales_price  <![CDATA[<=]]>  100000
+                        </when>
+                        <when test="filter == 2">
+                            p_sales_price <![CDATA[<=]]> 200000
+                        </when>
+                        <when test="filter == 3">
+                             p_sales_price <![CDATA[<=]]> 300000
+                        </when>
+                        <when test="filter == 4">
+                            p_sales_price <![CDATA[>]]> 300000
+                        </when>
+                    </choose>
+            </when>
+            <when test="category != null and filter != null">
+                <choose>
+                    <when test="filter == 1">
+                        p_sales_price  <![CDATA[<=]]>  100000
+                    </when>
+                    <when test="filter == 2">
+                        p_sales_price <![CDATA[<=]]> 200000
+                    </when>
+                    <when test="filter == 3">
+                        p_sales_price <![CDATA[<=]]> 300000
+                    </when>
+                    <when test="filter == 4">
+                        p_sales_price <![CDATA[>]]> 300000
+                    </when>
+                </choose>
+                AND
+                p_category IN
+                <foreach collection="category" item="cg" open="(" close=")" separator=",">
+                    #{cg}
+                </foreach>
+            </when>
+            <when test="category != null and filter == null">
+                p_category IN
+                <foreach collection="category" item="cg" open="(" close=")" separator=",">
+                    #{cg}
+                </foreach>
+            </when>
+        </choose>
+        <choose>
+            <when test="sort == 1">
+                ORDER BY p_sales_price desc
+            </when>
+            <when test="sort == 2">
+                ORDER BY p_sales_price asc
+            </when>
+        </choose>
+
+
+
+    </select>
+
+    <insert id="insertProducts" >
+        INSERT INTO
+            tbl_product(p_brand, p_name, p_sales_price, p_img, p_link, p_category, p_reg_date, p_mod_date)
+        VALUES(#{p_brand}, #{p_name}, #{p_sales_price}, #{p_img}, #{p_link}, #{p_category}, NOW(), NOW())
+    </insert>
+
+</mapper>

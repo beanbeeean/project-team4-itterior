@@ -27,7 +27,7 @@ public class UserService implements IUserService {
 	PasswordEncoder passwordEncoder;
 
     @Autowired
-    JavaMailSender mailSender;
+   JavaMailSender mailSender;
 
     @Autowired
     IBoardDaoMapper iBoardDaoMapper;
