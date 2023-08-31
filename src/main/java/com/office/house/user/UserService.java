@@ -25,7 +25,7 @@ public class UserService implements IUserService {
 	PasswordEncoder passwordEncoder;
 
     @Autowired
-    JavaMailSender mailSender;
+   JavaMailSender mailSender;
 
 	@Override
     public Map<String, Object> createAccountConfirm(Map<String, String> msgMap){
