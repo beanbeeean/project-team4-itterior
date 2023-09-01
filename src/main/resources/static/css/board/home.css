@@ -49,6 +49,7 @@
 
 .board_wrap td {
 	padding: 10px;
+	width: 25%;
 }
 
 .board_wrap tbody img.board_img {

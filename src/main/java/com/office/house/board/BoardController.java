@@ -101,7 +101,7 @@ public class BoardController {
 
     // 게시물 디테일
     @GetMapping("/get_board")
-    public Object getBoard(int b_no, Model model) {
+    public Object getBoard(@RequestParam("b_no") int b_no, Model model) {
         log.info("[BoardController] getBoard");
 
         String nextPage = "board/get_board";

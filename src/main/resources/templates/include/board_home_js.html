@@ -14,13 +14,15 @@
 
         console.log(boardDtos);
 
-
         let appendTag = '';
         let cnt = 0;
-        for (let i = 0; i < 4; i++) {
+
+        for (let i = 0; i < boardDtos.length / 4 + 1; i++) {
             appendTag += '<tr>'
-            // for (let i = 0; i < boardDtos.length; i++) {
             for (let j = 0; j < 4; j++) {
+                if (boardDtos[cnt] == null) {
+                    break;
+                }
                 appendTag += '<td>';
                 appendTag += '<div>';
                 appendTag += '<img class="board_img" src="/userBoardThumbnailImg/';
