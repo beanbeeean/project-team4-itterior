@@ -3,6 +3,8 @@
     let categoryList = [];
     let sort = "";
     let priceSelected = "";
+    let keyword = "";
+    let pageNum = 1;
 
     $(document).ready(function(){
         console.log("DOCUMENT READY!!");
@@ -10,13 +12,34 @@
         // 이벤트 핸들러 초기화(등록)
         init_events();
 
-        ajax_getProductList(categoryList, sort, priceSelected);
+        removeSearchKeyword();
+        ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
 
     });
 
+    // 이벤트 핸들러
     function init_events(){
         console.log("init_events()")
+
+        // 정렬 , 필터링 버튼
         productSortFiltering();
+
+        // 검색 버튼 클릭시
+        $(document).on('click','div.search_product_wrap > svg.search_btn', function(e){
+            console.log("search_btn CLICK HANDLER!!")
+            e.stopImmediatePropagation();
+            keyword = $('div.search_product_wrap > input[name="p_search"]').val();
+            ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
+        })
+
+        // 페이지 번호 클릭 시
+        $(document).on('click', '#section_wrap > div.page_wrap > div.page_number a', function() {
+            console.log('page number CLICK HANDLER');
+
+            let pageNum = $(this).data('pagenum');
+
+            ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
+        });
 
     }
 
@@ -37,7 +60,7 @@
                 }
 
                 console.log("categoryList", categoryList);
-               ajax_getProductList(categoryList, sort, priceSelected);
+                ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
 
             });
         }
@@ -46,7 +69,7 @@
             sortCheck[i].addEventListener("change", function () {
                 sort = sortCheck[i].value;
                 console.log("sort", sort);
-                ajax_getProductList(categoryList, sort, priceSelected);
+                ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
             });
         }
 
@@ -55,13 +78,10 @@
                 e.stopImmediatePropagation();
                 priceSelected = priceCheck[i].value;
                 console.log("priceSelected", priceSelected);
-                ajax_getProductList(categoryList, sort, priceSelected);
+                ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
 
-                console.log("priceSelected", priceSelected);
-                ajax_getProductList(categoryList, sort, priceSelected);
             });
         }
-
 
     }
 
@@ -70,52 +90,52 @@
         let appendTag = '';
         let cnt = 0;
 
-            for(let i = 0; i < productDtos.length/4 +1 ; i++){
+        for(let i = 0; i < productDtos.length/4 +1 ; i++){
 
-                appendTag += '<tr class="product_container_wrap">';
+            appendTag += '<tr class="product_container_wrap">';
 
-                for (let j = 1; j < 5; j++){
-                    if(productDtos[cnt] == null){
-                        break;
-                    }
-                    let price = parseInt(productDtos[cnt].p_sales_price).toString()
-                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-
-                    appendTag += '<td>';
-                    appendTag += '<a href="';
-                    appendTag += productDtos[cnt].p_link;
-                    appendTag += '" target="parent">';
-                    appendTag += '<div class="product_container">';
-                    appendTag += "<div class='product_img'>";
-                    appendTag += "<img src='";
-                    appendTag += productDtos[cnt].p_img;
-                    appendTag += "'/>";
-                    appendTag += '</div>';
-                    appendTag += ' <span class="product_brand">';
-                    appendTag += productDtos[cnt].p_brand;
-                    appendTag += '</span>';
-                    appendTag += '<p class="product_name">';
-                    appendTag += productDtos[cnt].p_name;
-                    appendTag += '</p>';
-                    appendTag += '<div class="product_price_area">';
-                    appendTag += '<span class="product_sales_price_tag">판매가';
-                    appendTag += '</span>';
-                    appendTag += '<span class="product_sales_price">';
-                    appendTag +=  price;
-                    appendTag += '원</span>';
-                    appendTag += '</div>';
-                    appendTag += '</div>';
-                    appendTag += '</a>';
-                    appendTag += '</td>';
-
-                    cnt++;
-
+            for (let j = 0; j < 4; j++){
+                if(productDtos[cnt] == null){
+                    break;
                 }
+                let price = parseInt(productDtos[cnt].p_sales_price).toString()
+                    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
+                appendTag += '<td>';
+                appendTag += '<a href="';
+                appendTag += productDtos[cnt].p_link;
+                appendTag += '" target="parent">';
+                appendTag += '<div class="product_container">';
+                appendTag += "<div class='product_img'>";
+                appendTag += "<img src='";
+                appendTag += productDtos[cnt].p_img;
+                appendTag += "'/>";
+                appendTag += '</div>';
+                appendTag += ' <span class="product_brand">';
+                appendTag += productDtos[cnt].p_brand;
+                appendTag += '</span>';
+                appendTag += '<p class="product_name">';
+                appendTag += productDtos[cnt].p_name;
+                appendTag += '</p>';
+                appendTag += '<div class="product_price_area">';
+                appendTag += '<span class="product_sales_price_tag">판매가';
+                appendTag += '</span>';
+                appendTag += '<span class="product_sales_price">';
+                appendTag +=  price;
+                appendTag += '원</span>';
+                appendTag += '</div>';
+                appendTag += '</div>';
+                appendTag += '</a>';
+                appendTag += '</td>';
 
-                appendTag += '</tr>';
+                cnt++;
+
             }
-            $('div.product_item_list table tbody').append(appendTag);
+
+
+            appendTag += '</tr>';
+        }
+        $('div.product_item_list table tbody').append(appendTag);
 
     }
 
@@ -124,29 +144,112 @@
         console.log("remove")
         $('div.product_item_list table tbody').children().remove();
     }
+
+    // 검색 키워드 초기화
+    function removeSearchKeyword(){
+        $('div.search_product_wrap > input[name="p_search"]').val('');
+    }
+
+
+    function setPage(pageMakerDto) {
+        console.log('setPage() CALLED!!');
+
+        /* PAGE UI */
+        $('#section_wrap > div.page_wrap > div.page_number').children().remove();
+
+        // 이전 페이지
+        if (pageMakerDto.prev) {
+            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + (pageMakerDto.startPage - 1) + '">PRE</a>');
+        }
+
+        // 처음 페이지
+        if (pageMakerDto.criteria.pageNum > 10) {
+            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="1">1</a><span>...</span>');
+        }
+
+        // 페이지 넘버링
+        for (let p = parseInt(pageMakerDto.startPage); p <= parseInt(pageMakerDto.endPage); p++) {
+            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + p + '">' + p + '</a>');
+        }
+
+        // 페이지 하이라이트
+        $('#section_wrap > div.page_wrap > div.page_number a[data-pagenum=' + pageMakerDto.criteria.pageNum + ']').addClass('selectedPageNum');
+
+        // 다음 페이지
+        if (pageMakerDto.next) {
+            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + (pageMakerDto.endPage + 1) + '">NEX</a>');
+        }
+
+        // 전체 페이지
+        $('#section_wrap > div.page_wrap > div.page_goto > span.page_total_num').text(pageMakerDto.totalPage);
+
+    }
+
+
     // AJAX START
-    function ajax_getProductList(category, sort, filter){
+    function ajax_getProductList(category, sort, filter, keyword, pageNum){
         console.log('ajax_getProductList()');
         let str = '';
+        // if(category.length !== 0){
+        //     str += '?category=';
+        //     str += category;
+        // }
+        // if(category.length !== 0 && sort !==""){
+        //     str += '&sort=';
+        //     str += sort;
+        // }else if(sort !==""){
+        //     str += '?sort=';
+        //     str += sort;
+        // }
+        //
+        // if((category.length !== 0 || sort !=="") && filter !== ""){
+        //     str += '&filter=';
+        //     str += filter;
+        // }else if(filter !== ""){
+        //     str += '?filter=';
+        //     str += filter;
+        // }
+        //
+        // if((category.length !== 0 || sort !=="" || filter !== "") && keyword !== ""){
+        //     str += '&keyword=';
+        //     str += keyword;
+        // }else if(keyword !== ""){
+        //     str += '?keyword=';
+        //     str += keyword;
+        // }
+        //
+        // if((category.length !== 0 || sort !=="" || filter !== "" || keyword !== "") && pageNum !== ""){
+        //     str += '&pageNum=';
+        //     str += pageNum;
+        // }else if(pageNum !== ""){
+        //     str += '?pageNum=';
+        //     str += pageNum;
+        // }
+
+
+        str += '?pageNum=';
+        str += pageNum;
+
         if(category.length !== 0){
-            str += '?category=';
+            str += '&category=';
             str += category;
         }
-        if(category.length !== 0 && sort !==""){
+        if(sort !==""){
             str += '&sort=';
-            str += sort;
-        }else if(sort !==""){
-            str += '?sort=';
             str += sort;
         }
 
-        if((category.length !== 0 || sort !=="") && filter !== ""){
+        if(filter !== ""){
             str += '&filter=';
             str += filter;
-        }else if(filter !== ""){
-            str += '?filter=';
-            str += filter;
         }
+
+        if(keyword !== ""){
+            str += '&keyword=';
+            str += keyword;
+        }
+
+
         $.ajax({
             url: '/product/get_products'+ str,
             method: 'GET',
@@ -155,6 +258,7 @@
                 console.log('AJAX SUCCESS - ajax_getProductList()');
                 removeProductsListTr();
                 addProductsListTr(data.productDtos);
+                setPage(data.pageMakerDto);
             },
             error: function(data) {
                 console.log('AJAX ERROR - ajax_getProductList()');
@@ -167,7 +271,3 @@
     // AJAX END
 
 </script>
-
-
-
-

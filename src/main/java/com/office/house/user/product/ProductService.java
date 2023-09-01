@@ -1,5 +1,7 @@
 package com.office.house.user.product;
 
+import com.office.house.util.Criteria;
+import com.office.house.util.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -23,7 +25,7 @@ public class ProductService implements IProductService{
 
     @Autowired
     IProductDaoMapper iProductDaoMapper;
-//    @Override
+    //    @Override
 //    public Map<String, Object> getProducts(String type) {
 //        log.info("getProducts");
 //        Map<String, Object> map = new HashMap<>();
@@ -108,13 +110,19 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Map<String, Object> getProducts(String[] category, String sort, String filter) {
+    public Map<String, Object> getProducts(String[] category, String sort, String filter,
+                                           String keyword, int pageNum, int amount) {
         log.info("getProducts");
         Map<String, Object> map = new HashMap<>();
-        log.info("sort ::: " + sort);
-        List<ProductDto> dtos = iProductDaoMapper.selectProducts(category, sort, filter);
 
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<ProductDto> dtos = iProductDaoMapper.selectProducts(category, sort, filter, keyword, criteria.getSkip(), criteria.getAmount());
+        int totalCnt = iProductDaoMapper.selectProductsCnt(category, sort, filter, keyword, criteria.getSkip(), criteria.getAmount());
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        System.out.println("size : " + dtos.size());
         map.put("productDtos", dtos);
+        map.put("pageMakerDto", pageMakerDto);
         return map;
     }
 }
