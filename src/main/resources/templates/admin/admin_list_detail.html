@@ -27,27 +27,29 @@
 		<div class="section_body">
 			<div id="section_wrap">
 				<div class="container">
-					<form th:action="@{/admin/admin_modify_confirm}" name="admin_modify_form" method="post"
+					<form th:action="@{/admin/admin_list_modify_confirm}" name="admin_modify_form" method="post"
 						  enctype="multipart/form-data" style="height: 850px; top: -200px ">
 						<p>MY PAGE</p>
-						<input type="hidden" name="a_no" th:if="${session.loginedAdminDto != null}"
-							   th:value="${session.loginedAdminDto.a_no}">
+						<input type="hidden" name="a_no"
+							   th:value="${adminDto.a_no}">
 
 						&nbsp;&nbsp;&nbsp;&nbsp;<span>ID</span><input type="text" name="a_id"
-																	  th:if="${session.loginedAdminDto != null}"
-																	  th:value="${session.loginedAdminDto.a_id}"
+																	  th:value="${adminDto.a_id}"
 																	  readonly="readonly"
 																	  disabled="disabled"><br>
 						&nbsp;&nbsp;<span>PW</span><input type="password" name="a_pw"><br>
 						<span>EMAIL</span><input type="email" name="a_mail"
-												 th:if="${session.loginedAdminDto != null}"
-												 th:value="${session.loginedAdminDto.a_mail}"
+												 th:value="${adminDto.a_mail}"
 												 placeholder="INPUT MAIL"><br>
 						<span>PHONE</span><input type="text" name="a_phone"
-												 th:if="${session.loginedAdminDto != null}"
-												 th:value="${session.loginedAdminDto.a_phone}"
+												 th:value="${adminDto.a_phone}"
 												 placeholder="INPUT PHONE"><br><br>
-						<input type="button" class="btn_modify" value="modify" onclick="adminModifyForm()">&nbsp;&nbsp;
+						<span>PHONE</span>
+						<select class="form-control col-lg-2 required" name="a_state">
+							<option th:value="0" th:text="미승인" th:selected="${adminDto.a_state} == 0"></option>
+							<option th:value="1" th:text="승인" th:selected="${adminDto.a_state} == 1"></option>
+					</select><br><br>
+						<input type="button" class="btn_modify" value="modify" onclick="adminListModifyForm()">&nbsp;&nbsp;
 						<input type="reset" value="reset">
 
 					</form>

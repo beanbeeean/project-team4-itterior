@@ -27,4 +27,35 @@
 
     </update>
 
+    <update id="adminDeleteConfirm"  parameterType="com.office.house.admin.AdminDto">
+
+        update tbl_admin set a_state = 0 ,a_mod_date = now() where a_no = #{a_no}
+
+    </update>
+
+    <select id="adminList" resultType="com.office.house.admin.AdminDto">
+
+        select * from tbl_admin where a_id like CONCAT('%',#{keyWord},'%') order by a_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <select id="getTotalCnt" resultType="Integer">
+
+        SELECT count(*) FROM tbl_admin where a_id like CONCAT('%',#{keyWord},'%')
+
+    </select>
+
+    <select id="adminListDetail" resultType="com.office.house.admin.AdminDto">
+
+        SELECT * FROM tbl_admin WHERE a_no = #{a_no}
+
+    </select>
+
+    <update id="adminListModifyConfirm"  parameterType="com.office.house.admin.AdminDto">
+
+        update tbl_admin set a_pw = #{a_pw}, a_mail = #{a_mail} , a_phone = #{a_phone}, a_state = #{a_state}, a_mod_date = now() where a_no = #{a_no}
+
+    </update>
+
+
 </mapper>
