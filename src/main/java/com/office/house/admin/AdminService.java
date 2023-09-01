@@ -17,7 +17,8 @@ public class AdminService implements IAdminService{
     PasswordEncoder passwordEncoder;
     @Override
     public AdminDto adminLoginConfirm(AdminDto adminDto) {
-        log.info("[AdminController] adminLoginConfirm()");
+
+        log.info("[AdminService] adminLoginConfirm()");
 
         AdminDto idVerifiedAdminDto = iAdminDaoMapper.selectAdminForLogin(adminDto);
         if(idVerifiedAdminDto!=null && idVerifiedAdminDto.getA_state()==1 && passwordEncoder.matches(adminDto.getA_pw(), idVerifiedAdminDto.getA_pw())){
@@ -32,14 +33,24 @@ public class AdminService implements IAdminService{
     @Override
     public int createAccountConfirm(AdminDto adminDto) {
 
-        log.info("[AdminController] createAccountConfirm()");
+        log.info("[AdminService] createAccountConfirm()");
 
         boolean isUser = iAdminDaoMapper.isAdmin(adminDto);
 
         if(!isUser) {
+            adminDto.setA_pw(passwordEncoder.encode(adminDto.getA_pw()));
             return iAdminDaoMapper.insertNewAccount(adminDto);
         }
 
         return -1;
+    }
+
+    @Override
+    public int adminModifyConfirm(AdminDto adminDto) {
+
+        log.info("[AdminService] adminModifyConfirm()");
+
+        adminDto.setA_pw(passwordEncoder.encode(adminDto.getA_pw()));
+        return iAdminDaoMapper.adminModifyConfirm(adminDto);
     }
 }
