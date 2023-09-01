@@ -108,11 +108,11 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Map<String, Object> getProducts(String[] category, String sort, String filter) {
+    public Map<String, Object> getProducts(String[] category, String sort, String filter, String keyword) {
         log.info("getProducts");
         Map<String, Object> map = new HashMap<>();
         log.info("sort ::: " + sort);
-        List<ProductDto> dtos = iProductDaoMapper.selectProducts(category, sort, filter);
+        List<ProductDto> dtos = iProductDaoMapper.selectProducts(category, sort, filter, keyword);
 
         map.put("productDtos", dtos);
         return map;
