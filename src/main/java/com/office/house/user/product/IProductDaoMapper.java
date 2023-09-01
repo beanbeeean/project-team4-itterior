@@ -7,7 +7,7 @@ import java.util.List;
 @Mapper
 public interface IProductDaoMapper {
     //List<ProductDto> selectProductsByType(String type);
-    List<ProductDto> selectProducts(String[] category, String sort, String filter, String keyword);
+    List<ProductDto> selectProducts(String[] category, String sort, String filter);
 
     void insertProducts(ProductDto dto);
 }

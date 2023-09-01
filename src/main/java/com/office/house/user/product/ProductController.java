@@ -26,7 +26,7 @@ public class ProductController {
     @GetMapping("get_products")
     @ResponseBody
     public Map<String, Object>  getProducts(@RequestParam(required = false, value = "category") String[] category, @RequestParam(required = false, value = "sort") String sort,
-                                            @RequestParam(required = false, value = "filter") String filter, @RequestParam(required = false, value = "keyword") String keyword){
+                                            @RequestParam(required = false, value = "filter") String filter){
         log.info("getProducts");
 //        Map<String, Object> resultMap = productService.getProducts(type);
 //        for (String txt : category){
@@ -37,7 +37,7 @@ public class ProductController {
 //        for (String txt : filter){
 //            System.out.println("filter : " + txt);
 //        }
-        Map<String, Object> resultMap = productService.getProducts(category, sort, filter, keyword);
+        Map<String, Object> resultMap = productService.getProducts(category, sort, filter);
         return resultMap;
 
     }

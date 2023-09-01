@@ -9,14 +9,11 @@
             *
         FROM
             tbl_product
-        <if test="category != null or filter != null or keyword != null">
+        <if test="category != null or filter != null">
             WHERE
         </if>
         <choose>
-            <when test="category == null and filter == null and keyword != null">
-                p_name LIKE CONCAT('%', #{keyword}, '%')
-            </when>
-            <when test="category == null and filter != null and keyword == null">
+            <when test="category == null and filter != null">
                     <choose>
                         <when test="filter == 1">
                             p_sales_price  <![CDATA[<=]]>  100000
@@ -32,30 +29,7 @@
                         </when>
                     </choose>
             </when>
-            <when test="category == null and filter != null and keyword != null">
-                    <choose>
-                        <when test="filter == 1">
-                            p_sales_price  <![CDATA[<=]]>  100000
-                        </when>
-                        <when test="filter == 2">
-                            p_sales_price <![CDATA[<=]]> 200000
-                        </when>
-                        <when test="filter == 3">
-                             p_sales_price <![CDATA[<=]]> 300000
-                        </when>
-                        <when test="filter == 4">
-                            p_sales_price <![CDATA[>]]> 300000
-                        </when>
-                    </choose>
-                    AND p_name LIKE CONCAT('%', #{keyword}, '%')
-            </when>
-            <when test="category != null and filter == null and keyword == null">
-                p_category IN
-                <foreach collection="category" item="cg" open="(" close=")" separator=",">
-                    #{cg}
-                </foreach>
-            </when>
-            <when test="category != null and filter != null and keyword == null">
+            <when test="category != null and filter != null">
                 <choose>
                     <when test="filter == 1">
                         p_sales_price  <![CDATA[<=]]>  100000
@@ -76,32 +50,7 @@
                     #{cg}
                 </foreach>
             </when>
-            <when test="category != null and filter == null and keyword != null">
-                p_name LIKE CONCAT('%', #{keyword}, '%')
-                AND
-                p_category IN
-                <foreach collection="category" item="cg" open="(" close=")" separator=",">
-                    #{cg}
-                </foreach>
-            </when>
-            <when test="category != null and filter != null and keyword != null">
-                <choose>
-                    <when test="filter == 1">
-                        p_sales_price  <![CDATA[<=]]>  100000
-                    </when>
-                    <when test="filter == 2">
-                        p_sales_price <![CDATA[<=]]> 200000
-                    </when>
-                    <when test="filter == 3">
-                        p_sales_price <![CDATA[<=]]> 300000
-                    </when>
-                    <when test="filter == 4">
-                        p_sales_price <![CDATA[>]]> 300000
-                    </when>
-                </choose>
-                AND
-                    p_name LIKE CONCAT('%', #{keyword}, '%')
-                AND
+            <when test="category != null and filter == null">
                 p_category IN
                 <foreach collection="category" item="cg" open="(" close=")" separator=",">
                     #{cg}

@@ -3,29 +3,20 @@
     let categoryList = [];
     let sort = "";
     let priceSelected = "";
-    let keyword = "";
 
     $(document).ready(function(){
         console.log("DOCUMENT READY!!");
 
         // 이벤트 핸들러 초기화(등록)
         init_events();
-        removeSearchKeyword();
-        ajax_getProductList(categoryList, sort, priceSelected, keyword);
+
+        ajax_getProductList(categoryList, sort, priceSelected);
 
     });
 
-    // 이벤트 핸들러
     function init_events(){
         console.log("init_events()")
         productSortFiltering();
-
-        $(document).on('click','div.search_product_wrap > svg.search_btn', function(e){
-            console.log("search_btn CLICK HANDLER!!")
-            e.stopImmediatePropagation();
-            keyword = $('div.search_product_wrap > input[name="p_search"]').val();
-            ajax_getProductList(categoryList, sort, priceSelected, keyword);
-        })
 
     }
 
@@ -46,7 +37,7 @@
                 }
 
                 console.log("categoryList", categoryList);
-               ajax_getProductList(categoryList, sort, priceSelected, keyword);
+               ajax_getProductList(categoryList, sort, priceSelected);
 
             });
         }
@@ -55,7 +46,7 @@
             sortCheck[i].addEventListener("change", function () {
                 sort = sortCheck[i].value;
                 console.log("sort", sort);
-                ajax_getProductList(categoryList, sort, priceSelected, keyword);
+                ajax_getProductList(categoryList, sort, priceSelected);
             });
         }
 
@@ -67,7 +58,7 @@
                 ajax_getProductList(categoryList, sort, priceSelected);
 
                 console.log("priceSelected", priceSelected);
-                ajax_getProductList(categoryList, sort, priceSelected, keyword);
+                ajax_getProductList(categoryList, sort, priceSelected);
             });
         }
 
@@ -83,7 +74,7 @@
 
                 appendTag += '<tr class="product_container_wrap">';
 
-                for (let j = 0; j < 4; j++){
+                for (let j = 1; j < 5; j++){
                     if(productDtos[cnt] == null){
                         break;
                     }
@@ -133,14 +124,8 @@
         console.log("remove")
         $('div.product_item_list table tbody').children().remove();
     }
-
-    // 검색 키워드 초기화
-    function removeSearchKeyword(){
-        $('div.search_product_wrap > input[name="p_search"]').val('');
-    }
-
     // AJAX START
-    function ajax_getProductList(category, sort, filter, keyword){
+    function ajax_getProductList(category, sort, filter){
         console.log('ajax_getProductList()');
         let str = '';
         if(category.length !== 0){
@@ -161,14 +146,6 @@
         }else if(filter !== ""){
             str += '?filter=';
             str += filter;
-        }
-
-        if((category.length !== 0 || sort !=="" || filter !== "") && keyword !== ""){
-            str += '&keyword=';
-            str += keyword;
-        }else if(keyword !== ""){
-            str += '?keyword=';
-            str += keyword;
         }
         $.ajax({
             url: '/product/get_products'+ str,
