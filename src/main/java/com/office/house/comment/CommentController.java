@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 @Controller
 @Log4j2
 @RequestMapping("/comment")
@@ -17,10 +19,22 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 
+    // 전체 댓글 보여주기
+    @GetMapping("/get_comment_list")
+    @ResponseBody
+    public Map<String, Object> getCommentList(@RequestParam("b_no") int b_no){
+        log.info("[CommentController] getCommentList()");
+
+        Map<String, Object> map = commentService.getCommentList(b_no);
+        log.info(map.size());
+
+        return map;
+    }
+
     @PostMapping("/regist_reply_confirm")
     @ResponseBody
     public Object registReplyConfirm(CommentDto commentDto, HttpSession session){
-        log.info("[BoardController] boardWriteConfirm()");
+        log.info("[CommentController] registReplyConfirm()");
 
         UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
         commentDto.setU_id(loginedMemberDto.getU_id());

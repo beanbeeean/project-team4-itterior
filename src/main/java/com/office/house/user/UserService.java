@@ -86,6 +86,8 @@ public class UserService implements IUserService {
 		log.info("[UserService] userModifyConfirm()");
 
         int result = iUserDaoMapper.updateAccount(userDto);
+        int result_board = iBoardDaoMapper.updateUserImage(userDto);
+        log.info(result_board);
 
         if(result>0)
             return iUserDaoMapper.getLatestAccountInfo(userDto);

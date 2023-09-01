@@ -25,18 +25,18 @@
     <div id="section_wrap">
         <div class="detail_category">
             <div class="select">
-                <select>
+                <select class="sortSelect1">
                     <option selected>정렬</option>
-                    <option>좋아요순</option>
-                    <option>조회순</option>
-                    <option>날짜순</option>
+                    <option value="1">좋아요순</option>
+                    <option value="2">조회순</option>
+                    <option value="3">날짜순</option>
                 </select>
-                <select>
+                <select class="sortSelect1">
                     <option selected>스타일</option>
-                    <option>모던</option>
-                    <option>미니멀</option>
-                    <option>빈티지</option>
-                    <option>클래식</option>
+                    <option value="1">모던</option>
+                    <option value="2">미니멀</option>
+                    <option value="3">빈티지</option>
+                    <option value="4">클래식</option>
                 </select>
             </div>
 
@@ -45,8 +45,8 @@
 
 
         <div class="board_wrap">
-            <p th:text="'전체 '+${#lists.size('BoardDtos')}"></p>
-            <table>
+            <p th:text="'전체'"></p>
+            <table class="board_list">
                 <tbody>
                 </tbody>
             </table>
