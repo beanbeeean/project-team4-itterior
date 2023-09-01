@@ -14,74 +14,74 @@
         $("span.hit_num").text(boardDto.b_hit);
     })
 
-    // function registReply() {
-    //     console.log("registReply()");
-    //
-    //     let comment = document.querySelector(".input_comment").value; // 입력된 값을 가져옴
-    //     console.log("입력한 댓글: " + comment);
-    //
-    //     let msg = {
-    //         "c_comment": comment,
-    //         "u_id": loginedMemberDto.u_id,
-    //         "b_no": boardDto.b_no
-    //     }
-    //
-    //     $.ajax({
-    //         url: "/comment/regist_reply_confirm",
-    //         type: "POST",
-    //         data: msg,
-    //         success: function (data) {
-    //             console.log("regist reply success!", data);
-    //
-    //             alert('댓글이 정상적으로 등록되었습니다.');
-    //             // location.href = "/board/get_board?b_no="+boardDto.b_no;
-    //             addReply(msg);
-    //
-    //         },
-    //         error: function () {
-    //             console.log('AJAX ERROR - ajax_writePost()');
-    //             alert('writePost fail!!');
-    //         }
-    //     })
-    //
-    // }
-    //
-    // // 리스트 출력
-    // function addReply(boardDtos) {
-    //     let appendTag = '';
-    //     let cnt = 0;
-    //     appendTag += '<tr>'
-    //     for (let i = 0; i < likeDtos.length; i++) {
-    //         if (boardDtos.u_id == [[${session.loginedMemberDto.u_id}]]) {
-    //
-    //             appendTag += '<td>';
-    //             appendTag += '<div>';
-    //             appendTag += '<img src="';
-    //             appendTag += boardDtos.b_img;
-    //             appendTag += '"/>'
-    //             appendTag += '<p className="title">';
-    //             appendTag += boardDtos.b_title;
-    //             appendTag += '</p>';
-    //             appendTag += '<p class="name">';
-    //             appendTag += productDtos.p_name;
-    //             appendTag += '</p>';
-    //             appendTag += '<img class="profile_img" src="';
-    //             appendTag += userDtos.u_img;
-    //             appendTag += '"/>'
-    //             appendTag += '<span class="user_name">'
-    //             appendTag += userDtos.u_id;
-    //             appendTag += '</span>';
-    //             appendTag += '</div>';
-    //             appendTag += '</td>';
-    //
-    //             cnt++;
-    //         }
-    //     }
-    //     appendTag += '</tr>';
-    //
-    //     $('div.list_wrap table tbody').append(appendTag);
-    //
-    // }
+    function registReply() {
+        console.log("registReply()");
+
+        let comment = document.querySelector(".input_comment").value; // 입력된 값을 가져옴
+        console.log("입력한 댓글: " + comment);
+
+        let msg = {
+            "c_comment": comment,
+            "u_id": loginedMemberDto.u_id,
+            "b_no": boardDto.b_no
+        }
+
+        $.ajax({
+            url: "/comment/regist_reply_confirm",
+            type: "POST",
+            data: msg,
+            success: function (data) {
+                console.log("regist reply success!", data);
+
+                alert('댓글이 정상적으로 등록되었습니다.');
+                // location.href = "/board/get_board?b_no="+boardDto.b_no;
+                addReply(msg);
+
+            },
+            error: function () {
+                console.log('AJAX ERROR - ajax_writePost()');
+                alert('writePost fail!!');
+            }
+        })
+
+    }
+
+    // 리스트 출력
+    function addReply(boardDtos) {
+        let appendTag = '';
+        let cnt = 0;
+        appendTag += '<tr>'
+        for (let i = 0; i < likeDtos.length; i++) {
+            if (boardDtos.u_id == [[${session.loginedMemberDto.u_id}]]) {
+
+                appendTag += '<td>';
+                appendTag += '<div>';
+                appendTag += '<img src="';
+                appendTag += boardDtos.b_img;
+                appendTag += '"/>'
+                appendTag += '<p className="title">';
+                appendTag += boardDtos.b_title;
+                appendTag += '</p>';
+                appendTag += '<p class="name">';
+                appendTag += productDtos.p_name;
+                appendTag += '</p>';
+                appendTag += '<img class="profile_img" src="';
+                appendTag += userDtos.u_img;
+                appendTag += '"/>'
+                appendTag += '<span class="user_name">'
+                appendTag += userDtos.u_id;
+                appendTag += '</span>';
+                appendTag += '</div>';
+                appendTag += '</td>';
+
+                cnt++;
+            }
+        }
+        appendTag += '</tr>';
+
+        $('div.list_wrap table tbody').append(appendTag);
+
+    }
 
 
 </script>

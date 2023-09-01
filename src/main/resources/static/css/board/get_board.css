@@ -4,6 +4,7 @@
 
 .view_content {
     margin-top: 50px;
+    width: 100%;
 }
 
 h1.content_title{
@@ -22,7 +23,6 @@ span.user_name {
 }
 
 div.content_area{
-    width: 1200px;
     margin: 20px auto;
     padding: 20px 0;
     border: 1px solid #dadada;
@@ -53,7 +53,9 @@ hr {
 }
 
 .user_input {
+    display: flex;
     margin-bottom: 50px;
+    width: 100%;
 }
 
 .user_input img {
@@ -65,7 +67,7 @@ hr {
 
 .user_input input[type="text"] {
     padding: 15px;
-    width: 85%;
+    width: 70%;
     margin-left: 10px;
     vertical-align: 15px;
     border-radius: 5px;
@@ -74,7 +76,6 @@ hr {
 
 .user_input input[type="button"] {
     padding: 13px;
-    width: 5%;
     margin-left: 2px;
     vertical-align: 15px;
     border-radius: 5px;
