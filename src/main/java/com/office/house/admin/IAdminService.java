@@ -8,4 +8,6 @@ public interface IAdminService {
     int createAccountConfirm(AdminDto adminDto);
 
     int adminModifyConfirm(AdminDto adminDto);
+
+    int adminDeleteConfirm(AdminDto adminDto);
 }

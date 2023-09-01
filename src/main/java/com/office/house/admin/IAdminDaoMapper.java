@@ -11,4 +11,6 @@ public interface IAdminDaoMapper {
     int insertNewAccount(AdminDto adminDto);
 
     int adminModifyConfirm(AdminDto adminDto);
+
+    int adminDeleteConfirm(AdminDto adminDto);
 }

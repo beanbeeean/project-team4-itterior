@@ -23,18 +23,7 @@
 
 <section>
 	<div class="section_wrap">
-		<div class="side_bar">
-
-			<p><a th:href="@{/admin/admin_myPage}" th:text=${session.loginedAdminDto.a_id}></a></p>
-			<ul>
-				<li><a id="profileLink" th:href="@{#}">정보수정</a></li>
-				<li><a th:href="@{/admin/admin_like_list}">좋아요한 상품</a></li>
-				<li><a th:href="@{/admin/admin_like_list}">좋아요한 게시물</a></li>
-				<li><a th:href="@{/admin/admin_like_list}">좋아요한 영상</a></li>
-				<li><a id="myBoard" th:href="@{#}">내가 작성한 글</a></li>
-				<li><a id="deleteAccount" th:href="@{#}">회원탈퇴</a></li>
-			</ul>
-		</div>
+		<div th:insert="~{/include/nav_left.html::div}"/>
 		<div class="section_body">
 			<div id="section_wrap">
 				<div class="container">

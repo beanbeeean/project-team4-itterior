@@ -97,4 +97,19 @@ public class AdminController {
         else
             return "redirect:/admin/admin_modify_form";
     }
+
+    @GetMapping("/admin_delete_confirm")
+    public String adminDeleteConfirm(AdminDto adminDto, HttpSession session){
+        log.info("[AdminController] adminModifyConfirm()");
+
+        adminDto = (AdminDto) session.getAttribute("loginedAdminDto");
+
+        int result = -1;
+        result = adminService.adminDeleteConfirm(adminDto);
+
+        if(result>0)
+            return "redirect:/admin";
+        else
+            return "redirect:/admin/admin_myPage";
+    }
 }

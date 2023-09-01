@@ -53,4 +53,12 @@ public class AdminService implements IAdminService{
         adminDto.setA_pw(passwordEncoder.encode(adminDto.getA_pw()));
         return iAdminDaoMapper.adminModifyConfirm(adminDto);
     }
+
+    @Override
+    public int adminDeleteConfirm(AdminDto adminDto) {
+
+        log.info("[AdminService] adminDeleteConfirm()");
+
+        return iAdminDaoMapper.adminDeleteConfirm(adminDto);
+    }
 }
