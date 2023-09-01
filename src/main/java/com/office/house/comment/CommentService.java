@@ -36,4 +36,12 @@ public class CommentService {
 
         return map;
     }
+
+    public int registRereplyConfirm(CommentDto commentDto) {
+        log.info("[CommentService] registRereplyConfirm()");
+
+        int result = iCommentDaoMapper.insertRereply(commentDto);
+
+        return result;
+    }
 }

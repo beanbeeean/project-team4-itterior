@@ -42,13 +42,21 @@
         console.log("addUserBoardListTr()");
 
         console.log(boardDtos);
+        console.log(boardDtos[0].u_id);
+        let loginedMemberDto = [[${session.loginedMemberDto}]];
 
         let appendTag = '';
         let cnt = 0;
-        for (let i = 0; i < 3; i++) {
+        $('div.board_wrap table tbody').children().remove();
+
+        for (let i = 0; i < boardDtos.length / 4 + 1; i++) {
             appendTag += '<tr>'
             for (let j = 0; j < 4; j++) {
-                if (boardDtos[j].u_id == [[${session.loginedMemberDto.u_id}]]) {
+                if (boardDtos[cnt] == null) {
+                    break;
+                }
+                if (boardDtos[cnt].u_id == loginedMemberDto.u_id) {
+
                     appendTag += '<td>';
                     appendTag += '<div>';
                     appendTag += '<img class="board_img" src="/userBoardThumbnailImg/';
@@ -132,7 +140,6 @@
                 console.log('AJAX SUCCESS - ajax_getMyBoard()');
 
                 $('.section_body').html(data);
-
                 ajax_getMyBoardItem();
             },
             error: function () {

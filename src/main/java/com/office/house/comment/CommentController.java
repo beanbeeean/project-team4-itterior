@@ -42,7 +42,20 @@ public class CommentController {
         int result = commentService.registReplyConfirm(commentDto);
 
         return result;
+    }
 
+    // 대댓글 작성
+    @PostMapping("/regist_re_reply_confirm")
+    @ResponseBody
+    public Object registRereplyConfirm(CommentDto commentDto, HttpSession session){
+        log.info("[CommentController] registRereplyConfirm()");
+
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        commentDto.setU_id(loginedMemberDto.getU_id());
+
+        int result = commentService.registRereplyConfirm(commentDto);
+
+        return result;
     }
 
 }

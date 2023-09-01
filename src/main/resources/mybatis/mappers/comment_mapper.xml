@@ -12,4 +12,8 @@
         select * from tbl_comment c join tbl_board b ON c.b_no = b.b_no where c.b_no = #{b_no} ORDER BY c.c_reg_date desc;
     </select>
 
+    <insert id="insertRereply" parameterType="com.office.house.comment.CommentDto">
+        insert into tbl_comment (u_id, b_no, c_comment, c_target_u_id, c_target_c_no, c_reg_date, c_mod_date) values (#{u_id}, #{b_no}, #{c_comment}, #{c_target_u_id}, #{c_target_c_no}, now(), now())
+    </insert>
+
 </mapper>

@@ -9,4 +9,6 @@ public interface ICommentDaoMapper {
     int insertNewReply(CommentDto commentDto);
 
     List<CommentDto> selectCommentList(int b_no);
+
+    int insertRereply(CommentDto commentDto);
 }

@@ -55,6 +55,10 @@
             appendTag += '<a class="like_btn" href="#">';
             appendTag += '♡';
             appendTag += '</a>';
+            appendTag += '<a class="recomment" onclick="showRereplyForm(' + i + ', \'' + commentDtos[i].u_id + '\', ' + commentDtos[i].c_no + ');">';
+            appendTag += '답글달기';
+            appendTag += '</a>';
+
             appendTag += '</p>';
             appendTag += '</div>';
             appendTag += '</td>';
@@ -63,6 +67,23 @@
         }
 
         $('#section_wrap table.comments tbody').append(appendTag);
+    }
+
+    // 답글 폼 표시 함수
+    function showRereplyForm(index, uId, cNo) {
+        let replyForm = `
+        <div class="re_reply_form">
+            <input type="hidden" name="c_target_c_no" value="${cNo}">
+            <input type="hidden" name="c_target_u_id" value="${uId}">
+            <img th:unless="${loginedMemberDto != null}" th:src="@{/imgs/defaultimage.PNG}">
+            <input class="input_re_comment" type="text">
+            <input type="button" value="입력" onclick="registRereply('${uId}', ${cNo});">
+        </div>
+    `;
+
+        // 답글 입력 폼을 현재 클릭한 답글 버튼 아래에 추가
+        let commentItem = $('#section_wrap table.comments tbody tr').eq(index);
+        commentItem.after(replyForm);
     }
 
 
@@ -108,6 +129,45 @@
                 // location.href = "/board/get_board?b_no="+boardDto.b_no;
                 $('table.comments tbody').children().remove();
                 $('input.input_comment').val('');
+                ajax_showCommentList(boardDto.b_no);
+
+            },
+            error: function () {
+                console.log('AJAX ERROR - ajax_writePost()');
+                alert('writePost fail!!');
+            }
+        })
+
+    }
+
+    // 대댓글
+    function registRereply(uId, cNo) {
+        console.log("registReply()");
+        console.log(uId);
+        console.log(cNo);
+
+        let comment = document.querySelector(".input_re_comment").value; // 입력된 값을 가져옴
+        console.log("입력한 댓글: " + comment);
+
+        let msg = {
+            "c_comment": comment,
+            "u_id": loginedMemberDto.u_id,
+            "b_no": boardDto.b_no,
+            "c_target_c_no": cNo,
+            "c_target_u_id": uId
+        }
+
+        $.ajax({
+            url: "/comment/regist_re_reply_confirm",
+            type: "POST",
+            data: msg,
+            success: function (data) {
+                console.log("regist reply success!", data);
+
+                /*alert('댓글이 정상적으로 등록되었습니다.');*/
+                // location.href = "/board/get_board?b_no="+boardDto.b_no;
+                $('table.comments tbody').children().remove();
+                $('input.input_re_comment').val('');
                 ajax_showCommentList(boardDto.b_no);
 
             },
