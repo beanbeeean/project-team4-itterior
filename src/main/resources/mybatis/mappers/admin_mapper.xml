@@ -21,4 +21,10 @@
         values (#{a_id}, #{a_pw}, #{a_mail}, #{a_phone}, now(), now())
     </insert>
 
+    <update id="adminModifyConfirm"  parameterType="com.office.house.admin.AdminDto">
+
+        update tbl_admin set a_pw = #{a_pw}, a_mail = #{a_mail} ,a_phone = #{a_phone} ,a_mod_date = now() where a_no = #{a_no}
+
+    </update>
+
 </mapper>

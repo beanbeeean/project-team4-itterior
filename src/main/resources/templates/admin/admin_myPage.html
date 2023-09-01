@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:replace="~{/include/title.html::title}"></title>
+    <script th:fragment="jquery_cdn" src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/myPage.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/modify_account_form.css}">
+
+</head>
+
+<body>
+<header th:replace="~{/include/header_nav_footer.html::header}"/>
+
+<section>
+    <div class="section_wrap">
+        <div class="side_bar">
+
+            <p><a th:href="@{/admin/admin_myPage}" th:text=${session.loginedAdminDto.a_id}></a></p>
+            <ul>
+                <li><a id="profileLink" th:href="@{/admin/admin_modify_form}">정보수정</a></li>
+                <li><a th:href="@{/admin/admin_like_list}">좋아요한 상품</a></li>
+                <li><a th:href="@{/admin/admin_like_list}">좋아요한 게시물</a></li>
+                <li><a th:href="@{/admin/admin_like_list}">좋아요한 영상</a></li>
+                <li><a id="myBoard" th:href="@{#}">내가 작성한 글</a></li>
+                <li><a id="deleteAccount" th:href="@{#}">회원탈퇴</a></li>
+            </ul>
+        </div>
+        <div class="section_body">
+            <div id="section_wrap">
+                <div class="container">
+                    <form th:action="@{/admin/admin_modify_confirm}" name="admin_modify_form" method="post"
+                              enctype="multipart/form-data" style="height: 850px; top: -200px ">
+                        <p>MY PAGE</p>
+                        <input type="hidden" name="a_no" th:if="${session.loginedAdminDto != null}"
+                               th:value="${session.loginedAdminDto.a_no}">
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span>ID</span><input type="text" name="a_id"
+                                                                      th:if="${session.loginedAdminDto != null}"
+                                                                      th:value="${session.loginedAdminDto.a_id}"
+                                                                      readonly="readonly"
+                                                                      disabled="disabled"><br>
+                        &nbsp;&nbsp;<span>PW</span><input type="password" name="a_pw" value="*****" readonly="readonly"
+                                                          disabled="disable"><br>
+                        <span>EMAIL</span><input type="email" name="a_mail"
+                                                 th:if="${session.loginedAdminDto != null}"
+                                                 th:value="${session.loginedAdminDto.a_mail}" readonly="readonly"
+                                                 disabled="disabled"
+                                                 placeholder="INPUT MAIL"><br>
+                        <span>PHONE</span><input type="text" name="a_phone"
+                                                 th:if="${session.loginedAdminDto != null}"
+                                                 th:value="${session.loginedAdminDto.a_phone}" readonly="readonly"
+                                                 disabled="disabled"
+                                                 placeholder="INPUT PHONE"><br><br>
+                    </form>
+                    <div class="drops">
+                        <div class="drop drop-1"></div>
+                        <div class="drop drop-3"></div>
+                        <div class="drop drop-4"></div>
+                        <div class="drop drop-5"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+
+</html>
+
+

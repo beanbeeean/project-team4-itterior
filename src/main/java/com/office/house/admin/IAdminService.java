@@ -6,4 +6,6 @@ public interface IAdminService {
     AdminDto adminLoginConfirm(AdminDto adminDto);
 
     int createAccountConfirm(AdminDto adminDto);
+
+    int adminModifyConfirm(AdminDto adminDto);
 }

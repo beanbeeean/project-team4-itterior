@@ -1,0 +1,88 @@
+/* custom.css */
+header {
+    z-index: 1;
+}
+
+.section_wrap {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.side_bar {
+    text-align: center;
+    background-color: rgba(211, 211, 211, 0.59);
+    width: 250px;
+    height: 250vh;
+}
+
+.side_bar img.admin_img,
+.section_body img.admin_img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+}
+
+.side_bar p {
+    font-weight: bold;
+    padding-bottom: 10px;
+    position: relative; /* 부모 요소 위치 기준으로 사용하기 위해 */
+}
+
+.side_bar p::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10%; /* 조절하여 가운데 정렬 조정 */
+    width: 80%; /* 조절하여 길이 조정 */
+    border-bottom: 1px solid rgba(148, 148, 148, 0.73); /* 회색 수평 구분선 */
+}
+
+.side_bar li {
+    display: inline-block;
+    width: 80%;
+    padding: 10px;
+}
+
+.side_bar li:hover {
+    background-color: #d2d2d2;
+}
+
+.section_body {
+    flex: 1; /* 나머지 공간을 채우기 위해 Flex 비율 설정 */
+}
+
+.word {
+    font-size: 24px;
+    padding: 20px;
+}
+
+.section_body{
+    position: absolute;
+    top : 500px;
+    transform: translate(-50%, -50%);
+    left: 800px;
+}
+
+.section_body img.admin_img {
+    width: 200px;
+    height: 200px;
+}
+
+div.section_body{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.detail_category {
+    width: 90%;
+    margin: 0 auto;
+    margin-left: 150px;
+}
+
+
+.board_wrap {
+    height: 300px;
+    width: 90%;
+    margin: 0 auto;
+    margin-left: 150px;
+}

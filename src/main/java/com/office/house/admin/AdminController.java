@@ -32,13 +32,14 @@ public class AdminController {
     public String adminLoginConfirm(AdminDto adminDto, HttpSession session){
         log.info("[AdminController] adminLoginConfirm()");
 
-        String nextPage = "redirect:/";
+        String nextPage = "redirect:/admin/admin_login_form";
 
         AdminDto loginedAdminDto = adminService.adminLoginConfirm(adminDto);
 
         if(loginedAdminDto != null) {
             session.setAttribute("loginedAdminDto", loginedAdminDto);
             session.setMaxInactiveInterval(60 * 30);
+            nextPage = "redirect:/admin/admin_myPage";
         }
 
         return nextPage;
@@ -46,7 +47,7 @@ public class AdminController {
 
     @GetMapping("/create_account_form")
     public String createAccountForm() {
-        log.info("[AdminMemberController] createAccountForm()");
+        log.info("[AdminController] createAccountForm()");
 
         String nextPage = "admin/create_account_form";
 
@@ -55,7 +56,7 @@ public class AdminController {
 
     @PostMapping("/create_account_confirm")
     public String createAccountConfirm(AdminDto adminDto){
-        log.info("[UserController] createAccountConfirm()");
+        log.info("[AdminController] createAccountConfirm()");
 
         int result = -1;
         result = adminService.createAccountConfirm(adminDto);
@@ -66,5 +67,34 @@ public class AdminController {
             return "redirect:/admin/create_account_form";
     }
 
+    @GetMapping("/admin_myPage")
+    public String adminMyPage() {
+        log.info("[AdminController] adminMyPage()");
 
+        String nextPage = "admin/admin_myPage";
+
+        return nextPage;
+    }
+
+    @GetMapping("/admin_modify_form")
+    public String adminModifyForm() {
+        log.info("[AdminController] adminModifyForm()");
+
+        String nextPage = "admin/admin_modify_form";
+
+        return nextPage;
+    }
+
+    @PostMapping("/admin_modify_confirm")
+    public String adminModifyConfirm(AdminDto adminDto){
+        log.info("[AdminController] adminModifyConfirm()");
+
+        int result = -1;
+        result = adminService.adminModifyConfirm(adminDto);
+
+        if(result>0)
+            return "redirect:/admin/admin_myPage";
+        else
+            return "redirect:/admin/admin_modify_form";
+    }
 }
