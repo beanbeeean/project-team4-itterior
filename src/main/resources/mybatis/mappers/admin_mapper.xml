@@ -27,4 +27,10 @@
 
     </update>
 
+    <update id="adminDeleteConfirm"  parameterType="com.office.house.admin.AdminDto">
+
+        update tbl_admin set a_state = 0 ,a_mod_date = now() where a_no = #{a_no}
+
+    </update>
+
 </mapper>
