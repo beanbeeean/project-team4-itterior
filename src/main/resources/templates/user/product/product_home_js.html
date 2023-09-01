@@ -1,0 +1,173 @@
+<script th:fragment="js" type="text/javascript">
+
+    let categoryList = [];
+    let sort = "";
+    let priceSelected = "";
+
+    $(document).ready(function(){
+        console.log("DOCUMENT READY!!");
+
+        // 이벤트 핸들러 초기화(등록)
+        init_events();
+
+        ajax_getProductList(categoryList, sort, priceSelected);
+
+    });
+
+    function init_events(){
+        console.log("init_events()")
+        productSortFiltering();
+
+    }
+
+    // 인테리어 상품 정렬 / 필터링 함수(체크박스 / 라디오박스)
+    function productSortFiltering(){
+        let categoryCheck = document.querySelectorAll("div.category_list input[type='checkbox']");
+        let sortCheck = document.querySelectorAll("div.sort_list input[name='product_sort']");
+        let priceCheck = document.querySelectorAll("div.price_list input[name='price_filter']");
+
+        for (let i = 0; i < categoryCheck.length; i++) {
+            categoryCheck[i].addEventListener("change", function (e) {
+                e.stopImmediatePropagation();
+                if (categoryCheck[i].checked) {
+                    categoryList.push(categoryCheck[i].value);
+                }
+                else if (!categoryCheck[i].checked) {
+                    categoryList.splice(categoryList.indexOf(categoryCheck[i].value), 1);
+                }
+
+                console.log("categoryList", categoryList);
+               ajax_getProductList(categoryList, sort, priceSelected);
+
+            });
+        }
+
+        for (let i = 0; i < sortCheck.length; i++) {
+            sortCheck[i].addEventListener("change", function () {
+                sort = sortCheck[i].value;
+                console.log("sort", sort);
+                ajax_getProductList(categoryList, sort, priceSelected);
+            });
+        }
+
+        for (let i = 0; i < priceCheck.length; i++) {
+            priceCheck[i].addEventListener("change", function (e) {
+                e.stopImmediatePropagation();
+                priceSelected = priceCheck[i].value;
+                console.log("priceSelected", priceSelected);
+                ajax_getProductList(categoryList, sort, priceSelected);
+
+                console.log("priceSelected", priceSelected);
+                ajax_getProductList(categoryList, sort, priceSelected);
+            });
+        }
+
+
+    }
+
+    // 인테리어 상품 리스트 출력 함수
+    function addProductsListTr(productDtos){
+        let appendTag = '';
+        let cnt = 0;
+
+            for(let i = 0; i < productDtos.length/4 +1 ; i++){
+
+                appendTag += '<tr class="product_container_wrap">';
+
+                for (let j = 1; j < 5; j++){
+                    if(productDtos[cnt] == null){
+                        break;
+                    }
+                    let price = parseInt(productDtos[cnt].p_sales_price).toString()
+                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+                    appendTag += '<td>';
+                    appendTag += '<a href="';
+                    appendTag += productDtos[cnt].p_link;
+                    appendTag += '" target="parent">';
+                    appendTag += '<div class="product_container">';
+                    appendTag += "<div class='product_img'>";
+                    appendTag += "<img src='";
+                    appendTag += productDtos[cnt].p_img;
+                    appendTag += "'/>";
+                    appendTag += '</div>';
+                    appendTag += ' <span class="product_brand">';
+                    appendTag += productDtos[cnt].p_brand;
+                    appendTag += '</span>';
+                    appendTag += '<p class="product_name">';
+                    appendTag += productDtos[cnt].p_name;
+                    appendTag += '</p>';
+                    appendTag += '<div class="product_price_area">';
+                    appendTag += '<span class="product_sales_price_tag">판매가';
+                    appendTag += '</span>';
+                    appendTag += '<span class="product_sales_price">';
+                    appendTag +=  price;
+                    appendTag += '원</span>';
+                    appendTag += '</div>';
+                    appendTag += '</div>';
+                    appendTag += '</a>';
+                    appendTag += '</td>';
+
+                    cnt++;
+
+                }
+
+
+                appendTag += '</tr>';
+            }
+            $('div.product_item_list table tbody').append(appendTag);
+
+    }
+
+    // 인테리어 상품 리스트 초기화
+    function removeProductsListTr(){
+        console.log("remove")
+        $('div.product_item_list table tbody').children().remove();
+    }
+    // AJAX START
+    function ajax_getProductList(category, sort, filter){
+        console.log('ajax_getProductList()');
+        let str = '';
+        if(category.length !== 0){
+            str += '?category=';
+            str += category;
+        }
+        if(category.length !== 0 && sort !==""){
+            str += '&sort=';
+            str += sort;
+        }else if(sort !==""){
+            str += '?sort=';
+            str += sort;
+        }
+
+        if((category.length !== 0 || sort !=="") && filter !== ""){
+            str += '&filter=';
+            str += filter;
+        }else if(filter !== ""){
+            str += '?filter=';
+            str += filter;
+        }
+        $.ajax({
+            url: '/product/get_products'+ str,
+            method: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_getProductList()');
+                removeProductsListTr();
+                addProductsListTr(data.productDtos);
+            },
+            error: function(data) {
+                console.log('AJAX ERROR - ajax_getProductList()');
+
+
+
+            }
+        });
+    }
+    // AJAX END
+
+</script>
+
+
+
+

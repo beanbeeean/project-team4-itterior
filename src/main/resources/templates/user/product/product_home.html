@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title th:replace="~{/include/title.html::title}"></title>
+
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/user/product/product_home.css}">
+	<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+	<link rel="stylesheet" th:href="@{/css/user/user_login_form.css}">
+	<script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+	<script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
+	<script th:replace="~{/user/product/product_home_js.html::js}" type="text/javascript"></script>
+</head>
+
+<body>
+	<header th:replace="~{/include/header_nav_footer.html::header}"></header>
+
+	<nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
+
+	<section>
+		<div id="section_wrap">
+			<div class="word">
+				<h2>인테리어 상품 비교</h2>
+			</div>
+			<div class="p_sort_filter">
+				<div class="category_list_wrap">
+					<div class="psf_name">카테고리</div>
+					<div class="category_list">
+						<span>
+							<input type="checkbox" name="TB" value="1" />
+							&nbsp;테이블/책상&nbsp;&nbsp;
+						</span>
+						<span>
+							<input type="checkbox" name="CH" value="2" />
+							&nbsp;의자&nbsp;&nbsp;
+						</span>
+						<span>
+							<input type="checkbox" name="TT" value="3" />
+							&nbsp;거실장&nbsp;&nbsp;
+						</span>
+						<span>
+							<input type="checkbox" name="AC" value="4" />
+							&nbsp;수납/정리&nbsp;&nbsp;
+						</span>
+						<span>
+							<input type="checkbox" name="BE" value="5" />
+							&nbsp;침대&nbsp;&nbsp;
+						</span>
+						<span>
+							<input type="checkbox" name="LI" value="6" />
+							&nbsp;조명&nbsp;&nbsp;
+						</span>
+					</div>
+				</div>
+				<div class="sort_list_wrap">
+					<div class="psf_name">정렬</div>
+					<div class="sort_list">
+						<span>
+							<input type="radio" name="product_sort" value="1"/>
+							&nbsp;가격 높은 순&nbsp;&nbsp;
+						</span>
+						<span>
+							<input type="radio" name="product_sort" value="2"/>
+							&nbsp;가격 낮은 순&nbsp;&nbsp;
+            			</span>
+						<span>
+							<input type="radio" name="product_sort" value="like desc"/>
+							&nbsp;좋아요 순&nbsp;&nbsp;
+           				 </span>
+						<span>
+							<input type="radio" name="product_sort" value="hit desc"/>
+							&nbsp;조회 순&nbsp;&nbsp;
+            			</span>
+					</div>
+				</div>
+				<div class="price_list_wrap">
+					<div class="psf_name">가격</div>
+					<div class="price_list">
+						<span>
+							<input type="radio" name="price_filter" value="1"/>
+							&nbsp;~\100,000&nbsp;&nbsp;
+						</span>
+						<span>
+							<input type="radio" name="price_filter" value="2"/>
+							&nbsp;~\200,000&nbsp;&nbsp;
+            			</span>
+						<span>
+							<input type="radio" name="price_filter" value="3"/>
+							&nbsp;~\300,000&nbsp;&nbsp;
+            			</span>
+						<span>
+							<input type="radio" name="price_filter" value="4"/>
+							&nbsp;\300,000+&nbsp;&nbsp;
+            			</span>
+					</div>
+				</div>
+			</div>
+			<div class="product_item_list">
+				<table>
+					<tbody></tbody>
+				</table>
+			</div>
+
+		</div>
+	</section>
+
+	<div th:replace="~{/user/include/login_modal.html::modal}"></div>
+	<footer th:replace="~{/include/header_nav_footer.html::footer}"></footer>
+</body>
+
+</html>

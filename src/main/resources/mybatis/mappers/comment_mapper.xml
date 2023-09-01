@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.office.house.comment.ICommentDaoMapper">
+
+    <insert id="insertNewReply" parameterType="com.office.house.comment.CommentDto">
+        insert into tbl_comment (u_id, b_no, c_comment, c_reg_date, c_mod_date) values (#{u_id}, #{b_no}, #{c_comment}, now(), now())
+    </insert>
+
+
+</mapper>

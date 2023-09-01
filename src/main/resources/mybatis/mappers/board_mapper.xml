@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.office.house.board.IBoardDaoMapper">
+
+    <insert id="insertNewBoard" parameterType="com.office.house.board.BoardDto">
+        insert into tbl_board (u_id, u_img, b_title, b_content, b_thumbnail, b_reg_date, b_mod_date) values (#{u_id}, #{u_img}, #{b_title}, #{b_content}, #{b_thumbnail}, now(), now())
+    </insert>
+
+    <select id="selectBoardList" resultType="hashmap">
+        select * from tbl_board
+    </select>
+
+    <select id="getBoard" parameterType="Integer" resultType="com.office.house.board.BoardDto">
+        select * from tbl_board where b_no = #{b_no}
+    </select>
+
+</mapper>

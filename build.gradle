@@ -15,6 +15,8 @@ configurations {
 	}
 }
 
+configurations.all {resolutionStrategy { exclude group: "com.sun.activation", module: "jakarta.activation"}}
+
 repositories {
 	mavenCentral()
 }
@@ -33,6 +35,10 @@ dependencies {
 	// SECURITY
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+	// selenium(크롤링)
+	implementation 'org.seleniumhq.selenium:selenium-java:4.1.4'
+	implementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.1.4'
+
 	// DB
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.0'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
@@ -43,6 +49,14 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+	// MAIL SENDER
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+
+	// 아래 2개는 thymeleaf를 사용하는 경우에만 추가
+	//implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 
 tasks.named('test') {

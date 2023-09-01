@@ -1,38 +1,16 @@
- .on{
-	background-color: rgb(237, 175, 175);
+.on{
+    background-color: rgb(237, 175, 175);
     color: #ffffff;
     width: 100%;
-    color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 100px;
-    width: 100%;
-    position: fixed;
+    padding: 10px 0;
 }
 
- .dark{
-	background-color: #333;
-	color: #ffffff;
-	width: 100%;
-    z-index: 100;
-    color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 100px;
-    width: 100%;
-    position: fixed;
 
-}
-
-.btn_darkm{
-		
-	cursor: pointer;
-	
-}
 .search-bar {
-	display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
@@ -54,7 +32,7 @@
 }
 
 #user-actions {
-	margin-right : 150px;
+    margin-right : 150px;
 }
 
 #user-actions a {
@@ -65,11 +43,8 @@
 
 nav {
     background-color: #fff;
-    padding-top: 35px;
-    height: 60px;
     width: 100%;
-    margin: 50px auto;
-    float: left;
+    margin: 30px auto;
     text-align: center;
 }
 
@@ -79,14 +54,13 @@ nav a {
     margin-right: 50px;
 }
 
- nav img {
-     width: 70px;
-     height: 70px;
- }
+nav img {
+    width: 70px;
+    height: 70px;
+}
 
- footer {
-     color: #333;
-     text-align: center;
- }
-
+footer {
+    color: #333;
+    text-align: center;
+}
 

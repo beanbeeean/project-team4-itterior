@@ -16,19 +16,19 @@
     <!-- 여기는 login시에 이걸 nav에 넣을지 말지 고민해보아야 할 듯 -->
     <div id="user-actions" th:unless="${session.loginedMemberDto == null}">
         <a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a>님, 환영합니다!&nbsp;&nbsp;
-        <a th:href="@{/user/user_modify_form}">modify</a>&nbsp;&nbsp;
+<!--        <a th:href="@{/user/user_modify_form}">modify</a>&nbsp;&nbsp;-->
         <a th:href="@{/user/user_logout_confirm}">logout</a>&nbsp;&nbsp;
 
     </div>
 </header>
 
 <nav th:fragment="nav">
-    <a th:href="@{#}">
+    <a th:href="@{/board}">
         <img th:src="@{/imgs/게시판.PNG}">
         <p>인테리어 보기</p>
     </a>
 
-    <a th:href="@{#}">
+    <a th:href="@{'/product/'}">
         <img th:src="@{/imgs/가구.PNG}">
         <p>가구 보기</p>
     </a>
