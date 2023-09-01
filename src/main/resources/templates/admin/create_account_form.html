@@ -7,64 +7,63 @@
 
 	<link rel="stylesheet" th:href="@{/css/common.css}">
 	<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
-	<link rel="stylesheet" th:href="@{/css/create_account_form.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/create_account_form.css}">
 
-	
 
-	<script th:src="@{/js/user/create_account_form.js}" type="text/javascript"></script>
+
+	<script th:src="@{/js/admin/create_account_form.js}" type="text/javascript"></script>
 
 </head>
 
 <body>
 
-	<header th:replace="~{/include/header_nav_footer.html::header}">
-	</header>
+<header th:replace="~{/include/header_nav_footer.html::header}">
+</header>
 
-	<section>
-		<div id="section_wrap">
-			<div class="container">
-				<form th:action="@{/templates/user/create_account_confirm}" name="create_account_form" method="post">
-					<p>CREATE ACCOUNT FORM</p>
-					<span>ID</span><br><input type="text" name="m_id" placeholder="INPUT ID"><br>
-					<span>PW</span><br><input type="password" name="m_pw" placeholder="INPUT PW"><br>
-					<span>NAME</span><br><input type="text" name="m_name" placeholder="INPUT NAME"><br>
-					<span>EMAIL</span><br><input type="email" name="m_mail" placeholder="INPUT MAIL"><br>
-					<span>PHONE</span><br><input type="text" name="m_phone" placeholder="INPUT PHONE"><br><br>
+<section>
+	<div id="section_wrap">
+		<div class="container">
+			<form th:action="@{/admin/create_account_confirm}" name="create_account_form" method="post">
+				<p>CREATE ACCOUNT FORM</p>
+				<span>ID</span><br><input type="text" name="a_id" placeholder="INPUT ID"><br>
+				<span>PW</span><br><input type="password" name="a_pw" placeholder="INPUT PW"><br>
+				<span>EMAIL</span><br><input type="email" name="a_mail" placeholder="INPUT MAIL"><br>
+				<span>PHONE</span><br><input type="text" name="a_phone" placeholder="INPUT PHONE"><br><br>
 
-					<input type="button" value="create account" onclick="createAccountForm();">&nbsp;&nbsp;
-					<input type="reset" value="reset">
-				</form>
+				<input type="button" value="create account" onclick="createAccountForm();">&nbsp;&nbsp;
+				<input type="reset" value="reset">
+			</form>
 
-				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-				<script>
-					function execDaumPostcode() {
-						new daum.Postcode({
-							oncomplete: function (data) {
-								document.querySelector("input[name='m_zipcode']").value = data.zonecode;
-								document.querySelector("input[name='m_main_addr']").value = data.address;
-							}
-						}).open();
-					}
-				</script>
+			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+			<script>
+				function execDaumPostcode() {
+					new daum.Postcode({
+						oncomplete: function (data) {
+							document.querySelector("input[name='a_zipcode']").value = data.zonecode;
+							document.querySelector("input[name='a_main_addr']").value = data.address;
+						}
+					}).open();
+				}
+			</script>
 
-				<div class="drops">
-					<div class="drop drop-1"></div>
-					<div class="drop drop-2"></div>
-					<div class="drop drop-3"></div>
-					<div class="drop drop-4"></div>
-					<div class="drop drop-5"></div>
-				</div>
-
-				<br>
-				<div class="go_login_form">
-					이미 계정이 있으신가요? <a th:href="@{/templates/user/member_login_form}">로그인</a>
-				</div>
+			<div class="drops">
+				<div class="drop drop-1"></div>
+				<div class="drop drop-2"></div>
+				<div class="drop drop-3"></div>
+				<div class="drop drop-4"></div>
+				<div class="drop drop-5"></div>
 			</div>
 
+			<br>
+			<div class="go_login_form">
+				이미 계정이 있으신가요? <a th:href="@{/admin/admin_login_form}">로그인</a>
+			</div>
 		</div>
-	</section>
 
-	<footer></footer>
+	</div>
+</section>
+
+<footer></footer>
 
 </body>
 

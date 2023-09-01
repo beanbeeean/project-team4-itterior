@@ -7,7 +7,7 @@
 
 	<link rel="stylesheet" th:href="@{/css/common.css}">
 	<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
-	<link rel="stylesheet" th:href="@{/css/user/user_login_form.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/admin_login_form.css}">
 
 
 	<script th:src="@{/js/admin/admin_login_form.js}" type="text/javascript"></script>
@@ -20,7 +20,7 @@
 	</header>
 
 	<section>
-		<div id="section_wrap">
+		<div id="section_wrap" class="login_wrap">
 			<div class="container">
 				<form th:action="@{/admin/admin_login_confirm}" name="admin_login_form" method="post">
 					<p>ADMIN LOGIN FORM</p>
@@ -39,7 +39,7 @@
 				
 			<br>
 			<div class="go_create_account_form">
-				아직 회원이 아니신가요? <a th:href="@{/user/create_account_form}">회원가입</a>
+				아직 회원이 아니신가요? <a th:href="@{/admin/create_account_form}">회원가입</a>
 			</div>
 
 			</div>

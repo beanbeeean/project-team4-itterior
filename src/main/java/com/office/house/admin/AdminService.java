@@ -28,4 +28,18 @@ public class AdminService implements IAdminService{
 
         return null;
     }
+
+    @Override
+    public int createAccountConfirm(AdminDto adminDto) {
+
+        log.info("[AdminController] createAccountConfirm()");
+
+        boolean isUser = iAdminDaoMapper.isAdmin(adminDto);
+
+        if(!isUser) {
+            return iAdminDaoMapper.insertNewAccount(adminDto);
+        }
+
+        return -1;
+    }
 }

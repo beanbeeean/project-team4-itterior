@@ -5,7 +5,20 @@
 <mapper namespace="com.office.house.admin.IAdminDaoMapper">
 
     <select id="selectAdminForLogin" parameterType="com.office.house.admin.AdminDto" resultType="com.office.house.admin.AdminDto">
+
         SELECT * FROM tbl_admin WHERE a_id = #{a_id}
+
     </select>
+
+    <select id="isAdmin" parameterType="String" resultType="Boolean">
+
+        select count(*) from tbl_admin where a_id = #{a_id}
+
+    </select>
+
+    <insert id="insertNewAccount" parameterType="com.office.house.admin.AdminDto">
+        insert into tbl_admin(a_id, a_pw, a_mail, a_phone, a_reg_date, a_mod_date)
+        values (#{a_id}, #{a_pw}, #{a_mail}, #{a_phone}, now(), now())
+    </insert>
 
 </mapper>
