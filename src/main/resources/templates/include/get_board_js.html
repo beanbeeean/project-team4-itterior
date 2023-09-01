@@ -1,7 +1,7 @@
 <script th:fragment="js" th:inline="javascript" type="text/javascript">
 
     let boardDto = [[${boardDto}]];
-    // let loginedMemberDto = [[${session.loginedMemberDto}]];
+    let loginedMemberDto = [[${session.loginedMemberDto}]];
 
     console.log();
     $(document).ready(function () {
@@ -12,7 +12,78 @@
         $("span.user_name").text(boardDto.u_id);
         $("div.view_content > div.content_area").append(boardDto.b_content);
         $("span.hit_num").text(boardDto.b_hit);
+
+        ajax_showCommentList(boardDto.b_no);
     })
+
+
+    // 리스트 출력
+    function addCommentListTr(commentDtos) {
+        console.log("addCommentListTr()");
+
+        console.log(commentDtos);
+
+        let appendTag = '';
+
+        for (let i = 0; i < commentDtos.length; i++) {
+            appendTag += '<tr>'
+            appendTag += '<td>';
+            appendTag += '<div class="comment_item">';
+            appendTag += '<img src="/userUploadImg/';
+            appendTag += commentDtos[i].u_id;
+            appendTag += "/";
+            appendTag += commentDtos[i].u_img;
+            appendTag += '"/>'
+            appendTag += '<span class="user_id">';
+            appendTag += commentDtos[i].u_id;
+            appendTag += '</span>';
+            appendTag += '<p class="comment_content">'
+            appendTag += commentDtos[i].c_comment;
+            appendTag += '</p>';
+            appendTag += '<p class="comment_date">';
+
+            var date = new Date(commentDtos[i].c_reg_date);
+
+            var year = date.getFullYear();
+            var month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1 해주고 두 자리로 포맷팅
+            var day = String(date.getDate()).padStart(2, '0'); // 일도 두 자리로 포맷팅
+
+            let c_reg_date = `${year}-${month}-${day}`;
+
+            appendTag += c_reg_date;
+
+            appendTag += '<a class="like_btn" href="#">';
+            appendTag += '♡';
+            appendTag += '</a>';
+            appendTag += '</p>';
+            appendTag += '</div>';
+            appendTag += '</td>';
+            appendTag += '</tr>';
+
+        }
+
+        $('#section_wrap table.comments tbody').append(appendTag);
+    }
+
+
+    function ajax_showCommentList(b_no) {
+        console.log('ajax_showCommentList()');
+
+        $.ajax({
+            url: '/comment/get_comment_list?b_no=' + b_no,
+            method: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log('AJAX SUCCESS - ajax_showCommentList()');
+
+                let commentDtos = data.commentDtos;
+                addCommentListTr(commentDtos);
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_showCommentList()');
+            }
+        });
+    }
 
     function registReply() {
         console.log("registReply()");
@@ -23,7 +94,7 @@
         let msg = {
             "c_comment": comment,
             "u_id": loginedMemberDto.u_id,
-            "b_no": boardDto.b_no
+            "b_no": boardDto.b_no,
         }
 
         $.ajax({
@@ -33,9 +104,11 @@
             success: function (data) {
                 console.log("regist reply success!", data);
 
-                alert('댓글이 정상적으로 등록되었습니다.');
+                /*alert('댓글이 정상적으로 등록되었습니다.');*/
                 // location.href = "/board/get_board?b_no="+boardDto.b_no;
-                addReply(msg);
+                $('table.comments tbody').children().remove();
+                $('input.input_comment').val('');
+                ajax_showCommentList(boardDto.b_no);
 
             },
             error: function () {
@@ -43,43 +116,6 @@
                 alert('writePost fail!!');
             }
         })
-
-    }
-
-    // 리스트 출력
-    function addReply(boardDtos) {
-        let appendTag = '';
-        let cnt = 0;
-        appendTag += '<tr>'
-        for (let i = 0; i < likeDtos.length; i++) {
-            if (boardDtos.u_id == [[${session.loginedMemberDto.u_id}]]) {
-
-                appendTag += '<td>';
-                appendTag += '<div>';
-                appendTag += '<img src="';
-                appendTag += boardDtos.b_img;
-                appendTag += '"/>'
-                appendTag += '<p className="title">';
-                appendTag += boardDtos.b_title;
-                appendTag += '</p>';
-                appendTag += '<p class="name">';
-                appendTag += productDtos.p_name;
-                appendTag += '</p>';
-                appendTag += '<img class="profile_img" src="';
-                appendTag += userDtos.u_img;
-                appendTag += '"/>'
-                appendTag += '<span class="user_name">'
-                appendTag += userDtos.u_id;
-                appendTag += '</span>';
-                appendTag += '</div>';
-                appendTag += '</td>';
-
-                cnt++;
-            }
-        }
-        appendTag += '</tr>';
-
-        $('div.list_wrap table tbody').append(appendTag);
 
     }
 

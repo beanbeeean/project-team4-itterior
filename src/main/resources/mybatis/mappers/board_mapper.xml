@@ -16,4 +16,8 @@
         select * from tbl_board where b_no = #{b_no}
     </select>
 
+    <update id="updateUserImage" parameterType="com.office.house.user.UserDto">
+        update tbl_board set u_img = #{u_img}, b_mod_date = now() where u_id = #{u_id}
+    </update>
+
 </mapper>

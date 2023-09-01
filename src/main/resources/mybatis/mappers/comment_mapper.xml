@@ -8,5 +8,8 @@
         insert into tbl_comment (u_id, b_no, c_comment, c_reg_date, c_mod_date) values (#{u_id}, #{b_no}, #{c_comment}, now(), now())
     </insert>
 
+    <select id="selectCommentList" parameterType="Integer" resultType="hashmap" >
+        select * from tbl_comment c join tbl_board b ON c.b_no = b.b_no where c.b_no = #{b_no} ORDER BY c.c_reg_date desc;
+    </select>
 
 </mapper>
