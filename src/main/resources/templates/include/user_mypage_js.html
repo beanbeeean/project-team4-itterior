@@ -20,6 +20,8 @@
         // 내가 작성한 글 클릭시
         $(document).on("click", "#myBoard", function (e) {
             console.log("myBoard btn clicked!");
+            e.stopImmediatePropagation();
+            $('div.board_wrap table tbody').children().remove();
 
             ajax_getMyBoard();
 
@@ -82,8 +84,22 @@
                 }
             }
             appendTag += '</tr>';
-            $('div.board_wrap table tbody').append(appendTag);
 
+        }
+        $('div.board_wrap table tbody').append(appendTag);
+
+    }
+
+    function previewImage(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var imagePreview = document.querySelector('.image-preview');
+                imagePreview.src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
         }
     }
 
@@ -156,7 +172,7 @@
             type: 'GET',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log('AJAX SUCCESS - ajax_getMyBoard()');
+                console.log('AJAX SUCCESS - ajax_getMyBoardItem()');
                 let boardDtos = data.boardDtos;
                 console.log(boardDtos);
                 addUserBoardListTr(boardDtos);
