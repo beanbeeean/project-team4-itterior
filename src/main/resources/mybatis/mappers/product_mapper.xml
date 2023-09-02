@@ -118,6 +118,8 @@
         </choose>
         LIMIT #{skip}, #{amount}
     </select>
+
+
     <select id="selectProductsCnt" parameterType="String" resultType="Integer">
         SELECT
         COUNT(*)
@@ -224,10 +226,33 @@
         </choose>
     </select>
 
-    <insert id="insertProducts" >
+    <select id="isExistProduct" parameterType="String" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_product
+        WHERE
+            p_link = #{p_link}
+    </select>
+
+    <insert id="insertProducts" parameterType="com.office.house.user.product.ProductDto">
         INSERT INTO
             tbl_product(p_brand, p_name, p_sales_price, p_img, p_link, p_category, p_reg_date, p_mod_date)
         VALUES(#{p_brand}, #{p_name}, #{p_sales_price}, #{p_img}, #{p_link}, #{p_category}, NOW(), NOW())
     </insert>
+
+    <update id="updateProducts" parameterType="com.office.house.user.product.ProductDto">
+        UPDATE
+            tbl_product
+        SET
+            p_brand = #{p_brand},
+            p_name = #{p_name},
+            p_sales_price = #{p_sales_price},
+            p_img = #{p_img},
+            p_category = #{p_category},
+            p_mod_date = NOW()
+        WHERE
+            p_link = #{p_link}
+    </update>
 
 </mapper>

@@ -13,4 +13,8 @@ public interface IProductDaoMapper {
     void insertProducts(ProductDto dto);
 
     int selectProductsCnt(String[] category, String sort, String filter, String keyword, int skip, int amount);
+
+    int isExistProduct(String p_link);
+
+    void updateProducts(ProductDto dto);
 }
