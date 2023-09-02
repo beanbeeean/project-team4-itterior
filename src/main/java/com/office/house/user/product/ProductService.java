@@ -9,9 +9,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,16 +22,8 @@ public class ProductService implements IProductService{
 
     @Autowired
     IProductDaoMapper iProductDaoMapper;
-    //    @Override
-//    public Map<String, Object> getProducts(String type) {
-//        log.info("getProducts");
-//        Map<String, Object> map = new HashMap<>();
-//        List<ProductDto> dtos = iProductDaoMapper.selectProductsByType(type);
-//
-//        map.put("productDtos", dtos);
-//        return map;
-//    }
-    public void crawlProducts() {
+
+    /*public void crawlProducts() {
         // 크롬 드라이버 설정
         System.setProperty("webdriver.chrome.driver", "C:\\btc\\chromedriver-win64\\chromedriver.exe"); // 윈도우
 
@@ -107,7 +96,7 @@ public class ProductService implements IProductService{
         for(ProductDto dto : productDtos) {
             iProductDaoMapper.insertProducts(dto);
         }
-    }
+    }*/
 
     @Override
     public Map<String, Object> getProducts(String[] category, String sort, String filter,
