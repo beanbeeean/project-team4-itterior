@@ -12,9 +12,7 @@
 
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/translations/ko.js"></script>
-
-    <script th:src="@{/js/user/user_write_form.js}" type="text/javascript"></script>
-
+    <script th:replace="~{/include/board_write_form_js.html::js}" type="text/javascript"></script>
 </head>
 <body>
 
@@ -23,7 +21,6 @@
 <section>
     <div id="section_wrap">
         <div class="write_content">
-<!--            <form action="/board/board_write_confirm" method="post" name="board_write_form" enctype="multipart/form-data">-->
             <form name="board_write_form">
                 <input type="hidden" name="u_id" th:if="${session.loginedMemberDto != null}"
                        th:value="${session.loginedMemberDto.u_id}">
@@ -35,7 +32,7 @@
                 <span>THUMNAIL </span>
                 <input type="file" name="file"><br>
                 <div class="buttons">
-                    <input type="button" id="submitBtn" value="작성하기" onclick="writeBoard();">
+                    <input type="button" id="submitBtn" value="작성하기" onclick="writeBoard()">
                     <input type="reset" value="취소">
                 </div>
             </form>
@@ -53,6 +50,7 @@
                 });
             })
         </script>
+
     </div>
 </section>
 

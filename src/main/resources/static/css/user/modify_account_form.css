@@ -1,3 +1,51 @@
+header {
+	z-index: 1;
+}
+
+.section_wrap {
+	display: flex;
+	align-items: center; /* 세로 중앙 정렬 */
+}
+
+.side_bar {
+	text-align: center;
+	background-color: rgba(211, 211, 211, 0.59);
+	width: 250px;
+	height: 250vh;
+}
+
+.side_bar img.user_img,
+.section_body img.user_img {
+	width: 150px;
+	height: 150px;
+	border-radius: 100px;
+}
+
+.side_bar p {
+	font-weight: bold;
+	padding-bottom: 10px;
+	position: relative; /* 부모 요소 위치 기준으로 사용하기 위해 */
+}
+
+.side_bar p::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 10%; /* 조절하여 가운데 정렬 조정 */
+	width: 80%; /* 조절하여 길이 조정 */
+	border-bottom: 1px solid rgba(148, 148, 148, 0.73); /* 회색 수평 구분선 */
+}
+
+.side_bar li {
+	display: inline-block;
+	width: 80%;
+	padding: 10px;
+}
+
+.side_bar li:hover {
+	background-color: #d2d2d2;
+}
+
 body {
 	height: 200vh;
 	font-family: "Montserrat", sans-serif;
@@ -5,7 +53,7 @@ body {
 
 .container {
 	position: absolute;
-	margin-top: 300px;
+	margin-top: 400px;
 	transform: translate(-50%, -50%);
 	top: 50%;
 	left: 50%;
@@ -53,6 +101,7 @@ form a {
 form img.user_img {
 	width: 200px;
 	height: 200px;
+	border-radius: 100px;
 }
 
 form span {

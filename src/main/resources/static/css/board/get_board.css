@@ -22,6 +22,10 @@ span.user_name {
     color: #989898;
 }
 
+span.modify_delete{
+    float: right;
+}
+
 div.content_area{
     margin: 20px auto;
     padding: 20px 0;

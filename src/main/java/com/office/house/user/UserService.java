@@ -179,16 +179,13 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Map<String, Object> getBoardList(UserDto userDto) {
+    public List<BoardDto> getBoardList(String u_id) {
         log.info("[UserMemberService] getBoardList()");
 
-        Map<String, Object> map = new HashMap<>();
-        List<BoardDto> boardDtos = iUserDaoMapper.selectBoardList(userDto);
+        List<BoardDto> boardDtos = iUserDaoMapper.selectBoardList(u_id);
 
         log.info(boardDtos.size());
 
-        map.put("boardDtos",boardDtos);
-
-        return map;
+        return boardDtos;
     }
 }

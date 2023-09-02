@@ -9,23 +9,24 @@
     });
 
     function init_events() {
-        // 정보수정 클릭시
-        $(document).on("click", "#profileLink", function (e) {
-            console.log("profileLink btn clicked!");
+        // // 정보수정 클릭시
+        // $(document).on("click", "#modifyForm", function (e) {
+        //     console.log("modifyForm btn clicked!");
+        //     $('div.section_body div.container').children().remove();
+        //
+        //     ajax_getProfile();
+        //
+        // });
 
-            ajax_getProfile();
-
-        });
-
-        // 내가 작성한 글 클릭시
-        $(document).on("click", "#myBoard", function (e) {
-            console.log("myBoard btn clicked!");
-            e.stopImmediatePropagation();
-            $('div.board_wrap table tbody').children().remove();
-
-            ajax_getMyBoard();
-
-        });
+        // // 내가 작성한 글 클릭시
+        // $(document).on("click", "#myBoard", function (e) {
+        //     console.log("myBoard btn clicked!");
+        //     e.stopImmediatePropagation();
+        //     $('div.section_body div.container').children().remove();
+        //
+        //     ajax_getMyBoardItem();
+        //
+        // });
 
         // 회원탈퇴 클릭시
         $(document).on("click", "#deleteAccount", function (e) {
@@ -39,69 +40,68 @@
 
     }
 
-    // 리스트 출력
-    function addUserBoardListTr(boardDtos) {
-        console.log("addUserBoardListTr()");
-
-        console.log(boardDtos);
-        console.log(boardDtos[0].u_id);
-        let loginedMemberDto = [[${session.loginedMemberDto}]];
-
-        let appendTag = '';
-        let cnt = 0;
-        $('div.board_wrap table tbody').children().remove();
-
-        for (let i = 0; i < boardDtos.length / 4 + 1; i++) {
-            appendTag += '<tr>'
-            for (let j = 0; j < 4; j++) {
-                if (boardDtos[cnt] == null) {
-                    break;
-                }
-                if (boardDtos[cnt].u_id == loginedMemberDto.u_id) {
-
-                    appendTag += '<td>';
-                    appendTag += '<div>';
-                    appendTag += '<img class="board_img" src="/userBoardThumbnailImg/';
-                    appendTag += boardDtos[cnt].u_id;
-                    appendTag += "/";
-                    appendTag += boardDtos[cnt].b_thumbnail;
-                    appendTag += '"/>'
-                    appendTag += '<p class="title">';
-                    appendTag += boardDtos[cnt].b_title;
-                    appendTag += '</p>';
-                    appendTag += '<img class="profile_img" src="/userUploadImg/';
-                    appendTag += boardDtos[cnt].u_id;
-                    appendTag += "/";
-                    appendTag += boardDtos[cnt].u_img;
-                    appendTag += '"/>'
-                    appendTag += '<span class="user_name">'
-                    appendTag += boardDtos[cnt].u_id;
-                    appendTag += '</span>';
-                    appendTag += '</td>';
-                    appendTag += '</div>';
-
-                    cnt++;
-                }
-            }
-            appendTag += '</tr>';
-
-        }
-        $('div.board_wrap table tbody').append(appendTag);
-
-    }
-
-    function previewImage(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                var imagePreview = document.querySelector('.image-preview');
-                imagePreview.src = e.target.result;
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
+    // // 리스트 출력
+    // function addUserBoardListTr(boardDtos) {
+    //     console.log("addUserBoardListTr()");
+    //
+    //     console.log(boardDtos);
+    //     console.log(boardDtos[0].u_id);
+    //     let loginedMemberDto = [[${session.loginedMemberDto}]];
+    //
+    //     let appendTag = '';
+    //     appendTag += '<div class="select">';
+    //     appendTag += '<select>';
+    //     appendTag += '<option selected>정렬</option>';
+    //     appendTag += '<option>좋아요순</option>';
+    //     appendTag += '<option>조회순</option>';
+    //     appendTag += '<option>최신순</option>';
+    //     appendTag += '</select>';
+    //     appendTag += '<select>';
+    //     appendTag += '<option selected>스타일</option>';
+    //     appendTag += '<option>모던</option>';
+    //     appendTag += '<option>미니멀</option>';
+    //     appendTag += '<option>빈티지</option>';
+    //     appendTag += '<option>클래식</option>';
+    //     appendTag += '</select>';
+    //     appendTag += '</div>';
+    //     appendTag += ' <a class="write" href="/user/user_write_form">글쓰기</a>';
+    //     $('div.section_body div.detail_category').append(appendTag);
+    //
+    //     appendTag = '';
+    //     let cnt = 0;
+    //     for (let i = 0; i < boardDtos.length / 4 + 1; i++) {
+    //         appendTag += '<tr>'
+    //         for (let j = 0; j < 4; j++) {
+    //             if (boardDtos[cnt] == null) {
+    //                 break;
+    //             }
+    //             if (boardDtos[cnt].u_id == loginedMemberDto.u_id) {
+    //                 appendTag += '<td>';
+    //                 appendTag += '<img class="board_img" src="/userBoardThumbnailImg/';
+    //                 appendTag += boardDtos[cnt].u_id;
+    //                 appendTag += "/";
+    //                 appendTag += boardDtos[cnt].b_thumbnail;
+    //                 appendTag += '"/>'
+    //                 appendTag += '<p class="title">';
+    //                 appendTag += boardDtos[cnt].b_title;
+    //                 appendTag += '</p>';
+    //                 appendTag += '<img class="profile_img" src="/userUploadImg/';
+    //                 appendTag += boardDtos[cnt].u_id;
+    //                 appendTag += "/";
+    //                 appendTag += boardDtos[cnt].u_img;
+    //                 appendTag += '"/>'
+    //                 appendTag += '<span class="user_name">'
+    //                 appendTag += boardDtos[cnt].u_id;
+    //                 appendTag += '</span>';
+    //                 appendTag += '</td>';
+    //                 cnt++;
+    //             }
+    //         }
+    //         appendTag += '</tr>';
+    //     }
+    //     $('div.section_body div.board_wrap table tbody').append(appendTag);
+    //
+    // }
 
     function ajax_getProfile() {
         // user_modify_form.html 페이지를 가져와서 section_body에 삽입
@@ -127,10 +127,6 @@
     function ajax_modifyForm(no) {
         // user_modify_form.html 페이지를 가져와서 section_body에 삽입
 
-        let data = {
-            'u_no': no,
-        }
-
         $.ajax({
             url: '/user/user_modify_form', // 적절한 URL로 변경
             type: 'GET',
@@ -145,44 +141,28 @@
         });
     }
 
-    function ajax_getMyBoard() {
-        // user_board_list.html 페이지를 가져와서 section_body에 삽입
-
-        $.ajax({
-            url: '/user/user_board_list', // 적절한 URL로 변경
-            type: 'GET',
-            dataType: 'html',
-            success: function (data) {
-                console.log('AJAX SUCCESS - ajax_getMyBoard()');
-
-                $('.section_body').html(data);
-                ajax_getMyBoardItem();
-            },
-            error: function () {
-                console.log('Error occurred while loading user_board_list.html');
-            }
-        });
-    }
-
-    function ajax_getMyBoardItem() {
-        // user_board_list.html 페이지를 가져와서 section_body에 삽입
-
-        $.ajax({
-            url: '/user/user_board_list_item', // 적절한 URL로 변경
-            type: 'GET',
-            contentType: 'application/json; charset=utf-8',
-            success: function (data) {
-                console.log('AJAX SUCCESS - ajax_getMyBoardItem()');
-                let boardDtos = data.boardDtos;
-                console.log(boardDtos);
-                addUserBoardListTr(boardDtos);
-
-            },
-            error: function () {
-                console.log('Error occurred while loading user_board_list.html');
-            }
-        });
-    }
+    // function  ajax_getMyBoardItem() {
+    //     // user_board_list.html 페이지를 가져와서 section_body에 삽입
+    //
+    //     $('div.board_wrap table tbody').children().remove();
+    //     $('div.detail_category').children().remove();
+    //
+    //     $.ajax({
+    //         url: '/user/user_board_list', // 적절한 URL로 변경
+    //         type: 'GET',
+    //         contentType: 'application/json; charset=utf-8',
+    //         success: function (data) {
+    //             console.log('AJAX SUCCESS - ajax_getMyBoardItem()');
+    //             let boardDtos = data.boardDtos;
+    //             console.log(boardDtos);
+    //             addUserBoardListTr(boardDtos);
+    //
+    //         },
+    //         error: function () {
+    //             console.log('Error occurred while loading user_board_list.html');
+    //         }
+    //     });
+    // }
 
     function ajax_deleteAccount() {
         console.log('ajax_deleteAccount() CALLED!!');

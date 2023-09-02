@@ -6,41 +6,65 @@
     <script src="https://code.jquery.com/jquery-3.7.0.js"
             integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
     <link rel="stylesheet" th:href="@{/css/user/user_board_list.css}">
 
-    <script th:replace="~{/include/user_mypage_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/include/user_board_list_js.html::js}" type="text/javascript"></script>
 </head>
 <body>
+<header th:replace="~{/include/header_nav_footer.html::header}"/>
 
-    <div class="detail_category">
-        <div class="select">
-            <select>
-                <option selected>정렬</option>
-                <option>좋아요순</option>
-                <option>조회순</option>
-                <option>날짜순</option>
-            </select>
-            <select>
-                <option selected>스타일</option>
-                <option>모던</option>
-                <option>미니멀</option>
-                <option>빈티지</option>
-                <option>클래식</option>
-            </select>
+<section>
+    <div id="section_wrap">
+        <div class="side_bar">
+            <img class="user_img" th:if="${session.loginedMemberDto.getU_img() == null}"
+                 th:src="@{/imgs/defaultimage.PNG}"><br>
+            <img class="user_img"
+                 th:unless="${session.loginedMemberDto.getU_img() == null}"
+                 th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"><br>
+
+            <br>
+            <p><a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a></p>
+            <ul>
+                <li><a id="modifyForm" th:href="@{/user/user_modify_form}">정보수정</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 상품</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 게시물</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 영상</a></li>
+                <li><a th:href="@{/user/user_board_list(u_id=${session.loginedMemberDto.u_id})}">내가 작성한 글</a></li>
+                <li><a id="deleteAccount" th:href="@{#}">회원탈퇴</a></li>
+            </ul>
         </div>
+        <div class="section_body">
+            <div class="detail_category">
+                <div class="select">
+                    <select>
+                        <option selected>정렬</option>
+                        <option>좋아요순</option>
+                        <option>조회순</option>
+                        <option>날짜순</option>
+                    </select>
+                    <select>
+                        <option selected>스타일</option>
+                        <option>모던</option>
+                        <option>미니멀</option>
+                        <option>빈티지</option>
+                        <option>클래식</option>
+                    </select>
+                </div>
+                <a class="write" th:href="@{/user/user_write_form}">글쓰기</a>
+            </div>
+            <div class="board_wrap">
+                <p th:text="'전체 '+${#lists.size('BoardDtos')}"></p>
+                <table>
+                    <tbody>
+                    </tbody>
+                </table>
 
-        <a class="write" th:href="@{/user/user_write_form}">글쓰기</a>
+            </div>
+        </div>
     </div>
-
-
-    <div class="board_wrap">
-        <p th:text="'전체 '+${#lists.size('BoardDtos')}"></p>
-        <table>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
+</section>
 
 </body>
 

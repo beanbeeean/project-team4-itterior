@@ -2,6 +2,7 @@ package com.office.house.user;
 
 import com.office.house.board.BoardDto;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IUserService {
@@ -18,5 +19,5 @@ public interface IUserService {
 
 	public int userWriteConfirm(BoardDto boardDto);
 
-	public Map<String, Object> getBoardList(UserDto userDto);
+	public List<BoardDto> getBoardList(String u_id);
 }
