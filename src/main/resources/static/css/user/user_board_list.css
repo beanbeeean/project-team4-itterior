@@ -1,5 +1,11 @@
+/* custom.css */
 header {
     z-index: 1;
+}
+
+.section_wrap {
+    display: flex;
+    align-items: center; /* 세로 중앙 정렬 */
 }
 
 .side_bar {
@@ -41,26 +47,31 @@ header {
     background-color: #d2d2d2;
 }
 
-.section_body {
-    /*display: flex;*/
-    top: 300px;
-    margin-left: 100px;
-    justify-content: center;
+.word {
+    font-size: 24px;
+    padding: 20px;
 }
 
-.word::after {
-    content: '';
-    display: block;
-    height: 1px;
-    background-color: gray;
-    margin-top: 10px;
-    margin-bottom: 30px;
+.section_body{
+    position: absolute;
+    top : 50px;
+    left: 150px;
+    width: 80%;
+    margin: 0 auto;
 }
+
+.section_body img.user_img {
+    width: 200px;
+    height: 200px;
+}
+
 
 .detail_category {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-left: 150px;
+    margin-top: 50px;
 }
 
 .detail_category select {
@@ -82,6 +93,12 @@ header {
 
 .board_wrap {
     text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.board_wrap > p {
+    margin-left: 100px;
 }
 
 .board_wrap p {
@@ -91,9 +108,11 @@ header {
 
 .board_wrap table {
     width: 100%;
+    margin-left: 90px;
 }
 
 .board_wrap td {
+    width: 25%;
     padding: 10px;
 }
 

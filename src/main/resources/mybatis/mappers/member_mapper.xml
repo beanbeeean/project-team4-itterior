@@ -59,7 +59,7 @@
             u_id = #{u_id}
     </update>
 
-    <select id="selectBoardList" resultType="hashmap">
+    <select id="selectBoardList" resultType="com.office.house.board.BoardDto">
         select * from tbl_board where u_id = #{u_id}
     </select>
 

@@ -1,6 +1,7 @@
 package com.office.house.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.office.house.board.BoardDto;
@@ -145,6 +146,16 @@ public class UserController {
         return nextPage;
     }
 
+    @GetMapping("/user_board_list")
+    public String userBoardList(@RequestParam("u_id") String u_id, Model model){
+        log.info("[UserController] userBoardList()");
+
+        String nextPage = "user/user_board_list";
+        List<BoardDto> boardDtos = userService.getBoardList(u_id);
+        model.addAttribute("boardDtos", boardDtos);
+        return nextPage;
+    }
+
     @PostMapping("/get_logged_user_info")
     public ResponseEntity<Map<String, Object>> getLoggedInUserInfo(HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -169,29 +180,6 @@ public class UserController {
         return nextPage;
     }
 
-    @GetMapping("/user_board_list")
-    //@ResponseBody
-    public String userBoardList(){
-        log.info("[UserController] userBoardList()");
-
-        String nextPage = "user/user_board_list";
-
-        return nextPage;
-    }
-
-    @GetMapping("/user_board_list_item")
-    @ResponseBody
-    public Map<String, Object> userBoardListItem(HttpSession session){
-        log.info("[UserController] userBoardList()");
-
-        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
-        Map<String, Object> map = userService.getBoardList(loginedMemberDto);
-
-        return map;
-    }
-
-
-
     @GetMapping("/user_write_form")
     public String userWriteForm(){
         log.info("[UserController] userWriteForm()");
@@ -199,24 +187,6 @@ public class UserController {
         String nextPage = "user/user_write_form";
 
         return nextPage;
-    }
-
-    @PostMapping("/user_write_confirm")
-    @ResponseBody
-    public Object userWriteConfirm(BoardDto boardDto, HttpSession session , @RequestParam(value="file", required = false) MultipartFile file){
-        log.info("[UserController] userWriteConfirm()");
-
-        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
-        boardDto.setU_id(loginedMemberDto.getU_id());
-        boardDto.setU_img(loginedMemberDto.getU_img());
-
-        String savedFileName = uploadFileService.uploadBoardThumbnail(loginedMemberDto.getU_id(), file);
-        boardDto.setB_thumbnail(savedFileName);
-
-        int result = userService.userWriteConfirm(boardDto);
-
-        return result;
-
     }
 
     // FIND PASSWORD

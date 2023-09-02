@@ -25,5 +25,5 @@ public interface IUserDaoMapper {
 
 	int updatePassword(String u_id, String newPassword);
 
-	List<BoardDto> selectBoardList(UserDto userDto);
+	List<BoardDto> selectBoardList(String u_id);
 }

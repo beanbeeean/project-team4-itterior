@@ -15,9 +15,27 @@
 </head>
 
 <body>
-
+<header th:replace="~{/include/header_nav_footer.html::header}"/>
 	<section>
 		<div id="section_wrap">
+			<div class="side_bar">
+				<img class="user_img" th:if="${session.loginedMemberDto.getU_img() == null}"
+					 th:src="@{/imgs/defaultimage.PNG}"><br>
+				<img class="user_img"
+					 th:unless="${session.loginedMemberDto.getU_img() == null}"
+					 th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"><br>
+
+				<br>
+				<p><a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a></p>
+				<ul>
+					<li><a id="modifyForm" th:href="@{/user/user_modify_form}">정보수정</a></li>
+					<li><a th:href="@{/user/user_like_list}">좋아요한 상품</a></li>
+					<li><a th:href="@{/user/user_like_list}">좋아요한 게시물</a></li>
+					<li><a th:href="@{/user/user_like_list}">좋아요한 영상</a></li>
+					<li><a th:href="@{/user/user_board_list(u_id=${session.loginedMemberDto.u_id})}">내가 작성한 글</a></li>
+					<li><a id="deleteAccount" th:href="@{#}">회원탈퇴</a></li>
+				</ul>
+			</div>
 			<div class="container">
 				<form th:action="@{/user/user_modify_confirm}" name="user_modify_form" method="post" enctype="multipart/form-data">
 					<p>MODIFY ACCOUNT FORM</p>

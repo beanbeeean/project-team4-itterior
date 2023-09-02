@@ -1,0 +1,75 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+        console.log("DOCUMENT READY!!");
+
+        // 이벤트 핸들러 초기화(등록)
+        init_events();
+
+        addUserBoardListTr();
+
+    });
+
+    function init_events() {
+        console.log("init_event()");
+
+        // 내가 작성한 글 클릭시
+        $(document).on("click", "#myBoard", function (e) {
+            console.log("myBoard btn clicked!");
+            e.stopImmediatePropagation();
+            $('div.section_body div.board_wrap').children().remove();
+
+        });
+
+    }
+
+    // 리스트 출력
+    function addUserBoardListTr() {
+        console.log("addUserBoardListTr()");
+        $('div.board_wrap table tbody').children().remove();
+
+        let loginedMemberDto = [[${session.loginedMemberDto}]];
+        let boardDtos = [[${boardDtos}]];
+
+        let appendTag = '';
+
+        appendTag = '';
+        let cnt = 0;
+        for (let i = 0; i < boardDtos.length / 4 + 1; i++) {
+            appendTag += '<tr>'
+            for (let j = 0; j < 4; j++) {
+                if (boardDtos[cnt] == null) {
+                    break;
+                }
+                if (boardDtos[cnt].u_id == loginedMemberDto.u_id) {
+                    appendTag += '<td>';
+                    appendTag += '<img class="board_img" src="/userBoardThumbnailImg/';
+                    appendTag += boardDtos[cnt].u_id;
+                    appendTag += "/";
+                    appendTag += boardDtos[cnt].b_thumbnail;
+                    appendTag += '"/>'
+                    appendTag += '<a class="title" href="/board/get_board?b_no=';
+                    appendTag += boardDtos[cnt].b_no;
+                    appendTag += '">'
+                    appendTag += '<br>';
+                    appendTag += boardDtos[cnt].b_title;
+                    appendTag += '</a><br>';
+                    appendTag += '<img class="profile_img" src="/userUploadImg/';
+                    appendTag += boardDtos[cnt].u_id;
+                    appendTag += "/";
+                    appendTag += boardDtos[cnt].u_img;
+                    appendTag += '"/>'
+                    appendTag += '<span class="user_name">'
+                    appendTag += boardDtos[cnt].u_id;
+                    appendTag += '</span>';
+                    appendTag += '</td>';
+                    cnt++;
+                }
+            }
+            appendTag += '</tr>';
+        }
+        $('div.section_body div.board_wrap table tbody').append(appendTag);
+
+    }
+
+</script>
