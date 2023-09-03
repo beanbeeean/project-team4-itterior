@@ -27,6 +27,7 @@
         // 검색 버튼 클릭시
         $(document).on('click','div.search_product_wrap > svg.search_btn', function(e){
             console.log("search_btn CLICK HANDLER!!")
+            move();
             e.stopImmediatePropagation();
             keyword = $('div.search_product_wrap > input[name="p_search"]').val();
             ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
@@ -90,6 +91,8 @@
         let appendTag = '';
         let cnt = 0;
 
+        //let loginedMemberDto = [[${session.loginedMemberDto}]];
+
         for(let i = 0; i < productDtos.length/4 +1 ; i++){
 
             appendTag += '<tr class="product_container_wrap">';
@@ -126,12 +129,20 @@
                 appendTag += '</div>';
                 appendTag += '</div>';
                 appendTag += '</a>';
+                appendTag += '<a class="like_board_btn"';
+                appendTag += 'href="#none" ';
+                appendTag += 'data-b_no="';
+                appendTag += productDtos[cnt].p_no;
+                appendTag += '">';
+                appendTag += '좋아요';
+                appendTag += '</a>';
+                appendTag += '<span>';
+                appendTag += productDtos[cnt].p_like;
+                appendTag += '</span>';
                 appendTag += '</td>';
 
                 cnt++;
-
             }
-
 
             appendTag += '</tr>';
         }
@@ -190,42 +201,6 @@
     function ajax_getProductList(category, sort, filter, keyword, pageNum){
         console.log('ajax_getProductList()');
         let str = '';
-        // if(category.length !== 0){
-        //     str += '?category=';
-        //     str += category;
-        // }
-        // if(category.length !== 0 && sort !==""){
-        //     str += '&sort=';
-        //     str += sort;
-        // }else if(sort !==""){
-        //     str += '?sort=';
-        //     str += sort;
-        // }
-        //
-        // if((category.length !== 0 || sort !=="") && filter !== ""){
-        //     str += '&filter=';
-        //     str += filter;
-        // }else if(filter !== ""){
-        //     str += '?filter=';
-        //     str += filter;
-        // }
-        //
-        // if((category.length !== 0 || sort !=="" || filter !== "") && keyword !== ""){
-        //     str += '&keyword=';
-        //     str += keyword;
-        // }else if(keyword !== ""){
-        //     str += '?keyword=';
-        //     str += keyword;
-        // }
-        //
-        // if((category.length !== 0 || sort !=="" || filter !== "" || keyword !== "") && pageNum !== ""){
-        //     str += '&pageNum=';
-        //     str += pageNum;
-        // }else if(pageNum !== ""){
-        //     str += '?pageNum=';
-        //     str += pageNum;
-        // }
-
 
         str += '?pageNum=';
         str += pageNum;
@@ -249,7 +224,6 @@
             str += keyword;
         }
 
-
         $.ajax({
             url: '/product/get_products'+ str,
             method: 'GET',
@@ -262,8 +236,6 @@
             },
             error: function(data) {
                 console.log('AJAX ERROR - ajax_getProductList()');
-
-
 
             }
         });

@@ -1,14 +1,14 @@
-<script th:fragment="js" type="text/javascript">
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
 
     $(document).ready(function(){
         console.log("DOCUMENT READY!!");
 
         // 이벤트 핸들러 초기화(등록)
-        init_events();
+        init_modal_events();
 
     });
 
-    function init_events() {
+    function init_modal_events() {
         console.log('init_events() CALLED!!');
 
         // header 로그인 클릭 시

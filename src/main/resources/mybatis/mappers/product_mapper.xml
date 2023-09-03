@@ -255,4 +255,19 @@
             p_link = #{p_link}
     </update>
 
+    <insert id="insertLikeCount" parameterType="String">
+        INSERT INTO
+            tbl_like(l_type, l_content, u_id, l_reg_date, l_mod_date)
+        VALUES(#{type}, #{no}, #{u_id},NOW(),NOW())
+    </insert>
+
+    <update id="updateLikeCountForProduct" parameterType="String">
+        UPDATE
+            tbl_product
+        SET
+            p_like = p_like + 1
+        WHERE
+            p_no = #{no}
+    </update>
+
 </mapper>

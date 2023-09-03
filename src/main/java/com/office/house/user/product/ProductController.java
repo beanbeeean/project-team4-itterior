@@ -35,6 +35,14 @@ public class ProductController {
         log.info("getProducts");
         Map<String, Object> resultMap = productService.getProducts(category, sort, filter, keyword, pageNum, amount);
         return resultMap;
+    }
 
+    @PostMapping("/product_like_confirm")
+    @ResponseBody
+    public Map<String, Object> productLikeConfirm(@RequestBody Map<String, String> msgMap){
+
+        Map<String, Object> resultMap = productService.productLikeConfirm(msgMap);
+
+        return resultMap;
     }
 }

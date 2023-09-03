@@ -15,6 +15,8 @@ public class ProductDto {
     private String p_img;
     private String p_link;
     private int p_category;
+    private int p_like;
+    private int p_hit;
     private String p_reg_date;
     private String p_mod_date;
 }

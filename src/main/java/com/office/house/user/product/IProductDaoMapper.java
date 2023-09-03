@@ -17,4 +17,8 @@ public interface IProductDaoMapper {
     int isExistProduct(String p_link);
 
     void updateProducts(ProductDto dto);
+
+    int insertLikeCount(String type, String no, String u_id);
+
+    int updateLikeCountForProduct(String no);
 }
