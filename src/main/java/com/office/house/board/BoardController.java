@@ -101,13 +101,17 @@ public class BoardController {
 
     // 게시물 디테일
     @GetMapping("/get_board")
-    public Object getBoard(@RequestParam("b_no") int b_no, Model model) {
+    public Object getBoard(@RequestParam("b_no") int b_no, Model model, HttpSession session) {
         log.info("[BoardController] getBoard");
 
         String nextPage = "board/get_board";
 
         BoardDto boardDto = boardService.getBoard(b_no);
         model.addAttribute("boardDto",boardDto);
+
+        String boardAuthor = boardDto.getU_id();
+        log.info("작성자: " + boardAuthor);
+        model.addAttribute("boardAuthor",boardAuthor);
 
         return nextPage;
     }

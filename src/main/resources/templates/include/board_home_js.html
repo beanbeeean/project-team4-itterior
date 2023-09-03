@@ -36,11 +36,19 @@
                 appendTag += '<br>';
                 appendTag += boardDtos[cnt].b_title;
                 appendTag += '</a><br>'
+
+                if (boardDtos[cnt].u_img != null){
                 appendTag += '<img class="profile_img" src="/userUploadImg/';
                 appendTag += boardDtos[cnt].u_id;
                 appendTag += "/";
                 appendTag += boardDtos[cnt].u_img;
                 appendTag += '"/>'
+                }
+
+                if (boardDtos[cnt].u_img == null){
+                    appendTag += '<img class="profile_img" th:src="@{/imgs/defaultimage.PNG}">';
+                }
+
                 appendTag += '<span class="user_name">'
                 appendTag += boardDtos[cnt].u_id;
                 appendTag += '</span>';
