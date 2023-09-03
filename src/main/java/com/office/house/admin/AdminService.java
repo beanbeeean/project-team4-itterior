@@ -149,4 +149,35 @@ public class AdminService implements IAdminService{
     }
 
     //  user_list end
+
+    //  youtube_channel_list start
+
+    @Override
+    public Map<String, Object> youtubChannelList(String keyWord, int pageNum, int amount) {
+
+        log.info("[AdminService] youtubChannelList()");
+
+        Map<String, Object> map = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<ChannelDto> ChannelDtos = iAdminDaoMapper.youtubChannelList(keyWord, criteria);
+        String table = "tbl_youtube_channel";
+        String column = "yc_channel";
+
+        int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        map.put("ChannelDtos", ChannelDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
+    @Override
+    public Object youtubChannelListDetail(int yc_no) {
+
+        log.info("[AdminService] youtubChannelListDetail()");
+
+        return iAdminDaoMapper.youtubChannelListDetail(yc_no);
+    }
 }

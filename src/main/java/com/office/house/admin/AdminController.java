@@ -224,5 +224,45 @@ public class AdminController {
 
     //   user_list end
 
+    //  youtube_channel_list start
+
+    @GetMapping("/youtube_channel_list")
+    public String youtubChannelList(HttpSession session, Model model,
+                                    @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                                    @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                    @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+
+        log.info("[AdminController] youtubChannelList()");
+
+        String nextPage = "admin/youtube_channel_list";
+
+        Map<String, Object> map = adminService.youtubChannelList(keyWord, pageNum, amount);
+
+        List<ChannelDto> ChannelDtos = (List<ChannelDto>) map.get("UserDtos");
+
+        System.out.println(ChannelDtos);
+
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("ChannelDtos", ChannelDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
+    @GetMapping("/youtube_channel_list_detail")
+    public String youtubChannelListDetail(@RequestParam("no") int yc_no, Model model) {
+
+        log.info("[AdminController] userListDetail()");
+
+        String nextPage = "admin/user_list_detail";
+
+        ChannelDto channelDto = (ChannelDto) adminService.youtubChannelListDetail(yc_no);
+
+        model.addAttribute("channelDto", channelDto);
+
+        return nextPage;
+    }
+
 
 }

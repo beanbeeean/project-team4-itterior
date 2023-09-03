@@ -79,4 +79,18 @@
 
     <!--  User list End  -->
 
+    <!--  Youtube Channel list Start  -->
+
+    <select id="youtubChannelList" resultType="com.office.house.admin.ChannelDto">
+
+        select * from tbl_youtube_channel where yc_channel like CONCAT('%',#{keyWord},'%') order by yc_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <select id="youtubChannelListDetail" resultType="com.office.house.admin.ChannelDto">
+
+        SELECT * FROM tbl_youtube_channel WHERE yc_no = #{yc_no}
+
+    </select>
+
 </mapper>

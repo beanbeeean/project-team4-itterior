@@ -26,4 +26,8 @@ public interface IAdminService {
     Object userListDetail(int u_no);
 
     int userListModifyConfirm(UserDto userDto);
+
+    Map<String, Object> youtubChannelList(String keyWord, int pageNum, int amount);
+
+    Object youtubChannelListDetail(int yc_no);
 }
