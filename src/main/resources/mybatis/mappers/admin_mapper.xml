@@ -57,6 +57,19 @@
 
     </update>
 
+    <!--  User list Start  -->
+
+    <select id="userList" resultType="com.office.house.user.UserDto">
+
+        select * from tbl_user where u_id like CONCAT('%',#{keyWord},'%') order by u_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <select id="userListDetail" resultType="com.office.house.user.UserDto">
+
+        SELECT * FROM tbl_user WHERE u_no = #{u_no}
+
+    </select>
 
 
 </mapper>

@@ -21,5 +21,8 @@ public interface IAdminService {
 
     int adminListModifyConfirm(AdminDto adminDto);
 
+    Map<String, Object> userList(String keyWord, int pageNum, int amount);
+
+    Object userListDetail(int u_no);
 
 }

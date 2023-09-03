@@ -172,6 +172,44 @@ public class AdminController {
         return "redirect:/admin/admin_list";
     }
 
+    //   user_list start
+    @GetMapping("/user_list")
+    public String userList(HttpSession session, Model model,
+                           @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                           @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                           @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+
+        log.info("[AdminController] userList()");
+
+        String nextPage = "admin/user_list";
+
+        Map<String, Object> map = adminService.userList(keyWord, pageNum, amount);
+
+        List<UserDto> UserDtos = (List<UserDto>) map.get("UserDtos");
+
+        System.out.println(UserDtos);
+
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("UserDtos", UserDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
+    @GetMapping("/user_list_detail")
+    public String userListDetail(@RequestParam("no") int u_no, Model model) {
+
+        log.info("[AdminController] userListDetail()");
+
+        String nextPage = "admin/user_list_detail";
+
+        UserDto userDto = (UserDto) adminService.userListDetail(u_no);
+
+        model.addAttribute("userDto", userDto);
+
+        return nextPage;
+    }
 
 
 }

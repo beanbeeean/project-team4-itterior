@@ -107,5 +107,36 @@ public class AdminService implements IAdminService{
         return iAdminDaoMapper.adminListModifyConfirm(adminDto);
     }
 
+    //  user_list start
+
+    @Override
+    public Map<String, Object> userList(String keyWord, int pageNum, int amount) {
+
+        log.info("[AdminService] userList()");
+
+        Map<String, Object> map = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<UserDto> UserDtos = iAdminDaoMapper.userList(keyWord, criteria);
+        String table = "tbl_user";
+        String column = "u_id";
+
+        int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        map.put("UserDtos", UserDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
+    @Override
+    public Object userListDetail(int u_no) {
+
+        log.info("[AdminService] userListDetail()");
+
+        return iAdminDaoMapper.userListDetail(u_no);
+    }
+
 
 }
