@@ -17,6 +17,11 @@
         let appendTag = '';
         let cnt = 0;
 
+        appendTag += boardDtos.length;
+        $('div.board_wrap > p').append(appendTag);
+
+        appendTag = '';
+
         for (let i = 0; i < boardDtos.length / 4 + 1; i++) {
             appendTag += '<tr>'
             for (let j = 0; j < 4; j++) {
