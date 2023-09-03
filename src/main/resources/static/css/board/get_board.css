@@ -26,12 +26,20 @@ span.modify_delete{
     float: right;
 }
 
+span.modify_delete a {
+    cursor: pointer;
+}
+
 div.content_area{
     margin: 20px auto;
     padding: 20px 0;
     border: 1px solid #dadada;
     border-radius: 10px;
     text-align: center;
+}
+
+div.content_area img {
+    max-width: 100%;
 }
 
 #editor {

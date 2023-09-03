@@ -116,4 +116,48 @@ public class BoardController {
         return nextPage;
     }
 
+    // 게시물 수정
+    @GetMapping("/board_modify_form")
+    public Object boardModifyForm(@RequestParam("b_no") int b_no, Model model, HttpSession session) {
+        log.info("[BoardController] boardModifyForm");
+
+        String nextPage = "board/board_modify_form";
+
+        BoardDto boardDto = boardService.boardModifyForm(b_no);
+        model.addAttribute("boardDto",boardDto);
+
+        String boardAuthor = boardDto.getU_id();
+        log.info("작성자: " + boardAuthor);
+        model.addAttribute("boardAuthor",boardAuthor);
+
+        return nextPage;
+    }
+
+    @PostMapping("/board_modify_confirm")
+    @ResponseBody
+    public Object boardModifyConfirm(BoardDto boardDto, HttpSession session, Model model, @RequestParam(value="file", required = false) MultipartFile file, @RequestParam("b_no") int b_no){
+        log.info("[BoardController] boardModifyConfirm()");
+
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        boardDto.setU_id(loginedMemberDto.getU_id());
+        boardDto.setU_img(loginedMemberDto.getU_img());
+
+        String savedFileName = uploadFileService.uploadBoardThumbnail(loginedMemberDto.getU_id(), file);
+        boardDto.setB_thumbnail(savedFileName);
+
+        int result = boardService.boardmodifyConfirm(boardDto, b_no);
+
+        return result;
+    }
+
+    @PostMapping("/delete_board_confirm")
+    @ResponseBody
+    public Object deleteBoardConfirm(@RequestBody Map<String, Object> boardmap){
+        log.info("[BoardController] deleteBoardConfirm()");
+
+        Map<String, Object> resultMap = boardService.deleteBoard(boardmap);
+        return resultMap;
+
+    }
+
 }

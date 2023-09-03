@@ -1,0 +1,96 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+
+    let boardDto = [[${boardDto}]];
+    let loginedMemberDto = [[${session.loginedMemberDto}]];
+
+    $(document).ready(function () {
+        console.log("document ready!")
+
+    })
+
+    // 디테일 뷰 - 닫기 버튼 클릭 시
+    $(document).on("click", "#section_wrap input[id='cancelBtn']", function () {
+            console.log("CLOSE Click Handler!");
+
+            history.back();
+        }
+    );
+
+    function modifyBoard(editor) {
+        console.log("modifyBoard() called!");
+
+        const form = document.board_modify_form;
+
+        if (form.b_title.value == '') {
+            alert('INPUT TITLE');
+            form.b_title.focus();
+
+        } else if (editor.getData() == undefined) {
+            alert('INPUT BODY');
+            form.b_content.focus();
+
+        } else if (editor.getData().trim() === '') {
+            alert('INPUT BODY');
+            editor.editing.view.focus(); // 에디터에 포커스를 줄 때는 에디터의 내부 요소로 이동
+
+        } else {
+            let inputFile = $("#section_wrap .write_content input[name='file']");
+            let files = inputFile[0].files;
+            console.log(files)
+            ajax_modifyPost(form.b_content.textContent, form.b_title.value, editor, files[0]);
+
+        }
+    };
+
+    function ajax_modifyPost(b_content, b_title, editor, file) {
+        console.log("ajax_modifyPost()");
+        console.log("b_title" + b_title);
+        console.log("b_content" + editor.getData());
+
+        let formData = new FormData();
+        formData.append("b_title", b_title);
+        formData.append("b_content", editor.getData());
+
+        console.log(formData);
+
+        if (file != undefined) {
+            console.log('FILE IS NOT UNDEFINED!!');
+            formData.append("file", file);
+
+        } else {
+            console.log('FILE IS UNDEFIED!!');
+
+        }
+
+        console.log(boardDto.b_no);
+
+        $.ajax({
+            url: '/board/board_modify_confirm?b_no=' + boardDto.b_no ,
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+
+                console.log('AJAX SUCCESS - ajax_modifyPost()');
+                console.log(" data " + data)
+
+                let loginedMemberDto = [[${session.loginedMemberDto}]];
+
+                if (data >= 1) {
+                    alert('modifyPost success!!');
+                    history.back();
+                }
+
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_modifyPost()');
+                alert('modifyPost fail!!');
+
+            }
+
+        })
+
+    }
+
+</script>

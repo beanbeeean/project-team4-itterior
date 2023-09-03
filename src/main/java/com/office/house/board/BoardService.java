@@ -1,17 +1,12 @@
 package com.office.house.board;
 
-import lombok.Value;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Service
 @Log4j2
@@ -47,5 +42,43 @@ public class BoardService implements IBoardService {
         log.info("[BoardService] getBoard()");
 
         return iBoardDaoMapper.getBoard(bNo);
+    }
+
+    public BoardDto boardModifyForm(int bNo) {
+        log.info("[BoardService] boardModifyForm()");
+
+        return iBoardDaoMapper.boardModifyForm(bNo);
+    }
+
+    public int boardmodifyConfirm(BoardDto boardDto, int b_no) {
+        log.info("[BoardService] boardmodifyConfirm()");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("boardDto",boardDto);
+        map.put("b_no", b_no);
+
+        int result = iBoardDaoMapper.updateBoard(map);
+        if(result > 0) {
+            log.info("modify success");
+        } else {
+            log.info("modify fail");
+        }
+
+        return result;
+    }
+
+    public Map<String, Object> deleteBoard(Map<String, Object> boardmap) {
+        log.info("[BoardService] deleteBoard()");
+
+        Map<String, Object> map = new HashMap<>();
+        int result = iBoardDaoMapper.deleteBoard(boardmap);
+        if(result > 0) {
+            log.info("[BoardService] delete success");
+        } else {
+            log.info("[BoardService] delete fail");
+        }
+
+        map.put("result",result);
+        return map;
     }
 }
