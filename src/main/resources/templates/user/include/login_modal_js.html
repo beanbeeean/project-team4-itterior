@@ -18,6 +18,14 @@
             $('div.modal_wrap').css('display','block');
         })
 
+        // no_login 로그인 클릭 시
+        $(document).on('click', '#section_wrap a.no_login',function(e){
+            e.preventDefault();
+            console.log('showModal()!!!!')
+            alert("로그인이 필요한 서비스입니다.")
+            $('div.modal_wrap').css('display','block');
+        })
+
         // 모달 닫기 버튼 클릭시
         $(document).on('click', 'div.modal_wrap div.close_btn', function(){
             cleanInputValue();

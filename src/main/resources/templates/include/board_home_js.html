@@ -46,7 +46,8 @@
                 }
 
                 if (boardDtos[cnt].u_img == null){
-                    appendTag += '<img class="profile_img" th:src="@{/imgs/defaultimage.PNG}">';
+                    // appendTag += '<img class="profile_img" th:src="@{/imgs/defaultimage.PNG}">';
+                    appendTag += '<img class="profile_img" src="/imgs/defaultimage.PNG">';
                 }
 
                 appendTag += '<span class="user_name">'

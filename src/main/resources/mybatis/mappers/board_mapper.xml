@@ -20,4 +20,16 @@
         update tbl_board set u_img = #{u_img}, b_mod_date = now() where u_id = #{u_id}
     </update>
 
+    <select id="boardModifyForm" parameterType="Integer" resultType="com.office.house.board.BoardDto">
+        select * from tbl_board where b_no = #{b_no}
+    </select>
+
+    <update id="updateBoard" parameterType="hashmap">
+        update tbl_board set b_title = #{boardDto.b_title}, b_content = #{boardDto.b_content}, b_thumbnail = #{boardDto.b_thumbnail}, b_mod_date = now() where b_no = #{b_no}
+    </update>
+
+    <delete id="deleteBoard" parameterType="hashmap">
+        delete from tbl_board where b_no = #{b_no}
+    </delete>
+
 </mapper>
