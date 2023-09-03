@@ -340,6 +340,17 @@ public class AdminController {
         return nextPage;
     }
 
+    @PostMapping("/youtube_list_modify_confirm")
+    public String youtubListModifyConfirm(YoutubeDto youtubeDto){
 
+        log.info("[AdminController] youtubListModifyConfirm()");
+
+        int result = -1;
+
+        result = adminService.youtubListModifyConfirm(youtubeDto);
+
+        return "redirect:/admin/youtube_list";
+
+    }
     //  youtube_list end
 }

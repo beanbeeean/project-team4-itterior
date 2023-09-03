@@ -40,5 +40,5 @@ public interface IAdminService {
 
     Object youtubListDetail(int y_no);
 
-
+    int youtubListModifyConfirm(YoutubeDto youtubeDto);
 }

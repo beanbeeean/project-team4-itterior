@@ -238,6 +238,14 @@ public class AdminService implements IAdminService{
         return iAdminDaoMapper.youtubeListDetail(y_no);
     }
 
+    @Override
+    public int youtubListModifyConfirm(YoutubeDto youtubeDto) {
+
+        log.info("[AdminService] youtubChannelListModifyConfirm()");
+
+        return iAdminDaoMapper.youtubeListModifyConfirm(youtubeDto);
+
+    }
 
     //  youtube_list end
 }
