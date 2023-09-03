@@ -138,5 +138,15 @@ public class AdminService implements IAdminService{
         return iAdminDaoMapper.userListDetail(u_no);
     }
 
+    @Override
+    public int userListModifyConfirm(UserDto userDto) {
 
+        log.info("[AdminService] userListModifyConfirm()");
+
+        userDto.setU_pw(passwordEncoder.encode(userDto.getU_pw()));
+
+        return iAdminDaoMapper.userListModifyConfirm(userDto);
+    }
+
+    //  user_list end
 }

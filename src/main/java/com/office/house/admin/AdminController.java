@@ -211,5 +211,18 @@ public class AdminController {
         return nextPage;
     }
 
+    @PostMapping("/user_list_modify_confirm")
+    public String userListModifyConfirm(UserDto userDto){
+
+        log.info("[AdminController] userModifyConfirm()");
+
+        int result = -1;
+        result = adminService.userListModifyConfirm(userDto);
+
+        return "redirect:/admin/user_list";
+    }
+
+    //   user_list end
+
 
 }

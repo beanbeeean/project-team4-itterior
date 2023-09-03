@@ -25,4 +25,5 @@ public interface IAdminService {
 
     Object userListDetail(int u_no);
 
+    int userListModifyConfirm(UserDto userDto);
 }

@@ -71,5 +71,12 @@
 
     </select>
 
+    <update id="userListModifyConfirm"  parameterType="com.office.house.user.UserDto">
+
+        update tbl_user set u_mail = #{u_mail} , u_phone = #{u_phone}, u_state = #{u_state}, u_mod_date = now() where u_no = #{u_no}
+
+    </update>
+
+    <!--  User list End  -->
 
 </mapper>
