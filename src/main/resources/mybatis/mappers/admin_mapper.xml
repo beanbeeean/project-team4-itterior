@@ -33,15 +33,15 @@
 
     </update>
 
-    <select id="adminList" resultType="com.office.house.admin.AdminDto">
+    <select id="getTotalCnt" resultType="Integer">
 
-        select * from tbl_admin where a_id like CONCAT('%',#{keyWord},'%') order by a_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+        SELECT count(*) FROM ${table} where #{column} like CONCAT('%',#{keyWord},'%')
 
     </select>
 
-    <select id="getTotalCnt" resultType="Integer">
+    <select id="adminList" resultType="com.office.house.admin.AdminDto">
 
-        SELECT count(*) FROM tbl_admin where a_id like CONCAT('%',#{keyWord},'%')
+        select * from tbl_admin where a_id like CONCAT('%',#{keyWord},'%') order by a_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
 
     </select>
 
@@ -53,9 +53,10 @@
 
     <update id="adminListModifyConfirm"  parameterType="com.office.house.admin.AdminDto">
 
-        update tbl_admin set a_pw = #{a_pw}, a_mail = #{a_mail} , a_phone = #{a_phone}, a_state = #{a_state}, a_mod_date = now() where a_no = #{a_no}
+        update tbl_admin set a_mail = #{a_mail} , a_phone = #{a_phone}, a_state = #{a_state}, a_mod_date = now() where a_no = #{a_no}
 
     </update>
+
 
 
 </mapper>

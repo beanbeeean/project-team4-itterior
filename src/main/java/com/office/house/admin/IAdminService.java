@@ -1,5 +1,7 @@
 package com.office.house.admin;
 
+import com.office.house.user.UserDto;
+
 import java.util.Map;
 
 public interface IAdminService {
@@ -18,4 +20,6 @@ public interface IAdminService {
     AdminDto adminListDetail(int a_no);
 
     int adminListModifyConfirm(AdminDto adminDto);
+
+
 }

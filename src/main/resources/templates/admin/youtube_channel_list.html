@@ -35,25 +35,27 @@
                             <button onclick="search();">Search</button>
                         </div>
                     </div>
-                    <div id="url" class="admin_list">
+                    <a th:href="@{/admin/create_youtube_channel_form}">등록</a>
+                    <div id="url" class="channel_list">
                         <table>
                             <thead>
                             <tr>
-                                <th>a_id</th>
-                                <th>a_mail</th>
-                                <th>a_phone</th>
-                                <th>a_reg_date</th>
-                                <th>a_state</th>
-                                <th>a_modify</th>
+                                <th>yc_channel</th>
+                                <th>yc_bring_cnt</th>
+                                <th>yc_show_cnt</th>
+                                <th>yc_reg_date</th>
+                                <th>yc_state</th>
+                                <th>yc_modify</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="AdminDtos : ${AdminDtos}">
-                                <td th:text="${AdminDtos.a_id}"></td>
-                                <td th:text="${AdminDtos.a_mail}"></td>
-                                <td th:text="${AdminDtos.a_phone}"></td>
-                                <td th:text="${AdminDtos.a_state}"></td>
-                                <td><a th:href="@{/admin/admin_list_detail?(no = ${AdminDtos.a_no})}">회원수정</a></td>
+                            <tr th:each="ChannelDtos : ${ChannelDtos}">
+                                <td th:text="${ChannelDtos.yc_channel}"></td>
+                                <td th:text="${ChannelDtos.yc_bring_cnt}"></td>
+                                <td th:text="${ChannelDtos.yc_show_cnt}"></td>
+                                <td th:text="${ChannelDtos.yc_reg_date}"></td>
+                                <td th:text="${ChannelDtos.yc_state}"></td>
+                                <td><a th:href="@{/admin/youtube_channel_list_detail?(no = ${ChannelDtos.u_no})}">채널수정</a></td>
                             </tr>
                             </tbody>
                         </table>

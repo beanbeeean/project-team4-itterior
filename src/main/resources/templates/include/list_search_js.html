@@ -57,6 +57,8 @@
     function init_main_event() {
         console.log('init_main_event() CALLED!!');
 
+        let url = $('#url').attr("class");
+
         // 페이지 번호 클릭 시
         $(document).on('click', '#section_wrap > div.page_wrap > div.page_number a', function () {
             console.log('page number Click HANDLER');
@@ -64,7 +66,7 @@
             let pageNum = $(this).data('pagenum');
             let keyWord = [[${keyWord}]];
 
-            location.href = 'admin_list?pageNum=' + pageNum + '&keyWord=' + keyWord;
+            location.href = url + '?pageNum=' + pageNum + '&keyWord=' + keyWord;
         });
 
         // 페이비 번호 입력시
@@ -91,7 +93,7 @@
                 return;
             }
 
-            location.href = 'admin_list?pageNum=' + targetPageNum + '&keyWord=' + keyWord;
+            location.href = url + '?pageNum=' + targetPageNum + '&keyWord=' + keyWord;
         });
     }
 </script>

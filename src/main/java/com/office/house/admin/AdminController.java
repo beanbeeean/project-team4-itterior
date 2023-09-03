@@ -1,5 +1,6 @@
 package com.office.house.admin;
 
+import com.office.house.user.UserDto;
 import com.office.house.util.PageDefine;
 import com.office.house.util.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
@@ -109,7 +110,7 @@ public class AdminController {
     @GetMapping("/admin_delete_confirm")
     public String adminDeleteConfirm(AdminDto adminDto, HttpSession session){
 
-        log.info("[AdminController] adminModifyConfirm()");
+        log.info("[AdminController] adminDeleteConfirm()");
 
         adminDto = (AdminDto) session.getAttribute("loginedAdminDto");
 
@@ -128,7 +129,7 @@ public class AdminController {
                           @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                           @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
 
-        log.info("[AdminController] adminModifyConfirm()");
+        log.info("[AdminController] adminList()");
 
         String nextPage = "admin/admin_list";
 
@@ -164,11 +165,13 @@ public class AdminController {
 
         log.info("[AdminController] adminModifyConfirm()");
 
+        System.out.println(adminDto);
         int result = -1;
         result = adminService.adminListModifyConfirm(adminDto);
 
         return "redirect:/admin/admin_list";
     }
+
 
 
 }

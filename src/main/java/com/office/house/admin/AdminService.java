@@ -77,7 +77,10 @@ public class AdminService implements IAdminService{
 
         Criteria criteria = new Criteria(pageNum, amount);
         List<AdminDto> AdminDtos = iAdminDaoMapper.adminList(keyWord, criteria);
-        int totalCnt = iAdminDaoMapper.getTotalCnt(keyWord);
+        String table = "tbl_admin";
+        String column = "a_id";
+
+        int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
         map.put("AdminDtos", AdminDtos);
