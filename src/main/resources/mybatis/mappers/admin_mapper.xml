@@ -106,7 +106,7 @@
 
     <update id="youtubChannelListModifyConfirm"  parameterType="com.office.house.admin.ChannelDto">
 
-        update tbl_youtube_channel set yc_bring_cnt = #{yc_bring_cnt} , yc_show_cnt = #{yc_show_cnt}, yc_state = #{yc_state}, u_mod_date = now() where yc_no = #{yc_no}
+        update tbl_youtube_channel set yc_bring_cnt = #{yc_bring_cnt} , yc_show_cnt = #{yc_show_cnt}, yc_state = #{yc_state}, yc_mod_date = now() where yc_no = #{yc_no}
 
     </update>
 

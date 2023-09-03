@@ -238,9 +238,7 @@ public class AdminController {
 
         Map<String, Object> map = adminService.youtubChannelList(keyWord, pageNum, amount);
 
-        List<ChannelDto> ChannelDtos = (List<ChannelDto>) map.get("UserDtos");
-
-        System.out.println(ChannelDtos);
+        List<ChannelDto> ChannelDtos = (List<ChannelDto>) map.get("ChannelDtos");
 
         PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
 
@@ -255,7 +253,7 @@ public class AdminController {
 
         log.info("[AdminController] userListDetail()");
 
-        String nextPage = "admin/user_list_detail";
+        String nextPage = "admin/youtube_channel_list_detail";
 
         ChannelDto channelDto = (ChannelDto) adminService.youtubChannelListDetail(yc_no);
 
@@ -294,9 +292,11 @@ public class AdminController {
         log.info("[AdminController] userModifyConfirm()");
 
         int result = -1;
+
         result = adminService.youtubChannelListModifyConfirm(channelDto);
 
         return "redirect:/admin/youtube_channel_list";
+
     }
 
     //  youtube_channel_list end
