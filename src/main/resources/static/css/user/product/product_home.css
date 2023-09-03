@@ -132,7 +132,7 @@ p.product_name {
 
 div.product_price_area {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
     display: flex;
     align-items: center;
     margin-top: 10px;
@@ -204,8 +204,9 @@ div.price_list > span:first-child {
 
 section #section_wrap > div.page_wrap {
     width: 98%;
-    margin: 0 auto 50px;
+    margin: 30px auto 50px;
     text-align: center;
+
 }
 
 section #section_wrap > div.page_wrap > div.page_number {
@@ -235,19 +236,45 @@ section #section_wrap > div.page_wrap > div.page_number a.selectedPageNum {
     background-color: #232f3d;
 }
 
-div.like_wrap{
+div.like_hit_wrap{
+    margin-top: 10px;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    height: 20px;
+    padding-right: 10px;
 }
 
 .empty_heart,
 .full_heart{
     max-width: 20px;
     min-width: 20px;
-    margin-right: 10px;
+    margin-right: 7px;
+}
+
+a.like_board_btn {
+    display: flex;
+    align-items: center;
 }
 
 .like_count {
-    line-height: 15px;
-    font-size: 15px;
+    line-height: 18px;
+    font-size: 18px;
+}
+
+div.hit_area{
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+img.hit_img {
+    max-width: 30px;
+    min-width: 30px;
+}
+
+span.hit_count {
+    margin-left: 7px;
+    line-height: 18px;
+    font-size: 18px;
 }

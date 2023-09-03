@@ -30,4 +30,6 @@ public interface IProductDaoMapper {
 
 
     ProductDto selectProductByNo(String no);
+
+    int updateHitCount(String no);
 }

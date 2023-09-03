@@ -37,7 +37,6 @@ public class ProductService implements IProductService{
 
         List<Integer> likeList = new ArrayList<>();
         for(ProductDto dto : dtos){
-            System.out.println(dto.getP_like());
             if(dto.getP_like() > 0){
                 likeList.add(dto.getP_no());
             }
@@ -76,6 +75,19 @@ public class ProductService implements IProductService{
         }
 
         map.put("result", result);
+        return map;
+    }
+
+    @Override
+    public Map<String, Object> updateProductHit(String no) {
+        log.info("updateProductHit");
+
+        Map<String, Object> map = new HashMap<>();
+        int result = iProductDaoMapper.updateHitCount(no);
+        if(result > 0){
+            ProductDto productDto = iProductDaoMapper.selectProductByNo(no);
+            map.put("productDto", productDto);
+        }
         return map;
     }
 }

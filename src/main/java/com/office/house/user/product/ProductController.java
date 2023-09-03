@@ -51,9 +51,17 @@ public class ProductController {
     @PostMapping("/product_like_confirm")
     @ResponseBody
     public Map<String, Object> productLikeConfirm(@RequestBody Map<String, String> msgMap){
-
+        log.info("productLikeConfirm");
         Map<String, Object> resultMap = productService.productLikeConfirm(msgMap);
 
+        return resultMap;
+    }
+
+    @PostMapping("/update_product_hit")
+    @ResponseBody
+    public Map<String, Object> updateProductHit(@RequestBody Map<String, String> msgMap){
+        log.info("updateProductHit");
+        Map<String, Object> resultMap = productService.updateProductHit(msgMap.get("no"));
         return resultMap;
     }
 }

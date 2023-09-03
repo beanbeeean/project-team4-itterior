@@ -115,6 +115,12 @@
             <when test="sort == 2">
                 ORDER BY p_sales_price asc
             </when>
+            <when test="sort == 3">
+                ORDER BY p_like desc
+            </when>
+            <when test="sort == 4">
+                ORDER BY p_hit desc
+            </when>
         </choose>
         LIMIT #{skip}, #{amount}
     </select>
@@ -313,4 +319,13 @@
         WHERE
             p_no = #{no}
     </select>
+
+    <update id="updateHitCount" parameterType="String">
+        UPDATE
+            tbl_product
+        SET
+            p_hit = p_hit + 1
+        WHERE
+            p_no = #{no}
+    </update>
 </mapper>
