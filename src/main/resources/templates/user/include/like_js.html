@@ -1,0 +1,56 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+
+    $(document).ready(function(){
+        console.log("DOCUMENT 222READY!!");
+
+        // 이벤트 핸들러 초기화(등록)
+        init_like_events();
+    });
+
+
+    function init_like_events(){
+        $(document).on('click','a.like_board_btn',function (e){
+            e.preventDefault();
+            let b_no = $(this).data("b_no");
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null){
+                $('div.modal_wrap').css('display','block');
+            }else{
+                ajax_updateLikeCount(1, b_no, loginedMemberDto.u_id);
+            }
+
+        })
+
+    }
+
+   function ajax_updateLikeCount(type, no, u_id){
+       console.log('ajax_updateLikeCount() CALLED!!');
+
+       let msgDto = {
+           'type': type,
+           'no': no,
+           'u_id' : u_id
+       };
+
+       let str = '/product/product_like_confirm';
+       $.ajax({
+           url: str,
+           method: 'POST',
+           data: JSON.stringify(msgDto),
+           contentType: 'application/json; charset=utf-8',
+           success: function(data) {
+               console.log('AJAX SUCCESS - ajax_updateLikeCount()');
+               ajax_getProductList(categoryList, sort, filter, keyword, pageNum);
+           },
+           error: function(data) {
+               console.log('AJAX ERROR - ajax_updateLikeCount()');
+
+           }
+       });
+   }
+
+</script>
+
+
+
+
