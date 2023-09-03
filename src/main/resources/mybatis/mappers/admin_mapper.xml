@@ -81,13 +81,13 @@
 
     <!--  Youtube Channel list Start  -->
 
-    <select id="youtubChannelList" resultType="com.office.house.admin.ChannelDto">
+    <select id="youtubeChannelList" resultType="com.office.house.admin.ChannelDto">
 
         select * from tbl_youtube_channel where yc_channel like CONCAT('%',#{keyWord},'%') order by yc_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
 
     </select>
 
-    <select id="youtubChannelListDetail" resultType="com.office.house.admin.ChannelDto">
+    <select id="youtubeChannelListDetail" resultType="com.office.house.admin.ChannelDto">
 
         SELECT * FROM tbl_youtube_channel WHERE yc_no = #{yc_no}
 
@@ -111,5 +111,27 @@
     </update>
 
     <!--  Youtube Channel list End  -->
+
+    <!--  Youtube list Start -->
+
+    <select id="youtubeList" resultType="com.office.house.youtube.YoutubeDto">
+
+        select * from tbl_youtube where y_channel like CONCAT('%',#{keyWord},'%') order by y_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <select id="youtubeListDetail" resultType="com.office.house.youtube.YoutubeDto">
+
+        SELECT * FROM tbl_youtube WHERE y_no = #{y_no}
+
+    </select>
+
+    <update id="youtubeListModifyConfirm"  parameterType="com.office.house.youtube.YoutubeDto">
+
+        update tbl_youtube set y_state = #{y_state} where y_no = #{y_no}
+
+    </update>
+
+    <!--  Youtube list End  -->
 
 </mapper>

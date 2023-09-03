@@ -3,6 +3,7 @@ package com.office.house.admin;
 import com.office.house.user.UserDto;
 import com.office.house.util.Criteria;
 import com.office.house.util.PageMakerDto;
+import com.office.house.youtube.YoutubeDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -162,7 +163,7 @@ public class AdminService implements IAdminService{
         Map<String, Object> map = new HashMap<>();
 
         Criteria criteria = new Criteria(pageNum, amount);
-        List<ChannelDto> ChannelDtos = iAdminDaoMapper.youtubChannelList(keyWord, criteria);
+        List<ChannelDto> ChannelDtos = iAdminDaoMapper.youtubeChannelList(keyWord, criteria);
         String table = "tbl_youtube_channel";
         String column = "yc_channel";
 
@@ -194,7 +195,7 @@ public class AdminService implements IAdminService{
 
         log.info("[AdminService] youtubChannelListDetail()");
 
-        return iAdminDaoMapper.youtubChannelListDetail(yc_no);
+        return iAdminDaoMapper.youtubeChannelListDetail(yc_no);
     }
 
     @Override
@@ -206,4 +207,37 @@ public class AdminService implements IAdminService{
     }
 
     //  youtube_channel_list end
+
+
+    //  youtube_list start
+    @Override
+    public Map<String, Object> youtubList(String keyWord, int pageNum, int amount) {
+        log.info("[AdminService] youtubList()");
+
+        Map<String, Object> map = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<YoutubeDto> YoutubeDtos = iAdminDaoMapper.youtubeList(keyWord, criteria);
+        String table = "tbl_youtube_channel";
+        String column = "yc_channel";
+
+        int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        map.put("YoutubeDtos", YoutubeDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
+    @Override
+    public Object youtubListDetail(int y_no) {
+
+        log.info("[AdminService] youtubChannelListDetail()");
+
+        return iAdminDaoMapper.youtubeListDetail(y_no);
+    }
+
+
+    //  youtube_list end
 }

@@ -1,6 +1,7 @@
 package com.office.house.admin;
 
 import com.office.house.user.UserDto;
+import com.office.house.youtube.YoutubeDto;
 
 import java.util.Map;
 
@@ -34,5 +35,10 @@ public interface IAdminService {
     Object youtubChannelListDetail(int yc_no);
 
     int youtubChannelListModifyConfirm(ChannelDto channelDto);
+
+    Map<String, Object> youtubList(String keyWord, int pageNum, int amount);
+
+    Object youtubListDetail(int y_no);
+
 
 }

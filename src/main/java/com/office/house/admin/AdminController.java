@@ -3,6 +3,7 @@ package com.office.house.admin;
 import com.office.house.user.UserDto;
 import com.office.house.util.PageDefine;
 import com.office.house.util.PageMakerDto;
+import com.office.house.youtube.YoutubeDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -289,7 +290,7 @@ public class AdminController {
     @PostMapping("/youtube_channel_list_modify_confirm")
     public String youtubChannelListModifyConfirm(ChannelDto channelDto){
 
-        log.info("[AdminController] userModifyConfirm()");
+        log.info("[AdminController] youtubChannelListModifyConfirm()");
 
         int result = -1;
 
@@ -301,4 +302,44 @@ public class AdminController {
 
     //  youtube_channel_list end
 
+    //  youtube_list start
+
+    @GetMapping("/youtube_list")
+    public String youtubList(HttpSession session, Model model,
+                                    @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                                    @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                    @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+
+        log.info("[AdminController] youtubList()");
+
+        String nextPage = "admin/youtube_list";
+
+        Map<String, Object> map = adminService.youtubList(keyWord, pageNum, amount);
+
+        List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
+
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("YoutubeDtos", YoutubeDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
+    @GetMapping("/youtube_list_detail")
+    public String youtubListDetail(@RequestParam("no") int y_no, Model model) {
+
+        log.info("[AdminController] userListDetail()");
+
+        String nextPage = "admin/youtube_list_detail";
+
+        YoutubeDto youtubeDto = (YoutubeDto) adminService.youtubListDetail(y_no);
+
+        model.addAttribute("youtubeDto", youtubeDto);
+
+        return nextPage;
+    }
+
+
+    //  youtube_list end
 }
