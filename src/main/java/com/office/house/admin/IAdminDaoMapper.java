@@ -40,6 +40,6 @@ public interface IAdminDaoMapper {
 
     Object youtubChannelListDetail(int ycNo);
 
-    int youtubChannelListModifyConfirm(ChannelDto channelDto);
+    int youtubeChannelListModifyConfirm(ChannelDto channelDto);
 
 }

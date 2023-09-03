@@ -35,7 +35,7 @@
 
     <select id="getTotalCnt" resultType="Integer">
 
-        SELECT count(*) FROM ${table} where #{column} like CONCAT('%',#{keyWord},'%')
+        SELECT count(*) FROM ${table} where ${column} like CONCAT('%',#{keyWord},'%')
 
     </select>
 
@@ -104,7 +104,7 @@
         values (#{yc_channel}, #{yc_bring_cnt}, #{yc_show_cnt}, #{yc_state}, now(), now())
     </insert>
 
-    <update id="youtubChannelListModifyConfirm"  parameterType="com.office.house.admin.ChannelDto">
+    <update id="youtubeChannelListModifyConfirm"  parameterType="com.office.house.admin.ChannelDto">
 
         update tbl_youtube_channel set yc_bring_cnt = #{yc_bring_cnt} , yc_show_cnt = #{yc_show_cnt}, yc_state = #{yc_state}, yc_mod_date = now() where yc_no = #{yc_no}
 

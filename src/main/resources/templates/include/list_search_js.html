@@ -14,8 +14,9 @@
         console.log('search() CALLED!!');
 
         let keyWord = $('input[name="keyword"]').val();
+        let url = $('#url').attr("class");
 
-        location.href = 'admin_list?keyWord=' + keyWord;
+        location.href = url + '?keyWord=' + keyWord;
     }
 
     function setPage() {

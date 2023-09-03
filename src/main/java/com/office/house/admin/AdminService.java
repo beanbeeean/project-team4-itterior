@@ -122,6 +122,8 @@ public class AdminService implements IAdminService{
         String column = "u_id";
 
         int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
+        
+        System.out.println(totalCnt + " " + keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
         map.put("UserDtos", UserDtos);
@@ -200,7 +202,7 @@ public class AdminService implements IAdminService{
 
         log.info("[AdminService] youtubChannelListModifyConfirm()");
 
-        return iAdminDaoMapper.youtubChannelListModifyConfirm(channelDto);
+        return iAdminDaoMapper.youtubeChannelListModifyConfirm(channelDto);
     }
 
     //  youtube_channel_list end
