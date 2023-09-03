@@ -69,6 +69,7 @@ div.selected_menu h3 {
 div.product_item_list {
     width: 100%;
     border-top: 1px solid #dadada;
+    padding-top: 20px;
 }
 
 div.product_item_list table {
@@ -84,19 +85,22 @@ div.product_item_list table {
     flex: 0 25%;
 }
 
-.product_container {
-
+.product_container_wrap > td{
     padding: 15px;
     margin: 15px;
-    border-radius: 8px;
-    cursor: pointer;
+    border-radius: 15px;
 }
 
-.product_container:hover {
+
+.product_container_wrap > td:hover {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
     rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     transform: scale(1.1);
-    transition: all 0.5s;
+    transition: all 0.3s;
+}
+
+.product_container:hover {
+
 }
 
 .product_img {
@@ -128,7 +132,8 @@ p.product_name {
 
 div.product_price_area {
     width: 100%;
-    text-align: right;
+    justify-content: space-between;
+    display: flex;
     align-items: center;
     margin-top: 10px;
 }
@@ -228,4 +233,21 @@ section #section_wrap > div.page_wrap > div.page_number a.selectedPageNum {
     font-weight: bolder;
     border: 1px solid #232f3d;
     background-color: #232f3d;
+}
+
+div.like_wrap{
+    display: flex;
+    align-items: center;
+}
+
+.empty_heart,
+.full_heart{
+    max-width: 20px;
+    min-width: 20px;
+    margin-right: 10px;
+}
+
+.like_count {
+    line-height: 15px;
+    font-size: 15px;
 }
