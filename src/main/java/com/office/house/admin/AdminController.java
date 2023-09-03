@@ -264,5 +264,41 @@ public class AdminController {
         return nextPage;
     }
 
+    @GetMapping("/create_youtube_channel_form")
+    public String createYoutubeChannelForm() {
+
+        log.info("[AdminController] createYoutubeChannel()");
+
+        String nextPage = "admin/create_youtube_channel_form";
+
+        return nextPage;
+    }
+
+    @PostMapping("/create_youtube_channel_confirm")
+    public String createYoutubeChannelConfirm(ChannelDto channelDto){
+
+        log.info("[AdminController] createYoutubeChannelConfirm()");
+
+        int result = -1;
+        result = adminService.createYoutubeChannelConfirm(channelDto);
+
+        if(result>0)
+            return "redirect:/admin/youtube_channel_list";
+        else
+            return "redirect:/admin/create_youtube_channel_form";
+    }
+
+    @PostMapping("/youtube_channel_list_modify_confirm")
+    public String youtubChannelListModifyConfirm(ChannelDto channelDto){
+
+        log.info("[AdminController] userModifyConfirm()");
+
+        int result = -1;
+        result = adminService.youtubChannelListModifyConfirm(channelDto);
+
+        return "redirect:/admin/youtube_channel_list";
+    }
+
+    //  youtube_channel_list end
 
 }

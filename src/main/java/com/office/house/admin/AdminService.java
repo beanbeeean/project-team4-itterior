@@ -174,10 +174,34 @@ public class AdminService implements IAdminService{
     }
 
     @Override
+    public int createYoutubeChannelConfirm(ChannelDto channelDto) {
+
+        log.info("[AdminService] createYoutubeChannelConfirm()");
+
+        boolean isChannel = iAdminDaoMapper.isChannel(channelDto);
+
+        if(!isChannel) {
+            return iAdminDaoMapper.insertNewChannel(channelDto);
+        }
+
+        return -1;
+    }
+
+    @Override
     public Object youtubChannelListDetail(int yc_no) {
 
         log.info("[AdminService] youtubChannelListDetail()");
 
         return iAdminDaoMapper.youtubChannelListDetail(yc_no);
     }
+
+    @Override
+    public int youtubChannelListModifyConfirm(ChannelDto channelDto) {
+
+        log.info("[AdminService] youtubChannelListModifyConfirm()");
+
+        return iAdminDaoMapper.youtubChannelListModifyConfirm(channelDto);
+    }
+
+    //  youtube_channel_list end
 }

@@ -29,5 +29,10 @@ public interface IAdminService {
 
     Map<String, Object> youtubChannelList(String keyWord, int pageNum, int amount);
 
+    int createYoutubeChannelConfirm(ChannelDto channelDto);
+
     Object youtubChannelListDetail(int yc_no);
+
+    int youtubChannelListModifyConfirm(ChannelDto channelDto);
+
 }

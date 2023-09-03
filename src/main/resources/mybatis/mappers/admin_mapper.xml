@@ -93,4 +93,23 @@
 
     </select>
 
+    <select id="isChannel" parameterType="String" resultType="Boolean">
+
+        select count(*) from tbl_youtube_channel where yc_channel = #{yc_channel}
+
+    </select>
+
+    <insert id="insertNewChannel" parameterType="com.office.house.admin.ChannelDto">
+        insert into tbl_youtube_channel(yc_channel, yc_bring_cnt, yc_show_cnt, yc_state, yc_reg_date, yc_mod_date)
+        values (#{yc_channel}, #{yc_bring_cnt}, #{yc_show_cnt}, #{yc_state}, now(), now())
+    </insert>
+
+    <update id="youtubChannelListModifyConfirm"  parameterType="com.office.house.admin.ChannelDto">
+
+        update tbl_youtube_channel set yc_bring_cnt = #{yc_bring_cnt} , yc_show_cnt = #{yc_show_cnt}, yc_state = #{yc_state}, u_mod_date = now() where yc_no = #{yc_no}
+
+    </update>
+
+    <!--  Youtube Channel list End  -->
+
 </mapper>

@@ -34,7 +34,12 @@ public interface IAdminDaoMapper {
 
     List<ChannelDto> youtubChannelList(String keyWord, Criteria criteria);
 
+    boolean isChannel(ChannelDto channelDto);
+
+    int insertNewChannel(ChannelDto channelDto);
+
     Object youtubChannelListDetail(int ycNo);
 
     int youtubChannelListModifyConfirm(ChannelDto channelDto);
+
 }
