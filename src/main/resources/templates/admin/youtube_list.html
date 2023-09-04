@@ -35,25 +35,26 @@
                             <button onclick="search();">Search</button>
                         </div>
                     </div>
-                    <div id="url" class="admin_list">
+                    <div id="url" class="youtube_list">
                         <table>
                             <thead>
                             <tr>
-                                <th>a_id</th>
-                                <th>a_mail</th>
-                                <th>a_phone</th>
-                                <th>a_reg_date</th>
-                                <th>a_state</th>
-                                <th>a_modify</th>
+                                <th>y_channel</th>
+                                <th>y_title</th>
+                                <th>y_content</th>
+                                <th>y_img</th>
+                                <th>y_state</th>
+                                <th>y_modify</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="AdminDtos : ${AdminDtos}">
-                                <td th:text="${AdminDtos.a_id}"></td>
-                                <td th:text="${AdminDtos.a_mail}"></td>
-                                <td th:text="${AdminDtos.a_phone}"></td>
-                                <td th:text="${AdminDtos.a_state}"></td>
-                                <td><a th:href="@{/admin/admin_list_detail?(no = ${AdminDtos.a_no})}">회원수정</a></td>
+                            <tr th:each="YoutubeDtos : ${YoutubeDtos}">
+                                <td th:text="${YoutubeDtos.y_channel}"></td>
+                                <td th:text="${YoutubeDtos.y_title}"></td>
+                                <td th:text="${YoutubeDtos.y_content}"></td>
+                                <td th:text="${YoutubeDtos.y_img}"></td>
+                                <td th:text="${YoutubeDtos.y_state}"></td>
+                                <td><a th:href="@{/admin/youtube_list_detail?(no = ${YoutubeDtos.y_no})}">유튜브수정</a></td>
                             </tr>
                             </tbody>
                         </table>

@@ -35,25 +35,25 @@
                             <button onclick="search();">Search</button>
                         </div>
                     </div>
-                    <div id="url" class="admin_list">
+                    <div id="url" class="user_list">
                         <table>
                             <thead>
                             <tr>
-                                <th>a_id</th>
-                                <th>a_mail</th>
-                                <th>a_phone</th>
-                                <th>a_reg_date</th>
-                                <th>a_state</th>
-                                <th>a_modify</th>
+                                <th>u_id</th>
+                                <th>u_mail</th>
+                                <th>u_phone</th>
+                                <th>u_reg_date</th>
+                                <th>u_state</th>
+                                <th>u_modify</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="AdminDtos : ${AdminDtos}">
-                                <td th:text="${AdminDtos.a_id}"></td>
-                                <td th:text="${AdminDtos.a_mail}"></td>
-                                <td th:text="${AdminDtos.a_phone}"></td>
-                                <td th:text="${AdminDtos.a_state}"></td>
-                                <td><a th:href="@{/admin/admin_list_detail?(no = ${AdminDtos.a_no})}">회원수정</a></td>
+                            <tr th:each="UserDtos : ${UserDtos}">
+                                <td th:text="${UserDtos.u_id}"></td>
+                                <td th:text="${UserDtos.u_mail}"></td>
+                                <td th:text="${UserDtos.u_phone}"></td>
+                                <td th:text="${UserDtos.u_state}"></td>
+                                <td><a th:href="@{/admin/user_list_detail?(no = ${UserDtos.u_no})}">회원수정</a></td>
                             </tr>
                             </tbody>
                         </table>

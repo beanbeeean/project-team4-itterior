@@ -24,15 +24,11 @@ function adminModifyForm() {
 }
 
 function adminListModifyForm() {
-    console.log('adminModifyForm() CALLED!!');
+    console.log('adminListModifyForm() CALLED!!');
 
     let form = document.admin_modify_form;
 
-    if (form.a_pw.value==''){
-        alert('INPUT PW');
-        form.a_pw.focus();
-
-    } else if (form.a_mail.value == '') {
+    if (form.a_mail.value == '') {
         alert('INPUT MAIL');
         form.a_mail.focus();
 
@@ -40,10 +36,62 @@ function adminListModifyForm() {
         alert('INPUT PHONE');
         form.a_phone.focus();
 
+    }
+    else {
+         form.submit();
+    }
+}
+function userListModifyForm() {
+    console.log('userListModifyForm() CALLED!!');
+
+    let form = document.user_modify_form;
+
+    if (form.u_mail.value == '') {
+        alert('INPUT MAIL');
+        form.a_mail.focus();
+
+    } else if (form.u_phone.value == '') {
+        alert('INPUT PHONE');
+        form.a_phone.focus();
+
+    }
+    else {
+        form.submit();
+    }
+}
+
+function channelModifyForm() {
+    console.log('channelModifyForm() CALLED!!');
+
+    let form = document.channel_modify_form;
+
+    if (form.yc_channel.value == '') {
+        alert('INPUT CHANNEL');
+        form.yc_channel.focus();
+
+    } else if (form.yc_bring_cnt.value == '') {
+        alert('INPUT BRING CNT');
+        form.yc_bring_cnt.focus();
+
+    } else if (form.yc_show_cnt.value == '') {
+        alert('INPUT SHOW CNT');
+        form.yc_show_cnt.focus();
+
     } else {
         form.submit();
 
     }
+
+}
+
+function yotubeModifyForm() {
+    console.log('yotubeModifyForm() CALLED!!');
+
+    let form = document.youtube_modify_form;
+
+    form.submit();
+
+
 }
 
 </script>

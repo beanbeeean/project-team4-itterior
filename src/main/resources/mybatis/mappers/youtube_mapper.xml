@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.office.house.youtube.IYoutubeDaoMapper">
+
+    <select id="searchChannel" resultType="com.office.house.admin.ChannelDto">
+
+        SELECT * FROM tbl_youtube_channel
+
+    </select>
+
+    <insert id="insertNewYoutube" >
+        insert tbl_youtube(y_id, y_title, y_channel, y_content, y_img, y_date)
+        values (#{y_id}, #{y_title}, #{y_channel}, #{y_content}, #{y_img}, #{y_date})
+    </insert>
+
+</mapper>

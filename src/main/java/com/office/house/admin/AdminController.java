@@ -1,7 +1,9 @@
 package com.office.house.admin;
 
+import com.office.house.user.UserDto;
 import com.office.house.util.PageDefine;
 import com.office.house.util.PageMakerDto;
+import com.office.house.youtube.YoutubeDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -109,7 +111,7 @@ public class AdminController {
     @GetMapping("/admin_delete_confirm")
     public String adminDeleteConfirm(AdminDto adminDto, HttpSession session){
 
-        log.info("[AdminController] adminModifyConfirm()");
+        log.info("[AdminController] adminDeleteConfirm()");
 
         adminDto = (AdminDto) session.getAttribute("loginedAdminDto");
 
@@ -128,7 +130,7 @@ public class AdminController {
                           @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                           @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
 
-        log.info("[AdminController] adminModifyConfirm()");
+        log.info("[AdminController] adminList()");
 
         String nextPage = "admin/admin_list";
 
@@ -164,11 +166,191 @@ public class AdminController {
 
         log.info("[AdminController] adminModifyConfirm()");
 
+        System.out.println(adminDto);
         int result = -1;
         result = adminService.adminListModifyConfirm(adminDto);
 
         return "redirect:/admin/admin_list";
     }
 
+    //   user_list start
+    @GetMapping("/user_list")
+    public String userList(HttpSession session, Model model,
+                           @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                           @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                           @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
 
+        log.info("[AdminController] userList()");
+
+        String nextPage = "admin/user_list";
+
+        Map<String, Object> map = adminService.userList(keyWord, pageNum, amount);
+
+        List<UserDto> UserDtos = (List<UserDto>) map.get("UserDtos");
+
+        System.out.println(UserDtos);
+
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("UserDtos", UserDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
+    @GetMapping("/user_list_detail")
+    public String userListDetail(@RequestParam("no") int u_no, Model model) {
+
+        log.info("[AdminController] userListDetail()");
+
+        String nextPage = "admin/user_list_detail";
+
+        UserDto userDto = (UserDto) adminService.userListDetail(u_no);
+
+        model.addAttribute("userDto", userDto);
+
+        return nextPage;
+    }
+
+    @PostMapping("/user_list_modify_confirm")
+    public String userListModifyConfirm(UserDto userDto){
+
+        log.info("[AdminController] userModifyConfirm()");
+
+        int result = -1;
+        result = adminService.userListModifyConfirm(userDto);
+
+        return "redirect:/admin/user_list";
+    }
+
+    //   user_list end
+
+    //  youtube_channel_list start
+
+    @GetMapping("/youtube_channel_list")
+    public String youtubChannelList(HttpSession session, Model model,
+                                    @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                                    @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                    @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+
+        log.info("[AdminController] youtubChannelList()");
+
+        String nextPage = "admin/youtube_channel_list";
+
+        Map<String, Object> map = adminService.youtubChannelList(keyWord, pageNum, amount);
+
+        List<ChannelDto> ChannelDtos = (List<ChannelDto>) map.get("ChannelDtos");
+
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("ChannelDtos", ChannelDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
+    @GetMapping("/youtube_channel_list_detail")
+    public String youtubChannelListDetail(@RequestParam("no") int yc_no, Model model) {
+
+        log.info("[AdminController] userListDetail()");
+
+        String nextPage = "admin/youtube_channel_list_detail";
+
+        ChannelDto channelDto = (ChannelDto) adminService.youtubChannelListDetail(yc_no);
+
+        model.addAttribute("channelDto", channelDto);
+
+        return nextPage;
+    }
+
+    @GetMapping("/create_youtube_channel_form")
+    public String createYoutubeChannelForm() {
+
+        log.info("[AdminController] createYoutubeChannel()");
+
+        String nextPage = "admin/create_youtube_channel_form";
+
+        return nextPage;
+    }
+
+    @PostMapping("/create_youtube_channel_confirm")
+    public String createYoutubeChannelConfirm(ChannelDto channelDto){
+
+        log.info("[AdminController] createYoutubeChannelConfirm()");
+
+        int result = -1;
+        result = adminService.createYoutubeChannelConfirm(channelDto);
+
+        if(result>0)
+            return "redirect:/admin/youtube_channel_list";
+        else
+            return "redirect:/admin/create_youtube_channel_form";
+    }
+
+    @PostMapping("/youtube_channel_list_modify_confirm")
+    public String youtubChannelListModifyConfirm(ChannelDto channelDto){
+
+        log.info("[AdminController] youtubChannelListModifyConfirm()");
+
+        int result = -1;
+
+        result = adminService.youtubChannelListModifyConfirm(channelDto);
+
+        return "redirect:/admin/youtube_channel_list";
+
+    }
+
+    //  youtube_channel_list end
+
+    //  youtube_list start
+
+    @GetMapping("/youtube_list")
+    public String youtubeList(HttpSession session, Model model,
+                                    @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                                    @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                    @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+
+        log.info("[AdminController] youtubeList()");
+
+        String nextPage = "admin/youtube_list";
+
+        Map<String, Object> map = adminService.youtubeList(keyWord, pageNum, amount);
+
+        List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
+
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("YoutubeDtos", YoutubeDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
+    @GetMapping("/youtube_list_detail")
+    public String youtubeListDetail(@RequestParam("no") int y_no, Model model) {
+
+        log.info("[AdminController] youtubeListDetail()");
+
+        String nextPage = "admin/youtube_list_detail";
+
+        YoutubeDto youtubeDto = (YoutubeDto) adminService.youtubeListDetail(y_no);
+
+        model.addAttribute("youtubeDto", youtubeDto);
+
+        return nextPage;
+    }
+
+    @PostMapping("/youtube_list_modify_confirm")
+    public String youtubeListModifyConfirm(YoutubeDto youtubeDto){
+
+        log.info("[AdminController] youtubeListModifyConfirm()");
+
+        int result = -1;
+
+        result = adminService.youtubeListModifyConfirm(youtubeDto);
+
+        return "redirect:/admin/youtube_list";
+
+    }
+    //  youtube_list end
 }
