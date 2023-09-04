@@ -32,4 +32,8 @@
         update tbl_comment set c_comment = #{commentDto.c_comment}, c_mod_date = now() where c_no = #{c_no}
     </update>
 
+    <update id="updateUserImage" parameterType="com.office.house.user.UserDto">
+        update tbl_comment set u_img = #{u_img}, c_mod_date = now() where u_id = #{u_id}
+    </update>
+
 </mapper>

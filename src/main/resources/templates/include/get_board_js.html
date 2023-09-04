@@ -46,12 +46,17 @@
 
             appendTag += '<div class="comment_item">';
 
+            if (commentDtos[i].u_img != null) {
+                appendTag += '<img src="/userUploadImg/';
+                appendTag += commentDtos[i].u_id;
+                appendTag += "/";
+                appendTag += commentDtos[i].u_img;
+                appendTag += '"/>'
+            }
 
-            appendTag += '<img src="/userUploadImg/';
-            appendTag += commentDtos[i].u_id;
-            appendTag += "/";
-            appendTag += commentDtos[i].u_img;
-            appendTag += '"/>'
+            if(commentDtos[i].u_img == null) {
+                appendTag += '<img src="/imgs/defaultimage.PNG">';
+            }
 
             appendTag += '<span class="user_id">';
             appendTag += commentDtos[i].u_id;

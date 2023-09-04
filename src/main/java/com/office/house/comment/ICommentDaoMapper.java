@@ -1,5 +1,6 @@
 package com.office.house.comment;
 
+import com.office.house.user.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface ICommentDaoMapper {
     int getMaxCno();
 
     void updateTargetCno(int cNo);
+
+    int updateUserImage(UserDto userDto);
 }
