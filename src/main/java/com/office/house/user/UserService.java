@@ -8,6 +8,8 @@ import java.util.Map;
 
 import com.office.house.board.BoardDto;
 import com.office.house.board.IBoardDaoMapper;
+import com.office.house.comment.ICommentDaoMapper;
+import com.office.house.comment.ICommentService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -31,6 +33,9 @@ public class UserService implements IUserService {
 
     @Autowired
     IBoardDaoMapper iBoardDaoMapper;
+
+    @Autowired
+    ICommentDaoMapper iCommentDaoMapper;
 
 	@Override
     public Map<String, Object> createAccountConfirm(Map<String, String> msgMap){
