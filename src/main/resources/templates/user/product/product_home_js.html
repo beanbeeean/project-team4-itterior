@@ -1,24 +1,23 @@
 <script th:fragment="js" type="text/javascript">
 
     let categoryList = [];
-    let sort = "";
+    let sort = "3";
     let priceSelected = "";
     let keyword = "";
     let pageNum = 1;
 
+
     $(document).ready(function(){
         console.log("DOCUMENT READY!!");
-
         // 이벤트 핸들러 초기화(등록)
-        init_events();
+        init_product_events();
 
         removeSearchKeyword();
         ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
-
     });
 
     // 이벤트 핸들러
-    function init_events(){
+    function init_product_events(){
         console.log("init_events()")
 
         // 정렬 , 필터링 버튼
@@ -29,6 +28,7 @@
             console.log("search_btn CLICK HANDLER!!")
             e.stopImmediatePropagation();
             keyword = $('div.search_product_wrap > input[name="p_search"]').val();
+            pageNum = 1;
             ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
         })
 
@@ -36,10 +36,14 @@
         $(document).on('click', '#section_wrap > div.page_wrap > div.page_number a', function() {
             console.log('page number CLICK HANDLER');
 
-            let pageNum = $(this).data('pagenum');
-
+            pageNum = $(this).data('pagenum');
             ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
         });
+
+        $(document).on('click', 'td > a.product_item_wrap', function(){
+            let productNo = $(this).data("p_no");
+            ajax_updateHitCount(productNo);
+        })
 
     }
 
@@ -60,6 +64,7 @@
                 }
 
                 console.log("categoryList", categoryList);
+                pageNum = 1;
                 ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
 
             });
@@ -69,6 +74,7 @@
             sortCheck[i].addEventListener("change", function () {
                 sort = sortCheck[i].value;
                 console.log("sort", sort);
+                pageNum = 1;
                 ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
             });
         }
@@ -78,6 +84,7 @@
                 e.stopImmediatePropagation();
                 priceSelected = priceCheck[i].value;
                 console.log("priceSelected", priceSelected);
+                pageNum = 1;
                 ajax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
 
             });
@@ -86,7 +93,7 @@
     }
 
     // 인테리어 상품 리스트 출력 함수
-    function addProductsListTr(productDtos){
+    function addProductsListTr(productDtos, isLikedDtos, u_id){
         let appendTag = '';
         let cnt = 0;
 
@@ -102,9 +109,12 @@
                     .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
                 appendTag += '<td>';
-                appendTag += '<a href="';
+                appendTag += '<a class="product_item_wrap" href="';
                 appendTag += productDtos[cnt].p_link;
-                appendTag += '" target="parent">';
+                appendTag += '" target="parent"';
+                appendTag += 'data-p_no="';
+                appendTag += productDtos[cnt].p_no;
+                appendTag += '">';
                 appendTag += '<div class="product_container">';
                 appendTag += "<div class='product_img'>";
                 appendTag += "<img src='";
@@ -117,7 +127,11 @@
                 appendTag += '<p class="product_name">';
                 appendTag += productDtos[cnt].p_name;
                 appendTag += '</p>';
+                appendTag += '</div>';
+                appendTag += '</a>';
                 appendTag += '<div class="product_price_area">';
+
+                appendTag += '<div>';
                 appendTag += '<span class="product_sales_price_tag">판매가';
                 appendTag += '</span>';
                 appendTag += '<span class="product_sales_price">';
@@ -125,18 +139,86 @@
                 appendTag += '원</span>';
                 appendTag += '</div>';
                 appendTag += '</div>';
+                appendTag += '<div class="like_hit_wrap">';
+                appendTag += '<a class="like_board_btn"';
+                appendTag += 'href="#none" ';
+                appendTag += 'data-p_no="';
+                appendTag += productDtos[cnt].p_no;
+                appendTag += '">';
+                if(u_id != undefined && u_id != "please_login" && isLikedDtos.length > 0){
+                    for(let k = 0; k < isLikedDtos.length; k++){
+                        if(isLikedDtos[k].l_content_no == productDtos[cnt].p_no && isLikedDtos[k].u_id == u_id){
+                            appendTag += '<img class="full_heart" src="/imgs/full_heart.png" data-p_no="';
+                            appendTag += productDtos[cnt].p_no;
+                            appendTag += '">';
+                            break;
+                        }else if(isLikedDtos[k].l_content_no != productDtos[cnt].p_no || isLikedDtos[k].u_id != u_id){
+                            if(k == isLikedDtos.length - 1){
+                                appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-p_no="';
+                                appendTag += productDtos[cnt].p_no;
+                                appendTag += '">';
+                            }
+                            continue;
+                        }
+                    }
+                }else{
+                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-p_no="';
+                    appendTag += productDtos[cnt].p_no;
+                    appendTag += '">';
+                }
                 appendTag += '</a>';
+                appendTag += '<span class="like_count">';
+                appendTag += productDtos[cnt].p_like;
+                appendTag += '</span>';
+                appendTag += '<div class="hit_area">';
+                appendTag += '<img class="hit_img" src="/imgs/hit.png">'
+                appendTag += '<span class="hit_count">';
+                appendTag += productDtos[cnt].p_hit;
+                appendTag += '</span>';
+                appendTag += '</div>';
+                appendTag += '</div>';
+
                 appendTag += '</td>';
 
                 cnt++;
-
             }
-
-
             appendTag += '</tr>';
         }
         $('div.product_item_list table tbody').append(appendTag);
+    }
 
+    // 인테리어 상품 1개 재구성(좋아요 시)
+    function reconstructionTdForLike(productDto, isLike){
+       // let productNo = productDto.p_no;
+       for(let i = 0; i < $('a.like_board_btn').length; i++){
+           if($('a.like_board_btn').eq(i).data("p_no") == productDto.p_no){
+               $('a.like_board_btn').eq(i).children().remove();
+
+               let appendTag = '';
+
+               if(isLike > 0) {
+                   appendTag += '<img class="full_heart" src="/imgs/full_heart.png">';
+               }else {
+                   appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png">';
+
+               }
+               $('a.like_board_btn').eq(i).append(appendTag);
+
+               $('span.like_count').eq(i).text(productDto.p_like);
+
+               break;
+           }
+       }
+    }
+
+    // 인테리어 상품 1개 재구성(조회 시)
+    function reconstructionTdForHit(productDto){
+        for(let i = 0; i < $('a.like_board_btn').length; i++) {
+            if ($('a.like_board_btn').eq(i).data("p_no") == productDto.p_no) {
+                $('span.hit_count').eq(i).text(productDto.p_hit);
+                break;
+            }
+        }
     }
 
     // 인테리어 상품 리스트 초기화
@@ -150,7 +232,7 @@
         $('div.search_product_wrap > input[name="p_search"]').val('');
     }
 
-
+    // 페이지 네이션 구성
     function setPage(pageMakerDto) {
         console.log('setPage() CALLED!!');
 
@@ -185,50 +267,14 @@
 
     }
 
-
     // AJAX START
     function ajax_getProductList(category, sort, filter, keyword, pageNum){
         console.log('ajax_getProductList()');
         let str = '';
-        // if(category.length !== 0){
-        //     str += '?category=';
-        //     str += category;
-        // }
-        // if(category.length !== 0 && sort !==""){
-        //     str += '&sort=';
-        //     str += sort;
-        // }else if(sort !==""){
-        //     str += '?sort=';
-        //     str += sort;
-        // }
-        //
-        // if((category.length !== 0 || sort !=="") && filter !== ""){
-        //     str += '&filter=';
-        //     str += filter;
-        // }else if(filter !== ""){
-        //     str += '?filter=';
-        //     str += filter;
-        // }
-        //
-        // if((category.length !== 0 || sort !=="" || filter !== "") && keyword !== ""){
-        //     str += '&keyword=';
-        //     str += keyword;
-        // }else if(keyword !== ""){
-        //     str += '?keyword=';
-        //     str += keyword;
-        // }
-        //
-        // if((category.length !== 0 || sort !=="" || filter !== "" || keyword !== "") && pageNum !== ""){
-        //     str += '&pageNum=';
-        //     str += pageNum;
-        // }else if(pageNum !== ""){
-        //     str += '?pageNum=';
-        //     str += pageNum;
-        // }
-
 
         str += '?pageNum=';
         str += pageNum;
+
 
         if(category.length !== 0){
             str += '&category=';
@@ -249,7 +295,6 @@
             str += keyword;
         }
 
-
         $.ajax({
             url: '/product/get_products'+ str,
             method: 'GET',
@@ -257,13 +302,31 @@
             success: function(data) {
                 console.log('AJAX SUCCESS - ajax_getProductList()');
                 removeProductsListTr();
-                addProductsListTr(data.productDtos);
+                addProductsListTr(data.productDtos, data.isLikedDtos, data.u_id);
                 setPage(data.pageMakerDto);
             },
             error: function(data) {
                 console.log('AJAX ERROR - ajax_getProductList()');
 
+            }
+        });
+    }
 
+    function ajax_updateHitCount(no) {
+        console.log("ajax_updateHitCount()")
+        let msgDto = {
+            "no": no
+        }
+        $.ajax({
+            url: '/product/update_product_hit',
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                reconstructionTdForHit(data.productDto);
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_updateHitCount()');
 
             }
         });

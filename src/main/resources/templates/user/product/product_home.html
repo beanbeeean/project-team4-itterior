@@ -13,6 +13,7 @@
 	<script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
 	<script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
 	<script th:replace="~{/user/product/product_home_js.html::js}" type="text/javascript"></script>
+	<script th:replace="~{/user/include/like_js.html::js}" type="text/javascript"></script>
 	<script src="https://kit.fontawesome.com/14533f5127.js" crossorigin="anonymous"></script>
 </head>
 
@@ -74,11 +75,11 @@
 							&nbsp;가격 낮은 순&nbsp;&nbsp;
             			</span>
 					<span>
-							<input type="radio" name="product_sort" value="like desc"/>
+							<input type="radio" name="product_sort" value="3"/>
 							&nbsp;좋아요 순&nbsp;&nbsp;
            				 </span>
 					<span>
-							<input type="radio" name="product_sort" value="hit desc"/>
+							<input type="radio" name="product_sort" value="4"/>
 							&nbsp;조회 순&nbsp;&nbsp;
             			</span>
 				</div>

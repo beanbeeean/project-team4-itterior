@@ -115,6 +115,12 @@
             <when test="sort == 2">
                 ORDER BY p_sales_price asc
             </when>
+            <when test="sort == 3">
+                ORDER BY p_like desc
+            </when>
+            <when test="sort == 4">
+                ORDER BY p_hit desc
+            </when>
         </choose>
         LIMIT #{skip}, #{amount}
     </select>
@@ -255,4 +261,71 @@
             p_link = #{p_link}
     </update>
 
+    <insert id="insertLikeCount" parameterType="String">
+        INSERT INTO
+            tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
+        VALUES(#{type}, #{no}, #{u_id},NOW(),NOW())
+    </insert>
+
+    <delete id="deleteLikeCount" parameterType="String">
+        DELETE FROM
+                tbl_like
+        WHERE
+            l_type = #{type}
+        AND
+            l_content_no = #{no}
+        AND
+            u_id = #{u_id}
+    </delete>
+
+    <select id="selectLikeCount" parameterType="String" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_like
+        WHERE
+            l_type = #{type}
+            AND
+            l_content_no = #{no}
+    </select>
+
+    <update id="updateLikeCountForProduct">
+        UPDATE
+            tbl_product
+        SET
+            p_like = #{likeCnt}
+        WHERE
+            p_no = #{no}
+    </update>
+
+    <select id="selectLikedProduct" parameterType="java.util.List" resultType="com.office.house.like.LikeDto">
+        SELECT
+            *
+        FROM
+            tbl_like
+        WHERE
+        l_type = 1 AND
+        l_content_no IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectProductByNo" parameterType="String" resultType="com.office.house.user.product.ProductDto">
+        SELECT
+            *
+        FROM
+            tbl_product
+        WHERE
+            p_no = #{no}
+    </select>
+
+    <update id="updateHitCount" parameterType="String">
+        UPDATE
+            tbl_product
+        SET
+            p_hit = p_hit + 1
+        WHERE
+            p_no = #{no}
+    </update>
 </mapper>

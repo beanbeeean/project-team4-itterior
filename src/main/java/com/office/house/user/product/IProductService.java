@@ -6,4 +6,7 @@ public interface IProductService {
     //public Map<String, Object> getProducts(String type);
     public Map<String, Object> getProducts(String[] category, String sort, String filter, String keyword, int pageNum, int amount);
 
+    public Map<String, Object> productLikeConfirm(Map<String, String> msgMap);
+
+    public Map<String, Object> updateProductHit(String no);
 }

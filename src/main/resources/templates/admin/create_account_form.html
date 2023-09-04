@@ -34,18 +34,6 @@
 				<input type="reset" value="reset">
 			</form>
 
-			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-			<script>
-				function execDaumPostcode() {
-					new daum.Postcode({
-						oncomplete: function (data) {
-							document.querySelector("input[name='a_zipcode']").value = data.zonecode;
-							document.querySelector("input[name='a_main_addr']").value = data.address;
-						}
-					}).open();
-				}
-			</script>
-
 			<div class="drops">
 				<div class="drop drop-1"></div>
 				<div class="drop drop-2"></div>

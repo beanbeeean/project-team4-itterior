@@ -44,4 +44,19 @@ public class CommentService {
 
         return result;
     }
+
+    public Map<String, Object> deleteComment(Map<String, Object> commentmap) {
+        log.info("[CommentService] deleteComment()");
+
+        Map<String, Object> map = new HashMap<>();
+        int result = iCommentDaoMapper.deleteComment(commentmap);
+        if(result > 0) {
+            log.info("[CommentService] delete success");
+        } else {
+            log.info("[CommentService] delete fail");
+        }
+
+        map.put("result",result);
+        return map;
+    }
 }
