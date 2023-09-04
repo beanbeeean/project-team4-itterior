@@ -66,6 +66,12 @@
             appendTag += '답글달기';
             appendTag += '</a>';
 
+            if([[${session.loginedMemberDto.u_id}]] == commentDtos[cnt].u_id){
+                appendTag += '<a class="modifyComment">';
+                appendTag += '수정하기';
+                appendTag += '</a>';
+            }
+
             appendTag += '</p>';
             appendTag += '</div>';
             appendTag += '</td>';
