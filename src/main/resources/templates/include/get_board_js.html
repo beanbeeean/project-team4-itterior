@@ -54,7 +54,7 @@
                 appendTag += '"/>'
             }
 
-            if(commentDtos[i].u_img == null) {
+            if (commentDtos[i].u_img == null) {
                 appendTag += '<img src="/imgs/defaultimage.PNG">';
             }
 
@@ -117,13 +117,20 @@
         <td class="margin_box" colspan="1"></td>
         <td class="comment_item" colspan="2">
             <input type="hidden" name="c_target_c_no" value="${c_no}">
-            <input type="hidden" name="c_target_u_id" value="${u_id}">
-            <img th:unless="${loginedMemberDto != null}" th:src="@{/imgs/defaultimage.PNG}">
-            <input class="input_re_comment" type="text">
-            <input type="button" value="입력" onclick="registRereply('${u_id}', ${c_no});">
-        </td>
-        </tr>
-        `;
+            <input type="hidden" name="c_target_u_id" value="${u_id}">`;
+
+            if (loginedMemberDto.u_img!= null) {
+                replyForm += ` <img src="/userUploadImg/${loginedMemberDto.u_id}/${loginedMemberDto.u_img}">`;
+            } else {
+                replyForm += `<img src="/imgs/defaultimage.PNG">`;
+            }
+
+            replyForm +=
+                `<input class="input_re_comment" type="text">
+                <input type="button" value="입력" onclick="registRereply('${u_id}', ${c_no});">
+                </td>
+            </tr>
+                `;
 
             // 답글 입력 폼을 현재 클릭한 답글 버튼 아래에 추가
             let commentItem = $('#section_wrap table.comments tbody tr').eq(index);
@@ -215,6 +222,7 @@
         let msg = {
             "c_comment": comment,
             "u_id": loginedMemberDto.u_id,
+            "u_img": loginedMemberDto.u_img,
             "b_no": boardDto.b_no,
             "c_target_c_no": cNo,
             "c_target_u_id": uId
@@ -336,7 +344,6 @@
             }
         })
     }
-
 
 
 </script>
