@@ -44,26 +44,32 @@ public class UserController {
         return resultMap;
     }
 
-    // login confirm
-    @ResponseBody
-    @PostMapping("/user_login_confirm")
-    public Map<String, Object> userLoginConfirm(@RequestBody Map<String, String> msgMap, HttpSession session, Model model){
-        log.info("[UserController] userLoginConfirm()");
-
-        Map<String, Object> resultMap = userService.userLoginConfirm(msgMap);
-
-        UserDto loginedMemberDto =  (UserDto)resultMap.get("loginedMemberDto");
-
-        if(loginedMemberDto != null){
-            session.setAttribute("loginedMemberDto",loginedMemberDto);
-            session.setMaxInactiveInterval(60*30);
-        }
-        model.addAttribute("loginedMemberDto", loginedMemberDto);
-        return resultMap;
+    @GetMapping("/user_login_form")
+    public String userLoginForm(){
+        log.info("userLoginForm()");
+        return "user/user_login_form";
     }
 
+    // login confirm
+//    @ResponseBody
+//    @PostMapping("/user_login_confirm")
+//    public Map<String, Object> userLoginConfirm(@RequestBody Map<String, String> msgMap, HttpSession session, Model model){
+//        log.info("[UserController] userLoginConfirm()");
+//
+//        Map<String, Object> resultMap = userService.userLoginConfirm(msgMap);
+//
+//        UserDto loginedMemberDto =  (UserDto)resultMap.get("loginedMemberDto");
+//
+//        if(loginedMemberDto != null){
+//            session.setAttribute("loginedMemberDto",loginedMemberDto);
+//            session.setMaxInactiveInterval(60*30);
+//        }
+//        model.addAttribute("loginedMemberDto", loginedMemberDto);
+//        return resultMap;
+//    }
+
     // logout confirm
-    @GetMapping("/user_logout_confirm")
+   /* @GetMapping("/user_logout_confirm")
     public String userLogoutConfirm(HttpSession session){
         log.info("[UserController] userLogoutConfirm()");
 
@@ -71,7 +77,7 @@ public class UserController {
         session.removeAttribute("loginedMemberDto");
 
         return nextPage;
-    }
+    }*/
 
     // modify form
     @GetMapping("/user_modify_form")

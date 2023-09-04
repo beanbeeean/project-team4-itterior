@@ -68,7 +68,7 @@ public class ProductService implements IProductService{
             result = iProductDaoMapper.updateLikeCountForProduct(msgMap.get("no"),likeCnt);
 
             ProductDto productDto = iProductDaoMapper.selectProductByNo(msgMap.get("no"));
-            int isLike = iProductDaoMapper.selectLikeCount(msgMap.get("type"), msgMap.get("no"));
+            int isLike = iProductDaoMapper.selectisLikeCount(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
 
             map.put("productDto", productDto);
             map.put("isLike", isLike);

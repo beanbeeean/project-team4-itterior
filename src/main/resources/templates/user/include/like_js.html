@@ -12,7 +12,7 @@
         $(document).on('click','a.like_board_btn',function (e){
             e.preventDefault();
             let p_no = $(this).data("p_no");
-
+            console.log("p_no ++++++" + p_no);
             let loginedMemberDto = [[${session.loginedMemberDto}]];
             if(loginedMemberDto == null){
                 $('div.modal_wrap').css('display','block');

@@ -3,7 +3,7 @@ body {
 	font-family: "Montserrat", sans-serif;
 }
 
-/*#section_wrap {
+.modal_wrap {
 	display: none;
 	position: fixed;
 	top: 0;
@@ -12,9 +12,9 @@ body {
 	width: 100%;
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.4);
-}*/
+}
 
-.login_container {
+.modal_wrap .container {
 	position: absolute;
 	margin-top: 40px;
 	transform: translate(-50%, -50%);
@@ -24,7 +24,7 @@ body {
 	background-color: rgba(255, 255, 255, 0.7);
 }
 
-.login_container form {
+.modal_wrap form {
 	background: rgba(255, 255, 255, 0.3);
 	padding: 3em;
 	height: 380px;
@@ -38,37 +38,37 @@ body {
 	transition: all 0.2s ease-in-out;
 }
 
-.login_container span {
+.modal_wrap span {
 	width: 50px;
 	text-align: right;
 	display: inline-block;
 	padding-right: 8px;
 }
 
-.login_container span.addr{
+.modal_wrap span.addr{
 	position: relative;
 	left: -145px;
 }
 
-.login_container .login_modal{
+.modal_wrap .login_modal{
 	display: block;
 	/*display: none;*/
 }
 
-.login_container .create_account_modal{
+.modal_wrap .create_account_modal{
 	display: none;
 	/*display: block;*/
 }
 
-.login_container .find_password_modal {
+.modal_wrap .find_password_modal {
 	display: none;
 }
-.login_container .create_account_modal input {
+.modal_wrap .create_account_modal input {
 	margin-bottom: 10px;
 }
 
 
-.login_container .create_account_modal form{
+.modal_wrap .create_account_modal form{
 	height: 700px;
 }
 .create_account_modal input[name="u_main_addr"],
@@ -77,7 +77,7 @@ body {
 }
 
 
-.login_container form p {
+.modal_wrap form p {
 	font-weight: 500;
 	color: rgb(237, 175, 175);
 	opacity: 0.7;
@@ -87,7 +87,7 @@ body {
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.login_container form a {
+.modal_wrap form a {
 	text-decoration: none;
 	color: rgb(255, 255, 255);
 	font-size: 12px;
@@ -101,11 +101,11 @@ body {
 	}
 }
 
-.login_container form span {
+.modal_wrap form span {
 	color: rgb(237, 175, 175);
 }
 
-.login_container form input {
+.modal_wrap form input {
 	background: transparent;
 	width: 200px;
 	padding: 1em;
@@ -121,47 +121,47 @@ body {
 	transition: all 0.2s ease-in-out;
 }
 
-.login_container form input:hover {
+.modal_wrap form input:hover {
 	background: rgba(255, 255, 255, 0.1);
 	box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
 }
 
-.login_container form input[type="email"]:focus,
-.login_container form input[type="password"]:focus {
+.modal_wrap form input[type="email"]:focus,
+.modal_wrap form input[type="password"]:focus {
 	background: rgba(255, 255, 255, 0.1);
 	box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
 }
 
-.login_container form input[type="button"],
-.login_container form input[type="reset"] {
+.modal_wrap form input[type="button"],
+.modal_wrap form input[type="reset"] {
 	margin-top: 10px;
 	width: 150px;
 	font-size: 1rem;
 	color: rgb(237, 175, 175);
 }
 
-.login_container input[type="button"]:hover,
-.login_container input[type="reset"]:hover{
+.modal_wrap input[type="button"]:hover,
+.modal_wrap input[type="reset"]:hover{
 	cursor: pointer;
 }
 
-.login_container input[type="button"]:active {
+.modal_wrap input[type="button"]:active {
 	background: rgba(255, 255, 255, 0.2);
 }
 
-.login_container input#searchAddr {
+.modal_wrap input#searchAddr {
 	font-size: .8em;
 	width: 150px;
 }
 
-.login_container form input::placeholder {
+.modal_wrap form input::placeholder {
 	font-family: Montserrat, sans-serif;
 	font-weight: 400;
 	color: rgb(237, 175, 175);
 	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.login_container .drop {
+.modal_wrap .drop {
 	background: rgba(237, 175, 175, 0.3);
 	backdrop-filter: blur(10px);
 	border-radius: 20px;
@@ -172,7 +172,7 @@ body {
 	transition: all 0.2s ease;
 }
 
-.login_container .drop-1 {
+.modal_wrap .drop-1 {
 	height: 80px;
 	width: 80px;
 	top: -20px;
@@ -180,14 +180,14 @@ body {
 	z-index: -1;
 }
 
-.login_container .drop-2 {
+.modal_wrap .drop-2 {
 	height: 80px;
 	width: 80px;
 	bottom: -30px;
 	right: -10px;
 }
 
-.login_container .drop-3 {
+.modal_wrap .drop-3 {
 	height: 100px;
 	width: 100px;
 	bottom: 120px;
@@ -195,7 +195,7 @@ body {
 	z-index: -1;
 }
 
-.login_container .drop-4 {
+.modal_wrap .drop-4 {
 	height: 120px;
 	width: 120px;
 	top: -80px;
@@ -203,23 +203,23 @@ body {
 	z-index: 0;
 }
 
-.login_container .drop-5 {
+.modal_wrap .drop-5 {
 	height: 60px;
 	width: 60px;
 	bottom: -20px;
 	left: -20px;
 }
 
-.login_container .go_create_account_form,
-.login_container .go_login_form,
-.login_container .find_password_form{
+.modal_wrap .go_create_account_form,
+.modal_wrap .go_login_form,
+.modal_wrap .find_password_form{
 	text-align: center;
 	color: rgb(237, 175, 175);
 }
 
-.login_container .go_create_account_form a,
-.login_container .go_login_form a,
-.login_container .find_password_form a{
+.modal_wrap .go_create_account_form a,
+.modal_wrap .go_login_form a,
+.modal_wrap .find_password_form a{
 	color: rgb(237, 175, 175);
 	text-decoration: underline;
 }
