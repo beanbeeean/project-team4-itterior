@@ -1,5 +1,6 @@
 package com.office.house.admin;
 
+import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
 import com.office.house.youtube.YoutubeDto;
 
@@ -32,13 +33,19 @@ public interface IAdminService {
 
     int createYoutubeChannelConfirm(ChannelDto channelDto);
 
-    Object youtubChannelListDetail(int yc_no);
+    Object youtubeChannelListDetail(int yc_no);
 
-    int youtubChannelListModifyConfirm(ChannelDto channelDto);
+    int youtubeChannelListModifyConfirm(ChannelDto channelDto);
 
     Map<String, Object> youtubeList(String keyWord, int pageNum, int amount);
 
     Object youtubeListDetail(int y_no);
 
     int youtubeListModifyConfirm(YoutubeDto youtubeDto);
+
+    Map<String, Object> boardList(String keyWord, int pageNum, int amount);
+
+    Object boardListDetail(int bNo);
+
+    int boardListModifyConfirm(BoardDto boardDto);
 }

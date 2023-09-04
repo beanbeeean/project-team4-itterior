@@ -134,4 +134,26 @@
 
     <!--  Youtube list End  -->
 
+    <!--  board list Start -->
+
+    <select id="boardList" resultType="com.office.house.board.BoardDto">
+
+        select * from tbl_board where u_id like CONCAT('%',#{keyWord},'%') order by b_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <select id="boardListDetail" resultType="com.office.house.board.BoardDto">
+
+        SELECT * FROM tbl_board WHERE b_no = #{b_no}
+
+    </select>
+
+    <update id="boardListModifyConfirm"  parameterType="com.office.house.board.BoardDto">
+
+        update tbl_board set b_state = #{b_state} where b_no = #{b_no}
+
+    </update>
+
+    <!--  board list End  -->
+
 </mapper>

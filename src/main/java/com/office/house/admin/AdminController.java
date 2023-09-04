@@ -1,5 +1,6 @@
 package com.office.house.admin;
 
+import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
 import com.office.house.util.PageDefine;
 import com.office.house.util.PageMakerDto;
@@ -22,6 +23,7 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    //  ADMIN START
     @GetMapping({"/admin_login_form","","/"})
     public String adminLoginForm(){
 
@@ -49,6 +51,9 @@ public class AdminController {
 
         return nextPage;
     }
+    //  ADMIN END
+
+    //   CREATE_ADMIN START
 
     @GetMapping("/create_account_form")
     public String createAccountForm() {
@@ -123,12 +128,14 @@ public class AdminController {
         else
             return "redirect:/admin/admin_myPage";
     }
+    //   CREATE_ADMIN END
 
+    //   ADMIN_LIST START
     @GetMapping("/admin_list")
     public String adminList(HttpSession session, Model model,
-                          @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
-                          @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-                          @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+                            @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                            @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                            @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
 
         log.info("[AdminController] adminList()");
 
@@ -172,8 +179,9 @@ public class AdminController {
 
         return "redirect:/admin/admin_list";
     }
+    //   ADMIN_LIST END
 
-    //   user_list start
+    //   USER_LIST START
     @GetMapping("/user_list")
     public String userList(HttpSession session, Model model,
                            @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
@@ -223,9 +231,9 @@ public class AdminController {
         return "redirect:/admin/user_list";
     }
 
-    //   user_list end
+    //   USER_LIST END
 
-    //  youtube_channel_list start
+    //  YOUTUBE_CHANNEL_LIST START
 
     @GetMapping("/youtube_channel_list")
     public String youtubChannelList(HttpSession session, Model model,
@@ -256,7 +264,7 @@ public class AdminController {
 
         String nextPage = "admin/youtube_channel_list_detail";
 
-        ChannelDto channelDto = (ChannelDto) adminService.youtubChannelListDetail(yc_no);
+        ChannelDto channelDto = (ChannelDto) adminService.youtubeChannelListDetail(yc_no);
 
         model.addAttribute("channelDto", channelDto);
 
@@ -294,21 +302,21 @@ public class AdminController {
 
         int result = -1;
 
-        result = adminService.youtubChannelListModifyConfirm(channelDto);
+        result = adminService.youtubeChannelListModifyConfirm(channelDto);
 
         return "redirect:/admin/youtube_channel_list";
 
     }
 
-    //  youtube_channel_list end
+    //  YOUTUBE_CHANNEL_LIST END
 
-    //  youtube_list start
+    //  YOUTUBE_LIST START
 
     @GetMapping("/youtube_list")
     public String youtubeList(HttpSession session, Model model,
-                                    @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
-                                    @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-                                    @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+                              @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                              @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                              @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
 
         log.info("[AdminController] youtubeList()");
 
@@ -352,5 +360,56 @@ public class AdminController {
         return "redirect:/admin/youtube_list";
 
     }
-    //  youtube_list end
+    //  YOUTUBE_LIST END
+
+    //  BOARD_LIST START
+    @GetMapping("/board_list")
+    public String boardList(HttpSession session, Model model,
+                              @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                              @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                              @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+
+        log.info("[AdminController] boardList()");
+
+        String nextPage = "admin/board_list";
+
+        Map<String, Object> map = adminService.boardList(keyWord, pageNum, amount);
+
+        List<BoardDto> BoardDtos = (List<BoardDto>) map.get("BoardDtos");
+
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("BoardDtos", BoardDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
+    @GetMapping("/board_list_detail")
+    public String boardListDetail(@RequestParam("no") int b_no, Model model) {
+
+        log.info("[AdminController] boardListDetail()");
+
+        String nextPage = "admin/board_list_detail";
+
+        BoardDto boardDto = (BoardDto) adminService.boardListDetail(b_no);
+
+        model.addAttribute("boardDto", boardDto);
+
+        return nextPage;
+    }
+
+    @PostMapping("/board_list_modify_confirm")
+    public String boardListModifyConfirm(BoardDto boardDto){
+
+        log.info("[AdminController] boardListModifyConfirm()");
+
+        int result = -1;
+
+        result = adminService.boardListModifyConfirm(boardDto);
+
+        return "redirect:/admin/board_list";
+
+    }
+    //  BOARD_LIST END
 }
