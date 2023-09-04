@@ -55,6 +55,7 @@ public class CommentController {
 
         UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
         commentDto.setU_id(loginedMemberDto.getU_id());
+        commentDto.setU_img(loginedMemberDto.getU_img());
 
         int result = commentService.registRereplyConfirm(commentDto);
 

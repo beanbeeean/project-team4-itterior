@@ -5,7 +5,7 @@
 <mapper namespace="com.office.house.comment.ICommentDaoMapper">
 
     <insert id="insertNewReply" parameterType="com.office.house.comment.CommentDto">
-        insert into tbl_comment (u_id, b_no, c_comment, c_reg_date, c_mod_date) values (#{u_id}, #{b_no}, #{c_comment}, now(), now())
+        insert into tbl_comment (u_id, u_img, b_no, c_comment, c_reg_date, c_mod_date) values (#{u_id}, #{u_img}, #{b_no}, #{c_comment}, now(), now())
     </insert>
 
     <select id="getMaxCno" resultType="Integer">
@@ -21,7 +21,7 @@
     </select>
 
     <insert id="insertRereply" parameterType="com.office.house.comment.CommentDto">
-        insert into tbl_comment (u_id, b_no, c_comment, c_target_u_id, c_target_c_no, c_reg_date, c_mod_date) values (#{u_id}, #{b_no}, #{c_comment}, #{c_target_u_id}, #{c_target_c_no}, now(), now())
+        insert into tbl_comment (u_id, u_img, b_no, c_comment, c_target_u_id, c_target_c_no, c_reg_date, c_mod_date) values (#{u_id}, #{u_img}, #{b_no}, #{c_comment}, #{c_target_u_id}, #{c_target_c_no}, now(), now())
     </insert>
 
     <delete id="deleteComment" parameterType="hashmap">
