@@ -20,4 +20,8 @@
         delete from tbl_comment where c_no = #{c_no}
     </delete>
 
+    <update id="updateComment" parameterType="hashmap">
+        update tbl_comment set c_comment = #{commentDto.c_comment}, c_mod_date = now() where c_no = #{c_no}
+    </update>
+
 </mapper>

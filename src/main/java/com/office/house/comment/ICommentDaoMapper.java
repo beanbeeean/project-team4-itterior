@@ -14,4 +14,6 @@ public interface ICommentDaoMapper {
     int insertRereply(CommentDto commentDto);
 
     int deleteComment(Map<String, Object> commentmap);
+
+    int updateComment(Map<String, Object> map);
 }

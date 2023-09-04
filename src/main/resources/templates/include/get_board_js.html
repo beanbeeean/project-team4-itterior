@@ -23,7 +23,7 @@
         }
     );
 
-    // 리스트 출력
+    // 댓글 리스트 출력
     function addCommentListTr(commentDtos) {
         console.log("addCommentListTr()");
 
@@ -33,7 +33,15 @@
 
         for (let i = 0; i < commentDtos.length; i++) {
             appendTag += '<tr>'
-            appendTag += '<td>';
+
+            if(commentDtos[i].c_target_u_id != null) {
+                appendTag += '<td class="margin_box" colspan="1">';
+                appendTag += '</td>';
+            }
+
+            appendTag += '<td class="comment_box" colspan="2">';
+
+
             appendTag += '<div class="comment_item">';
             appendTag += '<img src="/userUploadImg/';
             appendTag += commentDtos[i].u_id;
@@ -43,9 +51,14 @@
             appendTag += '<span class="user_id">';
             appendTag += commentDtos[i].u_id;
             appendTag += '</span>';
-            appendTag += '<p class="comment_content">'
+            appendTag += '<br>'
+            appendTag += '<p class="comment_content" style="display: block">'
             appendTag += commentDtos[i].c_comment;
             appendTag += '</p>';
+            appendTag += '<input type="text" class="comment_content_input" value="';
+            appendTag += commentDtos[i].c_comment;
+            appendTag += '" style="display: none">';
+            appendTag += '<input type="button" class="modify_comment_btn" value="수정" style="display: none" onclick="ajax_modifyComment(' + commentDtos[i].c_no + ');">';
             appendTag += '<p class="comment_date">';
 
             var date = new Date(commentDtos[i].c_reg_date);
@@ -65,10 +78,11 @@
             console.log("c_no:" + commentDtos[i].c_no);
 
             if([[${session.loginedMemberDto.u_id}]] == commentDtos[i].u_id){
-                appendTag += '<a class="modifyComment">';
+                appendTag += '<a class="modifyComment" onclick="changeDisplay(' + commentDtos[i].c_no + ')">';
                 appendTag += '수정하기';
                 appendTag += '</a>';
-                appendTag += '<a class="deleteComment">';
+                appendTag += ' | ';
+                appendTag += '<a class="deleteComment" onclick="ajax_deleteComment(' + commentDtos[i].c_no + ')">';
                 appendTag += '삭제하기';
                 appendTag += '</a>';
             }
@@ -84,14 +98,14 @@
     }
 
     // 답글 폼 표시 함수
-    function showRereplyForm(index, uId, cNo) {
+    function showRereplyForm(index, u_id, c_no) {
         let replyForm = `
         <div class="re_reply_form">
-            <input type="hidden" name="c_target_c_no" value="${cNo}">
-            <input type="hidden" name="c_target_u_id" value="${uId}">
+            <input type="hidden" name="c_target_c_no" value="${c_no}">
+            <input type="hidden" name="c_target_u_id" value="${u_id}">
             <img th:unless="${loginedMemberDto != null}" th:src="@{/imgs/defaultimage.PNG}">
             <input class="input_re_comment" type="text">
-            <input type="button" value="입력" onclick="registRereply('${uId}', ${cNo});">
+            <input type="button" value="입력" onclick="registRereply('${u_id}', ${c_no});">
         </div>
     `;
 
@@ -100,7 +114,19 @@
         commentItem.after(replyForm);
     }
 
+    function changeDisplay(no) {
+        console.log("modifyComment()");
 
+        let comment_content = document.querySelector(".comment_content");
+        let comment_content_input = document.querySelector(".comment_content_input");
+        let modify_comment_btn = document.querySelector(".modify_comment_btn");
+
+        comment_content_input.style.display = 'inline-block';
+        modify_comment_btn.style.display = 'inline-block';
+        comment_content.style.display = 'none';
+    }
+
+    // 댓글 보여주기
     function ajax_showCommentList(b_no) {
         console.log('ajax_showCommentList()');
 
@@ -120,6 +146,7 @@
         });
     }
 
+    // 댓글 달기
     function registReply() {
         console.log("registReply()");
 
@@ -154,7 +181,7 @@
 
     }
 
-    // 대댓글
+    // 대댓글 달기
     function registRereply(uId, cNo) {
         console.log("registReply()");
         console.log(uId);
@@ -193,6 +220,7 @@
 
     }
 
+    // 게시물 삭제
     function ajax_removeContent(no) {
         console.log("ajax_removeContent() called!");
 
@@ -247,7 +275,7 @@
 
                 if (data.result > 0) {
                     alert("정상적으로 삭제되었습니다.");
-                    history.back();
+                    location.href = "/board/get_board?b_no=" + boardDto.b_no;
 
                 } else {
                     alert("삭제하는데 문제가 발생하였습니다. 다시 시도해주세요.");
@@ -259,6 +287,33 @@
         });
     }
 
+    // 댓글 수정
+    function ajax_modifyComment(no) {
+        console.log("ajax_modifyComment()");
+
+        let comment = document.querySelector(".comment_content_input").value; // 입력된 값을 가져옴
+        console.log("입력한 댓글: " + comment);
+
+        let msg = {
+            "c_no" : no,
+            "c_comment": comment,
+        }
+
+        $.ajax({
+            url: "/comment/modify_comment_confirm",
+            type: "POST",
+            data: msg,
+            success: function (data) {
+                console.log("modify reply success!", data);
+
+                location.href = "/board/get_board?b_no=" + boardDto.b_no;
+            },
+            error: function () {
+                console.log('AJAX ERROR - ajax_modifyComment()');
+                alert('writePost fail!!');
+            }
+        })
+    }
 
 
 
