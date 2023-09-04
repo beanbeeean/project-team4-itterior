@@ -2,6 +2,7 @@ package com.office.house.admin;
 
 import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
+import com.office.house.user.product.ProductDto;
 import com.office.house.util.PageDefine;
 import com.office.house.util.PageMakerDto;
 import com.office.house.youtube.YoutubeDto;
@@ -412,4 +413,55 @@ public class AdminController {
 
     }
     //  BOARD_LIST END
+
+    //  PRODUCT_LIST START
+    @GetMapping("/product_list")
+    public String productList(HttpSession session, Model model,
+                            @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                            @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                            @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+
+        log.info("[AdminController] productList()");
+
+        String nextPage = "admin/product_list";
+
+        Map<String, Object> map = adminService.productList(keyWord, pageNum, amount);
+
+        List<ProductDto> ProductDtos = (List<ProductDto>) map.get("ProductDtos");
+
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("ProductDtos", ProductDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
+    @GetMapping("/product_list_detail")
+    public String productListDetail(@RequestParam("no") int p_no, Model model) {
+
+        log.info("[AdminController] productListDetail()");
+
+        String nextPage = "admin/product_list_detail";
+
+        ProductDto productDto = (ProductDto) adminService.productListDetail(p_no);
+
+        model.addAttribute("productDto", productDto);
+
+        return nextPage;
+    }
+
+    @PostMapping("/product_list_modify_confirm")
+    public String productListModifyConfirm(ProductDto productDto){
+
+        log.info("[AdminController] productListModifyConfirm()");
+
+        int result = -1;
+
+        result = adminService.productListModifyConfirm(productDto);
+
+        return "redirect:/admin/product_list";
+
+    }
+    //  PRODUCT_LIST END
 }

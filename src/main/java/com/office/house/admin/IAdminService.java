@@ -2,6 +2,7 @@ package com.office.house.admin;
 
 import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
+import com.office.house.user.product.ProductDto;
 import com.office.house.youtube.YoutubeDto;
 
 import java.util.Map;
@@ -25,7 +26,7 @@ public interface IAdminService {
 
     Map<String, Object> userList(String keyWord, int pageNum, int amount);
 
-    Object userListDetail(int u_no);
+    UserDto userListDetail(int u_no);
 
     int userListModifyConfirm(UserDto userDto);
 
@@ -33,19 +34,25 @@ public interface IAdminService {
 
     int createYoutubeChannelConfirm(ChannelDto channelDto);
 
-    Object youtubeChannelListDetail(int yc_no);
+    ChannelDto youtubeChannelListDetail(int yc_no);
 
     int youtubeChannelListModifyConfirm(ChannelDto channelDto);
 
     Map<String, Object> youtubeList(String keyWord, int pageNum, int amount);
 
-    Object youtubeListDetail(int y_no);
+    YoutubeDto youtubeListDetail(int y_no);
 
     int youtubeListModifyConfirm(YoutubeDto youtubeDto);
 
     Map<String, Object> boardList(String keyWord, int pageNum, int amount);
 
-    Object boardListDetail(int bNo);
+    BoardDto boardListDetail(int bNo);
 
     int boardListModifyConfirm(BoardDto boardDto);
+
+    Map<String, Object> productList(String keyWord, int pageNum, int amount);
+
+    ProductDto productListDetail(int p_no);
+
+    int productListModifyConfirm(ProductDto productDto);
 }

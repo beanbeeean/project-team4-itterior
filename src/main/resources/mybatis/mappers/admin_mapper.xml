@@ -4,6 +4,8 @@
 
 <mapper namespace="com.office.house.admin.IAdminDaoMapper">
 
+    <!--  ADMIN START  -->
+
     <select id="selectAdminForLogin" parameterType="com.office.house.admin.AdminDto" resultType="com.office.house.admin.AdminDto">
 
         SELECT * FROM tbl_admin WHERE a_id = #{a_id}
@@ -33,6 +35,10 @@
 
     </update>
 
+    <!--  ADMIN END  -->
+
+    <!--  ADMIN LIST START  -->
+
     <select id="getTotalCnt" resultType="Integer">
 
         SELECT count(*) FROM ${table} where ${column} like CONCAT('%',#{keyWord},'%')
@@ -57,7 +63,9 @@
 
     </update>
 
-    <!--  User list Start  -->
+    <!--  ADMIN LIST END  -->
+
+    <!--  USER LIST START  -->
 
     <select id="userList" resultType="com.office.house.user.UserDto">
 
@@ -77,9 +85,9 @@
 
     </update>
 
-    <!--  User list End  -->
+    <!--  USER LIST END  -->
 
-    <!--  Youtube Channel list Start  -->
+    <!--  YOUTUBE CHANNEL LIST START  -->
 
     <select id="youtubeChannelList" resultType="com.office.house.admin.ChannelDto">
 
@@ -110,9 +118,9 @@
 
     </update>
 
-    <!--  Youtube Channel list End  -->
+    <!--  YOUTUBE CHANNEL LIST END  -->
 
-    <!--  Youtube list Start -->
+    <!--  YOUTUBE LIST START -->
 
     <select id="youtubeList" resultType="com.office.house.youtube.YoutubeDto">
 
@@ -132,9 +140,9 @@
 
     </update>
 
-    <!--  Youtube list End  -->
+    <!--  YOUTUBE LIST END  -->
 
-    <!--  board list Start -->
+    <!--  BOARD LIST START -->
 
     <select id="boardList" resultType="com.office.house.board.BoardDto">
 
@@ -154,6 +162,28 @@
 
     </update>
 
-    <!--  board list End  -->
+    <!--  BOARD LIST END  -->
+
+    <!--  PRODUCT LIST START -->
+
+    <select id="productList" resultType="com.office.house.user.product.ProductDto">
+
+        select * from tbl_product where p_name like CONCAT('%',#{keyWord},'%') order by p_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <select id="productListDetail" resultType="com.office.house.user.product.ProductDto">
+
+        SELECT * FROM tbl_product WHERE p_no = #{p_no}
+
+    </select>
+
+    <update id="productListModifyConfirm"  parameterType="com.office.house.user.product.ProductDto">
+
+        update tbl_product set p_state = #{p_state} where p_no = #{p_no}
+
+    </update>
+
+    <!--  PRODUCT LIST END  -->
 
 </mapper>

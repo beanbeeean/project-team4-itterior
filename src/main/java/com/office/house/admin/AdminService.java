@@ -2,6 +2,7 @@ package com.office.house.admin;
 
 import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
+import com.office.house.user.product.ProductDto;
 import com.office.house.util.Criteria;
 import com.office.house.util.PageMakerDto;
 import com.office.house.youtube.YoutubeDto;
@@ -142,7 +143,7 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public Object userListDetail(int u_no) {
+    public UserDto userListDetail(int u_no) {
 
         log.info("[AdminService] userListDetail()");
 
@@ -199,7 +200,7 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public Object youtubeChannelListDetail(int yc_no) {
+    public ChannelDto youtubeChannelListDetail(int yc_no) {
 
         log.info("[AdminService] youtubeChannelListDetail()");
 
@@ -231,8 +232,6 @@ public class AdminService implements IAdminService{
         int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
-        System.out.println(totalCnt);
-
         map.put("YoutubeDtos", YoutubeDtos);
         map.put("pageMakerDto", pageMakerDto);
 
@@ -240,7 +239,7 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public Object youtubeListDetail(int y_no) {
+    public YoutubeDto youtubeListDetail(int y_no) {
 
         log.info("[AdminService] youtubeListDetail()");
 
@@ -273,8 +272,6 @@ public class AdminService implements IAdminService{
         int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
-        System.out.println(totalCnt);
-
         map.put("BoardDtos", BoardDtos);
         map.put("pageMakerDto", pageMakerDto);
 
@@ -282,7 +279,7 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public Object boardListDetail(int b_no) {
+    public BoardDto boardListDetail(int b_no) {
 
         log.info("[AdminService] boardListDetail()");
 
@@ -299,6 +296,46 @@ public class AdminService implements IAdminService{
     }
 
     //  YOUTUBE_LIST END
+
+    //  PRODUCT_LIST START
+    @Override
+    public Map<String, Object> productList(String keyWord, int pageNum, int amount) {
+        log.info("[AdminService] productList()");
+
+        Map<String, Object> map = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<ProductDto> ProductDtos = iAdminDaoMapper.productList(keyWord, criteria);
+        String table = "tbl_product";
+        String column = "p_name";
+
+        int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        map.put("ProductDtos", ProductDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
+    @Override
+    public ProductDto productListDetail(int p_no) {
+
+        log.info("[AdminService] productListDetail()");
+
+        return iAdminDaoMapper.productListDetail(p_no);
+    }
+
+    @Override
+    public int productListModifyConfirm(ProductDto productDto) {
+
+        log.info("[AdminService] productListModifyConfirm()");
+
+        return iAdminDaoMapper.productListModifyConfirm(productDto);
+
+    }
+
+    //  PRODUCT_LIST END
 
 
 }
