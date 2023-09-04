@@ -8,8 +8,16 @@
         insert into tbl_comment (u_id, b_no, c_comment, c_reg_date, c_mod_date) values (#{u_id}, #{b_no}, #{c_comment}, now(), now())
     </insert>
 
+    <select id="getMaxCno" resultType="Integer">
+        select max(c_no) from tbl_comment
+    </select>
+
+    <update id="updateTargetCno" parameterType="Integer">
+        update tbl_comment set c_target_c_no = #{c_no} where c_no = #{c_no}
+    </update>
+
     <select id="selectCommentList" parameterType="Integer" resultType="hashmap" >
-        select * from tbl_comment c join tbl_board b ON c.b_no = b.b_no where c.b_no = #{b_no} ORDER BY c.c_reg_date desc;
+        select * from tbl_comment c join tbl_board b ON c.b_no = b.b_no where c.b_no = #{b_no} ORDER BY c.c_target_c_no desc, c.c_reg_date asc;
     </select>
 
     <insert id="insertRereply" parameterType="com.office.house.comment.CommentDto">

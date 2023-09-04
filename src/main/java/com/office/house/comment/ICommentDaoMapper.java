@@ -16,4 +16,8 @@ public interface ICommentDaoMapper {
     int deleteComment(Map<String, Object> commentmap);
 
     int updateComment(Map<String, Object> map);
+
+    int getMaxCno();
+
+    void updateTargetCno(int cNo);
 }
