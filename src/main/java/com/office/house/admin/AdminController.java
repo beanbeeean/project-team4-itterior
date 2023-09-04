@@ -305,16 +305,16 @@ public class AdminController {
     //  youtube_list start
 
     @GetMapping("/youtube_list")
-    public String youtubList(HttpSession session, Model model,
+    public String youtubeList(HttpSession session, Model model,
                                     @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
                                     @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                                     @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
 
-        log.info("[AdminController] youtubList()");
+        log.info("[AdminController] youtubeList()");
 
         String nextPage = "admin/youtube_list";
 
-        Map<String, Object> map = adminService.youtubList(keyWord, pageNum, amount);
+        Map<String, Object> map = adminService.youtubeList(keyWord, pageNum, amount);
 
         List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
 
@@ -327,13 +327,13 @@ public class AdminController {
         return nextPage;
     }
     @GetMapping("/youtube_list_detail")
-    public String youtubListDetail(@RequestParam("no") int y_no, Model model) {
+    public String youtubeListDetail(@RequestParam("no") int y_no, Model model) {
 
-        log.info("[AdminController] userListDetail()");
+        log.info("[AdminController] youtubeListDetail()");
 
         String nextPage = "admin/youtube_list_detail";
 
-        YoutubeDto youtubeDto = (YoutubeDto) adminService.youtubListDetail(y_no);
+        YoutubeDto youtubeDto = (YoutubeDto) adminService.youtubeListDetail(y_no);
 
         model.addAttribute("youtubeDto", youtubeDto);
 
@@ -341,13 +341,13 @@ public class AdminController {
     }
 
     @PostMapping("/youtube_list_modify_confirm")
-    public String youtubListModifyConfirm(YoutubeDto youtubeDto){
+    public String youtubeListModifyConfirm(YoutubeDto youtubeDto){
 
-        log.info("[AdminController] youtubListModifyConfirm()");
+        log.info("[AdminController] youtubeListModifyConfirm()");
 
         int result = -1;
 
-        result = adminService.youtubListModifyConfirm(youtubeDto);
+        result = adminService.youtubeListModifyConfirm(youtubeDto);
 
         return "redirect:/admin/youtube_list";
 

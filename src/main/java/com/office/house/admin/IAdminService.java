@@ -36,9 +36,9 @@ public interface IAdminService {
 
     int youtubChannelListModifyConfirm(ChannelDto channelDto);
 
-    Map<String, Object> youtubList(String keyWord, int pageNum, int amount);
+    Map<String, Object> youtubeList(String keyWord, int pageNum, int amount);
 
-    Object youtubListDetail(int y_no);
+    Object youtubeListDetail(int y_no);
 
-    int youtubListModifyConfirm(YoutubeDto youtubeDto);
+    int youtubeListModifyConfirm(YoutubeDto youtubeDto);
 }
