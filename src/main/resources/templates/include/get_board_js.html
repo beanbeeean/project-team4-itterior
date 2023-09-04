@@ -9,9 +9,9 @@
         console.log("document ready!")
 
         $("div.view_content > h1").text(boardDto.b_title);
-        $("span.content_reg_date").text(boardDto.b_reg_date);
         $("span.user_name").text(boardDto.u_id);
-        $("div.view_content > div.content_area").append(boardDto.b_content);
+        $("span.content_reg_date").text(boardDto.b_reg_date);
+        $("div.content_area").append(boardDto.b_content);
         $("span.hit_num").text(boardDto.b_hit);
 
         ajax_showCommentList(boardDto.b_no);
@@ -22,8 +22,7 @@
             console.log("DELETE Click Handler!");
 
             ajax_removeContent(boardDto.b_no);
-        }
-    );
+    });
 
     // 댓글 리스트 출력
     function addCommentListTr(commentDtos) {
@@ -344,6 +343,5 @@
             }
         })
     }
-
 
 </script>

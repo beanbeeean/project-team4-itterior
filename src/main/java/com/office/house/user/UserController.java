@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.office.house.board.BoardDto;
 import com.office.house.user.util.UploadFileService;
+import com.office.house.util.PageDefine;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -175,7 +176,7 @@ public class UserController {
     public String userLikeList(){
         log.info("[UserController] userLikeList()");
 
-        String nextPage = "user/user_like_list";
+        String nextPage = "user_like_product_list";
 
         return nextPage;
     }
@@ -197,6 +198,36 @@ public class UserController {
 
         Map<String, Object> resultMap = userService.findPasswordConfirm(msgMap);
 
+        return resultMap;
+    }
+
+    // 좋아요한 게시물
+    @GetMapping("/user_like_product_list")
+    public String showUserLikeProductList(){
+        log.info("[UserController] showUserLikeProductList()");
+
+        String nextPage = "user/user_like_product_list";
+
+        return nextPage;
+    }
+
+    @GetMapping("get_user_like_products")
+    @ResponseBody
+    public Map<String, Object>  getUserLikeProducts(@RequestParam(required = false, value = "category") String[] category,
+                                            @RequestParam(required = false, value = "sort") String sort,
+                                            @RequestParam(required = false, value = "filter") String filter,
+                                            @RequestParam(required = false, value = "keyword") String keyword,
+                                            @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                            @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount,
+                                            HttpSession session){
+        log.info("getProducts");
+        Map<String, Object> resultMap = userService.getUserLikeProducts(category, sort, filter, keyword, pageNum, amount);
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        if(loginedMemberDto != null){
+            resultMap.put("u_id", loginedMemberDto.getU_id());
+        }else{
+            resultMap.put("u_id", "please_login");
+        }
         return resultMap;
     }
 

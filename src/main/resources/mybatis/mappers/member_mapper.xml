@@ -63,4 +63,5 @@
         select * from tbl_board where u_id = #{u_id}
     </select>
 
+
 </mapper>

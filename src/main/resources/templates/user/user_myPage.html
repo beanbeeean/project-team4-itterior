@@ -12,6 +12,7 @@
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
     <link rel="stylesheet" th:href="@{/css/user/myPage.css}">
+    <link rel="stylesheet" th:href="@{/css/user/user_like_product_list.css}">
 
     <script th:replace="~{/include/user_mypage_js.html::js}" type="text/javascript"></script>
     <script th:replace="~{/include/user_modify_js.html::js}" type="text/javascript"></script>
@@ -35,7 +36,7 @@
             <p><a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a></p>
             <ul>
                 <li><a id="modifyForm" th:href="@{/user/user_modify_form}">정보수정</a></li>
-                <li><a th:href="@{/user/user_like_list}">좋아요한 상품</a></li>
+                <li><a th:href="@{/user/user_like_product_list}">좋아요한 상품</a></li>
                 <li><a th:href="@{/user/user_like_list}">좋아요한 게시물</a></li>
                 <li><a th:href="@{/user/user_like_list}">좋아요한 영상</a></li>
                 <li><a th:href="@{/user/user_board_list(u_id=${session.loginedMemberDto.u_id})}">내가 작성한 글</a></li>

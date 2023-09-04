@@ -28,7 +28,7 @@
             <p><a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a></p>
             <ul>
                 <li><a id="modifyForm" th:href="@{/user/user_modify_form}">정보수정</a></li>
-                <li><a th:href="@{/user/user_like_list}">좋아요한 상품</a></li>
+                <li><a th:href="@{/user/user_like_product_list}">좋아요한 상품</a></li>
                 <li><a th:href="@{/user/user_like_list}">좋아요한 게시물</a></li>
                 <li><a th:href="@{/user/user_like_list}">좋아요한 영상</a></li>
                 <li><a th:href="@{/user/user_board_list(u_id=${session.loginedMemberDto.u_id})}">내가 작성한 글</a></li>
@@ -43,13 +43,6 @@
                         <option>좋아요순</option>
                         <option>조회순</option>
                         <option>날짜순</option>
-                    </select>
-                    <select>
-                        <option selected>스타일</option>
-                        <option>모던</option>
-                        <option>미니멀</option>
-                        <option>빈티지</option>
-                        <option>클래식</option>
                     </select>
                 </div>
                 <a class="write" th:href="@{/user/user_write_form}">글쓰기</a>
