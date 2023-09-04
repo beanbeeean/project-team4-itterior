@@ -1,5 +1,6 @@
 package com.office.house.admin;
 
+import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
 import com.office.house.util.Criteria;
 import com.office.house.util.PageMakerDto;
@@ -22,6 +23,8 @@ public class AdminService implements IAdminService{
 
     @Autowired
     PasswordEncoder passwordEncoder;
+
+    //  ADMIN START
     @Override
     public AdminDto adminLoginConfirm(AdminDto adminDto) {
 
@@ -69,6 +72,10 @@ public class AdminService implements IAdminService{
         return iAdminDaoMapper.adminDeleteConfirm(adminDto);
     }
 
+    //  ADMIN_END END
+
+    //  ADMIN_LIST START
+
     @Override
     public Map<String, Object> adminList(String keyWord, int pageNum, int amount) {
 
@@ -107,8 +114,9 @@ public class AdminService implements IAdminService{
 
         return iAdminDaoMapper.adminListModifyConfirm(adminDto);
     }
+    //  ADMIN_LIST END
 
-    //  user_list start
+    //  USER_LIST START
 
     @Override
     public Map<String, Object> userList(String keyWord, int pageNum, int amount) {
@@ -151,9 +159,9 @@ public class AdminService implements IAdminService{
         return iAdminDaoMapper.userListModifyConfirm(userDto);
     }
 
-    //  user_list end
+    //  USER_LIST END
 
-    //  youtube_channel_list start
+    //  YOUTUBE_CHANNEL_LIST START
 
     @Override
     public Map<String, Object> youtubChannelList(String keyWord, int pageNum, int amount) {
@@ -191,28 +199,27 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public Object youtubChannelListDetail(int yc_no) {
+    public Object youtubeChannelListDetail(int yc_no) {
 
-        log.info("[AdminService] youtubChannelListDetail()");
+        log.info("[AdminService] youtubeChannelListDetail()");
 
         return iAdminDaoMapper.youtubeChannelListDetail(yc_no);
     }
 
     @Override
-    public int youtubChannelListModifyConfirm(ChannelDto channelDto) {
+    public int youtubeChannelListModifyConfirm(ChannelDto channelDto) {
 
-        log.info("[AdminService] youtubChannelListModifyConfirm()");
+        log.info("[AdminService] youtubeChannelListModifyConfirm()");
 
         return iAdminDaoMapper.youtubeChannelListModifyConfirm(channelDto);
     }
 
-    //  youtube_channel_list end
+    //  YOUTUBE_CHANNEL_LIST END
 
-
-    //  youtube_list start
+    //  YOUTUBE_LIST START
     @Override
     public Map<String, Object> youtubeList(String keyWord, int pageNum, int amount) {
-        log.info("[AdminService] youtubList()");
+        log.info("[AdminService] youtubeList()");
 
         Map<String, Object> map = new HashMap<>();
 
@@ -235,7 +242,7 @@ public class AdminService implements IAdminService{
     @Override
     public Object youtubeListDetail(int y_no) {
 
-        log.info("[AdminService] youtubChannelListDetail()");
+        log.info("[AdminService] youtubeListDetail()");
 
         return iAdminDaoMapper.youtubeListDetail(y_no);
     }
@@ -243,11 +250,55 @@ public class AdminService implements IAdminService{
     @Override
     public int youtubeListModifyConfirm(YoutubeDto youtubeDto) {
 
-        log.info("[AdminService] youtubChannelListModifyConfirm()");
+        log.info("[AdminService] youtubeListModifyConfirm()");
 
         return iAdminDaoMapper.youtubeListModifyConfirm(youtubeDto);
 
     }
 
-    //  youtube_list end
+    //  YOUTUBE_LIST END
+
+    //  YOUTUBE_LIST START
+    @Override
+    public Map<String, Object> boardList(String keyWord, int pageNum, int amount) {
+        log.info("[AdminService] boardList()");
+
+        Map<String, Object> map = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<BoardDto> BoardDtos = iAdminDaoMapper.boardList(keyWord, criteria);
+        String table = "tbl_board";
+        String column = "u_id";
+
+        int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        System.out.println(totalCnt);
+
+        map.put("BoardDtos", BoardDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
+    @Override
+    public Object boardListDetail(int b_no) {
+
+        log.info("[AdminService] boardListDetail()");
+
+        return iAdminDaoMapper.boardListDetail(b_no);
+    }
+
+    @Override
+    public int boardListModifyConfirm(BoardDto boardDto) {
+
+        log.info("[AdminService] boardListModifyConfirm()");
+
+        return iAdminDaoMapper.boardListModifyConfirm(boardDto);
+
+    }
+
+    //  YOUTUBE_LIST END
+
+
 }

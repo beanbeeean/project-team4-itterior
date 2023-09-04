@@ -1,5 +1,6 @@
 package com.office.house.admin;
 
+import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
 import com.office.house.util.Criteria;
 import com.office.house.youtube.YoutubeDto;
@@ -48,4 +49,10 @@ public interface IAdminDaoMapper {
     Object youtubeListDetail(int y_no);
 
     int youtubeListModifyConfirm(YoutubeDto youtubeDto);
+
+    List<BoardDto> boardList(String keyWord, Criteria criteria);
+
+    Object boardListDetail(int b_no);
+
+    int boardListModifyConfirm(BoardDto boardDto);
 }
