@@ -144,11 +144,11 @@ public class AdminController {
 
         Map<String, Object> map = adminService.adminList(keyWord, pageNum, amount);
 
-        List<AdminDto> AdminDtos = (List<AdminDto>) map.get("AdminDtos");
+        List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
 
         PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
 
-        model.addAttribute("AdminDtos", AdminDtos);
+        model.addAttribute("YoutubeDtos", YoutubeDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);
         model.addAttribute("keyWord", keyWord);
 
