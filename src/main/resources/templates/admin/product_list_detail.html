@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title th:replace="~{/include/title.html::title}"></title>
+	<script th:fragment="jquery_cdn" src="https://code.jquery.com/jquery-3.7.0.js"
+			integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" th:href="@{/css/common.css}">
+	<link rel="stylesheet" th:href="@{/css/home.css}">
+	<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/myPage.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/modify_account_form.css}">
+
+	<script th:replace="~{/include/admin_modify_js.html::js}" type="text/javascript"></script>
+</head>
+
+<body>
+<header th:replace="~{/include/header_nav_footer.html::header}"/>
+
+<section>
+	<div class="section_wrap">
+		<div th:insert="~{/include/admin_nav_left.html::div}"/>
+		<div class="section_body">
+			<div id="section_wrap">
+				<div class="container">
+					<form th:action="@{/admin/product_list_modify_confirm}" name="product_modify_form" method="post"
+						  enctype="multipart/form-data" style="height: 850px; top: -200px ">
+						<p>MODIFY PRODUCT</p>
+						<input type="hidden" name="p_no" th:value="${productDto.p_no}">
+						&nbsp;<span>ID</span><br><input type="text" name="p_brand" th:value="${productDto.p_brand}" placeholder="INPUT ID"><br>
+						&nbsp;<span>TITLE</span><br><input type="text" name="p_name" th:value="${productDto.p_name}" placeholder="INPUT TITLE"><br>
+						<span>CONTENT</span><br><input type="text" name="p_sales_price" th:value="${productDto.p_sales_price}" placeholder="INPUT CONTENT"><br>
+						<span>CONTENT</span><br><input type="text" name="p_category" th:value="${productDto.p_category}" placeholder="INPUT CONTENT"><br>
+						<span>CONTENT</span><br><input type="text" name="p_like" th:value="${productDto.p_like}" placeholder="INPUT CONTENT"><br>
+						<span>CONTENT</span><br><input type="text" name="p_hit" th:value="${productDto.p_hit}" placeholder="INPUT CONTENT"><br>
+						<select class="form-control col-lg-2 required" name="p_state" >
+							<option th:value="0" th:text="미사용" th:selected="${productDto.p_state} == 0"></option>
+							<option th:value="1" th:text="사용" th:selected="${productDto.p_state} == 1"></option>
+						</select><br>
+						<input type="button" class="btn_create" value="modify" onclick="productModifyForm()">&nbsp;&nbsp;
+						<input type="reset" value="reset">
+					</form>
+					<div class="drops">
+						<div class="drop drop-1"></div>
+						<div class="drop drop-3"></div>
+						<div class="drop drop-4"></div>
+						<div class="drop drop-5"></div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</section>
+
+</body>
+
+</html>
+
+

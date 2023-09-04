@@ -116,4 +116,30 @@ function boardModifyForm() {
     }
 }
 
+function productModifyForm() {
+    console.log('productModifyForm() CALLED!!');
+
+    let form = document.product_modify_form;
+
+    if (form.p_brand.value == '') {
+        alert('INPUT BRAND');
+        form.p_brand.focus();
+
+    } else if (form.p_name.value == '') {
+        alert('INPUT NAMET');
+        form.p_name.focus();
+
+    } else if (form.p_sales_price.value == '') {
+        alert('INPUT SALES PRICE');
+        form.p_sales_price.focus();
+
+    } else if (form.p_category.value == '') {
+        alert('INPUT CATEGORY');
+        form.p_category.focus();
+    } else {
+        form.submit();
+
+    }
+}
+
 </script>

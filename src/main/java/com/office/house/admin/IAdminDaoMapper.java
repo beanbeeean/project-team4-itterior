@@ -2,6 +2,7 @@ package com.office.house.admin;
 
 import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
+import com.office.house.user.product.ProductDto;
 import com.office.house.util.Criteria;
 import com.office.house.youtube.YoutubeDto;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,7 +31,7 @@ public interface IAdminDaoMapper {
 
     List<UserDto> userList(String keyWord, Criteria criteria);
 
-    Object userListDetail(int u_no);
+    UserDto userListDetail(int u_no);
 
     int userListModifyConfirm(UserDto userDto);
 
@@ -40,19 +41,25 @@ public interface IAdminDaoMapper {
 
     int insertNewChannel(ChannelDto channelDto);
 
-    Object youtubeChannelListDetail(int yc_no);
+    ChannelDto youtubeChannelListDetail(int yc_no);
 
     int youtubeChannelListModifyConfirm(ChannelDto channelDto);
 
     List<YoutubeDto> youtubeList(String keyWord, Criteria criteria);
 
-    Object youtubeListDetail(int y_no);
+    YoutubeDto youtubeListDetail(int y_no);
 
     int youtubeListModifyConfirm(YoutubeDto youtubeDto);
 
     List<BoardDto> boardList(String keyWord, Criteria criteria);
 
-    Object boardListDetail(int b_no);
+    BoardDto boardListDetail(int b_no);
 
     int boardListModifyConfirm(BoardDto boardDto);
+
+    List<ProductDto> productList(String keyWord, Criteria criteria);
+
+    ProductDto productListDetail(int p_no);
+
+    int productListModifyConfirm(ProductDto productDto);
 }
