@@ -12,6 +12,10 @@
         select * from tbl_board
     </select>
 
+    <update id="updateHit" parameterType="Integer">
+        update tbl_board set b_hit = b_hit + 1 where b_no = #{b_no}
+    </update>
+
     <select id="getBoard" parameterType="Integer" resultType="com.office.house.board.BoardDto">
         select * from tbl_board where b_no = #{b_no}
     </select>

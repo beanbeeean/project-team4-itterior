@@ -27,7 +27,7 @@
             <form name="board_write_form">
                 <input type="hidden" name="u_id" th:if="${session.loginedMemberDto != null}"
                        th:value="${session.loginedMemberDto.u_id}">
-                <input type="hidden" name="u_img" th:if="${session.loginedMemberDto != null}"
+                <input type="hidden" name="u_img" th:if="${session.loginedMemberDto != null && session.loginedMemberDto.u_img != null}"
                        th:value="${session.loginedMemberDto.u_img}">
                 <span>TITLE </span>
                 <input type="text" name="b_title"><br>

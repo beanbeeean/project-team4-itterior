@@ -12,6 +12,8 @@ public interface IBoardDaoMapper {
 
     List<BoardDto> selectBoardList();
 
+    void updateHit(int bNo);
+
     BoardDto getBoard(int bNo);
 
     int updateUserImage(UserDto userDto);

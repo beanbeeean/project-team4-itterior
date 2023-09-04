@@ -41,6 +41,7 @@ public class BoardService implements IBoardService {
     public BoardDto getBoard(int bNo) {
         log.info("[BoardService] getBoard()");
 
+        iBoardDaoMapper.updateHit(bNo);
         return iBoardDaoMapper.getBoard(bNo);
     }
 
