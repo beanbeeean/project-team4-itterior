@@ -23,7 +23,6 @@
         }
     );
 
-
     // 리스트 출력
     function addCommentListTr(commentDtos) {
         console.log("addCommentListTr()");
@@ -66,9 +65,14 @@
             appendTag += '답글달기';
             appendTag += '</a>';
 
-            if([[${session.loginedMemberDto.u_id}]] == commentDtos[cnt].u_id){
+            console.log("c_no:" + commentDtos[i].c_no);
+
+            if([[${session.loginedMemberDto.u_id}]] == commentDtos[i].u_id){
                 appendTag += '<a class="modifyComment">';
                 appendTag += '수정하기';
+                appendTag += '</a>';
+                appendTag += '<a class="deleteComment">';
+                appendTag += '삭제하기';
                 appendTag += '</a>';
             }
 
@@ -223,6 +227,42 @@
             },
         });
     }
+
+
+    // 댓글 삭제
+    function ajax_deleteComment(no) {
+        console.log("ajax_deleteComment() called!");
+
+        console.log("c_no : " + no);
+
+        let commentDto = {
+            c_no: no,
+        };
+
+        $.ajax({
+            url: "/comment/delete_comment_confirm",
+            type: "post",
+            data: JSON.stringify(commentDto),
+            contentType: "application/json; charset=utf-8",
+            // dataType: "json",
+            success: function (data) {
+                console.log("ajax success - ajax_deleteComment()");
+
+                if (data.result > 0) {
+                    alert("정상적으로 삭제되었습니다.");
+                    history.back();
+
+                } else {
+                    alert("삭제하는데 문제가 발생하였습니다. 다시 시도해주세요.");
+                }
+            },
+            error: function (data) {
+                console.log("ajax error - ajax_deleteComment()");
+            },
+        });
+    }
+
+
 
 
 </script>

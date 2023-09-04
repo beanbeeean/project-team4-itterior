@@ -58,4 +58,15 @@ public class CommentController {
         return result;
     }
 
+    // 댓글 삭제
+    @PostMapping("/delete_comment_confirm")
+    @ResponseBody
+    public Object deleteCommentConfirm(@RequestBody Map<String, Object> commentmap){
+        log.info("[CommentController] deleteCommentConfirm()");
+
+        Map<String, Object> resultMap = commentService.deleteComment(commentmap);
+        return resultMap;
+
+    }
+
 }
