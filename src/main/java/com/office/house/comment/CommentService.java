@@ -59,4 +59,21 @@ public class CommentService {
         map.put("result",result);
         return map;
     }
+
+    public int modifyCommentConfirm(CommentDto commentDto, int c_no) {
+        log.info("[CommentService] modifyCommentConfirm()");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("commentDto",commentDto);
+        map.put("c_no", c_no);
+
+        int result = iCommentDaoMapper.updateComment(map);
+        if(result > 0) {
+            log.info("modify success");
+        } else {
+            log.info("modify fail");
+        }
+
+        return result;
+    }
 }

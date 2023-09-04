@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -66,7 +67,17 @@ public class CommentController {
 
         Map<String, Object> resultMap = commentService.deleteComment(commentmap);
         return resultMap;
+    }
 
+    // 댓글 수정
+    @PostMapping("/modify_comment_confirm")
+    @ResponseBody
+    public Object modifyCommentConfirm(CommentDto commentDto, @RequestParam("c_no") int c_no){
+        log.info("[CommentController] modifyCommentConfirm()");
+
+        int result = commentService.modifyCommentConfirm(commentDto, c_no);
+
+        return result;
     }
 
 }
