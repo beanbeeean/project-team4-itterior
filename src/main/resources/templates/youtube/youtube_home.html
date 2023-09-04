@@ -20,27 +20,35 @@
 
 <section>
     <div id="section_wrap">
-        <div class="word">
-            <h2>인테리어 상품 비교</h2>
-        </div>
         <div class="search_youtube_wrap">
-            <input type="text" name="p_search" placeholder="상품 이름을 입력해주세요.">
+            <input type="text" name="p_search" placeholder="유튜브 영상 제목 혹은 채널명을 검색해주세요.">
             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 512 512" class="search_btn">
                 <path style="fill:#b9b9b9" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
             </svg>
         </div>
         <div class="youtube_item_list">
-            <div class="youtube_item" th:each="YoutubeDto : ${YoutubeDtos}" >
-                <iframe  width="800" height="400" th:src="'https://www.youtube.com/embed/'+${YoutubeDto.y_id}"
-                    title="YouTube video player" frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen></iframe>
+            <div class="youtube_item" th:each="YoutubeDto : ${YoutubeDtos}">
+                <iframe
+                        width="780"
+                        height="400"
+                        th:src="'https://www.youtube.com/embed/'+${YoutubeDto.y_id}"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen
+                ></iframe>
                 <div class="youtube_item_detail">
-                    <p class="youtube_title" th:text="${YoutubeDto.y_title}"></p>
-                    <span class="youtube_channel" th:text="${YoutubeDto.y_channel}"></span>
+                    <h3 class="youtube_title" th:text="${YoutubeDto.y_title}"></h3>
+                    <div class="like_channel_wrap">
+                        <span class="youtube_channel" th:text="${YoutubeDto.y_channel}"></span>
+                        <a class="like_board_btn" href="#none">
+                            <img src="/imgs/empty_heart.png" class="empty_heart" />
+                        </a>
+                        <span class="like_count">10</span>
+                    </div>
+                    <p th:text="${YoutubeDto.y_content}"></p>
                 </div>
             </div>
-
         </div>
         <div class="page_wrap">
 

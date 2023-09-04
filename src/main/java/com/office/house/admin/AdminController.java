@@ -136,7 +136,7 @@ public class AdminController {
     public String adminList(HttpSession session, Model model,
                             @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
                             @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-                            @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+                            @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_AMOUNT) int amount) {
 
         log.info("[AdminController] adminList()");
 
