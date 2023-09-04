@@ -140,7 +140,7 @@
                 appendTag += '</div>';
                 appendTag += '</div>';
                 appendTag += '<div class="like_hit_wrap">';
-                appendTag += '<a class="like_board_btn"';
+                appendTag += '<a class="like_product_btn"';
                 appendTag += 'href="#none" ';
                 appendTag += 'data-p_no="';
                 appendTag += productDtos[cnt].p_no;
@@ -190,9 +190,9 @@
     // 인테리어 상품 1개 재구성(좋아요 시)
     function reconstructionTdForLike(productDto, isLike){
        // let productNo = productDto.p_no;
-       for(let i = 0; i < $('a.like_board_btn').length; i++){
-           if($('a.like_board_btn').eq(i).data("p_no") == productDto.p_no){
-               $('a.like_board_btn').eq(i).children().remove();
+       for(let i = 0; i < $('a.like_product_btn').length; i++){
+           if($('a.like_product_btn').eq(i).data("p_no") == productDto.p_no){
+               $('a.like_product_btn').eq(i).children().remove();
 
                let appendTag = '';
 
@@ -202,7 +202,7 @@
                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png">';
 
                }
-               $('a.like_board_btn').eq(i).append(appendTag);
+               $('a.like_product_btn').eq(i).append(appendTag);
 
                $('span.like_count').eq(i).text(productDto.p_like);
 
@@ -213,8 +213,8 @@
 
     // 인테리어 상품 1개 재구성(조회 시)
     function reconstructionTdForHit(productDto){
-        for(let i = 0; i < $('a.like_board_btn').length; i++) {
-            if ($('a.like_board_btn').eq(i).data("p_no") == productDto.p_no) {
+        for(let i = 0; i < $('a.like_product_btn').length; i++) {
+            if ($('a.like_product_btn').eq(i).data("p_no") == productDto.p_no) {
                 $('span.hit_count').eq(i).text(productDto.p_hit);
                 break;
             }

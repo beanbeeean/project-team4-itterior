@@ -29,43 +29,83 @@
 
         for (let i = 0; i < boardDtos.length / 4 + 1; i++) {
             appendTag += '<tr>'
-            for (let j = 0; j < 4; j++) {
+            for (let j = 0; j < 3; j++) {
                 if (boardDtos[cnt] == null) {
                     break;
                 }
                 appendTag += '<td>';
-                appendTag += '<div>';
+                appendTag += '<div class="board_item">';
+                appendTag += '<a class="title" href="/board/get_board?b_no=';
+                appendTag += boardDtos[cnt].b_no;
+                appendTag += '">';
                 appendTag += '<img class="board_img" src="/userBoardThumbnailImg/';
                 appendTag += boardDtos[cnt].u_id;
                 appendTag += "/";
                 appendTag += boardDtos[cnt].b_thumbnail;
                 appendTag += '"/>'
-                appendTag += '<a class="title" href="/board/get_board?b_no=';
-                appendTag += boardDtos[cnt].b_no;
-                appendTag += '">'
-                appendTag += '<br>';
+                appendTag += '<p class="board_title">';
                 appendTag += boardDtos[cnt].b_title;
-                appendTag += '</a><br>'
-
+                appendTag += '</p>';
+                appendTag += '<div class="board_user_info">';
                 if (boardDtos[cnt].u_img != null){
-                appendTag += '<img class="profile_img" src="/userUploadImg/';
-                appendTag += boardDtos[cnt].u_id;
-                appendTag += "/";
-                appendTag += boardDtos[cnt].u_img;
-                appendTag += '"/>'
+                    appendTag += '<img class="profile_img" src="/userUploadImg/';
+                    appendTag += boardDtos[cnt].u_id;
+                    appendTag += "/";
+                    appendTag += boardDtos[cnt].u_img;
+                    appendTag += '"/>'
                 }
-
                 if (boardDtos[cnt].u_img == null){
-                    // appendTag += '<img class="profile_img" th:src="@{/imgs/defaultimage.PNG}">';
                     appendTag += '<img class="profile_img" src="/imgs/defaultimage.PNG">';
                 }
 
                 appendTag += '<span class="user_name">'
                 appendTag += boardDtos[cnt].u_id;
                 appendTag += '</span>';
-                appendTag += '</td>';
                 appendTag += '</div>';
+                appendTag += '</a>';
+                appendTag += '</div>';
+                appendTag += '<div class="like_hit_wrap">';
+                appendTag += '<a class="like_board_btn" href="#none" ';
+                appendTag += 'data-b_no="';
+                appendTag += boardDtos[cnt].b_no
+                appendTag += '">';
+                appendTag += '<img class="full_heart" src="/imgs/full_heart.png">';
 
+
+
+                if(u_id != undefined && u_id != "please_login" && isLikedDtos.length > 0){
+                    for(let k = 0; k < isLikedDtos.length; k++){
+                        if(isLikedDtos[k].l_content_no == boardDtos[cnt].b_no && isLikedDtos[k].u_id == u_id){
+                            appendTag += '<img class="full_heart" src="/imgs/full_heart.png" data-b_no="';
+                            appendTag += boardDtos[cnt].b_no;
+                            appendTag += '">';
+                            break;
+                        }else if(isLikedDtos[k].l_content_no != productDtos[cnt].p_no || isLikedDtos[k].u_id != u_id){
+                            if(k == isLikedDtos.length - 1){
+                                appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-b_no="';
+                                appendTag += boardDtos[cnt].b_no;
+                                appendTag += '">';
+                            }
+                            continue;
+                        }
+                    }
+                }else{
+                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-b_no="';
+                    appendTag += pboardDtos[cnt].b_no;
+                    appendTag += '">';
+                }
+
+                appendTag += '</a>';
+                appendTag += '<span class="like_count">';
+                appendTag += boardDtos[cnt].b_like;
+                appendTag += '</span>';
+                appendTag += '<div class="hit_area">';
+                appendTag += '<img class="hit_img" src="/imgs/hit.png">'
+                appendTag += '<span class="hit_count">';
+                appendTag +=  boardDtos[cnt].b_hit;
+                appendTag += '</span>';
+                appendTag += '</div>';
+                appendTag += '</td>';
                 cnt++;
 
             }
@@ -74,25 +114,6 @@
 
         $('#section_wrap div.board_wrap table tbody').append(appendTag);
     }
-
-    // function ajax_BoardList() {
-    //     console.log('ajax_BoardList()');
-    //
-    //     $.ajax({
-    //         url: '/board/get_board_list',
-    //         method: 'GET',
-    //         contentType: 'application/json; charset=utf-8',
-    //         success: function (data) {
-    //             console.log('AJAX SUCCESS - ajax_BoardList()');
-    //
-    //             let boardDtos = data.boardDtos;
-    //             addBoardListTr(boardDtos);
-    //         },
-    //         error: function (data) {
-    //             console.log('AJAX ERROR - ajax_BoardList()');
-    //         }
-    //     });
-    // }
 
     function ajax_BoardList(selectedValue) {
         console.log('ajax_BoardList()');

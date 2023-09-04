@@ -11,6 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/board/home.css}">
 
     <script th:replace="~{/include/board_home_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/user/include/like_js.html::js}" type="text/javascript"></script>
     <script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
 
 </head>
@@ -40,7 +41,7 @@
 
 
         <div class="board_wrap">
-            <p>전체<span class="board_cnt"></span></p>
+            <p class="board_total">전체&nbsp<span class="board_cnt"></span></p>
             <table class="board_list">
                 <tbody>
                 </tbody>

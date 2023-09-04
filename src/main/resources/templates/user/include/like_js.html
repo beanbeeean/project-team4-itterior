@@ -9,7 +9,7 @@
 
 
     function init_like_events(){
-        $(document).on('click','a.like_board_btn',function (e){
+        $(document).on('click','a.like_product_btn',function (e){
             e.preventDefault();
             let p_no = $(this).data("p_no");
 
@@ -25,6 +25,24 @@
 
             }
 
+        })
+
+        $(document).on('click','a.like_board_btn', function (e) {
+            e.preventDefault();
+            let b_no = $(this).data("b_no");
+            console.log("b_no : " + b_no);
+
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null){
+                $('div.modal_wrap').css('display','block');
+            }else{
+                if($(this).find("img.full_heart").attr('class') == "full_heart"){
+                    ajax_updateLikeCount("cancel", 2, b_no, loginedMemberDto.u_id);
+                }else{
+                    ajax_updateLikeCount("like", 2, b_no, loginedMemberDto.u_id);
+                }
+
+            }
         })
 
     }
@@ -54,8 +72,6 @@
                console.log("pageNum : " + pageNum);
 
                reconstructionTdForLike(data.productDto, data.isLike);
-               //jax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
-               //link_getProductList();
            },
            error: function(data) {
                console.log('AJAX ERROR - ajax_updateLikeCount()');

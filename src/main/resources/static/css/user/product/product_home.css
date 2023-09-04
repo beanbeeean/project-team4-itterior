@@ -99,9 +99,6 @@ div.product_item_list table {
     transition: all 0.3s;
 }
 
-.product_container:hover {
-
-}
 
 .product_img {
     height: 240px;
@@ -252,7 +249,7 @@ div.like_hit_wrap{
     margin-right: 7px;
 }
 
-a.like_board_btn {
+a.like_product_btn {
     display: flex;
     align-items: center;
 }

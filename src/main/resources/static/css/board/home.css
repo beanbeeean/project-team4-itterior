@@ -1,5 +1,6 @@
 #section_wrap {
-	margin: 0 150px 0 150px;
+	width: 1200px;
+	margin: 0 auto;
 }
 
 .word::after {
@@ -34,42 +35,123 @@
 	color: #fff;
 }
 
-.board_wrap {
-	text-align: center;
+
+.board_wrap table {
+	width: 1200px;
+	margin: 0 auto;
 }
 
-.board_wrap p {
+.board_wrap tr {
+	display: flex;
+}
+
+.board_wrap td {
+	flex: 0 33%;
+	padding: 15px;
+	margin: 15px;
+}
+
+.board_wrap td:hover{
+	box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+	rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+	transform: scale(1.1);
+	transition: all 0.3s;
+}
+
+.board_wrap td > div.board_item {
+	padding: 10px;
+	/*border: 1px solid #dadada;*/
+}
+
+.board_wrap p.board_total {
 	text-align: left;
-	font-size: 0.9em;
+	font-size: 1.1em;
+	margin-bottom: 10px;
 }
 
 .board_wrap table {
 	width: 100%;
 }
 
-.board_wrap td {
-	padding: 10px;
-	width: 25%;
-}
 
 .board_wrap tbody img.board_img {
-	width: 100%;
-	height: 180px;
+	max-width: 330px;
+	min-width: 330px;
+	min-height: 220px;
+	max-height: 220px;
 }
 
-.board_wrap tbody p.title {
+.board_wrap tbody p.board_title {
+	margin: 10px 0;
 	text-align: center;
-	margin-bottom: 10px;
-	font-size: 1.1em;
+	font-size: 17px;
+	font-weight: 700;
+	color: #424242;
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-
-.board_wrap tbody img.profile_img {
+.board_wrap .board_user_info {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.board_wrap .board_user_info img.profile_img {
 	width: 30px;
 	height: 30px;
 	border-radius: 25px;
+	margin-right: 8px;
 }
 
 .board_wrap tbody span.user_name {
-	vertical-align: 5px;
 	color: #989898;
+	font-size: 16px;
+}
+
+/**/
+
+div.like_hit_wrap{
+	margin-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 20px;
+	padding-right: 5px;
+}
+
+.empty_heart,
+.full_heart{
+	max-width: 20px;
+	min-width: 20px;
+	margin-right: 7px;
+}
+
+a.like_board_btn {
+	display: flex;
+	align-items: center;
+}
+
+.like_count {
+	line-height: 18px;
+	font-size: 18px;
+}
+
+div.hit_area{
+	margin-left: 15px;
+	display: flex;
+	align-items: center;
+}
+
+img.hit_img {
+	max-width: 30px;
+	min-width: 30px;
+	margin-right: 7px;
+}
+
+span.hit_count {
+	line-height: 18px;
+	font-size: 18px;
 }
