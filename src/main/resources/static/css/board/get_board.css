@@ -66,7 +66,7 @@ hr {
 
 .user_input {
     display: flex;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     width: 100%;
 }
 
@@ -96,8 +96,12 @@ hr {
 
 .re_reply_form {
     margin-left: 40px;
-    width: 100%;
+    width: 500px;
     margin-bottom: 30px;
+}
+
+.re_reply_form .comment_item {
+    margin-left: 50px;
 }
 
 .re_reply_form img {
@@ -109,8 +113,6 @@ hr {
 
 .re_reply_form input[type="text"] {
     padding: 10px;
-    width: 60%;
-    margin-left: 10px;
     vertical-align: 15px;
     border-radius: 5px;
     border: 1px solid #cbcbcb;
@@ -141,6 +143,7 @@ tr {
 }
 
 .comment_item {
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 

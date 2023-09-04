@@ -36,7 +36,6 @@ public class CommentService implements ICommentService{
         Map<String, Object> map = new HashMap<>();
         List<CommentDto> commentDtos = iCommentDaoMapper.selectCommentList(b_no);
 
-        log.info(commentDtos.size());
         map.put("commentDtos",commentDtos);
 
         return map;
