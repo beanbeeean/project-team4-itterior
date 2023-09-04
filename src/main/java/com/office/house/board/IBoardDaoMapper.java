@@ -24,4 +24,9 @@ public interface IBoardDaoMapper {
 
     int deleteBoard(Map<String, Object> boardmap);
 
+    List<BoardDto> selectBoardListOrderByLikes();
+
+    List<BoardDto> selectBoardListOrderByViews();
+
+    List<BoardDto> selectBoardListOrderByDate();
 }

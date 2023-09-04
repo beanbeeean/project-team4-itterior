@@ -12,6 +12,14 @@
         select * from tbl_board
     </select>
 
+    <select id="selectBoardListOrderByViews" resultType="hashmap">
+        select * from tbl_board order by b_hit desc
+    </select>
+
+    <select id="selectBoardListOrderByDate" resultType="hashmap">
+        select * from tbl_board order by b_reg_date desc
+    </select>
+
     <update id="updateHit" parameterType="Integer">
         update tbl_board set b_hit = b_hit + 1 where b_no = #{b_no}
     </update>

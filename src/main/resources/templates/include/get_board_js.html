@@ -2,6 +2,8 @@
 
     let boardDto = [[${boardDto}]];
     let loginedMemberDto = [[${session.loginedMemberDto}]];
+    let isReplyFormVisible = false; // 답글 폼의 표시 상태를 나타내는 변수
+
 
     $(document).ready(function () {
         console.log("document ready!")
@@ -34,7 +36,7 @@
         for (let i = 0; i < commentDtos.length; i++) {
             appendTag += '<tr>'
 
-            if(commentDtos[i].c_target_u_id != null) {
+            if (commentDtos[i].c_target_u_id != null) {
                 appendTag += '<td class="margin_box" colspan="1">';
                 appendTag += '</td>';
             }
@@ -44,15 +46,15 @@
 
             appendTag += '<div class="comment_item">';
 
-            if (commentDtos[i].u_img != null){
+            if (commentDtos[i].u_img != null) {
                 appendTag += '<img src="/userUploadImg/';
-                appendTag += loginedMemberDto.u_id;
+                appendTag += commentDtos[i].u_id;
                 appendTag += "/";
-                appendTag += loginedMemberDto.u_img;
+                appendTag += commentDtos[i].u_img;
                 appendTag += '"/>'
             }
 
-            if (commentDtos[i].u_img == null){
+            if(commentDtos[i].u_img == null) {
                 appendTag += '<img src="/imgs/defaultimage.PNG">';
             }
 
@@ -66,7 +68,7 @@
             appendTag += '<input type="text" class="comment_content_input" value="';
             appendTag += commentDtos[i].c_comment;
             appendTag += '" style="display: none">';
-            appendTag += '<input type="button" class="modify_comment_btn" value="수정" style="display: none" onclick="ajax_modifyComment(' + commentDtos[i].c_no + ');">';
+            appendTag += '<input type="button" class="modify_comment_btn" value="수정" style="display: none" onclick="ajax_modifyComment(' + i + ',' + commentDtos[i].c_no + ');">';
             appendTag += '<p class="comment_date">';
 
             var date = new Date(commentDtos[i].c_reg_date);
@@ -83,10 +85,8 @@
             appendTag += '답글달기';
             appendTag += '</a>';
 
-            console.log("c_no:" + commentDtos[i].c_no);
-
-            if([[${session.loginedMemberDto.u_id}]] == commentDtos[i].u_id){
-                appendTag += '<a class="modifyComment" onclick="changeDisplay(' + commentDtos[i].c_no + ')">';
+            if ([[${session.loginedMemberDto.u_id}]] == commentDtos[i].u_id) {
+                appendTag += '<a class="modifyComment" onclick="changeDisplay(' + i + ')">';
                 appendTag += '수정하기';
                 appendTag += '</a>';
                 appendTag += ' | ';
@@ -107,27 +107,38 @@
 
     // 답글 폼 표시 함수
     function showRereplyForm(index, u_id, c_no) {
-        let replyForm = `
-        <div class="re_reply_form">
+        if (isReplyFormVisible) {
+            // 답글 폼이 이미 표시된 경우 답글 폼을 숨김
+            $('.re_reply_form').remove();
+            isReplyFormVisible = false;
+        } else {
+            let replyForm = `
+        <tr class="re_reply_form">
+        <td class="margin_box" colspan="1"></td>
+        <td class="comment_item" colspan="2">
             <input type="hidden" name="c_target_c_no" value="${c_no}">
             <input type="hidden" name="c_target_u_id" value="${u_id}">
             <img th:unless="${loginedMemberDto != null}" th:src="@{/imgs/defaultimage.PNG}">
             <input class="input_re_comment" type="text">
             <input type="button" value="입력" onclick="registRereply('${u_id}', ${c_no});">
-        </div>
-    `;
+        </td>
+        </tr>
+        `;
 
-        // 답글 입력 폼을 현재 클릭한 답글 버튼 아래에 추가
-        let commentItem = $('#section_wrap table.comments tbody tr').eq(index);
-        commentItem.after(replyForm);
+            // 답글 입력 폼을 현재 클릭한 답글 버튼 아래에 추가
+            let commentItem = $('#section_wrap table.comments tbody tr').eq(index);
+            commentItem.after(replyForm);
+            isReplyFormVisible = true;
+        }
     }
 
-    function changeDisplay(no) {
+    // 수정하기 눌렀을 때 display 변경
+    function changeDisplay(index) {
         console.log("modifyComment()");
 
-        let comment_content = document.querySelector(".comment_content");
-        let comment_content_input = document.querySelector(".comment_content_input");
-        let modify_comment_btn = document.querySelector(".modify_comment_btn");
+        let comment_content = document.querySelectorAll(".comment_content")[index];
+        let comment_content_input = document.querySelectorAll(".comment_content_input")[index];
+        let modify_comment_btn = document.querySelectorAll(".modify_comment_btn")[index];
 
         comment_content_input.style.display = 'inline-block';
         modify_comment_btn.style.display = 'inline-block';
@@ -146,6 +157,8 @@
                 console.log('AJAX SUCCESS - ajax_showCommentList()');
 
                 let commentDtos = data.commentDtos;
+                console.log(commentDtos);
+
                 addCommentListTr(commentDtos);
             },
             error: function (data) {
@@ -297,14 +310,14 @@
     }
 
     // 댓글 수정
-    function ajax_modifyComment(no) {
+    function ajax_modifyComment(index, no) {
         console.log("ajax_modifyComment()");
 
-        let comment = document.querySelector(".comment_content_input").value; // 입력된 값을 가져옴
+        let comment = document.querySelectorAll(".comment_content_input")[index].value; // 입력된 값을 가져옴
         console.log("입력한 댓글: " + comment);
 
         let msg = {
-            "c_no" : no,
+            "c_no": no,
             "c_comment": comment,
         }
 

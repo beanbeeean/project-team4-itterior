@@ -89,12 +89,22 @@ public class BoardController {
     }
 
     // board의 전체 게시물 보여주기
+//    @GetMapping("/get_board_list")
+//    @ResponseBody
+//    public Map<String, Object> getBoardList(){
+//        log.info("[BoardController] getBoardList()");
+//
+//        Map<String, Object> map = boardService.getBoardList();
+//
+//        return map;
+//    }
+
     @GetMapping("/get_board_list")
     @ResponseBody
-    public Map<String, Object> getBoardList(){
+    public Map<String, Object> getBoardList(@RequestParam(value = "sort", required = false) Integer sort){
         log.info("[BoardController] getBoardList()");
 
-        Map<String, Object> map = boardService.getBoardList();
+        Map<String, Object> map = boardService.getBoardList(sort);
 
         return map;
     }

@@ -5,7 +5,12 @@
 
         // 이벤트 핸들러 초기화(등록)
         // init_events();
-        ajax_BoardList();
+        ajax_BoardList(0);
+    });
+
+    $(document).on("change", ".sortSelect", function () {
+        let selectedValue = this.value; // 선택한 값을 가져옴
+        ajax_BoardList(selectedValue); // 선택한 값으로 서버에 요청
     });
 
     // 리스트 출력
@@ -18,7 +23,7 @@
         let cnt = 0;
 
         appendTag += boardDtos.length;
-        $('div.board_wrap > p').append(appendTag);
+        $('div.board_wrap span.board_cnt').append(appendTag);
 
         appendTag = '';
 
@@ -70,17 +75,38 @@
         $('#section_wrap div.board_wrap table tbody').append(appendTag);
     }
 
-    function ajax_BoardList() {
+    // function ajax_BoardList() {
+    //     console.log('ajax_BoardList()');
+    //
+    //     $.ajax({
+    //         url: '/board/get_board_list',
+    //         method: 'GET',
+    //         contentType: 'application/json; charset=utf-8',
+    //         success: function (data) {
+    //             console.log('AJAX SUCCESS - ajax_BoardList()');
+    //
+    //             let boardDtos = data.boardDtos;
+    //             addBoardListTr(boardDtos);
+    //         },
+    //         error: function (data) {
+    //             console.log('AJAX ERROR - ajax_BoardList()');
+    //         }
+    //     });
+    // }
+
+    function ajax_BoardList(selectedValue) {
         console.log('ajax_BoardList()');
 
         $.ajax({
-            url: '/board/get_board_list',
+            url: '/board/get_board_list?sort=' + selectedValue,
             method: 'GET',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 console.log('AJAX SUCCESS - ajax_BoardList()');
 
                 let boardDtos = data.boardDtos;
+                $('div.board_wrap span.board_cnt').empty();
+                $('#section_wrap div.board_wrap table tbody').empty();
                 addBoardListTr(boardDtos);
             },
             error: function (data) {

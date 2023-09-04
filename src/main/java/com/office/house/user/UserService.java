@@ -92,6 +92,7 @@ public class UserService implements IUserService {
 
         int result = iUserDaoMapper.updateAccount(userDto);
         int result_board = iBoardDaoMapper.updateUserImage(userDto);
+        int result_comment = iCommentDaoMapper.updateUserImage(userDto);
         log.info(result_board);
 
         if(result>0)

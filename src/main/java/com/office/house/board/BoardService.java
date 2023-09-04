@@ -82,4 +82,41 @@ public class BoardService implements IBoardService {
         map.put("result",result);
         return map;
     }
+
+    public Map<String, Object> getBoardList(Integer sort) {
+        log.info("[BoardService] getBoardList()");
+
+        Map<String, Object> map = new HashMap<>();
+
+        List<BoardDto> boardDtos;
+
+        if (sort != null) {
+            // sort 파라미터가 존재하는 경우, 선택한 정렬 방식에 따라 데이터를 가져옵니다.
+            switch (sort) {
+                case 0:
+                    boardDtos = iBoardDaoMapper.selectBoardList();
+                    break;
+                case 1:
+                    boardDtos = iBoardDaoMapper.selectBoardListOrderByLikes();
+                    break;
+                case 2:
+                    boardDtos = iBoardDaoMapper.selectBoardListOrderByViews();
+                    break;
+                case 3:
+                    boardDtos = iBoardDaoMapper.selectBoardListOrderByDate();
+                    break;
+                default:
+                    // 정의되지 않은 정렬 방식이거나 유효하지 않은 경우, 기본 정렬 방식을 사용합니다.
+                    boardDtos = iBoardDaoMapper.selectBoardList();
+            }
+        } else {
+            // sort 파라미터가 없는 경우, 기본 정렬 방식을 사용합니다.
+            boardDtos = iBoardDaoMapper.selectBoardList();
+        }
+
+        log.info(boardDtos.size());
+        map.put("boardDtos", boardDtos);
+
+        return map;
+    }
 }
