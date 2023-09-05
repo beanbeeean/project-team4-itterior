@@ -155,7 +155,7 @@ span.product_sales_price {
 
 /*필터링*/
 div.p_sort_filter {
-    margin: 50px auto;
+    margin: 30px auto 50px;
     border: 1px solid #dadada;
     border-radius: 8px;
     width: 1200px;

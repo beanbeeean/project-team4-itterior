@@ -8,6 +8,10 @@
     padding: 10px 0;
 }
 
+.active_menu {
+    color: rgb(122,122,220);
+}
+
 
 .search-bar {
     display: flex;
