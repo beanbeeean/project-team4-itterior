@@ -2,7 +2,7 @@ package com.office.house.youtube;
 
 import com.office.house.admin.ChannelDto;
 import com.office.house.board.BoardDto;
-import com.office.house.util.Criteria;
+import com.office.house.util.page.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

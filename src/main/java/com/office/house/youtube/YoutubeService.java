@@ -2,8 +2,8 @@ package com.office.house.youtube;
 
 import com.office.house.admin.ChannelDto;
 import com.office.house.board.BoardDto;
-import com.office.house.util.Criteria;
-import com.office.house.util.PageMakerDto;
+import com.office.house.util.page.Criteria;
+import com.office.house.util.page.PageMakerDto;
 import io.netty.handler.codec.json.JsonObjectDecoder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
