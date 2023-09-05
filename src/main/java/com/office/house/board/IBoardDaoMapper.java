@@ -32,4 +32,6 @@ public interface IBoardDaoMapper {
     int updateLikeCountForBoard(String no, int likeCnt);
 
     BoardDto selectBoardByNo(String no);
+
+    List<BoardDto> selectLikeBoardList (Map<String, Object> map);
 }

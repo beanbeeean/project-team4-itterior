@@ -178,13 +178,34 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/user_like_list")
-    public String userLikeList(){
+    @GetMapping("/user_like_board_list")
+    public String userLikeBoardList(){
         log.info("[UserController] userLikeList()");
 
-        String nextPage = "user_like_product_list";
+        String nextPage = "user/user_like_board_list";
 
         return nextPage;
+    }
+
+    @GetMapping("/get_user_like_board_list")
+    @ResponseBody
+    public Map<String, Object> getUserLikeBoardList(@RequestParam(value = "sort", required = false) int sort,
+                                                    @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                                    @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_BOARD_AMOUNT) int amount,
+                                                    @RequestParam(required = false, value = "keyword") String keyword,
+                                                    HttpSession session){
+        log.info("getUserLikeBoardList");
+
+        Map<String, Object> resultMap = new HashMap<>();
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        if(loginedMemberDto != null){
+            resultMap.put("u_id", loginedMemberDto.getU_id());
+            resultMap = userService.getUserLikeBoardList(sort, pageNum, amount, keyword, loginedMemberDto.getU_id());
+        }else{
+            resultMap.put("u_id", "please_login");
+        }
+
+        return resultMap;
     }
 
     @GetMapping("/user_write_form")
