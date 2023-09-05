@@ -35,23 +35,24 @@ public class AdminController {
         return nextPage;
     }
 
-    @PostMapping({"/admin_login_confirm"})
-    public String adminLoginConfirm(AdminDto adminDto, HttpSession session){
+//    @PostMapping({"/admin_login_confirm"})
+//    public String adminLoginConfirm(AdminDto adminDto, HttpSession session){
+//
+//        log.info("[AdminController] adminLoginConfirm()");
+//
+//        String nextPage = "redirect:/admin/admin_login_form";
+//
+//        AdminDto loginedAdminDto = adminService.adminLoginConfirm(adminDto);
+//
+//        if(loginedAdminDto != null) {
+//            session.setAttribute("loginedAdminDto", loginedAdminDto);
+//            session.setMaxInactiveInterval(60 * 30);
+//            nextPage = "redirect:/admin/admin_myPage";
+//        }
+//
+//        return nextPage;
+//    }
 
-        log.info("[AdminController] adminLoginConfirm()");
-
-        String nextPage = "redirect:/admin/admin_login_form";
-
-        AdminDto loginedAdminDto = adminService.adminLoginConfirm(adminDto);
-
-        if(loginedAdminDto != null) {
-            session.setAttribute("loginedAdminDto", loginedAdminDto);
-            session.setMaxInactiveInterval(60 * 30);
-            nextPage = "redirect:/admin/admin_myPage";
-        }
-
-        return nextPage;
-    }
     //  ADMIN END
 
     //   CREATE_ADMIN START

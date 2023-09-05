@@ -289,6 +289,19 @@
             l_content_no = #{no}
     </select>
 
+    <select id="selectisLikeCount" parameterType="String" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_like
+        WHERE
+            l_type = #{type}
+          AND
+            l_content_no = #{no}
+        AND
+            u_id = #{u_id}
+    </select>
+
     <update id="updateLikeCountForProduct">
         UPDATE
             tbl_product

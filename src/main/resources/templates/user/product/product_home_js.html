@@ -191,16 +191,21 @@
     function reconstructionTdForLike(productDto, isLike){
        // let productNo = productDto.p_no;
        for(let i = 0; i < $('a.like_board_btn').length; i++){
-           if($('a.like_board_btn').eq(i).data("p_no") == productDto.p_no){
+           if($('a.like_board_btn').eq(i).data("p_no") == productDto.p_no && productDto.u_id == isLike.u_id){
                $('a.like_board_btn').eq(i).children().remove();
 
                let appendTag = '';
 
                if(isLike > 0) {
-                   appendTag += '<img class="full_heart" src="/imgs/full_heart.png">';
+                   appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
+                   appendTag += 'data-p_no="';
+                   appendTag += productDto.p_no;
+                   appendTag += '">';
                }else {
-                   appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png">';
-
+                   appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
+                   appendTag += 'data-p_no="';
+                   appendTag += productDto.p_no;
+                   appendTag += '">';
                }
                $('a.like_board_btn').eq(i).append(appendTag);
 

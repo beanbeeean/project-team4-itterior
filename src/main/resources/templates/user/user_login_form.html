@@ -9,8 +9,8 @@
 	<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
 	<link rel="stylesheet" th:href="@{/css/user/user_login_form.css}">
 
-
-	<script th:src="@{/js/user/user_login_form.js}" type="text/javascript"></script>
+	<script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+	<script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
 
 </head>
 
@@ -20,14 +20,23 @@
 	</header>
 
 	<section>
+
 		<div id="section_wrap">
-			<div class="container">
-				<form th:action="@{/user/user_login_confirm}" name="user_login_form" method="post">
+			<div class="login_container">
+				<form name="user_login_form">
 					<p>USER LOGIN FORM</p>
+					<input type="hidden" name="type" value="1">
 					<span>ID</span> &nbsp;&nbsp;&nbsp;<input type="text" name="u_id" placeholder="INPUT ID"><br>
 					<span>PW</span> &nbsp;<input type="password" name="u_pw" placeholder="INPUT PW"><br>
-					<input type="button" value="login" onclick="userLoginForm();">
+					<input type="button" value="login">
 					<input type="reset" value="reset">
+					<div class="go_create_account_form">
+						아직 회원이 아니신가요? <a href="#none" class="create_form_btn">회원가입</a>
+					</div>
+					<br>
+					<div class="find_password_form">
+						비밀번호를 잊으셨나요? <a href="#none" class="find_password_btn">비밀번호 찾기</a>
+					</div>
 				</form>
 				<div class="drops">
 					<div class="drop drop-1"></div>
@@ -36,12 +45,7 @@
 					<div class="drop drop-4"></div>
 					<div class="drop drop-5"></div>
 				</div>
-				
-			<br>
-			<div class="go_create_account_form">
-				아직 회원이 아니신가요? <a th:href="@{/user/create_account_form}">회원가입</a>
-			</div>
-			
+
 			</div>
 
 		</div>
