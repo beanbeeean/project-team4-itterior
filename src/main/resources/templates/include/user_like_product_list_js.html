@@ -98,10 +98,11 @@
 
         console.log(u_id);
         console.log(isLikedDtos[0].l_content_no);
+        console.log(isLikedDtos[0].l_type);
 
         for (let j = 0; j < isLikedDtos.length; j++) {
             for (let i = 0; i < productDtos.length; i++) {
-                if (u_id == isLikedDtos[j].u_id) {
+                if (u_id == isLikedDtos[j].u_id && isLikedDtos[j].l_type == 1) {
                     if (isLikedDtos[j].l_content_no == productDtos[i].p_no) {
                         list.add(i);
                     }
