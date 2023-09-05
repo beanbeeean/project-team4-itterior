@@ -26,11 +26,12 @@ public class AdminController {
 
     //  ADMIN START
     @GetMapping({"/admin_login_form","","/"})
-    public String adminLoginForm(){
+    public String adminLoginForm(HttpSession session){
 
         log.info("[AdminController] adminLoginForm()");
 
         String nextPage = "admin/admin_login_form";
+        session.removeAttribute("loginedMemberDto");
 
         return nextPage;
     }

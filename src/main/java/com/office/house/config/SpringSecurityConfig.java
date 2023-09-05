@@ -27,7 +27,6 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 @EnableWebSecurity
 public class SpringSecurityConfig {
 
-
     @Autowired
     IUserDaoMapper iUserDaoMapper;
 
@@ -89,7 +88,7 @@ public class SpringSecurityConfig {
                             HttpSession session = request.getSession();
                             session.removeAttribute("loginedAdminDto");   //세션 데이터 삭제
 
-                            response.sendRedirect("/admin/");
+                            response.sendRedirect("/");
 
                         })
                 )
