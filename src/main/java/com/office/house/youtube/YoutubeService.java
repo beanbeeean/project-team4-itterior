@@ -109,14 +109,14 @@ public class YoutubeService implements IYoutubeService{
     }
 
     @Override
-    public Map<String, Object> getYoutubes(String keyWord, int pageNum, int amount) {
+    public Map<String, Object> getYoutubes(String keyWord, int pageNum, int amount, String u_id) {
 
         log.info("[YoutubeService] getYoutubes()");
 
         Map<String, Object> map = new HashMap<>();
 
         Criteria criteria = new Criteria(pageNum, amount);
-        List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getYoutubes(keyWord, criteria);
+        List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getYoutubes(keyWord, criteria, u_id);
 
         int totalCnt = iYoutubeDaoMapper.getTotalCnt(keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
@@ -125,6 +125,28 @@ public class YoutubeService implements IYoutubeService{
         map.put("pageMakerDto", pageMakerDto);
 
         return map;
+    }
+
+    @Override
+    public int youtubeLikeUpdate(Map<String, String> msgMap) {
+
+        log.info("[YoutubeService] getYoutubes()");
+
+        iYoutubeDaoMapper.increaseLike(msgMap.get("no"));
+        iYoutubeDaoMapper.insertYoutubeLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        return iYoutubeDaoMapper.searchLike(msgMap.get("no"));
+    }
+
+    @Override
+    public int youtubeLikeDelete(Map<String, String> msgMap) {
+
+        log.info("[YoutubeService] getYoutubes()");
+
+        iYoutubeDaoMapper.decreaseLike(msgMap.get("no"));
+        iYoutubeDaoMapper.deleteYoutubeLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        return iYoutubeDaoMapper.searchLike(msgMap.get("no"));
     }
 
 }

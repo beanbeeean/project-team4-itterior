@@ -13,7 +13,16 @@ public interface IYoutubeDaoMapper {
 
     void insertNewYoutube(YoutubeDto youtubeDto);
 
-    List<YoutubeDto> getYoutubes(String keyWord, Criteria criteria);
+    List<YoutubeDto> getYoutubes(String keyWord, Criteria criteria, String u_id);
 
     int getTotalCnt(String keyWord);
+    void insertYoutubeLike(String type, String no, String u_id);
+
+    void deleteYoutubeLike(String type, String no, String u_id);
+
+    void increaseLike(String no);
+
+    void decreaseLike(String no);
+
+    int searchLike(String no);
 }
