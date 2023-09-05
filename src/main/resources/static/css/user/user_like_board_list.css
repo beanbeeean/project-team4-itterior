@@ -179,7 +179,7 @@ div.like_hit_wrap{
 	margin-right: 7px;
 }
 
-a.like_board_btn {
+a.user_like_board_btn {
 	display: flex;
 	align-items: center;
 }

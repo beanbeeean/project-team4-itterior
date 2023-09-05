@@ -212,6 +212,7 @@ public class UserService implements IUserService {
         map.put("u_id",u_id);
         List<BoardDto> boardDtos = iBoardDaoMapper.selectLikeBoardList(map);
         int totalCnt = boardDtos.size();
+        System.out.println("totalCnt :::: " + totalCnt);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
         map.put("totalCnt", totalCnt);

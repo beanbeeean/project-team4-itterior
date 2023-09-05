@@ -27,4 +27,13 @@ public class LikeController {
         return resultMap;
     }
 
+    @PostMapping("/decrease_like_confirm")
+    @ResponseBody
+    public Map<String, Object> decreaseLikeConfirm(@RequestBody Map<String, String> msgMap){
+        log.info("decreaseLikeConfirm");
+        Map<String, Object> resultMap = likeService.decreaselikeConfirm(msgMap);
+
+        return resultMap;
+    }
+
 }

@@ -108,8 +108,10 @@
         FROM
             tbl_board
         WHERE
-            b_title LIKE CONCAT('%', #{keyword}, '%')
-        AND
+            <if test="keyword != null">
+                b_title LIKE CONCAT('%', #{keyword}, '%')
+                AND
+            </if>
             b_no
                 IN (SELECT l_content_no FROM tbl_like WHERE l_type = 2 AND u_id = #{u_id})
         <choose>

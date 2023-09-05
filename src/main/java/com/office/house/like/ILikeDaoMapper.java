@@ -13,4 +13,6 @@ public interface ILikeDaoMapper {
     int selectLikeCount(String type, String no);
 
     int selectCurrentUserLikeCount(String type, String no, String u_id);
+
+    int selectUserLikeCount(String type, String u_id);
 }

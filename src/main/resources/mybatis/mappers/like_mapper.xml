@@ -46,6 +46,16 @@
             u_id = #{u_id}
     </select>
 
+    <select id="selectUserLikeCount" parameterType="String" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_like
+        WHERE
+            l_type = #{type}
+          AND
+            u_id = #{u_id}
+    </select>
 
 
 </mapper>

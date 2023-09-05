@@ -40,7 +40,7 @@
     }
 
     // 리스트 출력
-    function addBoardListTr(boardDtos, isLikedDtos, u_id, totalCnt) {
+    function addLikeBoardListTr(boardDtos, totalCnt) {
         console.log("addBoardListTr()");
 
         console.log(boardDtos);
@@ -48,8 +48,7 @@
         let appendTag = '';
         let cnt = 0;
 
-        appendTag += totalCnt;
-        $('div.board_wrap span.board_cnt').append(appendTag);
+        $('div.board_wrap span.board_cnt').text(totalCnt)
 
         appendTag = '';
 
@@ -91,33 +90,13 @@
                 appendTag += '</a>';
                 appendTag += '</div>';
                 appendTag += '<div class="like_hit_wrap">';
-                appendTag += '<a class="like_board_btn" href="#none" ';
+                appendTag += '<a class="user_like_board_btn" href="#none" ';
                 appendTag += 'data-b_no="';
                 appendTag += boardDtos[cnt].b_no
                 appendTag += '">';
-
-                if(u_id != undefined && u_id != "please_login" && isLikedDtos.length > 0){
-                    for(let k = 0; k < isLikedDtos.length; k++){
-                        if(isLikedDtos[k].l_content_no == boardDtos[cnt].b_no && isLikedDtos[k].u_id == u_id){
-                            appendTag += '<img class="full_heart" src="/imgs/full_heart.png" data-b_no="';
-                            appendTag += boardDtos[cnt].b_no;
-                            appendTag += '">';
-                            break;
-                        }else if(isLikedDtos[k].l_content_no != boardDtos[cnt].b_no || isLikedDtos[k].u_id != u_id){
-                            if(k == isLikedDtos.length - 1){
-                                appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-b_no="';
-                                appendTag += boardDtos[cnt].b_no;
-                                appendTag += '">';
-                            }
-                            continue;
-                        }
-                    }
-                }else{
-                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-b_no="';
-                    appendTag += boardDtos[cnt].b_no;
-                    appendTag += '">';
-                }
-
+                appendTag += '<img class="full_heart" src="/imgs/full_heart.png" data-b_no="';
+                appendTag += boardDtos[cnt].b_no;
+                appendTag += '">';
                 appendTag += '</a>';
                 appendTag += '<span class="like_count">';
                 appendTag += boardDtos[cnt].b_like;
@@ -138,33 +117,7 @@
         $('#section_wrap div.board_wrap table tbody').append(appendTag);
     }
 
-    // 게시물 1개 재구성(좋아요 시)
-    function reconBoardTdForLike(boardDto, isLike){
-        for(let i = 0; i < $('a.like_board_btn').length; i++){
-            if($('a.like_board_btn').eq(i).data("b_no") == boardDto.b_no){
-                $('a.like_board_btn').eq(i).children().remove();
-
-                let appendTag = '';
-                console.log("isLike ::::: " + isLike);
-                if(isLike > 0) {
-                    appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
-                    appendTag += 'data-b_no="';
-                    appendTag += boardDto.b_no;
-                    appendTag += '">';
-                }else {
-                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
-                    appendTag += 'data-b_no="';
-                    appendTag += boardDto.b_no;
-                    appendTag += '">';
-                }
-                $('td.board_item_wrap a.like_board_btn').eq(i).append(appendTag);
-
-                $('td.board_item_wrap span.like_count').eq(i).text(boardDto.b_like);
-
-                break;
-            }
-        }
-    }
+    // 마이 페이지 게시물 1개 삭제(좋아요 취소 시)
 
     // 페이지 네이션 구성
     function setPage(pageMakerDto) {
@@ -226,7 +179,7 @@
 
                 $('div.board_wrap span.board_cnt').empty();
                 $('#section_wrap div.board_wrap table tbody').empty();
-                addBoardListTr(data.boardDtos, data.isLikedDtos, data.u_id, data.totalCnt);
+                addLikeBoardListTr(data.boardDtos, data.totalCnt);
                 setPage(data.pageMakerDto);
             },
             error: function (data) {

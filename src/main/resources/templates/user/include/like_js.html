@@ -9,6 +9,7 @@
 
 
     function init_like_events(){
+        // 인테리어 상품 좋아요 / 좋아요 취소
         $(document).on('click','a.like_product_btn',function (e){
             e.preventDefault();
             let p_no = $(this).data("p_no");
@@ -27,6 +28,7 @@
 
         })
 
+        // 커뮤니티 게시판 좋아요 / 좋아요 취소
         $(document).on('click','a.like_board_btn', function (e) {
             e.preventDefault();
             let b_no = $(this).data("b_no");
@@ -45,6 +47,55 @@
             }
         })
 
+        // 마이 페이지 좋아요 취소
+        $(document).on('click','a.user_like_board_btn', function (e) {
+            e.preventDefault();
+            let b_no = $(this).data("b_no");
+            console.log("b_no : " + b_no);
+
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null){
+                $('div.modal_wrap').css('display','block');
+            }else{
+                ajax_decreaseLikeCount(2, b_no, loginedMemberDto.u_id);
+            }
+        })
+    }
+
+    function ajax_decreaseLikeCount(type, no, u_id){
+        console.log('ajax_decreaseLikeCount() CALLED!!');
+
+        let msgDto = {
+            'type': type,
+            'no': no,
+            'u_id' : u_id
+        };
+
+        $.ajax({
+            url: '/like/decrease_like_confirm',
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_decreaseLikeCount()');
+
+                switch (type){
+                    case 1:
+
+                        break;
+                    case 2:
+                        ajax_LikeBoardList(sort, pageNum, keyword)
+                        break;
+                    case 3:
+                        break;
+                }
+
+            },
+            error: function(data) {
+                console.log('AJAX ERROR - ajax_decreaseLikeCount()');
+
+            }
+        });
     }
 
    function ajax_updateLikeCount(method, type, no, u_id){

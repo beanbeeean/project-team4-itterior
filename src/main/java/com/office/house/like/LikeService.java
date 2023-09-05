@@ -64,4 +64,19 @@ public class LikeService {
         map.put("result", result);
         return map;
     }
+
+    public Map<String, Object> decreaselikeConfirm(Map<String, String> msgMap) {
+        Map<String, Object> map = new HashMap<>();
+        int result = -1;
+        int totalCnt = 0;
+
+        result = iLikeDaoMapper.deleteLikeCount(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        if(result > 0){
+            totalCnt = iLikeDaoMapper.selectUserLikeCount(msgMap.get("type"), msgMap.get("u_id"));
+            map.put("totalCnt", totalCnt);
+        }
+
+        return map;
+    }
 }
