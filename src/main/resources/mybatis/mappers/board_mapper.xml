@@ -8,17 +8,43 @@
         insert into tbl_board (u_id, u_img, b_title, b_content, b_thumbnail, b_reg_date, b_mod_date) values (#{u_id}, #{u_img}, #{b_title}, #{b_content}, #{b_thumbnail}, now(), now())
     </insert>
 
-    <select id="selectBoardList" resultType="hashmap">
+    <select id="selectBoardList" parameterType="String" resultType="com.office.house.board.BoardDto">
         select * from tbl_board
+        <if test="keyword != null">
+            WHERE b_title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <choose>
+            <when test="sort == 0">
+                ORDER BY b_reg_date desc
+            </when>
+            <when test="sort == 1">
+                ORDER BY b_like desc
+            </when>
+            <when test="sort == 2">
+                ORDER BY b_hit desc
+            </when>
+        </choose>
+        LIMIT #{skip}, #{amount}
     </select>
 
-    <select id="selectBoardListOrderByViews" resultType="hashmap">
-        select * from tbl_board order by b_hit desc
+    <select id="selectBoardListCnt" resultType="Integer" parameterType="String">
+        select COUNT(*) from tbl_board
+        <if test="keyword != null">
+            WHERE b_title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <choose>
+            <when test="sort == 0">
+                ORDER BY b_reg_date DESC
+            </when>
+            <when test="sort == 1">
+                ORDER BY b_like desc
+            </when>
+            <when test="sort == 2">
+                ORDER BY b_hit desc
+            </when>
+        </choose>
     </select>
 
-    <select id="selectBoardListOrderByDate" resultType="hashmap">
-        select * from tbl_board order by b_reg_date desc
-    </select>
 
     <update id="updateHit" parameterType="Integer">
         update tbl_board set b_hit = b_hit + 1 where b_no = #{b_no}
@@ -43,5 +69,37 @@
     <delete id="deleteBoard" parameterType="hashmap">
         delete from tbl_board where b_no = #{b_no}
     </delete>
+
+    <select id="selectLikedBoard" parameterType="java.util.List" resultType="com.office.house.like.LikeDto">
+        SELECT
+        *
+        FROM
+        tbl_like
+        WHERE
+        l_type = 2 AND
+        l_content_no IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+
+    <update id="updateLikeCountForBoard">
+        UPDATE
+            tbl_board
+        SET
+            b_like = #{likeCnt}
+        WHERE
+            b_no = #{no}
+    </update>
+
+    <select id="selectBoardByNo" parameterType="String" resultType="com.office.house.board.BoardDto">
+        SELECT
+            *
+        FROM
+            tbl_board
+        WHERE
+            b_no = #{no}
+    </select>
 
 </mapper>

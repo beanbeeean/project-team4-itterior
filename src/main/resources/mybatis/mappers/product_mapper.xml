@@ -261,7 +261,7 @@
             p_link = #{p_link}
     </update>
 
-    <insert id="insertLikeCount" parameterType="String">
+    <!--<insert id="insertLikeCount" parameterType="String">
         INSERT INTO
             tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
         VALUES(#{type}, #{no}, #{u_id},NOW(),NOW())
@@ -287,7 +287,7 @@
             l_type = #{type}
             AND
             l_content_no = #{no}
-    </select>
+    </select>-->
 
     <update id="updateLikeCountForProduct">
         UPDATE

@@ -57,7 +57,7 @@
            'u_id' : u_id
        };
 
-       let str = '/product/product_like_confirm';
+       let str = '/like/like_confirm';
        $.ajax({
            url: str,
            method: 'POST',
@@ -65,13 +65,18 @@
            contentType: 'application/json; charset=utf-8',
            success: function(data) {
                console.log('AJAX SUCCESS - ajax_updateLikeCount()');
-               console.log("categoryList : " + categoryList);
-               console.log("sort : " + sort);
-               console.log("priceSelected : " + priceSelected);
-               console.log("keyword : " + keyword);
-               console.log("pageNum : " + pageNum);
 
-               reconstructionTdForLike(data.productDto, data.isLike);
+               switch (type){
+                   case 1:
+                       reconProductTdForLike(data.productDto, data.isLike);
+                       break;
+                   case 2:
+                       reconBoardTdForLike(data.boardDto, data.isLike)
+                       break;
+                   case 3:
+                       break;
+               }
+
            },
            error: function(data) {
                console.log('AJAX ERROR - ajax_updateLikeCount()');

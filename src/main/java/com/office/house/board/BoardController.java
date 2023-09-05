@@ -2,6 +2,7 @@ package com.office.house.board;
 
 import com.office.house.user.UserDto;
 import com.office.house.user.util.UploadFileService;
+import com.office.house.util.PageDefine;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,25 +89,25 @@ public class BoardController {
         return mav;
     }
 
-    // board의 전체 게시물 보여주기
-//    @GetMapping("/get_board_list")
-//    @ResponseBody
-//    public Map<String, Object> getBoardList(){
-//        log.info("[BoardController] getBoardList()");
-//
-//        Map<String, Object> map = boardService.getBoardList();
-//
-//        return map;
-//    }
 
     @GetMapping("/get_board_list")
     @ResponseBody
-    public Map<String, Object> getBoardList(@RequestParam(value = "sort", required = false) Integer sort){
+    public Map<String, Object> getBoardList(@RequestParam(value = "sort", required = false) int sort,
+                                            @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                            @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_BOARD_AMOUNT) int amount,
+                                            @RequestParam(required = false, value = "keyword") String keyword,
+                                            HttpSession session){
         log.info("[BoardController] getBoardList()");
 
-        Map<String, Object> map = boardService.getBoardList(sort);
+        Map<String, Object> resultMap = boardService.getBoardList(sort, pageNum, amount, keyword);
 
-        return map;
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        if(loginedMemberDto != null){
+            resultMap.put("u_id", loginedMemberDto.getU_id());
+        }else{
+            resultMap.put("u_id", "please_login");
+        }
+        return resultMap;
     }
 
     // 게시물 디테일

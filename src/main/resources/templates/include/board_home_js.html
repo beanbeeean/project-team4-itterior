@@ -1,20 +1,46 @@
 <script th:fragment="js" th:inline="javascript" type="text/javascript">
 
+    let sort = 0;
+    let pageNum = 1;
+    let keyword = "";
+
     $(document).ready(function () {
         console.log("DOCUMENT READY!!");
 
         // 이벤트 핸들러 초기화(등록)
-        // init_events();
-        ajax_BoardList(0);
+        init_board_events();
+        ajax_BoardList(sort, pageNum, keyword);
     });
 
-    $(document).on("change", ".sortSelect", function () {
-        let selectedValue = this.value; // 선택한 값을 가져옴
-        ajax_BoardList(selectedValue); // 선택한 값으로 서버에 요청
-    });
+    function init_board_events(){
+
+        // 검색 버튼 클릭시
+        $(document).on('click','div.search_product_wrap > svg.search_btn', function(e){
+            console.log("search_btn CLICK HANDLER!!")
+            e.stopImmediatePropagation();
+            keyword = $('div.search_product_wrap > input[name="b_search"]').val();
+            pageNum = 1;
+            ajax_BoardList(sort, pageNum, keyword);
+        })
+
+        // 정렬
+        $(document).on("change", ".sortSelect", function () {
+            sort = parseInt(this.value); // 선택한 값을 가져옴
+            ajax_BoardList(sort, pageNum, keyword);
+        });
+
+
+        // 페이지 번호 클릭 시
+        $(document).on('click', '#section_wrap > div.page_wrap > div.page_number a', function() {
+            console.log('page number CLICK HANDLER');
+
+            pageNum = $(this).data('pagenum');
+            ajax_BoardList(sort, pageNum, keyword);
+        });
+    }
 
     // 리스트 출력
-    function addBoardListTr(boardDtos) {
+    function addBoardListTr(boardDtos, isLikedDtos, u_id, totalCnt) {
         console.log("addBoardListTr()");
 
         console.log(boardDtos);
@@ -22,7 +48,7 @@
         let appendTag = '';
         let cnt = 0;
 
-        appendTag += boardDtos.length;
+        appendTag += totalCnt;
         $('div.board_wrap span.board_cnt').append(appendTag);
 
         appendTag = '';
@@ -33,7 +59,7 @@
                 if (boardDtos[cnt] == null) {
                     break;
                 }
-                appendTag += '<td>';
+                appendTag += '<td class="board_item_wrap">';
                 appendTag += '<div class="board_item">';
                 appendTag += '<a class="title" href="/board/get_board?b_no=';
                 appendTag += boardDtos[cnt].b_no;
@@ -69,9 +95,6 @@
                 appendTag += 'data-b_no="';
                 appendTag += boardDtos[cnt].b_no
                 appendTag += '">';
-                appendTag += '<img class="full_heart" src="/imgs/full_heart.png">';
-
-
 
                 if(u_id != undefined && u_id != "please_login" && isLikedDtos.length > 0){
                     for(let k = 0; k < isLikedDtos.length; k++){
@@ -80,7 +103,7 @@
                             appendTag += boardDtos[cnt].b_no;
                             appendTag += '">';
                             break;
-                        }else if(isLikedDtos[k].l_content_no != productDtos[cnt].p_no || isLikedDtos[k].u_id != u_id){
+                        }else if(isLikedDtos[k].l_content_no != boardDtos[cnt].b_no || isLikedDtos[k].u_id != u_id){
                             if(k == isLikedDtos.length - 1){
                                 appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-b_no="';
                                 appendTag += boardDtos[cnt].b_no;
@@ -91,7 +114,7 @@
                     }
                 }else{
                     appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-b_no="';
-                    appendTag += pboardDtos[cnt].b_no;
+                    appendTag += boardDtos[cnt].b_no;
                     appendTag += '">';
                 }
 
@@ -115,20 +138,97 @@
         $('#section_wrap div.board_wrap table tbody').append(appendTag);
     }
 
-    function ajax_BoardList(selectedValue) {
-        console.log('ajax_BoardList()');
+    // 게시물 1개 재구성(좋아요 시)
+    function reconBoardTdForLike(boardDto, isLike){
+        // let productNo = productDto.p_no;
+        for(let i = 0; i < $('a.like_board_btn').length; i++){
+            if($('a.like_board_btn').eq(i).data("b_no") == boardDto.b_no){
+                $('a.like_board_btn').eq(i).children().remove();
 
+                let appendTag = '';
+                console.log("isLike ::::: " + isLike);
+                if(isLike > 0) {
+                    appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
+                    appendTag += 'data-b_no="';
+                    appendTag += boardDto.b_no;
+                    appendTag += '">';
+                }else {
+                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
+                    appendTag += 'data-b_no="';
+                    appendTag += boardDto.b_no;
+                    appendTag += '">';
+                }
+                $('td.board_item_wrap a.like_board_btn').eq(i).append(appendTag);
+
+                $('td.board_item_wrap span.like_count').eq(i).text(boardDto.b_like);
+
+                break;
+            }
+        }
+    }
+
+    // 페이지 네이션 구성
+    function setPage(pageMakerDto) {
+        console.log('setPage() CALLED!!');
+
+        /* PAGE UI */
+        $('#section_wrap > div.page_wrap > div.page_number').children().remove();
+
+        // 이전 페이지
+        if (pageMakerDto.prev) {
+            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + (pageMakerDto.startPage - 1) + '">PRE</a>');
+        }
+
+        // 처음 페이지
+        if (pageMakerDto.criteria.pageNum > 10) {
+            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="1">1</a><span>...</span>');
+        }
+
+        // 페이지 넘버링
+        for (let p = parseInt(pageMakerDto.startPage); p <= parseInt(pageMakerDto.endPage); p++) {
+            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + p + '">' + p + '</a>');
+        }
+
+        // 페이지 하이라이트
+        $('#section_wrap > div.page_wrap > div.page_number a[data-pagenum=' + pageMakerDto.criteria.pageNum + ']').addClass('selectedPageNum');
+
+        // 다음 페이지
+        if (pageMakerDto.next) {
+            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + (pageMakerDto.endPage + 1) + '">NEX</a>');
+        }
+
+        // 전체 페이지
+        $('#section_wrap > div.page_wrap > div.page_goto > span.page_total_num').text(pageMakerDto.totalPage);
+
+    }
+
+
+
+    // AJAX START
+    function ajax_BoardList(sort, pageNum, keyword) {
+        console.log('ajax_BoardList()');
+        let str = '';
+         str += '?pageNum=';
+         str += pageNum;
+
+         str += '&sort=';
+         str += sort;
+
+        if(keyword !== ""){
+            str += '&keyword=';
+            str += keyword;
+        }
         $.ajax({
-            url: '/board/get_board_list?sort=' + selectedValue,
+            url: '/board/get_board_list'+str,
             method: 'GET',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 console.log('AJAX SUCCESS - ajax_BoardList()');
 
-                let boardDtos = data.boardDtos;
                 $('div.board_wrap span.board_cnt').empty();
                 $('#section_wrap div.board_wrap table tbody').empty();
-                addBoardListTr(boardDtos);
+                addBoardListTr(data.boardDtos, data.isLikedDtos, data.u_id, data.totalCnt);
+                setPage(data.pageMakerDto);
             },
             error: function (data) {
                 console.log('AJAX ERROR - ajax_BoardList()');

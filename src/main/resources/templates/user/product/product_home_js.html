@@ -188,7 +188,7 @@
     }
 
     // 인테리어 상품 1개 재구성(좋아요 시)
-    function reconstructionTdForLike(productDto, isLike){
+    function reconProductTdForLike(productDto, isLike){
        // let productNo = productDto.p_no;
        for(let i = 0; i < $('a.like_product_btn').length; i++){
            if($('a.like_product_btn').eq(i).data("p_no") == productDto.p_no){
@@ -212,7 +212,7 @@
     }
 
     // 인테리어 상품 1개 재구성(조회 시)
-    function reconstructionTdForHit(productDto){
+    function reconProductTdForHit(productDto){
         for(let i = 0; i < $('a.like_product_btn').length; i++) {
             if ($('a.like_product_btn').eq(i).data("p_no") == productDto.p_no) {
                 $('span.hit_count').eq(i).text(productDto.p_hit);
@@ -323,7 +323,7 @@
             data: JSON.stringify(msgDto),
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                reconstructionTdForHit(data.productDto);
+                reconProductTdForHit(data.productDto);
             },
             error: function (data) {
                 console.log('AJAX ERROR - ajax_updateHitCount()');
