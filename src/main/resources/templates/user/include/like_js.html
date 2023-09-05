@@ -9,7 +9,7 @@
 
 
     function init_like_events(){
-        $(document).on('click','a.like_board_btn',function (e){
+        $(document).on('click','a.like_product_btn',function (e){
             e.preventDefault();
             let p_no = $(this).data("p_no");
             console.log("p_no ++++++" + p_no);
@@ -27,6 +27,24 @@
 
         })
 
+        $(document).on('click','a.like_board_btn', function (e) {
+            e.preventDefault();
+            let b_no = $(this).data("b_no");
+            console.log("b_no : " + b_no);
+
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null){
+                $('div.modal_wrap').css('display','block');
+            }else{
+                if($(this).find("img.full_heart").attr('class') == "full_heart"){
+                    ajax_updateLikeCount("cancel", 2, b_no, loginedMemberDto.u_id);
+                }else{
+                    ajax_updateLikeCount("like", 2, b_no, loginedMemberDto.u_id);
+                }
+
+            }
+        })
+
     }
 
    function ajax_updateLikeCount(method, type, no, u_id){
@@ -39,7 +57,7 @@
            'u_id' : u_id
        };
 
-       let str = '/product/product_like_confirm';
+       let str = '/like/like_confirm';
        $.ajax({
            url: str,
            method: 'POST',
@@ -47,15 +65,18 @@
            contentType: 'application/json; charset=utf-8',
            success: function(data) {
                console.log('AJAX SUCCESS - ajax_updateLikeCount()');
-               console.log("categoryList : " + categoryList);
-               console.log("sort : " + sort);
-               console.log("priceSelected : " + priceSelected);
-               console.log("keyword : " + keyword);
-               console.log("pageNum : " + pageNum);
 
-               reconstructionTdForLike(data.productDto, data.isLike);
-               //jax_getProductList(categoryList, sort, priceSelected, keyword, pageNum);
-               //link_getProductList();
+               switch (type){
+                   case 1:
+                       reconProductTdForLike(data.productDto, data.isLike);
+                       break;
+                   case 2:
+                       reconBoardTdForLike(data.boardDto, data.isLike)
+                       break;
+                   case 3:
+                       break;
+               }
+
            },
            error: function(data) {
                console.log('AJAX ERROR - ajax_updateLikeCount()');

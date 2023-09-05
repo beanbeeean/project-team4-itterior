@@ -11,7 +11,7 @@ public class BoardDto {
     private String b_content;
     private String b_thumbnail;
     private int b_hit;
-    private int b_state;
+    private int b_like;
     private String b_reg_date;
     private String b_mod_date;
 

@@ -1,9 +1,14 @@
 package com.office.house.board;
 
+import com.office.house.like.LikeDto;
+import com.office.house.user.product.ProductDto;
+import com.office.house.util.Criteria;
+import com.office.house.util.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,19 +30,6 @@ public class BoardService implements IBoardService {
     }
 
     @Override
-    public Map<String, Object> getBoardList() {
-        log.info("[BoardService] getBoardList()");
-
-        Map<String, Object> map = new HashMap<>();
-        List<BoardDto> boardDtos = iBoardDaoMapper.selectBoardList();
-
-        log.info(boardDtos.size());
-        map.put("boardDtos",boardDtos);
-
-        return map;
-    }
-
-    @Override
     public BoardDto getBoard(int bNo) {
         log.info("[BoardService] getBoard()");
 
@@ -45,12 +37,43 @@ public class BoardService implements IBoardService {
         return iBoardDaoMapper.getBoard(bNo);
     }
 
+    @Override
+    public Map<String, Object> getBoardList(int sort, int pageNum, int amount, String keyword) {
+        log.info("[BoardService] getBoardList()");
+
+        Map<String, Object> map = new HashMap<>();
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<BoardDto> boardDtos = iBoardDaoMapper.selectBoardList(sort, keyword, criteria.getSkip(), criteria.getAmount());
+        int totalCnt = iBoardDaoMapper.selectBoardListCnt(sort, keyword, criteria.getSkip(), criteria.getAmount());
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        List<Integer> likeList = new ArrayList<>();
+        for(BoardDto dto : boardDtos){
+            if(dto.getB_like() > 0){
+                likeList.add(dto.getB_no());
+            }
+        }
+        List<LikeDto> isLikedDtos = new ArrayList<>();
+        if(likeList.size() > 0){
+            isLikedDtos = iBoardDaoMapper.selectLikedBoard(likeList);
+        }
+
+        map.put("totalCnt", totalCnt);
+        map.put("isLikedDtos", isLikedDtos);
+        map.put("boardDtos", boardDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
+    @Override
     public BoardDto boardModifyForm(int bNo) {
         log.info("[BoardService] boardModifyForm()");
 
         return iBoardDaoMapper.boardModifyForm(bNo);
     }
 
+    @Override
     public int boardmodifyConfirm(BoardDto boardDto, int b_no) {
         log.info("[BoardService] boardmodifyConfirm()");
 
@@ -68,6 +91,7 @@ public class BoardService implements IBoardService {
         return result;
     }
 
+    @Override
     public Map<String, Object> deleteBoard(Map<String, Object> boardmap) {
         log.info("[BoardService] deleteBoard()");
 
@@ -83,40 +107,5 @@ public class BoardService implements IBoardService {
         return map;
     }
 
-    public Map<String, Object> getBoardList(Integer sort) {
-        log.info("[BoardService] getBoardList()");
 
-        Map<String, Object> map = new HashMap<>();
-
-        List<BoardDto> boardDtos;
-
-        if (sort != null) {
-            // sort 파라미터가 존재하는 경우, 선택한 정렬 방식에 따라 데이터를 가져옵니다.
-            switch (sort) {
-                case 0:
-                    boardDtos = iBoardDaoMapper.selectBoardList();
-                    break;
-                case 1:
-                    boardDtos = iBoardDaoMapper.selectBoardListOrderByLikes();
-                    break;
-                case 2:
-                    boardDtos = iBoardDaoMapper.selectBoardListOrderByViews();
-                    break;
-                case 3:
-                    boardDtos = iBoardDaoMapper.selectBoardListOrderByDate();
-                    break;
-                default:
-                    // 정의되지 않은 정렬 방식이거나 유효하지 않은 경우, 기본 정렬 방식을 사용합니다.
-                    boardDtos = iBoardDaoMapper.selectBoardList();
-            }
-        } else {
-            // sort 파라미터가 없는 경우, 기본 정렬 방식을 사용합니다.
-            boardDtos = iBoardDaoMapper.selectBoardList();
-        }
-
-        log.info(boardDtos.size());
-        map.put("boardDtos", boardDtos);
-
-        return map;
-    }
 }

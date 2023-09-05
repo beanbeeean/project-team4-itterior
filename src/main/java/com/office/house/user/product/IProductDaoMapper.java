@@ -32,6 +32,4 @@ public interface IProductDaoMapper {
     ProductDto selectProductByNo(String no);
 
     int updateHitCount(String no);
-
-    int selectisLikeCount(String type, String no, String u_id);
 }

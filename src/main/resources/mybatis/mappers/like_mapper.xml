@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.office.house.like.ILikeDaoMapper">
+
+
+    <insert id="insertLikeCount" parameterType="String">
+        INSERT INTO
+            tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
+        VALUES(#{type}, #{no}, #{u_id},NOW(),NOW())
+    </insert>
+
+    <delete id="deleteLikeCount" parameterType="String">
+        DELETE FROM
+            tbl_like
+        WHERE
+            l_type = #{type}
+          AND
+            l_content_no = #{no}
+          AND
+            u_id = #{u_id}
+    </delete>
+
+    <select id="selectLikeCount" parameterType="String" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_like
+        WHERE
+            l_type = #{type}
+          AND
+            l_content_no = #{no}
+    </select>
+
+    <select id="selectCurrentUserLikeCount" parameterType="String" resultType="Integer">
+        SELECT
+            COUNT(*)
+        FROM
+            tbl_like
+        WHERE
+            l_type = #{type}
+        AND
+            l_content_no = #{no}
+        AND
+            u_id = #{u_id}
+    </select>
+
+
+
+</mapper>

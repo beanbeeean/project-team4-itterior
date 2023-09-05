@@ -1,6 +1,8 @@
 package com.office.house.board;
 
+import com.office.house.like.LikeDto;
 import com.office.house.user.UserDto;
+import com.office.house.util.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,7 +12,7 @@ import java.util.Map;
 public interface IBoardDaoMapper {
     int insertNewBoard(BoardDto boardDto);
 
-    List<BoardDto> selectBoardList();
+    List<BoardDto> selectBoardList(int sort, String keyword, int skip, int amount);
 
     void updateHit(int bNo);
 
@@ -24,9 +26,11 @@ public interface IBoardDaoMapper {
 
     int deleteBoard(Map<String, Object> boardmap);
 
-    List<BoardDto> selectBoardListOrderByLikes();
+    int selectBoardListCnt(int sort, String keyword, int skip, int amount);
 
-    List<BoardDto> selectBoardListOrderByViews();
+    List<LikeDto> selectLikedBoard(List<Integer> likeList);
 
-    List<BoardDto> selectBoardListOrderByDate();
+    int updateLikeCountForBoard(String no, int likeCnt);
+
+    BoardDto selectBoardByNo(String no);
 }
