@@ -199,14 +199,18 @@ public class UserService implements IUserService {
         return boardDtos;
     }
 
-    public Map<String, Object> getUserLikeProducts(String[] category, String sort, String filter, String keyword, int pageNum, int amount) {
-        log.info("getUserLikeProducts");
+    public Map<String, Object> getUserLikeProducts(int pageNum, int amount, String u_id) {
+        log.info("[UserMemberService] getUserLikeProducts()");
         Map<String, Object> map = new HashMap<>();
 
         Criteria criteria = new Criteria(pageNum, amount);
-        List<ProductDto> dtos = iProductDaoMapper.selectProducts(category, sort, filter, keyword, criteria.getSkip(), criteria.getAmount());
-        int totalCnt = iProductDaoMapper.selectProductsCnt(category, sort, filter, keyword, criteria.getSkip(), criteria.getAmount());
+        map.put("skip", criteria.getSkip());
+        map.put("amount", criteria.getAmount());
+        map.put("u_id", u_id);
+        List<ProductDto> dtos = iProductDaoMapper.selectLikeProducts(map);
+        log.info(dtos);
 
+        int totalCnt = iProductDaoMapper.selectLikeProductsCnt(criteria.getSkip(), criteria.getAmount(),u_id);
         log.info("totalCnt" + totalCnt);
 
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
@@ -222,6 +226,9 @@ public class UserService implements IUserService {
         if(likeList.size() > 0){
             isLikedDtos = iProductDaoMapper.selectLikedProduct(likeList);
         }
+        log.info(isLikedDtos.size());
+        log.info(isLikedDtos);
+
         map.put("isLikedDtos", isLikedDtos);
         map.put("productDtos", dtos);
         map.put("pageMakerDto", pageMakerDto);

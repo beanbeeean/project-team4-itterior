@@ -233,76 +233,77 @@
     </select>
 
     <select id="isExistProduct" parameterType="String" resultType="Integer">
-        SELECT
-            COUNT(*)
-        FROM
-            tbl_product
-        WHERE
-            p_link = #{p_link}
+        SELECT COUNT(*)
+        FROM tbl_product
+        WHERE p_link = #{p_link}
     </select>
 
     <insert id="insertProducts" parameterType="com.office.house.user.product.ProductDto">
-        INSERT INTO
-            tbl_product(p_brand, p_name, p_sales_price, p_img, p_link, p_category, p_reg_date, p_mod_date)
-        VALUES(#{p_brand}, #{p_name}, #{p_sales_price}, #{p_img}, #{p_link}, #{p_category}, NOW(), NOW())
+        INSERT INTO tbl_product(p_brand, p_name, p_sales_price, p_img, p_link, p_category, p_reg_date, p_mod_date)
+        VALUES (#{p_brand}, #{p_name}, #{p_sales_price}, #{p_img}, #{p_link}, #{p_category}, NOW(), NOW())
     </insert>
 
     <update id="updateProducts" parameterType="com.office.house.user.product.ProductDto">
         UPDATE
             tbl_product
-        SET
-            p_brand = #{p_brand},
-            p_name = #{p_name},
+        SET p_brand       = #{p_brand},
+            p_name        = #{p_name},
             p_sales_price = #{p_sales_price},
-            p_img = #{p_img},
-            p_category = #{p_category},
-            p_mod_date = NOW()
-        WHERE
-            p_link = #{p_link}
+            p_img         = #{p_img},
+            p_category    = #{p_category},
+            p_mod_date    = NOW()
+        WHERE p_link = #{p_link}
     </update>
 
     <insert id="insertLikeCount" parameterType="String">
-        INSERT INTO
-            tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
-        VALUES(#{type}, #{no}, #{u_id},NOW(),NOW())
+        INSERT INTO tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
+        VALUES (#{type}, #{no}, #{u_id}, NOW(), NOW())
     </insert>
 
     <delete id="deleteLikeCount" parameterType="String">
-        DELETE FROM
-                tbl_like
-        WHERE
-            l_type = #{type}
-        AND
-            l_content_no = #{no}
-        AND
-            u_id = #{u_id}
+        DELETE
+        FROM tbl_like
+        WHERE l_type = #{type}
+          AND l_content_no = #{no}
+          AND u_id = #{u_id}
     </delete>
 
     <select id="selectLikeCount" parameterType="String" resultType="Integer">
-        SELECT
-            COUNT(*)
-        FROM
-            tbl_like
-        WHERE
-            l_type = #{type}
-            AND
-            l_content_no = #{no}
+        SELECT COUNT(*)
+        FROM tbl_like
+        WHERE l_type = #{type}
+          AND l_content_no = #{no}
+    </select>
+
+    <select id="selectLikeProducts" parameterType="hashMap" resultType="com.office.house.user.product.ProductDto">
+        SELECT *
+        FROM tbl_product
+        WHERE p_no
+                  IN (SELECT l_content_no
+                      FROM tbl_like
+                      WHERE l_type = 1
+                      AND u_id = #{u_id}
+                      )
+                      LIMIT #{skip}, #{amount}
+
+    </select>
+
+    <select id="selectLikeProductsCnt" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) FROM tbl_product WHERE p_no IN (SELECT l_content_no FROM tbl_like WHERE l_type = 1 AND u_id = #{u_id})
     </select>
 
     <update id="updateLikeCountForProduct">
         UPDATE
             tbl_product
-        SET
-            p_like = #{likeCnt}
-        WHERE
-            p_no = #{no}
+        SET p_like = #{likeCnt}
+        WHERE p_no = #{no}
     </update>
 
     <select id="selectLikedProduct" parameterType="java.util.List" resultType="com.office.house.like.LikeDto">
         SELECT
-            *
+        *
         FROM
-            tbl_like
+        tbl_like
         WHERE
         l_type = 1 AND
         l_content_no IN
@@ -312,20 +313,15 @@
     </select>
 
     <select id="selectProductByNo" parameterType="String" resultType="com.office.house.user.product.ProductDto">
-        SELECT
-            *
-        FROM
-            tbl_product
-        WHERE
-            p_no = #{no}
+        SELECT *
+        FROM tbl_product
+        WHERE p_no = #{no}
     </select>
 
     <update id="updateHitCount" parameterType="String">
         UPDATE
             tbl_product
-        SET
-            p_hit = p_hit + 1
-        WHERE
-            p_no = #{no}
+        SET p_hit = p_hit + 1
+        WHERE p_no = #{no}
     </update>
 </mapper>
