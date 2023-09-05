@@ -1,6 +1,4 @@
-package com.office.house.util;
-
-import lombok.Data;
+package com.office.house.util.page;
 
 public class PageMakerDto {
 

@@ -1,14 +1,9 @@
 package com.office.house.user.product;
 
 import com.office.house.like.LikeDto;
-import com.office.house.util.Criteria;
-import com.office.house.util.PageMakerDto;
+import com.office.house.util.page.Criteria;
+import com.office.house.util.page.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

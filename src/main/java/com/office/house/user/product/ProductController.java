@@ -1,15 +1,13 @@
 package com.office.house.user.product;
 
 import com.office.house.user.UserDto;
-import com.office.house.util.PageDefine;
+import com.office.house.util.page.PageDefine;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Log4j2

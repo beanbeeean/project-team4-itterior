@@ -1,4 +1,4 @@
-package com.office.house.util;
+package com.office.house.util.page;
 
 public class PageDefine {
 
