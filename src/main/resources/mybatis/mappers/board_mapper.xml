@@ -102,4 +102,28 @@
             b_no = #{no}
     </select>
 
+    <select id="selectLikeBoardList" parameterType="String" resultType="com.office.house.board.BoardDto">
+        SELECT
+            *
+        FROM
+            tbl_board
+        WHERE
+            b_title LIKE CONCAT('%', #{keyword}, '%')
+        AND
+            b_no
+                IN (SELECT l_content_no FROM tbl_like WHERE l_type = 2 AND u_id = #{u_id})
+        <choose>
+            <when test="sort == 0">
+                ORDER BY b_reg_date DESC
+            </when>
+            <when test="sort == 1">
+                ORDER BY b_like desc
+            </when>
+            <when test="sort == 2">
+                ORDER BY b_hit desc
+            </when>
+        </choose>
+        LIMIT #{skip}, #{amount}
+    </select>
+
 </mapper>

@@ -20,4 +20,6 @@ public interface IUserService {
 	public int userWriteConfirm(BoardDto boardDto);
 
 	public List<BoardDto> getBoardList(String u_id);
+
+    public Map<String, Object> getUserLikeBoardList(int sort, int pageNum, int amount, String keyword, String u_id);
 }

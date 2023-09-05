@@ -199,6 +199,28 @@ public class UserService implements IUserService {
         return boardDtos;
     }
 
+    @Override
+    public Map<String, Object> getUserLikeBoardList(int sort, int pageNum, int amount, String keyword, String u_id) {
+        log.info("getUserLikeBoardList()");
+
+        Map<String, Object> map = new HashMap<>();
+        Criteria criteria = new Criteria(pageNum, amount);
+        map.put("skip",criteria.getSkip());
+        map.put("amount",criteria.getAmount());
+        map.put("keyword",keyword);
+        map.put("sort",sort);
+        map.put("u_id",u_id);
+        List<BoardDto> boardDtos = iBoardDaoMapper.selectLikeBoardList(map);
+        int totalCnt = boardDtos.size();
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        map.put("totalCnt", totalCnt);
+        map.put("boardDtos", boardDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
     public Map<String, Object> getUserLikeProducts(String[] category, String sort, String filter, String keyword, int pageNum, int amount) {
         log.info("getUserLikeProducts");
         Map<String, Object> map = new HashMap<>();
