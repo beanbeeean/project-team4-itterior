@@ -52,7 +52,7 @@
 
         appendTag = '';
 
-        for (let i = 0; i < boardDtos.length / 4 + 1; i++) {
+        for (let i = 0; i < boardDtos.length / 4; i++) {
             appendTag += '<tr>'
             for (let j = 0; j < 3; j++) {
                 if (boardDtos[cnt] == null) {
@@ -124,33 +124,33 @@
         console.log('setPage() CALLED!!');
 
         /* PAGE UI */
-        $('#section_wrap > div.page_wrap > div.page_number').children().remove();
+        $('#section_wrap > div.section_body > div.page_wrap > div.page_number').children().remove();
 
         // 이전 페이지
         if (pageMakerDto.prev) {
-            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + (pageMakerDto.startPage - 1) + '">PRE</a>');
+            $('#section_wrap > div.section_body > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + (pageMakerDto.startPage - 1) + '">PRE</a>');
         }
 
         // 처음 페이지
         if (pageMakerDto.criteria.pageNum > 10) {
-            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="1">1</a><span>...</span>');
+            $('#section_wrap > div.section_body > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="1">1</a><span>...</span>');
         }
 
         // 페이지 넘버링
         for (let p = parseInt(pageMakerDto.startPage); p <= parseInt(pageMakerDto.endPage); p++) {
-            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + p + '">' + p + '</a>');
+            $('#section_wrap > div.section_body > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + p + '">' + p + '</a>');
         }
 
         // 페이지 하이라이트
-        $('#section_wrap > div.page_wrap > div.page_number a[data-pagenum=' + pageMakerDto.criteria.pageNum + ']').addClass('selectedPageNum');
+        $('#section_wrap > div.section_body > div.page_wrap > div.page_number a[data-pagenum=' + pageMakerDto.criteria.pageNum + ']').addClass('selectedPageNum');
 
         // 다음 페이지
         if (pageMakerDto.next) {
-            $('#section_wrap > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + (pageMakerDto.endPage + 1) + '">NEX</a>');
+            $('#section_wrap > div.section_body > div.page_wrap > div.page_number').append('<a href="#none" data-pagenum="' + (pageMakerDto.endPage + 1) + '">NEX</a>');
         }
 
         // 전체 페이지
-        $('#section_wrap > div.page_wrap > div.page_goto > span.page_total_num').text(pageMakerDto.totalPage);
+        $('#section_wrap > div.section_body > div.page_wrap > div.page_goto > span.page_total_num').text(pageMakerDto.totalPage);
 
     }
 
