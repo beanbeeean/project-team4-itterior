@@ -1,0 +1,97 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+
+    $(document).ready(function(){
+        console.log("DOCUMENT 222READY!!");
+
+        // 이벤트 핸들러 초기화(등록)
+        init_like_events();
+
+        search_events();
+    });
+
+    function search_events(){
+        $(document).on('click','div.search_youtube_wrap > svg.search_btn', function(e){
+            let keyWord = $('input[name="p_search"]').val();
+            location.href="/youtube?keyWord=" + keyWord;
+        })
+    }
+
+    function init_like_events(){
+
+
+        $(document).on('click','a.like_board_btn',function (e){
+            console.log("click");
+            let y_no = $(this).attr('name');
+            console.log(y_no);
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null) {
+                $('div.modal_wrap').css('display', 'block');
+            } else {
+                if($(this).find("img.full_heart").attr('class') == "full_heart") {
+                    $(this).html('<img src="/imgs/empty_heart.png" class="empty_heart" />');
+                    ajax_deleteLikeCount(3, y_no, loginedMemberDto.u_id);
+                } else {-
+                    $(this).html('<img src="/imgs/full_heart.png" class="full_heart" />');
+                    ajax_updateLikeCount(3, y_no, loginedMemberDto.u_id);
+                }
+            }
+        })
+
+    }
+
+   function ajax_updateLikeCount(type, no, u_id){
+       console.log('ajax_updateLikeCount() CALLED!!');
+
+       let msgDto = {
+           'type': type,
+           'no': no,
+           'u_id' : u_id
+       };
+
+       let str = '/youtube/youtube_like_update';
+       $.ajax({
+           url: str,
+           method: 'POST',
+           data: JSON.stringify(msgDto),
+           contentType: 'application/json; charset=utf-8',
+           success: function(data) {
+               console.log('AJAX SUCCESS - ajax_updateLikeCount()');
+               $(".like_count" + no).html(data);
+           },
+           error: function(data) {
+               console.log('AJAX ERROR - ajax_updateLikeCount()');
+
+           }
+       });
+   }
+    function ajax_deleteLikeCount(type, no, u_id){
+        console.log('ajax_updateLikeCount() CALLED!!');
+
+        let msgDto = {
+            'type': type,
+            'no': no,
+            'u_id' : u_id
+        };
+
+        let str = '/youtube/youtube_like_delete';
+        $.ajax({
+            url: str,
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_deleteLikeCount()');
+                $(".like_count" + no).html(data);
+            },
+            error: function(data) {
+                console.log('AJAX ERROR - ajax_deleteLikeCount()');
+
+            }
+        });
+    }
+
+</script>
+
+
+
+

@@ -15,4 +15,51 @@
         values (#{y_id}, #{y_title}, #{y_channel}, #{y_content}, #{y_img}, #{y_date})
     </insert>
 
+    <select id="getTotalCnt" resultType="Integer">
+
+        SELECT count(*) FROM tbl_youtube where y_channel like CONCAT('%',#{keyWord},'%')
+
+    </select>
+
+    <select id="getYoutubes" resultType="com.office.house.youtube.YoutubeDto">
+
+        select *
+        from tbl_youtube
+        LEFT JOIN (SELECT count(*) cnt,l_content_no FROM db_backend_pjt.tbl_like where l_type = 3 and u_id = #{u_id}
+        group by l_content_no) a on l_content_no = y_no
+        where y_channel like CONCAT('%',#{keyWord},'%')
+        order by y_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <insert id="insertYoutubeLike" >
+
+        insert tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
+        values (#{type}, #{no}, #{u_id}, now(), now())
+
+    </insert>
+
+    <delete id="deleteYoutubeLike">
+
+       delete from tbl_like where l_type = 3 and l_content_no = #{no}
+
+    </delete>
+
+    <update id="increaseLike" >
+
+        update tbl_youtube set y_like = y_like + 1 where y_no = #{no}
+
+    </update>
+
+    <update id="decreaseLike" >
+
+        update tbl_youtube set y_like = y_like - 1 where y_no = #{no}
+
+    </update>
+
+    <select id="searchLike" resultType="Integer">
+
+        select y_like from tbl_youtube where y_no = #{no}
+
+    </select>
 </mapper>

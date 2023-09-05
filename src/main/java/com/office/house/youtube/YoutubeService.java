@@ -1,6 +1,9 @@
 package com.office.house.youtube;
 
 import com.office.house.admin.ChannelDto;
+import com.office.house.board.BoardDto;
+import com.office.house.util.Criteria;
+import com.office.house.util.PageMakerDto;
 import io.netty.handler.codec.json.JsonObjectDecoder;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,9 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -101,6 +106,47 @@ public class YoutubeService implements IYoutubeService{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Map<String, Object> getYoutubes(String keyWord, int pageNum, int amount, String u_id) {
+
+        log.info("[YoutubeService] getYoutubes()");
+
+        Map<String, Object> map = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getYoutubes(keyWord, criteria, u_id);
+
+        int totalCnt = iYoutubeDaoMapper.getTotalCnt(keyWord);
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        map.put("YoutubeDtos", YoutubeDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
+    @Override
+    public int youtubeLikeUpdate(Map<String, String> msgMap) {
+
+        log.info("[YoutubeService] getYoutubes()");
+
+        iYoutubeDaoMapper.increaseLike(msgMap.get("no"));
+        iYoutubeDaoMapper.insertYoutubeLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        return iYoutubeDaoMapper.searchLike(msgMap.get("no"));
+    }
+
+    @Override
+    public int youtubeLikeDelete(Map<String, String> msgMap) {
+
+        log.info("[YoutubeService] getYoutubes()");
+
+        iYoutubeDaoMapper.decreaseLike(msgMap.get("no"));
+        iYoutubeDaoMapper.deleteYoutubeLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        return iYoutubeDaoMapper.searchLike(msgMap.get("no"));
     }
 
 }

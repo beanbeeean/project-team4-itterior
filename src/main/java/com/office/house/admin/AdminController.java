@@ -137,7 +137,7 @@ public class AdminController {
     public String adminList(HttpSession session, Model model,
                             @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
                             @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-                            @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_MEMBER_AMOUNT) int amount) {
+                            @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_AMOUNT) int amount) {
 
         log.info("[AdminController] adminList()");
 
@@ -145,11 +145,11 @@ public class AdminController {
 
         Map<String, Object> map = adminService.adminList(keyWord, pageNum, amount);
 
-        List<AdminDto> AdminDtos = (List<AdminDto>) map.get("AdminDtos");
+        List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
 
         PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
 
-        model.addAttribute("AdminDtos", AdminDtos);
+        model.addAttribute("YoutubeDtos", YoutubeDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);
         model.addAttribute("keyWord", keyWord);
 
