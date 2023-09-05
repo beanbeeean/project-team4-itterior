@@ -1,15 +1,17 @@
 package com.office.house.user;
 
 import java.security.SecureRandom;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.office.house.board.BoardDto;
 import com.office.house.board.IBoardDaoMapper;
 import com.office.house.comment.ICommentDaoMapper;
 import com.office.house.comment.ICommentService;
+import com.office.house.like.LikeDto;
+import com.office.house.user.product.IProductDaoMapper;
+import com.office.house.user.product.ProductDto;
+import com.office.house.util.Criteria;
+import com.office.house.util.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -36,6 +38,9 @@ public class UserService implements IUserService {
 
     @Autowired
     ICommentDaoMapper iCommentDaoMapper;
+
+    @Autowired
+    IProductDaoMapper iProductDaoMapper;
 
 	@Override
     public Map<String, Object> createAccountConfirm(Map<String, String> msgMap){
@@ -193,5 +198,34 @@ public class UserService implements IUserService {
         log.info(boardDtos.size());
 
         return boardDtos;
+    }
+
+    public Map<String, Object> getUserLikeProducts(String[] category, String sort, String filter, String keyword, int pageNum, int amount) {
+        log.info("getUserLikeProducts");
+        Map<String, Object> map = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<ProductDto> dtos = iProductDaoMapper.selectProducts(category, sort, filter, keyword, criteria.getSkip(), criteria.getAmount());
+        int totalCnt = iProductDaoMapper.selectProductsCnt(category, sort, filter, keyword, criteria.getSkip(), criteria.getAmount());
+
+        log.info("totalCnt" + totalCnt);
+
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        List<Integer> likeList = new ArrayList<>();
+        for(ProductDto dto : dtos){
+            if(dto.getP_like() > 0){
+                likeList.add(dto.getP_no());
+            }
+        }
+
+        List<LikeDto> isLikedDtos = new ArrayList<>();
+        if(likeList.size() > 0){
+            isLikedDtos = iProductDaoMapper.selectLikedProduct(likeList);
+        }
+        map.put("isLikedDtos", isLikedDtos);
+        map.put("productDtos", dtos);
+        map.put("pageMakerDto", pageMakerDto);
+        return map;
     }
 }

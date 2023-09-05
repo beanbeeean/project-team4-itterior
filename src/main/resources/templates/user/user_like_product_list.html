@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="~{/include/title.html::title}"></title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/home.css}">
+    <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+    <link rel="stylesheet" th:href="@{/css/user/user_board_list.css}">
+    <link rel="stylesheet" th:href="@{/css/user/user_like_product_list.css}">
+
+    <script th:replace="~{/user/include/like_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/include/user_like_product_list_js.html::js}" type="text/javascript"></script>
+</head>
+<body>
+<header th:replace="~{/include/header_nav_footer.html::header}"/>
+
+<section>
+    <div id="section_wrap">
+        <div class="side_bar">
+            <img class="user_img" th:if="${session.loginedMemberDto.getU_img() == null}"
+                 th:src="@{/imgs/defaultimage.PNG}"><br>
+            <img class="user_img"
+                 th:unless="${session.loginedMemberDto.getU_img() == null}"
+                 th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"><br>
+
+            <br>
+            <p><a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a></p>
+            <ul>
+                <li><a id="modifyForm" th:href="@{/user/user_modify_form}">정보수정</a></li>
+                <li><a th:href="@{/user/user_like_product_list}">좋아요한 상품</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 게시물</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 영상</a></li>
+                <li><a th:href="@{/user/user_board_list(u_id=${session.loginedMemberDto.u_id})}">내가 작성한 글</a></li>
+                <li><a id="deleteAccount" th:href="@{#}">회원탈퇴</a></li>
+            </ul>
+        </div>
+
+        <div class="section_body">
+            <div class="search_product_wrap">
+                <input type="text" name="p_search" placeholder="상품 이름을 입력해주세요.">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 512 512" class="search_btn">
+                    <path style="fill:#b9b9b9"
+                          d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                </svg>
+            </div>
+            <div class="p_sort_filter">
+                <div class="category_list_wrap">
+                    <div class="psf_name">카테고리</div>
+                    <div class="category_list">
+						<span>
+							<input type="checkbox" name="TB" value="1"/>
+							&nbsp;테이블/책상&nbsp;&nbsp;
+						</span>
+                        <span>
+							<input type="checkbox" name="CH" value="2"/>
+							&nbsp;의자&nbsp;&nbsp;
+						</span>
+                        <span>
+							<input type="checkbox" name="TT" value="3"/>
+							&nbsp;거실장&nbsp;&nbsp;
+						</span>
+                        <span>
+							<input type="checkbox" name="AC" value="4"/>
+							&nbsp;수납/정리&nbsp;&nbsp;
+						</span>
+                        <span>
+							<input type="checkbox" name="BE" value="5"/>
+							&nbsp;침대&nbsp;&nbsp;
+						</span>
+                        <span>
+							<input type="checkbox" name="LI" value="6"/>
+							&nbsp;조명&nbsp;&nbsp;
+						</span>
+                    </div>
+                </div>
+                <div class="sort_list_wrap">
+                    <div class="psf_name">정렬</div>
+                    <div class="sort_list">
+						<span>
+							<input type="radio" name="product_sort" value="1"/>
+							&nbsp;가격 높은 순&nbsp;&nbsp;
+						</span>
+                        <span>
+							<input type="radio" name="product_sort" value="2"/>
+							&nbsp;가격 낮은 순&nbsp;&nbsp;
+            			</span>
+                        <span>
+							<input type="radio" name="product_sort" value="3"/>
+							&nbsp;좋아요 순&nbsp;&nbsp;
+           				 </span>
+                        <span>
+							<input type="radio" name="product_sort" value="4"/>
+							&nbsp;조회 순&nbsp;&nbsp;
+            			</span>
+                    </div>
+                </div>
+                <div class="price_list_wrap">
+                    <div class="psf_name">가격</div>
+                    <div class="price_list">
+						<span>
+							<input type="radio" name="price_filter" value="1"/>
+							&nbsp;~\100,000&nbsp;&nbsp;
+						</span>
+                        <span>
+							<input type="radio" name="price_filter" value="2"/>
+							&nbsp;~\200,000&nbsp;&nbsp;
+            			</span>
+                        <span>
+							<input type="radio" name="price_filter" value="3"/>
+							&nbsp;~\300,000&nbsp;&nbsp;
+            			</span>
+                        <span>
+							<input type="radio" name="price_filter" value="4"/>
+							&nbsp;\300,000+&nbsp;&nbsp;
+            			</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product_item_list">
+                <table>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div class="page_wrap">
+
+                <div class="page_number">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+</body>
+
+
+</html>
