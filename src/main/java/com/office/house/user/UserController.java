@@ -5,8 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.office.house.board.BoardDto;
+import com.office.house.util.page.PageMakerDto;
 import com.office.house.util.upload.UploadFileService;
 import com.office.house.util.page.PageDefine;
+import com.office.house.youtube.YoutubeDto;
+import com.office.house.youtube.YoutubeService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    YoutubeService youtubeService;
 
     @Autowired
     UploadFileService uploadFileService;
@@ -258,4 +264,26 @@ public class UserController {
         return resultMap;
     }
 
+    @GetMapping("user_like_youtube_list")
+    public String showUserLikeYoutubeList(Model model, HttpSession session,
+                                 @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                                 @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                 @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_AMOUNT) int amount){
+
+        log.info("[UserController] showUserLikeYoutubeList()");
+
+        String nextPage = "user/user_like_youtube_list";
+
+        UserDto userDto = (UserDto) session.getAttribute("loginedMemberDto");
+        Map<String, Object> map = youtubeService.getLikeYoutubes(keyWord, pageNum, amount, userDto.getU_id());
+
+        List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
+        PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
+
+        model.addAttribute("YoutubeDtos", YoutubeDtos);
+        model.addAttribute("pageMakerDto", pageMakerDto);
+        model.addAttribute("keyWord", keyWord);
+
+        return nextPage;
+    }
 }

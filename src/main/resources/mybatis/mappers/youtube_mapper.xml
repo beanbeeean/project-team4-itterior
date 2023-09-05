@@ -21,13 +21,30 @@
 
     </select>
 
+    <select id="getTotalLikeCnt" resultType="Integer">
+
+        SELECT count(*)
+        FROM db_backend_pjt.tbl_youtube
+        where y_title like CONCAT('%',#{keyWord},'%') and y_no in (SELECT l_content_no FROM db_backend_pjt.tbl_like where l_type = 3 and u_id = #{u_id})
+
+    </select>
+
     <select id="getYoutubes" resultType="com.office.house.youtube.YoutubeDto">
 
         select *
         from tbl_youtube
         LEFT JOIN (SELECT count(*) cnt,l_content_no FROM db_backend_pjt.tbl_like where l_type = 3 and u_id = #{u_id}
         group by l_content_no) a on l_content_no = y_no
-        where y_channel like CONCAT('%',#{keyWord},'%')
+        where y_title like CONCAT('%',#{keyWord},'%')
+        order by y_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+
+    </select>
+
+    <select id="getLikeYoutubes" resultType="com.office.house.youtube.YoutubeDto">
+
+        SELECT *
+        FROM db_backend_pjt.tbl_youtube
+        where y_title like CONCAT('%',#{keyWord},'%') and y_no in (SELECT l_content_no FROM db_backend_pjt.tbl_like where l_type = 3 and u_id = #{u_id})
         order by y_date desc LIMIT #{criteria.skip}, #{criteria.amount}
 
     </select>
