@@ -8,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -62,7 +63,6 @@ public class SpringSecurityConfig {
                             session.setAttribute("loginedMemberDto", loginedMemberDto);
                             session.setMaxInactiveInterval(60 * 30);
                             response.sendRedirect("/");
-                            request.setAttribute("login", "yes");
                         })
                         .failureHandler((request, response, exception) -> {
                             log.info("failureHandler!!");
@@ -76,7 +76,7 @@ public class SpringSecurityConfig {
                             log.info("logoutSuccessHandler!!");
 
                             HttpSession session = request.getSession();
-                            session.invalidate();   //세션 데이터 삭제
+                            session.removeAttribute("loginedMemberDto");   //세션 데이터 삭제
 
                             response.sendRedirect("/");
 

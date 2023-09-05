@@ -64,6 +64,7 @@
             console.log('login btn CLICK HANDLER!!');
             let u_id = $('div.login_modal input[name="u_id"]').val();
             let u_pw = $('div.login_modal input[name="u_pw"]').val();
+            let type = $('div.login_modal input[name="type"]').val();
 
             console.log(u_id);
             console.log(u_pw);
@@ -75,7 +76,7 @@
                 alert("패스워드를 입력해주세요!");
                 $('div.login_modal input[name="u_pw"]').focus();
             }else{
-                ajax_userLogin(u_id, u_pw);
+                ajax_userLogin(u_id, u_pw, type);
             }
         });
 
@@ -84,6 +85,7 @@
             console.log('login btn CLICK HANDLER!!');
             let u_id = $('div.login_container input[name="u_id"]').val();
             let u_pw = $('div.login_container input[name="u_pw"]').val();
+            let type = $('div.login_container input[name="type"]').val();
 
             console.log(u_id);
             console.log(u_pw);
@@ -95,7 +97,7 @@
                 alert("패스워드를 입력해주세요!");
                 $('div.login_container input[name="u_pw"]').focus();
             }else{
-                ajax_userLogin(u_id, u_pw);
+                ajax_userLogin(u_id, u_pw, type);
             }
         });
 
@@ -185,7 +187,7 @@
 
 
     // AJAX START
-    function ajax_userLogin(u_id, u_pw){
+    function ajax_userLogin(u_id, u_pw, type){
         console.log('ajax_userLogin() CALLED!!');
 
         let formData = new FormData();
@@ -199,20 +201,26 @@
             processData: false,
             contentType: false,
             success: function(data) {
-                loginedMemberDto = [[${session.loginedMemberDto}]];
-                if(loginedMemberDto !== null){
-                    console.log('AJAX SUCCESS - ajax_userLogin()');
+                let loginedMemberDto = "[[${session.loginedMemberDto}]]";
+                console.log("loginedMemberDto = " + loginedMemberDto);
+                if(loginedMemberDto != null){
+                    console.log('AJAX SUCCESS - ajax_userLogin()' + type);
                     alert('로그인 성공했습니다.');
                     $('div.modal_wrap').css('display','none');
-                    location.reload();
+                    if(type == 0) {
+                        location.reload();
+                    }
+                    else {
+                        location.href = "/";
+                    }
                 }else{
-                    alert('로그인 실패했습니다.');
+                    alert('success 로그인 실패했습니다.');
                 }
 
             },
             error: function(data) {
                 console.log('AJAX ERROR - ajax_userLogin()');
-                alert('로그인 실패했습니다.');
+                alert('fail 로그인 실패했습니다.');
 
             }
         });
