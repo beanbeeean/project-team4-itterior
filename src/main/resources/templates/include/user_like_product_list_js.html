@@ -1,6 +1,7 @@
 <script th:fragment="js" type="text/javascript">
 
     let pageNum = 1;
+    let loginedMemberDto = [[${session.loginedMemberDto}]];
 
     $(document).ready(function () {
         console.log("DOCUMENT READY!!");
@@ -27,6 +28,11 @@
             ajax_updateHitCount(productNo);
         })
 
+        $(document).on('click', 'a.like_board_btn', function () {
+            let productNo = $(this).data("p_no");
+            console.log(loginedMemberDto.u_id);
+            ajax_cancelLike(1, productNo, loginedMemberDto.u_id);
+        })
     }
 
     // 인테리어 상품 리스트 출력 함수
@@ -244,6 +250,32 @@
             }
         });
     }
+
+    function ajax_cancelLike(type, no, u_id) {
+        console.log("ajax_cancelLike()");
+
+        let map = {
+            "l_type": type,
+            "l_content_no": no,
+            "u_id": u_id,
+        }
+
+        $.ajax({
+            url: '/product/product_like_confirm',
+            method: 'POST',
+            data: JSON.stringify(map),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log("AJAX SUCCESS - ajax_cancelLike()")
+                // 좋아요 취소가 성공하면 해당 상품을 화면에서 숨깁니다.
+                hideProduct(map);
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_cancelLike()');
+            }
+        });
+    }
+
 
     // AJAX END
 
