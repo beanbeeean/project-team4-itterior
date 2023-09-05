@@ -128,6 +128,25 @@ public class YoutubeService implements IYoutubeService{
     }
 
     @Override
+    public Map<String, Object> getLikeYoutubes(String keyWord, int pageNum, int amount, String u_id) {
+
+        log.info("[YoutubeService] getLikeYoutubes()");
+
+        Map<String, Object> map = new HashMap<>();
+
+        Criteria criteria = new Criteria(pageNum, amount);
+        List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getLikeYoutubes(keyWord, criteria, u_id);
+
+        int totalCnt = iYoutubeDaoMapper.getTotalLikeCnt(keyWord, u_id);
+        PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
+
+        map.put("YoutubeDtos", YoutubeDtos);
+        map.put("pageMakerDto", pageMakerDto);
+
+        return map;
+    }
+
+    @Override
     public int youtubeLikeUpdate(Map<String, String> msgMap) {
 
         log.info("[YoutubeService] getYoutubes()");

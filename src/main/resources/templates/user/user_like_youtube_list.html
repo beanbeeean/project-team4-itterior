@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="~{/include/title.html::title}"></title>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+    <link rel="stylesheet" th:href="@{/css/user/user_board_list.css}">
+    <link rel="stylesheet" th:href="@{/css/user/user_like_product_list.css}">
+    <link rel="stylesheet" th:href="@{/css/user/youtube_like_list.css}">
+
+    <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+    <script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/include/list_search_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/youtube/youtube_js.html::js}" type="text/javascript"></script>
+
+</head>
+<body>
+<header th:replace="~{/include/header_nav_footer.html::header}"/>
+
+<section>
+    <div id="section_wrap">
+        <div class="side_bar">
+            <img class="user_img" th:if="${session.loginedMemberDto.getU_img() == null}"
+                 th:src="@{/imgs/defaultimage.PNG}"><br>
+            <img class="user_img"
+                 th:unless="${session.loginedMemberDto.getU_img() == null}"
+                 th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"><br>
+
+            <br>
+            <p><a th:href="@{/user/user_myPage}" th:text='${session.loginedMemberDto.u_id}'></a></p>
+            <ul>
+                <li><a id="modifyForm" th:href="@{/user/user_modify_form}">정보수정</a></li>
+                <li><a th:href="@{/user/user_like_product_list}">좋아요한 상품</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 게시물</a></li>
+                <li><a th:href="@{/user/user_like_list}">좋아요한 영상</a></li>
+                <li><a th:href="@{/user/user_board_list(u_id=${session.loginedMemberDto.u_id})}">내가 작성한 글</a></li>
+                <li><a id="deleteAccount" th:href="@{#}">회원탈퇴</a></li>
+            </ul>
+        </div>
+
+        <div id="url" class="user_like_youtube_list"/>
+        <div class="section_body">
+            <div class="search_product_wrap">
+                <input type="text" name="p_search" placeholder="유튜브 영상 채널명을 검색해주세요.">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 512 512" class="search_btn">
+                    <path style="fill:#b9b9b9"
+                          d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+                </svg>
+            </div>
+            <div class="youtube_item_list">
+                <div class="youtube_item" th:each="YoutubeDto : ${YoutubeDtos}">
+                    <iframe
+                            width="500"
+                            height="250"
+                            th:src="'https://www.youtube.com/embed/'+${YoutubeDto.y_id}"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen
+                    ></iframe>
+                    <div class="youtube_item_detail">
+                        <h3 class="youtube_title" th:text="${YoutubeDto.y_title}"></h3>
+                        <div class="like_channel_wrap">
+                            <span class="youtube_channel" th:text="${YoutubeDto.y_channel}"></span>
+                            <a class="like_youtube_btn" href="#none" th:name="${YoutubeDto.y_no}">
+                                <img src="/imgs/full_heart.png" class="full_heart" />
+                            </a>
+                            <span th:class="'like_count'+${YoutubeDto.y_no}" th:text="${YoutubeDto.y_like}"></span>
+                        </div>
+                        <p th:text="${YoutubeDto.y_content}"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page_wrap">
+
+                <div class="page_number">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+
+</html>

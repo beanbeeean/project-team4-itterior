@@ -11,5 +11,8 @@ public interface IYoutubeService {
     Map<String, Object> getYoutubes(String keyWord, int pageNum, int amount, String u_id);
 
     int youtubeLikeUpdate(Map<String, String> msgMap);
+
     int youtubeLikeDelete(Map<String, String> msgMap);
+
+    Map<String, Object> getLikeYoutubes(String keyWord, int pageNum, int amount, String uId);
 }
