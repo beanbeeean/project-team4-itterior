@@ -125,7 +125,6 @@
         LIMIT #{skip}, #{amount}
     </select>
 
-
     <select id="selectProductsCnt" parameterType="String" resultType="Integer">
         SELECT
         COUNT(*)
@@ -260,6 +259,43 @@
         WHERE
             p_link = #{p_link}
     </update>
+
+    <insert id="insertLikeCount" parameterType="String">
+        INSERT INTO tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
+        VALUES (#{type}, #{no}, #{u_id}, NOW(), NOW())
+    </insert>
+
+    <delete id="deleteLikeCount" parameterType="String">
+        DELETE
+        FROM tbl_like
+        WHERE l_type = #{type}
+          AND l_content_no = #{no}
+          AND u_id = #{u_id}
+    </delete>
+
+    <select id="selectLikeCount" parameterType="String" resultType="Integer">
+        SELECT COUNT(*)
+        FROM tbl_like
+        WHERE l_type = #{type}
+          AND l_content_no = #{no}
+    </select>
+
+    <select id="selectLikeProducts" parameterType="hashMap" resultType="com.office.house.product.ProductDto">
+        SELECT *
+        FROM tbl_product
+        WHERE p_no
+            IN (SELECT l_content_no
+                FROM tbl_like
+                WHERE l_type = 1
+                  AND u_id = #{u_id}
+              )
+            LIMIT #{skip}, #{amount}
+
+    </select>
+
+    <select id="selectLikeProductsCnt" parameterType="String" resultType="Integer">
+        SELECT COUNT(*) FROM tbl_product WHERE p_no IN (SELECT l_content_no FROM tbl_like WHERE l_type = 1 AND u_id = #{u_id})
+    </select>
 
     <update id="updateLikeCountForProduct">
         UPDATE

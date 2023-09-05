@@ -241,9 +241,9 @@ public class UserController {
     @GetMapping("get_user_like_products")
     @ResponseBody
     public Map<String, Object>  getUserLikeProducts(
-                                            @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-                                            @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount,
-                                            HttpSession session){
+            @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+            @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount,
+            HttpSession session){
         log.info("getProducts");
         UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
         Map<String, Object> resultMap = userService.getUserLikeProducts(pageNum, amount, loginedMemberDto.getU_id());

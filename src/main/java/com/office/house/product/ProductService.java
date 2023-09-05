@@ -46,6 +46,33 @@ public class ProductService implements IProductService{
         return map;
     }
 
+    @Override
+    public Map<String, Object> productLikeConfirm(Map<String, String> msgMap) {
+        log.info("productLikeConfirm");
+        Map<String, Object> map = new HashMap<>();
+        int result = -1;
+
+        if(msgMap.get("method").equals("like")){
+            result = iProductDaoMapper.insertLikeCount(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+        }else{
+            result = iProductDaoMapper.deleteLikeCount(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+        }
+
+        if(result > 0){
+            int likeCnt = iProductDaoMapper.selectLikeCount(msgMap.get("type"), msgMap.get("no"));
+            result = iProductDaoMapper.updateLikeCountForProduct(msgMap.get("no"),likeCnt);
+
+            ProductDto productDto = iProductDaoMapper.selectProductByNo(msgMap.get("no"));
+            int isLike = iProductDaoMapper.selectLikeCount(msgMap.get("type"), msgMap.get("no"));
+
+            map.put("productDto", productDto);
+            map.put("isLike", isLike);
+        }
+
+        map.put("result", result);
+        return map;
+    }
+
 
     @Override
     public Map<String, Object> updateProductHit(String no) {

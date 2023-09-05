@@ -222,8 +222,6 @@ public class UserService implements IUserService {
         return map;
     }
 
-    public Map<String, Object> getUserLikeProducts(String[] category, String sort, String filter, String keyword, int pageNum, int amount) {
-        log.info("getUserLikeProducts");
     public Map<String, Object> getUserLikeProducts(int pageNum, int amount, String u_id) {
         log.info("[UserMemberService] getUserLikeProducts()");
         Map<String, Object> map = new HashMap<>();
