@@ -228,7 +228,7 @@ public class UserController {
         return resultMap;
     }
 
-    // 좋아요한 게시물
+    // 좋아요한 상품
     @GetMapping("/user_like_product_list")
     public String showUserLikeProductList(){
         log.info("[UserController] showUserLikeProductList()");
@@ -240,16 +240,13 @@ public class UserController {
 
     @GetMapping("get_user_like_products")
     @ResponseBody
-    public Map<String, Object>  getUserLikeProducts(@RequestParam(required = false, value = "category") String[] category,
-                                            @RequestParam(required = false, value = "sort") String sort,
-                                            @RequestParam(required = false, value = "filter") String filter,
-                                            @RequestParam(required = false, value = "keyword") String keyword,
+    public Map<String, Object>  getUserLikeProducts(
                                             @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                                             @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount,
                                             HttpSession session){
         log.info("getProducts");
-        Map<String, Object> resultMap = userService.getUserLikeProducts(category, sort, filter, keyword, pageNum, amount);
         UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        Map<String, Object> resultMap = userService.getUserLikeProducts(pageNum, amount, loginedMemberDto.getU_id());
         if(loginedMemberDto != null){
             resultMap.put("u_id", loginedMemberDto.getU_id());
         }else{

@@ -1,43 +1,26 @@
 <script th:fragment="js" type="text/javascript">
 
-    let categoryList = [];
-    let sort = "3";
-    let priceSelected = "";
-    let keyword = "";
     let pageNum = 1;
-
+    let loginedMemberDto = [[${session.loginedMemberDto}]];
 
     $(document).ready(function () {
         console.log("DOCUMENT READY!!");
         // 이벤트 핸들러 초기화(등록)
         init_product_events();
 
-        removeSearchKeyword();
-        ajax_getUserLikeProductList(categoryList, sort, priceSelected, keyword, pageNum);
+        ajax_getUserLikeProductList(pageNum);
     });
 
     // 이벤트 핸들러
     function init_product_events() {
         console.log("init_events()")
 
-        // 정렬 , 필터링 버튼
-        productSortFiltering();
-
-        // 검색 버튼 클릭시
-        $(document).on('click', 'div.search_product_wrap > svg.search_btn', function (e) {
-            console.log("search_btn CLICK HANDLER!!")
-            e.stopImmediatePropagation();
-            keyword = $('div.search_product_wrap > input[name="p_search"]').val();
-            pageNum = 1;
-            ajax_getUserLikeProductList(categoryList, sort, priceSelected, keyword, pageNum);
-        })
-
         // 페이지 번호 클릭 시
-        $(document).on('click', '#section_wrap > div.page_wrap > div.page_number a', function () {
+        $(document).on('click', '#section_wrap div.page_wrap > div.page_number a', function () {
             console.log('page number CLICK HANDLER');
 
             pageNum = $(this).data('pagenum');
-            ajax_getUserLikeProductList(categoryList, sort, priceSelected, keyword, pageNum);
+            ajax_getUserLikeProductList(pageNum);
         });
 
         $(document).on('click', 'td > a.product_item_wrap', function () {
@@ -45,104 +28,48 @@
             ajax_updateHitCount(productNo);
         })
 
-    }
-
-    // 인테리어 상품 정렬 / 필터링 함수(체크박스 / 라디오박스)
-    function productSortFiltering() {
-        let categoryCheck = document.querySelectorAll("div.category_list input[type='checkbox']");
-        let sortCheck = document.querySelectorAll("div.sort_list input[name='product_sort']");
-        let priceCheck = document.querySelectorAll("div.price_list input[name='price_filter']");
-
-        for (let i = 0; i < categoryCheck.length; i++) {
-            categoryCheck[i].addEventListener("change", function (e) {
-                e.stopImmediatePropagation();
-                if (categoryCheck[i].checked) {
-                    categoryList.push(categoryCheck[i].value);
-                } else if (!categoryCheck[i].checked) {
-                    categoryList.splice(categoryList.indexOf(categoryCheck[i].value), 1);
-                }
-
-                console.log("categoryList", categoryList);
-                pageNum = 1;
-                ajax_getUserLikeProductList(categoryList, sort, priceSelected, keyword, pageNum);
-
-            });
-        }
-
-        for (let i = 0; i < sortCheck.length; i++) {
-            sortCheck[i].addEventListener("change", function () {
-                sort = sortCheck[i].value;
-                console.log("sort", sort);
-                pageNum = 1;
-                ajax_getUserLikeProductList(categoryList, sort, priceSelected, keyword, pageNum);
-            });
-        }
-
-        for (let i = 0; i < priceCheck.length; i++) {
-            priceCheck[i].addEventListener("change", function (e) {
-                e.stopImmediatePropagation();
-                priceSelected = priceCheck[i].value;
-                console.log("priceSelected", priceSelected);
-                pageNum = 1;
-                ajax_getUserLikeProductList(categoryList, sort, priceSelected, keyword, pageNum);
-
-            });
-        }
-
+        $(document).on('click', 'a.like_board_btn', function () {
+            let productNo = $(this).data("p_no");
+            console.log(loginedMemberDto.u_id);
+            ajax_cancelLike(1, productNo, loginedMemberDto.u_id);
+        })
     }
 
     // 인테리어 상품 리스트 출력 함수
     function addLikeProductsListTr(productDtos, isLikedDtos, u_id) {
+        console.log("addLikeProductsListTr()");
         let appendTag = '';
-        let list = new Set();
+        let cnt = 0;
 
-        console.log(u_id);
-        console.log(isLikedDtos[0].l_content_no);
-        console.log(isLikedDtos[0].l_type);
-
-        for (let j = 0; j < isLikedDtos.length; j++) {
-            for (let i = 0; i < productDtos.length; i++) {
-                if (u_id == isLikedDtos[j].u_id && isLikedDtos[j].l_type == 1) {
-                    if (isLikedDtos[j].l_content_no == productDtos[i].p_no) {
-                        list.add(i);
-                    }
-                }
-            }
-        }
-
-        console.log(list);
-        list = Array.from(list).sort((a, b) => a - b);
-        console.log("sort list : " + list);
-        console.log(list.length);
-
-        for (let i = 0; i < list.length; i += 4) {
+        for (let i = 0; i < productDtos.length / 4 + 1; i++) {
             appendTag += '<tr class="product_container_wrap">';
 
-            for (let j = i; j < i + 4 && j < list.length; j++) {
-                const value = list[j];
-                appendTag += '<td>';
-                console.log(value);
+            for (let j = 0; j < 4; j++) {
+                if (productDtos[cnt] == null) {
+                    break;
+                }
 
-                let price = parseInt(productDtos[value].p_sales_price).toString()
+                let price = parseInt(productDtos[cnt].p_sales_price).toString()
                     .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
+                appendTag += '<td>';
                 appendTag += '<a class="product_item_wrap" href="';
-                appendTag += productDtos[value].p_link;
+                appendTag += productDtos[cnt].p_link;
                 appendTag += '" target="parent"';
                 appendTag += 'data-p_no="';
-                appendTag += productDtos[value].p_no;
+                appendTag += productDtos[cnt].p_no;
                 appendTag += '">';
                 appendTag += '<div class="product_container">';
                 appendTag += "<div class='product_img'>";
                 appendTag += "<img src='";
-                appendTag += productDtos[value].p_img;
+                appendTag += productDtos[cnt].p_img;
                 appendTag += "'/>";
                 appendTag += '</div>';
                 appendTag += ' <span class="product_brand">';
-                appendTag += productDtos[value].p_brand;
+                appendTag += productDtos[cnt].p_brand;
                 appendTag += '</span>';
                 appendTag += '<p class="product_name">';
-                appendTag += productDtos[value].p_name;
+                appendTag += productDtos[cnt].p_name;
                 appendTag += '</p>';
                 appendTag += '</div>';
                 appendTag += '</a>';
@@ -160,19 +87,19 @@
                 appendTag += '<a class="like_board_btn"';
                 appendTag += 'href="#none" ';
                 appendTag += 'data-p_no="';
-                appendTag += productDtos[value].p_no;
+                appendTag += productDtos[cnt].p_no;
                 appendTag += '">';
                 if (u_id != undefined && u_id != "please_login" && isLikedDtos.length > 0) {
                     for (let k = 0; k < isLikedDtos.length; k++) {
-                        if (isLikedDtos[k].l_content_no == productDtos[value].p_no && isLikedDtos[k].u_id == u_id) {
+                        if (isLikedDtos[k].l_content_no == productDtos[cnt].p_no && isLikedDtos[k].u_id == u_id) {
                             appendTag += '<img class="full_heart" src="/imgs/full_heart.png" data-p_no="';
-                            appendTag += productDtos[value].p_no;
+                            appendTag += productDtos[cnt].p_no;
                             appendTag += '">';
                             break;
-                        } else if (isLikedDtos[k].l_content_no != productDtos[value].p_no || isLikedDtos[k].u_id != u_id) {
+                        } else if (isLikedDtos[k].l_content_no != productDtos[cnt].p_no || isLikedDtos[k].u_id != u_id) {
                             if (k == isLikedDtos.length - 1) {
                                 appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-p_no="';
-                                appendTag += productDtos[value].p_no;
+                                appendTag += productDtos[cnt].p_no;
                                 appendTag += '">';
                             }
                             continue;
@@ -180,27 +107,27 @@
                     }
                 } else {
                     appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-p_no="';
-                    appendTag += productDtos[value].p_no;
+                    appendTag += productDtos[cnt].p_no;
                     appendTag += '">';
                 }
                 appendTag += '</a>';
                 appendTag += '<span class="like_count">';
-                appendTag += productDtos[value].p_like;
+                appendTag += productDtos[cnt].p_like;
                 appendTag += '</span>';
                 appendTag += '<div class="hit_area">';
                 appendTag += '<img class="hit_img" src="/imgs/hit.png">'
                 appendTag += '<span class="hit_count">';
-                appendTag += productDtos[value].p_hit;
+                appendTag += productDtos[cnt].p_hit;
                 appendTag += '</span>';
                 appendTag += '</div>';
                 appendTag += '</div>';
 
                 appendTag += '</td>';
 
+                cnt++;
             }
             appendTag += '</tr>';
         }
-
 
         $('div.product_item_list table tbody').append(appendTag);
     }
@@ -246,10 +173,6 @@
         $('div.product_item_list table tbody').children().remove();
     }
 
-    // 검색 키워드 초기화
-    function removeSearchKeyword() {
-        $('div.search_product_wrap > input[name="p_search"]').val('');
-    }
 
     // 페이지 네이션 구성
     function setPage(pageMakerDto) {
@@ -274,7 +197,7 @@
         }
 
         // 페이지 하이라이트
-        $('#section_wrap > div.page_wrap > div.page_number a[data-pagenum=' + pageMakerDto.criteria.pageNum + ']').addClass('selectedPageNum');
+        $('#section_wrap div.page_wrap > div.page_number a[data-pagenum=' + pageMakerDto.criteria.pageNum + ']').addClass('selectedPageNum');
 
         // 다음 페이지
         if (pageMakerDto.next) {
@@ -287,35 +210,12 @@
     }
 
     // AJAX START
-    function ajax_getUserLikeProductList(category, sort, filter, keyword, pageNum) {
+    function ajax_getUserLikeProductList(pageNum) {
         console.log('ajax_getUserLikeProductList()');
-        let str = '';
-
-        str += '?pageNum=';
-        str += pageNum;
-
-
-        if (category.length !== 0) {
-            str += '&category=';
-            str += category;
-        }
-        if (sort !== "") {
-            str += '&sort=';
-            str += sort;
-        }
-
-        if (filter !== "") {
-            str += '&filter=';
-            str += filter;
-        }
-
-        if (keyword !== "") {
-            str += '&keyword=';
-            str += keyword;
-        }
+        console.log(pageNum);
 
         $.ajax({
-            url: '/user/get_user_like_products' + str,
+            url: '/user/get_user_like_products?pageNum=' + pageNum,
             method: 'GET',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
@@ -350,6 +250,32 @@
             }
         });
     }
+
+    function ajax_cancelLike(type, no, u_id) {
+        console.log("ajax_cancelLike()");
+
+        let map = {
+            "l_type": type,
+            "l_content_no": no,
+            "u_id": u_id,
+        }
+
+        $.ajax({
+            url: '/product/product_like_confirm',
+            method: 'POST',
+            data: JSON.stringify(map),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log("AJAX SUCCESS - ajax_cancelLike()")
+                // 좋아요 취소가 성공하면 해당 상품을 화면에서 숨깁니다.
+                hideProduct(map);
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_cancelLike()');
+            }
+        });
+    }
+
 
     // AJAX END
 

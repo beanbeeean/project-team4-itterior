@@ -22,4 +22,6 @@ public interface IUserService {
 	public List<BoardDto> getBoardList(String u_id);
 
     public Map<String, Object> getUserLikeBoardList(int sort, int pageNum, int amount, String keyword, String u_id);
+
+	public Map<String, Object> getUserLikeProducts(int pageNum, int amount, String u_id);
 }

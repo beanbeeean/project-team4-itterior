@@ -4,6 +4,7 @@ import com.office.house.like.LikeDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface IProductDaoMapper {
@@ -21,8 +22,11 @@ public interface IProductDaoMapper {
 
     List<LikeDto> selectLikedProduct(List<Integer> likeList);
 
-
     ProductDto selectProductByNo(String no);
 
     int updateHitCount(String no);
+
+    List<ProductDto> selectLikeProducts(Map<String, Object> map);
+
+    int selectLikeProductsCnt(int skip, int amount, String u_id);
 }
