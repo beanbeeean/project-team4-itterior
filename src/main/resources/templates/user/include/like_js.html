@@ -60,6 +60,20 @@
                 ajax_decreaseLikeCount(2, b_no, loginedMemberDto.u_id);
             }
         })
+
+        // 마이 페이지 상품 좋아요 취소
+        $(document).on('click','a.user_like_product_btn', function (e) {
+            e.preventDefault();
+            let p_no = $(this).data("p_no");
+            console.log("p_no : " + p_no);
+
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null){
+                $('div.modal_wrap').css('display','block');
+            }else{
+                ajax_decreaseLikeCount(1, p_no, loginedMemberDto.u_id);
+            }
+        })
     }
 
     function ajax_decreaseLikeCount(type, no, u_id){
@@ -81,7 +95,7 @@
 
                 switch (type){
                     case 1:
-
+                        ajax_LikeProductList(pageNum)
                         break;
                     case 2:
                         ajax_LikeBoardList(sort, pageNum, keyword)

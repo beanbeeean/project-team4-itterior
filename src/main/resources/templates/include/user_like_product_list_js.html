@@ -8,10 +8,8 @@
         // 이벤트 핸들러 초기화(등록)
         init_product_events();
 
-        ajax_getUserLikeProductList(pageNum);
+        ajax_LikeProductList(pageNum);
     });
-
-    // 주석
 
     // 이벤트 핸들러
     function init_product_events() {
@@ -22,7 +20,7 @@
             console.log('page number CLICK HANDLER');
 
             pageNum = $(this).data('pagenum');
-            ajax_getUserLikeProductList(pageNum);
+            ajax_LikeProductList(pageNum);
         });
 
         $(document).on('click', 'td > a.product_item_wrap', function () {
@@ -80,7 +78,7 @@
                 appendTag += '</div>';
                 appendTag += '</div>';
                 appendTag += '<div class="like_hit_wrap">';
-                appendTag += '<a class="like_board_btn"';
+                appendTag += '<a class="user_like_product_btn"';
                 appendTag += 'href="#none" ';
                 appendTag += 'data-p_no="';
                 appendTag += productDtos[cnt].p_no;
@@ -205,8 +203,8 @@
     }
 
     // AJAX START
-    function ajax_getUserLikeProductList(pageNum) {
-        console.log('ajax_getUserLikeProductList()');
+    function ajax_LikeProductList(pageNum) {
+        console.log('ajax_LikeProductList()');
         console.log(pageNum);
 
         $.ajax({
@@ -214,13 +212,15 @@
             method: 'GET',
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
-                console.log('AJAX SUCCESS - ajax_getUserLikeProductList()');
-                removeProductsListTr();
+                console.log('AJAX SUCCESS - ajax_LikeProductList()');
+
+                $('div.product_item_list table tbody').empty();
+                // removeProductsListTr();
                 addLikeProductsListTr(data.productDtos, data.isLikedDtos, data.u_id);
                 setPage(data.pageMakerDto);
             },
             error: function (data) {
-                console.log('AJAX ERROR - ajax_getUserLikeProductList()');
+                console.log('AJAX ERROR - ajax_LikeProductList()');
 
             }
         });
