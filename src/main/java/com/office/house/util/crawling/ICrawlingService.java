@@ -1,4 +1,4 @@
-package com.office.house.user.product.crawling;
+package com.office.house.util.crawling;
 
 public interface ICrawlingService {
     public void crawlingProducts(String url, int type);

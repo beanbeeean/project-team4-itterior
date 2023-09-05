@@ -1,8 +1,8 @@
 package com.office.house.board;
 
 import com.office.house.user.UserDto;
-import com.office.house.user.util.UploadFileService;
-import com.office.house.util.PageDefine;
+import com.office.house.util.upload.UploadFileService;
+import com.office.house.util.page.PageDefine;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

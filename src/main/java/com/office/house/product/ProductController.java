@@ -1,4 +1,4 @@
-package com.office.house.user.product;
+package com.office.house.product;
 
 import com.office.house.user.UserDto;
 import com.office.house.util.page.PageDefine;
@@ -23,7 +23,7 @@ public class ProductController {
         log.info("home()");
         //productService.crawlProducts();
 
-        return "user/product/product_home";
+        return "product/product_home";
     }
 
     @GetMapping("get_products")

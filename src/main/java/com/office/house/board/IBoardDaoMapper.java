@@ -2,7 +2,6 @@ package com.office.house.board;
 
 import com.office.house.like.LikeDto;
 import com.office.house.user.UserDto;
-import com.office.house.util.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

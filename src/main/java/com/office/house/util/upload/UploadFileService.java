@@ -1,4 +1,4 @@
-package com.office.house.user.util;
+package com.office.house.util.upload;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

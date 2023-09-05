@@ -1,4 +1,4 @@
-package com.office.house.user.product;
+package com.office.house.product;
 
 import lombok.Builder;
 import lombok.Data;

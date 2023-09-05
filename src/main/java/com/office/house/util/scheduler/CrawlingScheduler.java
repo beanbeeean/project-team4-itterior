@@ -1,8 +1,8 @@
-package com.office.house.user.util;
+package com.office.house.util.scheduler;
 
-import com.office.house.user.product.crawling.DongseoCrawlingService;
-import com.office.house.user.product.crawling.GgumiCrawlingService;
-import com.office.house.user.product.crawling.IkeaCrawlingService;
+import com.office.house.util.crawling.DongseoCrawlingService;
+import com.office.house.util.crawling.GgumiCrawlingService;
+import com.office.house.util.crawling.IkeaCrawlingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

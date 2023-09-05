@@ -108,7 +108,7 @@
                 let price = parseInt(productDtos[cnt].p_sales_price).toString()
                     .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 
-                appendTag += '<td>';
+                appendTag += '<td class="product_container_item">';
                 appendTag += '<a class="product_item_wrap" href="';
                 appendTag += productDtos[cnt].p_link;
                 appendTag += '" target="parent"';
@@ -197,14 +197,19 @@
                let appendTag = '';
 
                if(isLike > 0) {
-                   appendTag += '<img class="full_heart" src="/imgs/full_heart.png">';
+                   appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
+                   appendTag += 'data-p_no="';
+                   appendTag += productDto.p_no;
+                   appendTag += '">';
                }else {
-                   appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png">';
-
+                   appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
+                   appendTag += 'data-p_no="';
+                   appendTag += productDto.p_no;
+                   appendTag += '">';
                }
                $('a.like_product_btn').eq(i).append(appendTag);
 
-               $('span.like_count').eq(i).text(productDto.p_like);
+               $('td.product_container_item span.like_count').eq(i).text(productDto.p_like);
 
                break;
            }

@@ -2,9 +2,8 @@ package com.office.house.like;
 
 import com.office.house.board.BoardDto;
 import com.office.house.board.IBoardDaoMapper;
-import com.office.house.user.product.IProductDaoMapper;
-import com.office.house.user.product.IProductService;
-import com.office.house.user.product.ProductDto;
+import com.office.house.product.IProductDaoMapper;
+import com.office.house.product.ProductDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,10 +39,12 @@ public class LikeService {
             int likeCnt = iLikeDaoMapper.selectLikeCount(msgMap.get("type"), msgMap.get("no"));
             int isLike = iLikeDaoMapper.selectCurrentUserLikeCount(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
             System.out.println("isLike ::: " + isLike);
+            System.out.println("likeCNT :::: " + likeCnt);
             switch (msgMap.get("type")){
                 case "1":
                     result = iProductDaoMapper.updateLikeCountForProduct(msgMap.get("no"),likeCnt);
                     ProductDto productDto = iProductDaoMapper.selectProductByNo(msgMap.get("no"));
+                    System.out.println("product DTO LIKE :::: " + productDto.getP_like());
                     map.put("productDto", productDto);
                     break;
                 case "2":

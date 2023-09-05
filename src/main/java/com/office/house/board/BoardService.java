@@ -1,9 +1,8 @@
 package com.office.house.board;
 
 import com.office.house.like.LikeDto;
-import com.office.house.user.product.ProductDto;
-import com.office.house.util.Criteria;
-import com.office.house.util.PageMakerDto;
+import com.office.house.util.page.Criteria;
+import com.office.house.util.page.PageMakerDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

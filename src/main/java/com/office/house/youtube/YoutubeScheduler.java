@@ -1,6 +1,5 @@
 package com.office.house.youtube;
 
-import com.office.house.user.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

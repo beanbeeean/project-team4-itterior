@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.office.house.board.BoardDto;
-import com.office.house.user.util.UploadFileService;
+import com.office.house.util.upload.UploadFileService;
 import com.office.house.util.page.PageDefine;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.log4j.Log4j2;

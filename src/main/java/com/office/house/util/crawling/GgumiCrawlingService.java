@@ -1,7 +1,7 @@
-package com.office.house.user.product.crawling;
+package com.office.house.util.crawling;
 
-import com.office.house.user.product.IProductDaoMapper;
-import com.office.house.user.product.ProductDto;
+import com.office.house.product.ProductDto;
+import com.office.house.product.IProductDaoMapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

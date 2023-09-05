@@ -2,7 +2,7 @@ package com.office.house.admin;
 
 import com.office.house.board.BoardDto;
 import com.office.house.user.UserDto;
-import com.office.house.user.product.ProductDto;
+import com.office.house.product.ProductDto;
 import com.office.house.util.page.Criteria;
 import com.office.house.util.page.PageMakerDto;
 import com.office.house.youtube.YoutubeDto;

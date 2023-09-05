@@ -203,7 +203,7 @@
             success: function(data) {
                 let loginedMemberDto = "[[${session.loginedMemberDto}]]";
 
-                if(loginedMemberDto != null && loginedMemberDto == ""){
+                if(loginedMemberDto != null && loginedMemberDto != ""){
                     console.log('AJAX SUCCESS - ajax_userLogin()');
                     alert('로그인 성공했습니다.');
                     $('div.modal_wrap').css('display','none');
