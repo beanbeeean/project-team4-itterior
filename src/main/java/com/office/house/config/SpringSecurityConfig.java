@@ -1,5 +1,7 @@
 package com.office.house.config;
 
+import com.office.house.admin.AdminDto;
+import com.office.house.admin.IAdminDaoMapper;
 import com.office.house.user.IUserDaoMapper;
 import com.office.house.user.UserDto;
 import jakarta.servlet.DispatcherType;
@@ -30,7 +32,13 @@ public class SpringSecurityConfig {
     IUserDaoMapper iUserDaoMapper;
 
     @Autowired
+    IAdminDaoMapper iAdminDaoMapper;
+
+    @Autowired
     MyUserDetailsService myUserDetailsService;
+
+    @Autowired
+    MyAdminDetailsService myAdminDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -38,7 +46,64 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Order(1)
+    public SecurityFilterChain filterChainAdmin(HttpSecurity http) throws Exception {
+        log.info("filterChain");
+
+        http.csrf().disable()   //CSRF 보호 기능 비활성화
+                .cors().disable()   //CORS 설정 비활성화
+                .securityMatcher("/admin/**")
+                .authorizeHttpRequests(request -> request
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()      //HTTP 요청 인증 설정
+                        .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "", "/", "/product/**").permitAll()
+                        .anyRequest().authenticated()   //위에 있는 경로 외 요청은 전부 인증 필요
+                )
+                .formLogin(login -> login
+                        .loginPage("/admin/admin_login_form")
+                        .loginProcessingUrl("/admin/admin_login_confirm")
+                        .usernameParameter("a_id")
+                        .passwordParameter("a_pw")
+                        .successHandler((request, response, authentication) -> {
+
+                            AdminDto adminDto = new AdminDto();
+                            adminDto.setA_id(authentication.getName());
+                            AdminDto loginedAdminDto = iAdminDaoMapper.selectAdminForLogin(adminDto);
+
+                            HttpSession session = request.getSession();
+                            session.setAttribute("loginedAdminDto", loginedAdminDto);
+                            session.setMaxInactiveInterval(60 * 30);
+
+                            response.sendRedirect("/admin/admin_myPage");
+                        })
+                        .failureHandler((request, response, exception) -> {
+                            log.info("failureHandler!!");
+                            response.sendRedirect("/admin/admin_login_form");
+
+                        })
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/admin/admin_logout_confirm")
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            log.info("logoutSuccessHandler!!");
+
+                            HttpSession session = request.getSession();
+                            session.removeAttribute("loginedAdminDto");   //세션 데이터 삭제
+
+                            response.sendRedirect("/admin/");
+
+                        })
+                )
+                .userDetailsService(myAdminDetailsService)   //사용자 정보 들고옴
+                .sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false);
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain filterChainUser(HttpSecurity http) throws Exception {
         log.info("filterChain");
 
         http.csrf().disable()   //CSRF 보호 기능 비활성화
