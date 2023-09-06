@@ -13,7 +13,9 @@
     <link rel="stylesheet" th:href="@{/css/user/modal_login_form.css}">
 
     <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+    <script th:replace="~{/include/user_home_js.html::js}" type="text/javascript"></script>
     <script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/user/include/like_js.html::js}" type="text/javascript"></script>
 </head>
 
 <body>
@@ -31,26 +33,7 @@
                 <a th:href="@{/board/}">+ 더보기</a>
             </div>
             <div class="boards">
-                <a class="today_board" th:href="@{#}">
-                    <img src="/imgs/defaultimage.png">
-                    <p class="board_title">title1</p>
-                </a>
-                <a class="today_board" th:href="@{#}">
-                    <img src="/imgs/defaultimage.png">
-                    <p class="board_title">title1</p>
-                </a>
-                <a class="today_board" th:href="@{#}">
-                    <img src="/imgs/defaultimage.png">
-                    <p class="board_title">title1</p>
-                </a>
-                <a class="today_board" th:href="@{#}">
-                    <img src="/imgs/defaultimage.png">
-                    <p class="board_title">title1</p>
-                </a>
-                <a class="today_board" th:href="@{#}">
-                    <img src="/imgs/defaultimage.png">
-                    <p class="board_title">title1</p>
-                </a>
+
             </div>
         </div>
 
@@ -62,61 +45,7 @@
                 <a th:href="@{/product/}">+ 더보기</a>
             </div>
             <div class="products">
-                <a class="today_product" th:href="@{#}">
-                    <div class="product_img">
-                        <img src="/imgs/defaultimage.PNG">
-                    </div>
-                    <span class="product_brand">Brand</span>
-                    <br>
-                    <p class="product_name">product name</p>
-                    <br>
-                    <span class="product_sales_price_tag">판매가</span>
-                    <span class="product_sales_price">10,000</span>
-                </a>
-                <a class="today_product" th:href="@{/product/}">
-                    <div class="product_img">
-                        <img src="/imgs/defaultimage.PNG">
-                    </div>
-                    <span class="product_brand">Brand</span>
-                    <br>
-                    <p class="product_name">product name</p>
-                    <br>
-                    <span class="product_sales_price_tag">판매가</span>
-                    <span class="product_sales_price">10,000</span>
-                </a>
-                <a class="today_product" th:href="@{#}">
-                    <div class="product_img">
-                        <img src="/imgs/defaultimage.PNG">
-                    </div>
-                    <span class="product_brand">Brand</span>
-                    <br>
-                    <p class="product_name">product name</p>
-                    <br>
-                    <span class="product_sales_price_tag">판매가</span>
-                    <span class="product_sales_price">10,000</span>
-                </a>
-                <a class="today_product" th:href="@{#}">
-                    <div class="product_img">
-                        <img src="/imgs/defaultimage.PNG">
-                    </div>
-                    <span class="product_brand">Brand</span>
-                    <br>
-                    <p class="product_name">product name</p>
-                    <br>
-                    <span class="product_sales_price_tag">판매가</span>
-                    <span class="product_sales_price">10,000</span>
-                </a>
-                <a class="today_product" th:href="@{#}">
-                    <div class="product_img">
-                        <img src="/imgs/defaultimage.PNG">
-                    </div>
-                    <span class="product_brand">Brand</span>
-                    <br>
-                    <p class="product_name">product name</p>
-                    <br>
-                    <span class="product_sales_price_tag">판매가</span>
-                    <span class="product_sales_price">10,000</span>
-                </a>
+
             </div>
         </div>
 
@@ -134,27 +63,10 @@
                     </div>
                     <p class="youtube_title" href="#">TITLE</p>
                     <p class="youtube_channel_name">channel</p>
-                </a>
-                <a class="video_item" th:href="@{#}">
-                    <div class="youtube_img">
-                        <img src="/imgs/defaultimage.PNG">
+                    <div class="img_wrap">
+                        <img class="heart" th:src="@{/imgs/full_heart.png}">
+                        <span class="like_count">1</span>
                     </div>
-                    <p class="youtube_title" href="#">TITLE</p>
-                    <p class="youtube_channel_name">channel</p>
-                </a>
-                <a class="video_item" th:href="@{#}">
-                    <div class="youtube_img">
-                        <img src="/imgs/defaultimage.PNG">
-                    </div>
-                    <p class="youtube_title" href="#">TITLE</p>
-                    <p class="youtube_channel_name">channel</p>
-                </a>
-                <a class="video_item" th:href="@{#}">
-                    <div class="youtube_img">
-                        <img src="/imgs/defaultimage.PNG">
-                    </div>
-                    <p class="youtube_title" href="#">TITLE</p>
-                    <p class="youtube_channel_name">channel</p>
                 </a>
             </div>
         </div>

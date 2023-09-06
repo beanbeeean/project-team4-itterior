@@ -86,4 +86,25 @@ public class ProductService implements IProductService{
         }
         return map;
     }
+
+    public Map<String, Object> getMainProductsList() {
+        log.info("getMainProductsList");
+        Map<String, Object> map = new HashMap<>();
+
+        List<ProductDto> dtos = iProductDaoMapper.selectMainProducts();
+
+        List<Integer> likeList = new ArrayList<>();
+        for(ProductDto dto : dtos){
+            if(dto.getP_like() > 0){
+                likeList.add(dto.getP_no());
+            }
+        }
+        List<LikeDto> isLikedDtos = new ArrayList<>();
+        if(likeList.size() > 0){
+            isLikedDtos = iProductDaoMapper.selectLikedProduct(likeList);
+        }
+        map.put("isLikedDtos", isLikedDtos);
+        map.put("productDtos", dtos);
+        return map;
+    }
 }

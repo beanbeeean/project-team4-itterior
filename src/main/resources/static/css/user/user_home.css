@@ -18,6 +18,12 @@
 .youtube_wrap {
     border-top: 1px solid #dadada;
     padding-top: 20px;
+    margin: 0 auto;
+}
+
+.boards,
+.products,
+.videos{
     margin-bottom: 50px;
 }
 
@@ -34,21 +40,32 @@ input[type="button"] {
     border-radius: 5px;
 }
 
-.today_board {
+.board_items {
     margin-right: 10px;
     text-align: center;
     width: 19%;
     display: inline-block;
 }
 
-
-.today_board img {
+.today_board > img {
     width: 100%;
     height: 200px;
 }
 
 .today_board .board_title {
     font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.today_board .heart,
+.today_board .hit {
+    width: 20px;
+    height: 20px;
+}
+
+.board_wrap span{
+    vertical-align: 5px;
+    margin-right: 5px;
 }
 
 .today_board .board_author {
@@ -57,21 +74,40 @@ input[type="button"] {
     color: #939393;
 }
 
-.today_product {
-    margin-right: 10px;
-    text-align: center;
-    width: 19%;
-    display: inline-block;
-    overflow:hidden;
+.like_board_btn .empty_heart,
+.like_board_btn .full_heart,
+.like_product_btn .empty_heart,
+.like_product_btn .full_heart{
+    width: 20px;
+    height: 20px;
 }
 
-.today_product img {
+.hit {
+    width: 20px;
+    height: 20px;
+}
+
+.product_wrap span{
+    vertical-align: 5px;
+    margin-right: 5px;
+}
+
+.product_items {
+    margin-right: 10px;
+    text-align: center;
+    height: 400px;
+    width: 19%;
+    display: inline-block;
+}
+
+.product_img > img {
     width: 100%;
     height: 250px;
     margin-bottom: 10px;
 }
 
-.today_product img:hover {
+
+.today_product .product_img > img:hover {
     transform:scale(1.1);
     transition: transform .35s;
 }
@@ -85,11 +121,20 @@ input[type="button"] {
 }
 
 .today_product .product_name {
+
     float: left;
+    text-align: left;
+    margin-bottom: 5px;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 텍스트 생략 부호(...) 표시 */
 }
 
 .today_product .product_sales_price_tag {
-    float: left;
+    float: right;
     font-size: 1.2em;
     color: rgb(237, 175, 175);
     font-weight: bold;
@@ -97,7 +142,7 @@ input[type="button"] {
 
 .today_product .product_sales_price {
     margin-left: 5px;
-    float: left;
+    float: right;
     font-size: 1.2em;
     font-weight: bold;
 }
@@ -106,39 +151,61 @@ input[type="button"] {
     padding: 5px 10px;
 }
 
-.videos {
-    text-align: center;
-}
-
-.video_item {
-    border: 1px solid #dadada;
-    border-radius: 7px;
-    margin-right: 20px;
-    padding: 20px;
-    padding-bottom: 30px;
-    text-align: center;
-    width: 20%;
-    display: inline-block;
-}
-
-.video_item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.video_item img {
-    width: 100%;
-    margin-bottom: 10px;
-}
-
-.video_item .youtube_title {
-    font-weight: bold;
-}
-
-.video_item .youtube_channel_name {
-    font-weight: bold;
-    color: #dadada;
-    font-size: 0.9em;
+.product_items .like_hit_wrap{
     margin-top: 5px;
+    float: right;
+    padding-left: 100px;
 }
+
+.today_product .heart,
+.today_product .hit {
+    width: 20px;
+    height: 20px;
+}
+
+/*.videos {*/
+/*    text-align: center;*/
+/*}*/
+
+/*.video_item {*/
+/*    border: 1px solid #dadada;*/
+/*    border-radius: 7px;*/
+/*    margin-right: 20px;*/
+/*    padding: 20px;*/
+/*    padding-bottom: 30px;*/
+/*    text-align: center;*/
+/*    width: 20%;*/
+/*    display: inline-block;*/
+/*}*/
+
+/*.video_item:hover {*/
+/*    transform: scale(1.05);*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);*/
+/*    transition: transform 0.3s ease, box-shadow 0.3s ease;*/
+/*}*/
+
+/*.video_item img {*/
+/*    width: 100%;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*.video_item .youtube_title {*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.video_item .youtube_channel_name {*/
+/*    font-weight: bold;*/
+/*    color: #dadada;*/
+/*    font-size: 0.9em;*/
+/*    margin-top: 5px;*/
+/*}*/
+
+/*.video_item .heart {*/
+/*    margin-top: 5px;*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*}*/
+
+/*.video_item .like_count {*/
+/*    vertical-align: 15px;*/
+/*}*/

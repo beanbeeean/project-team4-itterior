@@ -40,10 +40,10 @@ public class UserController {
     @Autowired
     UploadFileService uploadFileService;
 
-	// create account confirm
+    // create account confirm
     @ResponseBody
     @PostMapping("/create_account_confirm")
-    public Map<String, Object> createAccountConfirm(@RequestBody Map<String, String> msgMap){
+    public Map<String, Object> createAccountConfirm(@RequestBody Map<String, String> msgMap) {
         log.info("[UserController] createAccountConfirm()");
 
         Map<String, Object> resultMap = userService.createAccountConfirm(msgMap);
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @GetMapping("/user_login_form")
-    public String userLoginForm(){
+    public String userLoginForm() {
         log.info("userLoginForm()");
         return "user/user_login_form";
     }
@@ -88,7 +88,7 @@ public class UserController {
 
     // modify form
     @GetMapping("/user_modify_form")
-    public String userModifyForm(){
+    public String userModifyForm() {
         log.info("[UserController] userModifyForm()");
 
         String nextPage = "user/user_modify_form";
@@ -98,7 +98,7 @@ public class UserController {
 
     // modify confirm
     @PostMapping("/user_modify_confirm")
-    public String userModifyConfirm(UserDto userDto, HttpSession session, @RequestParam("file") MultipartFile file){
+    public String userModifyConfirm(UserDto userDto, HttpSession session, @RequestParam("file") MultipartFile file) {
         log.info("[UserController] userModifyConfirm()");
 
         String nextPage = "user/user_modify_success";
@@ -112,24 +112,24 @@ public class UserController {
         log.info(session.getAttribute("u_img"));
         log.info(loginedMemberDto.getU_img());
 
-        if(file.getSize()>0) {
+        if (file.getSize() > 0) {
             savedFileName = uploadFileService.upload(loginedMemberDto.getU_id(), file);
         } else {
             userDto.setU_img(loginedMemberDto.getU_img());
         }
 
-        if(savedFileName!=null){
+        if (savedFileName != null) {
             userDto.setU_id(loginedMemberDto.getU_id());
             userDto.setU_img(savedFileName);
         }
 
         loginedMemberDto = userService.userModifyConfirm(userDto);
 
-        if(loginedMemberDto!=null){
-            session.setAttribute("loginedMemberDto",loginedMemberDto);
-            session.setMaxInactiveInterval(60*30);
+        if (loginedMemberDto != null) {
+            session.setAttribute("loginedMemberDto", loginedMemberDto);
+            session.setMaxInactiveInterval(60 * 30);
 
-        } else{
+        } else {
             nextPage = "user/user_modify_fail";
         }
 
@@ -139,11 +139,11 @@ public class UserController {
     // delete confirm
     @PostMapping("/user_delete_confirm")
     @ResponseBody
-    public Object userDeleteConfirm(@RequestBody Map<String, String> msgMap, HttpSession session){
+    public Object userDeleteConfirm(@RequestBody Map<String, String> msgMap, HttpSession session) {
         log.info("[UserController] userDeleteConfirm()");
 
         Map<String, Object> map = userService.userDeleteConfirm(msgMap.get("u_no"));
-        if(((int)map.get("result"))>0)
+        if (((int) map.get("result")) > 0)
             session.removeAttribute("loginedMemberDto");
 
         return map;
@@ -151,7 +151,7 @@ public class UserController {
 
     // My Page
     @GetMapping("/user_myPage")
-    public String usermyPage(){
+    public String usermyPage() {
         log.info("[UserController] usermyPage()");
 
         String nextPage = "user/user_myPage";
@@ -160,7 +160,7 @@ public class UserController {
     }
 
     @GetMapping("/user_board_list")
-    public String userBoardList(@RequestParam("u_id") String u_id, Model model){
+    public String userBoardList(@RequestParam("u_id") String u_id, Model model) {
         log.info("[UserController] userBoardList()");
 
         String nextPage = "user/user_board_list";
@@ -185,7 +185,7 @@ public class UserController {
     }
 
     @GetMapping("/user_like_board_list")
-    public String userLikeBoardList(){
+    public String userLikeBoardList() {
         log.info("[UserController] userLikeList()");
 
         String nextPage = "user/user_like_board_list";
@@ -196,18 +196,18 @@ public class UserController {
     @GetMapping("/get_user_like_board_list")
     @ResponseBody
     public Map<String, Object> getUserLikeBoardList(@RequestParam(value = "sort", required = false) int sort,
-                                                    @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-                                                    @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_BOARD_AMOUNT) int amount,
+                                                    @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                                    @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_BOARD_AMOUNT) int amount,
                                                     @RequestParam(required = false, value = "keyword") String keyword,
-                                                    HttpSession session){
+                                                    HttpSession session) {
         log.info("getUserLikeBoardList");
 
         Map<String, Object> resultMap = new HashMap<>();
         UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
-        if(loginedMemberDto != null){
+        if (loginedMemberDto != null) {
             resultMap.put("u_id", loginedMemberDto.getU_id());
             resultMap = userService.getUserLikeBoardList(sort, pageNum, amount, keyword, loginedMemberDto.getU_id());
-        }else{
+        } else {
             resultMap.put("u_id", "please_login");
         }
 
@@ -215,7 +215,7 @@ public class UserController {
     }
 
     @GetMapping("/user_write_form")
-    public String userWriteForm(){
+    public String userWriteForm() {
         log.info("[UserController] userWriteForm()");
 
         String nextPage = "user/user_write_form";
@@ -226,7 +226,7 @@ public class UserController {
     // FIND PASSWORD
     @ResponseBody
     @PostMapping("/find_password_confirm")
-    public Map<String, Object> findPasswordConfirm(@RequestBody Map<String, String> msgMap){
+    public Map<String, Object> findPasswordConfirm(@RequestBody Map<String, String> msgMap) {
         log.info("[UserController] userDeleteConfirm()");
 
         Map<String, Object> resultMap = userService.findPasswordConfirm(msgMap);
@@ -236,7 +236,7 @@ public class UserController {
 
     // 좋아요한 상품
     @GetMapping("/user_like_product_list")
-    public String showUserLikeProductList(){
+    public String showUserLikeProductList() {
         log.info("[UserController] showUserLikeProductList()");
 
         String nextPage = "user/user_like_product_list";
@@ -246,16 +246,16 @@ public class UserController {
 
     @GetMapping("get_user_like_products")
     @ResponseBody
-    public Map<String, Object>  getUserLikeProducts(
-            @RequestParam(value="pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-            @RequestParam(value="amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount,
-            HttpSession session){
+    public Map<String, Object> getUserLikeProducts(
+            @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+            @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_AMOUNT) int amount,
+            HttpSession session) {
         log.info("getProducts");
         UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
         Map<String, Object> resultMap = userService.getUserLikeProducts(pageNum, amount, loginedMemberDto.getU_id());
-        if(loginedMemberDto != null){
+        if (loginedMemberDto != null) {
             resultMap.put("u_id", loginedMemberDto.getU_id());
-        }else{
+        } else {
             resultMap.put("u_id", "please_login");
         }
         return resultMap;
@@ -263,9 +263,9 @@ public class UserController {
 
     @GetMapping("user_like_youtube_list")
     public String showUserLikeYoutubeList(Model model, HttpSession session,
-                                 @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
-                                 @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-                                 @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_AMOUNT) int amount){
+                                          @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                                          @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
+                                          @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_AMOUNT) int amount) {
 
         log.info("[UserController] showUserLikeYoutubeList()");
 
@@ -283,4 +283,5 @@ public class UserController {
 
         return nextPage;
     }
+
 }

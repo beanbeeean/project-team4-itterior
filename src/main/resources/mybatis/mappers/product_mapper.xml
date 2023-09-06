@@ -347,4 +347,16 @@
     ORDER BY p_like DESC
     LIMIT 8
     </select>
+
+    <select id="selectMainProducts" resultType="com.office.house.product.ProductDto">
+        SELECT
+            *
+        FROM
+            tbl_product
+        ORDER BY
+            p_mod_date DESC,
+            p_like DESC
+        LIMIT 0, 5
+    </select>
+
 </mapper>

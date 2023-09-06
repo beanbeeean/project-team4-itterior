@@ -36,4 +36,6 @@ public interface IBoardDaoMapper {
     List<BoardDto> selectLikeBoardList (Map<String, Object> map);
 
     List<BoardDto> selectBoardMainSearch(String keyword);
+
+    List<BoardDto> selectMainBoardList();
 }
