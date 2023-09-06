@@ -103,7 +103,7 @@
             LIMIT 4
     </select>
 
-    <select id="selectLikedYoutube" parameterType="java.util.List" resultType="com.office.house.youtube.YoutubeDto">
+    <select id="selectLikedYoutube" parameterType="java.util.List" resultType="com.office.house.like.LikeDto">
         SELECT
             *
         FROM
@@ -114,5 +114,23 @@
         <foreach collection="list" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
+    </select>
+
+    <update id="updateLikeCountForYoutube">
+        UPDATE
+            tbl_youtube
+        SET
+            y_like = #{likeCnt}
+        WHERE
+            y_no = #{no}
+    </update>
+
+    <select id="selectYoutubeByNo" parameterType="String" resultType="com.office.house.youtube.YoutubeDto">
+        SELECT
+            *
+        FROM
+            tbl_youtube
+        WHERE
+            y_no = #{no}
     </select>
 </mapper>

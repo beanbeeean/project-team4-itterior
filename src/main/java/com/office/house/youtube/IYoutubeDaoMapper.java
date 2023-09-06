@@ -35,4 +35,8 @@ public interface IYoutubeDaoMapper {
     List<YoutubeDto> selectMainYoutube();
 
     List<LikeDto> selectLikedYoutube(List<Integer> likeList);
+
+    int updateLikeCountForYoutube(String no, int likeCnt);
+
+    YoutubeDto selectYoutubeByNo(String no);
 }

@@ -7,13 +7,12 @@
         init_like_events();
     });
 
-
     function init_like_events(){
         // 인테리어 상품 좋아요 / 좋아요 취소
         $(document).on('click','a.like_product_btn',function (e){
             e.preventDefault();
             let p_no = $(this).data("p_no");
-            console.log("p_no ++++++" + p_no);
+            console.log("p_no : " + p_no);
             let loginedMemberDto = [[${session.loginedMemberDto}]];
             if(loginedMemberDto == null){
                 $('div.modal_wrap').css('display','block');
@@ -50,6 +49,7 @@
         // 유튜브 좋아요 / 좋아요 취소
         $(document).on('click','a.like_youtube_btn', function (e) {
             e.preventDefault();
+            e.stopImmediatePropagation();
             let y_no = $(this).data("y_no");
             console.log("y_no : " + y_no);
 
@@ -129,11 +129,9 @@
                 switch (type){
                     case 1:
                         ajax_LikeProductList(pageNum)
-                        ajax_MainBoardList();
                         break;
                     case 2:
                         ajax_LikeBoardList(sort, pageNum, keyword)
-                        ajax_MainProductList();
                         break;
                     case 3:
                         ajax_MainYoutubeList();
@@ -175,7 +173,7 @@
                        reconBoardTdForLike(data.boardDto, data.isLike)
                        break;
                    case 3:
-                       reconYoutubeTdForLike(data.boardDto, data.isLike)
+                       reconYoutubeTdForLike(data.youtubeDto, data.isLike)
                        break;
                }
 

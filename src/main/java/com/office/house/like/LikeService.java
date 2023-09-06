@@ -4,6 +4,8 @@ import com.office.house.board.BoardDto;
 import com.office.house.board.IBoardDaoMapper;
 import com.office.house.product.IProductDaoMapper;
 import com.office.house.product.ProductDto;
+import com.office.house.youtube.IYoutubeDaoMapper;
+import com.office.house.youtube.YoutubeDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class LikeService {
 
     @Autowired
     IBoardDaoMapper iBoardDaoMapper;
+
+    @Autowired
+    IYoutubeDaoMapper iYoutubeDaoMapper;
 
     public Map<String, Object> likeConfirm(Map<String, String> msgMap) {
         log.info("likeConfirm");
@@ -53,10 +58,11 @@ public class LikeService {
                     map.put("boardDto", boardDto);
                     break;
                 case "3":
+                    result = iYoutubeDaoMapper.updateLikeCountForYoutube(msgMap.get("no"),likeCnt);
+                    YoutubeDto youtubeDto = iYoutubeDaoMapper.selectYoutubeByNo(msgMap.get("no"));
+                    map.put("youtubeDto", youtubeDto);
                     break;
             }
-
-
             map.put("isLike", isLike);
 
         }

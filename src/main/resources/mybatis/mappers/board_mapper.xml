@@ -93,14 +93,8 @@
             b_no = #{no}
     </update>
 
-    <select id="selectBoardByNo" parameterType="String" resultType="com.office.house.board.BoardDto">
-        SELECT
-            *
-        FROM
-            tbl_board
-        WHERE
-            b_no = #{no}
-    </select>
+
+
 
     <select id="selectLikeBoardList" parameterType="String" resultType="com.office.house.board.BoardDto">
         SELECT
@@ -147,6 +141,15 @@
         ORDER BY
             b_reg_date DESC
         LIMIT 5
+    </select>
+
+    <select id="selectBoardByNo" parameterType="String" resultType="com.office.house.board.BoardDto">
+        SELECT
+            *
+        FROM
+            tbl_board
+        WHERE
+            b_no = #{no}
     </select>
 
 </mapper>

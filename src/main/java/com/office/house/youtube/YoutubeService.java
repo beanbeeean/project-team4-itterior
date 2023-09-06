@@ -184,7 +184,7 @@ public class YoutubeService implements IYoutubeService{
             }
         }
 
-        log.info("likeList: " + likeList.size());
+        log.info("likeList: " + likeList);
 
 
         List<LikeDto> isLikedDtos = new ArrayList<>();
@@ -193,7 +193,9 @@ public class YoutubeService implements IYoutubeService{
         }
 
         log.info(isLikedDtos);
-
+        if(isLikedDtos.get(0) == null){
+            isLikedDtos.clear();
+        }
         map.put("isLikedDtos", isLikedDtos);
         map.put("youtubeDtos", dtos);
         return map;

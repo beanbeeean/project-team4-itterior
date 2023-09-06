@@ -140,7 +140,6 @@
 
     // 게시물 1개 재구성(좋아요 시)
     function reconBoardTdForLike(boardDto, isLike){
-        // let productNo = productDto.p_no;
         for(let i = 0; i < $('a.like_board_btn').length; i++){
             if($('a.like_board_btn').eq(i).data("b_no") == boardDto.b_no){
                 $('a.like_board_btn').eq(i).children().remove();
