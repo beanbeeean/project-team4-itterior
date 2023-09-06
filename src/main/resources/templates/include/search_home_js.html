@@ -1,0 +1,157 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+    let word = [[${keyword}]];
+    $(document).ready(function(){
+        console.log("DOCUMENT 222READY!!");
+        // 이벤트 핸들러 초기화(등록)
+        init_like_events();
+        $('h2.result_text').text('"' + word + '" 로 검색된 결과입니다.');
+    });
+
+    function init_like_events(){
+
+        $(document).on('click','a.like_youtube_btn',function (e){
+            console.log("click");
+            let y_no = $(this).attr('name');
+            console.log(y_no);
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+
+            if(loginedMemberDto == null) {
+                $('div.modal_wrap').css('display', 'block');
+            } else {
+                if($(this).find("img.full_heart").attr('class') == "full_heart") {
+                    $(this).html('<img src="/imgs/empty_heart.png" class="empty_heart" />');
+                    ajax_deleteLikeCount(3, y_no, loginedMemberDto.u_id);
+                } else {-
+                    $(this).html('<img src="/imgs/full_heart.png" class="full_heart" />');
+                    ajax_updateLikeCount(3, y_no, loginedMemberDto.u_id);
+                }
+            }
+        })
+        $(document).on('click','a.like_board_btn',function (e){
+            console.log("click");
+            let b_no = $(this).attr('name');
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+
+            if(loginedMemberDto == null) {
+                $('div.modal_wrap').css('display', 'block');
+            } else {
+                if($(this).find("img.full_heart").attr('class') == "full_heart") {
+                    $(this).html('<img src="/imgs/empty_heart.png" class="empty_heart" />');
+                    ajax_deleteLikeCount(2, b_no, loginedMemberDto.u_id);
+                } else {-
+                    $(this).html('<img src="/imgs/full_heart.png" class="full_heart" />');
+                    ajax_updateLikeCount(2, b_no, loginedMemberDto.u_id);
+                }
+            }
+        })
+        $(document).on('click','a.like_product_btn',function (e){
+            console.log("click");
+            let p_no = $(this).attr('name');
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+
+            if(loginedMemberDto == null) {
+                $('div.modal_wrap').css('display', 'block');
+            } else {
+                if($(this).find("img.full_heart").attr('class') == "full_heart") {
+                    $(this).html('<img src="/imgs/empty_heart.png" class="empty_heart" />');
+                    ajax_deleteLikeCount(1, p_no, loginedMemberDto.u_id);
+                } else {-
+                    $(this).html('<img src="/imgs/full_heart.png" class="full_heart" />');
+                    ajax_updateLikeCount(1, p_no, loginedMemberDto.u_id);
+                }
+            }
+        })
+    }
+
+    function ajax_updateLikeCount(type, no, u_id){
+        console.log('ajax_updateLikeCount() CALLED!!');
+
+        let msgDto = {
+            'type': type,
+            'no': no,
+            'u_id' : u_id
+        };
+
+        let str = "";
+        switch (type){
+            case 1:
+                str = '/product/product_like_update';
+                break;
+            case 2:
+                str = '/board/board_like_update';
+                break;
+            case 3:
+                str = '/youtube/youtube_like_update';
+                break;
+        }
+        $.ajax({
+            url: str,
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_updateLikeCount()');
+                switch (type){
+                    case 1:
+                        $(".1_like_count" + no).html(data);
+                        break;
+                    case 2:
+                        $(".2_like_count" + no).html(data);
+                        break;
+                    case 3:
+                        $(".3_like_count" + no).html(data);
+                        break;
+                }
+            },
+            error: function(data) {
+                console.log('AJAX ERROR - ajax_updateLikeCount()');
+
+            }
+        });
+    }
+    function ajax_deleteLikeCount(type, no, u_id){
+        console.log('ajax_updateLikeCount() CALLED!!');
+
+        let msgDto = {
+            'type': type,
+            'no': no,
+            'u_id' : u_id
+        };
+
+        switch (type){
+            case 1:
+                str = '/product/product_like_delete';
+                break;
+            case 2:
+                str = '/board/board_like_delete';
+                break;
+            case 3:
+                str = '/youtube/youtube_like_delete';
+                break;
+        }
+        $.ajax({
+            url: str,
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_deleteLikeCount()');
+                switch (type){
+                    case 1:
+                        $(".1_like_count" + no).html(data);
+                        break;
+                    case 2:
+                        $(".2_like_count" + no).html(data);
+                        break;
+                    case 3:
+                        $(".3_like_count" + no).html(data);
+                        break;
+                }
+            },
+            error: function(data) {
+                console.log('AJAX ERROR - ajax_deleteLikeCount()');
+
+            }
+        });
+    }
+</script>

@@ -1,7 +1,6 @@
 package com.office.house.youtube;
 
 import com.office.house.admin.ChannelDto;
-import com.office.house.board.BoardDto;
 import com.office.house.util.page.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -26,5 +25,5 @@ public interface IYoutubeDaoMapper {
 
     int searchLike(String no);
 
-    List<YoutubeDto> selectYoutubeMainSearch(String keyword);
+    List<YoutubeDto> selectYoutubeMainSearch(String keyword, String uId);
 }

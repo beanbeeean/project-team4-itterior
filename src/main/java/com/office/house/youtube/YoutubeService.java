@@ -130,7 +130,7 @@ public class YoutubeService implements IYoutubeService{
     @Override
     public int youtubeLikeUpdate(Map<String, String> msgMap) {
 
-        log.info("[YoutubeService] getYoutubes()");
+        log.info("[YoutubeService] youtubeLikeUpdate()");
 
         iYoutubeDaoMapper.increaseLike(msgMap.get("no"));
         iYoutubeDaoMapper.insertYoutubeLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
@@ -141,7 +141,7 @@ public class YoutubeService implements IYoutubeService{
     @Override
     public int youtubeLikeDelete(Map<String, String> msgMap) {
 
-        log.info("[YoutubeService] getYoutubes()");
+        log.info("[YoutubeService] youtubeLikeDelete()");
 
         iYoutubeDaoMapper.decreaseLike(msgMap.get("no"));
         iYoutubeDaoMapper.deleteYoutubeLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));

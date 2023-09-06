@@ -106,5 +106,25 @@ public class BoardService implements IBoardService {
         return map;
     }
 
+    @Override
+    public int boardLikeUpdate(Map<String, String> msgMap) {
+        log.info("productLikeUpdate");
+
+        iBoardDaoMapper.increaseLike(msgMap.get("no"));
+        iBoardDaoMapper.insertBoardLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        return iBoardDaoMapper.searchLike(msgMap.get("no"));
+    }
+
+    @Override
+    public int boardLikeDelete(Map<String, String> msgMap) {
+        log.info("productLikeUpdate");
+
+        iBoardDaoMapper.decreaseLike(msgMap.get("no"));
+        iBoardDaoMapper.deleteBoardLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        return iBoardDaoMapper.searchLike(msgMap.get("no"));
+    }
+
 
 }

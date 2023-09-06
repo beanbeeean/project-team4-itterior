@@ -8,6 +8,12 @@ div#section_wrap {
     min-width: 1600px;
 }
 
+h2.result_text {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 26px;
+}
+
 div.result_wrap {
     width: 1200px;
     margin: 0 auto;
@@ -32,6 +38,23 @@ a.go_btn {
     right: 30px;
     bottom: 10px;
     position: absolute;
+}
+
+div.cannot_result{
+    text-align: center;
+    padding: 50px 0;
+    margin-bottom: 50px;
+    font-size: 28px;
+}
+
+div.cannot_result > a {
+    font-size: 18px;
+    color: #989898;
+    padding-bottom: 2px;
+}
+
+div.cannot_result > a:hover {
+    border-bottom: 1px solid #989898;
 }
 
 div.result_product_area {
@@ -116,8 +139,10 @@ span.product_sales_price {
     padding-right: 10px;
 }
 
-.empty_heart,
-.full_heart {
+div.result_product_area .empty_heart,
+div.result_product_area .full_heart,
+div.result_board_area .empty_heart,
+div.result_board_area .full_heart {
     max-width: 20px;
     min-width: 20px;
     margin-right: 7px;
@@ -125,7 +150,8 @@ span.product_sales_price {
 
 
 a.like_product_btn,
-a.like_board_btn{
+a.like_board_btn,
+a.like_youtube_btn{
     display: flex;
     align-items: center;
 }
@@ -156,21 +182,24 @@ span.hit_count {
 
 div.result_board {
     width: 1200px;
-    margin: 0 auto;
-    padding-top: 20px;
+    margin: 10px auto 0;
+    padding-top: 30px;
     border-top: 1px solid #dadada;
     min-width: 1200px;
 }
 
 div.result_board_area {
-    display: grid;
-    grid-template-columns: auto auto auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 div.board_item_wrap {
+    flex: 0 33%;
     max-width: 330px;
     margin: 20px;
     padding: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
 div.board_item_wrap:hover {
@@ -236,7 +265,7 @@ a.like_board_btn {
 
 div.result_youtube {
     width: 1200px;
-    margin: 0 auto;
+    margin: 10px auto 0;
     padding-top: 20px;
     border-top: 1px solid #dadada;
     min-width: 1200px;
@@ -284,8 +313,8 @@ div.like_channel_wrap {
     padding-right: 10px;
 }
 
-.empty_heart,
-.full_heart {
+div.result_youtube_area .empty_heart,
+div.result_youtube_area .full_heart {
     max-width: 30px;
     min-width: 30px;
     margin-right: 7px;

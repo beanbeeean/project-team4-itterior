@@ -48,16 +48,6 @@ public class ProductController {
         return resultMap;
     }
 
-    @PostMapping("/product_like_confirm")
-    @ResponseBody
-    public Map<String, Object> productLikeConfirm(@RequestBody Map<String, String> msgMap){
-        log.info("productLikeConfirm");
-        Map<String, Object> resultMap = productService.productLikeConfirm(msgMap);
-
-        return resultMap;
-    }
-
-
     @PostMapping("/update_product_hit")
     @ResponseBody
     public Map<String, Object> updateProductHit(@RequestBody Map<String, String> msgMap){
@@ -65,4 +55,19 @@ public class ProductController {
         Map<String, Object> resultMap = productService.updateProductHit(msgMap.get("no"));
         return resultMap;
     }
+
+    @PostMapping("/product_like_update")
+    @ResponseBody
+    public int productLikeUpdate(@RequestBody Map<String, String> msgMap){
+        log.info("productLikeUpdate");
+        return productService.productLikeUpdate(msgMap);
+    }
+
+    @PostMapping("/product_like_delete")
+    @ResponseBody
+    public int productLikeDelete(@RequestBody Map<String, String> msgMap){
+        log.info("productLikeDelete");
+        return productService.productLikeDelete(msgMap);
+    }
+
 }

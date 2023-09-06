@@ -342,9 +342,40 @@
         *
     FROM
         tbl_product
+    LEFT JOIN (SELECT COUNT(*) cnt, l_content_no FROM tbl_like WHERE l_type = 1 AND u_id = #{uId} GROUP BY l_content_no) a
+    ON l_content_no = p_no
     WHERE
         p_name like CONCAT('%',#{keyword},'%')
     ORDER BY p_like DESC
     LIMIT 8
     </select>
+
+    <update id="increaseLike">
+        update tbl_product set p_like = p_like + 1 where p_no = #{no}
+    </update>
+
+    <update id="decreaseLike" >
+
+        update tbl_product set p_like = p_like - 1 where p_no = #{no}
+
+    </update>
+
+    <insert id="insertProductLike" >
+
+        insert tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
+        values (#{type}, #{no}, #{u_id}, now(), now())
+
+    </insert>
+
+    <select id="searchLike" resultType="Integer">
+
+        select p_like from tbl_product where p_no = #{no}
+
+    </select>
+
+    <delete id="deleteProductLike">
+
+        delete from tbl_like where l_type = 1 and l_content_no = #{no}
+
+    </delete>
 </mapper>

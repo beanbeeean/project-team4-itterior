@@ -38,13 +38,11 @@ public class LikeService {
         if(result > 0){
             int likeCnt = iLikeDaoMapper.selectLikeCount(msgMap.get("type"), msgMap.get("no"));
             int isLike = iLikeDaoMapper.selectCurrentUserLikeCount(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
-            System.out.println("isLike ::: " + isLike);
-            System.out.println("likeCNT :::: " + likeCnt);
+
             switch (msgMap.get("type")){
                 case "1":
                     result = iProductDaoMapper.updateLikeCountForProduct(msgMap.get("no"),likeCnt);
                     ProductDto productDto = iProductDaoMapper.selectProductByNo(msgMap.get("no"));
-                    System.out.println("product DTO LIKE :::: " + productDto.getP_like());
                     map.put("productDto", productDto);
                     break;
                 case "2":
