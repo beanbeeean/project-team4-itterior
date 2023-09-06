@@ -28,19 +28,21 @@
 </header>
 
 <nav th:fragment="nav">
+    <script th:src="@{/js/head_nav_footer.js}" type="text/javascript"></script>
+
     <a class="go_board" th:href="@{/board}">
-        <img th:src="@{/imgs/게시판.PNG}">
-        <p>내집이야기</p>
+        <img th:src="@{/imgs/community.png}">
+        <p class="community">내집이야기</p>
     </a>
 
     <a class="go_product" th:href="@{'/product/'}">
-        <img th:src="@{/imgs/가구.PNG}">
-        <p>인테리어 상품</p>
+        <img th:src="@{/imgs/furniture.png}">
+        <p class="furniture">인테리어 상품</p>
     </a>
 
     <a class="go_youtube" th:href="@{'/youtube'}">
-        <img th:src="@{/imgs/영상.PNG}">
-        <p>추천 영상</p>
+        <img th:src="@{/imgs/youtube.png}">
+        <p class="youtube">추천 영상</p>
     </a>
 
 </nav>
