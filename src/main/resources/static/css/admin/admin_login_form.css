@@ -1,169 +1,60 @@
-body {
-	height: 100vh;
-	font-family: "Montserrat", sans-serif;
-}
-
-.login_wrap {
-	display: block;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 100;
-	width: 100%;
-	height: 100vh;
-}
-
-.login_wrap .container {
-	position: absolute;
-	margin-top: 40px;
-	transform: translate(-50%, -50%);
-	top: 50%;
-	left: 50%;
-	width: 500px;
-	background-color: rgba(255, 255, 255, 0.7);
-}
-
-.login_wrap form {
-	background: rgba(255, 255, 255, 0.3);
-	padding: 3em;
-	height: 380px;
-	border-radius: 20px;
-	border-left: 1px solid rgba(255, 255, 255, 0.3);
-	border-top: 1px solid rgba(255, 255, 255, 0.3);
-	backdrop-filter: blur(10px);
-	box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
-	text-align: center;
+div.section_body {
 	position: relative;
-	transition: all 0.2s ease-in-out;
 }
 
-.login_wrap span {
+h3.admin_mp_title {
+	font-size: 30px;
+	padding-left: 50px;
+}
+
+div.container {
+	margin: 20px;
+	padding-top: 20px;
+}
+
+span.admin_mp_tag {
+	font-size: 20px;
 	width: 50px;
-	text-align: right;
+	padding-left: 10px;
 	display: inline-block;
-	padding-right: 8px;
+	margin-right: 10px;
+	font-size: 0.9em;
 }
 
-.login_wrap span.addr{
-	position: relative;
-	left: -145px;
+div.admin_section_wrap form {
+	max-width: 550px;
+	margin: 0 auto;
 }
 
-.login_wrap .login_modal{
-	display: block;
-	/*display: none;*/
+div.admin_section_wrap form input {
+	width: 500px;
+	padding: 10px 20px;
+	border: 1px solid #dadada;
+	outline: none;
+	border-radius: 15px;
+	margin-bottom: 20px;
+	font-size: 22px;
 }
 
-.login_wrap .create_account_modal{
-	display: none;
-	/*display: block;*/
-}
-
-.login_wrap .find_password_modal {
-	display: none;
-}
-.login_wrap .create_account_modal input {
-	margin-bottom: 10px;
-}
-
-
-.login_wrap .create_account_modal form{
-	height: 700px;
-}
-.create_account_modal input[name="u_main_addr"],
-.create_account_modal input[name="u_detail_addr"]{
-	width: 330px;
-}
-
-
-.login_wrap form p {
-	font-weight: 500;
-	color: rgb(237, 175, 175);
-	opacity: 0.7;
-	font-size: 1.4rem;
-	margin-top: 0;
-	margin-bottom: 60px;
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.login_wrap form a {
-	text-decoration: none;
-	color: rgb(255, 255, 255);
-	font-size: 12px;
-
-	&:hover {
-		text-shadow: 2px 2px 6px #00000040;
-	}
-
-	&:active {
-		text-shadow: none;
-	}
-}
-
-.login_wrap form span {
-	color: rgb(237, 175, 175);
-}
-
-.login_wrap form input {
-	background: transparent;
-	width: 200px;
-	padding: 1em;
-	margin-bottom: 2em;
-	border: none;
-	border-left: 1px solid rgba(255, 255, 255, 0.3);
-	border-top: 1px solid rgba(255, 255, 255, 0.3);
-	border-radius: 5000px;
-	backdrop-filter: blur(5px);
-	color: rgb(100, 100, 100);
-	font-family: Montserrat, sans-serif;
-	font-weight: 500;
-	transition: all 0.2s ease-in-out;
-}
-
-.login_wrap form input:hover {
-	background: rgba(255, 255, 255, 0.1);
-	box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
-}
-
-.login_wrap form input[type="email"]:focus,
-.login_wrap form input[type="password"]:focus {
-	background: rgba(255, 255, 255, 0.1);
-	box-shadow: 4px 4px 60px 8px rgba(0, 0, 0, 0.2);
-}
-
-.login_wrap form input[type="button"],
-.login_wrap form input[type="reset"] {
-	margin-top: 10px;
-	width: 150px;
-	font-size: 1rem;
-	color: rgb(237, 175, 175);
-}
-
-.login_wrap input[type="button"]:hover,
-.login_wrap input[type="reset"]:hover{
+div.admin_section_wrap input[type="button"],
+div.admin_section_wrap input[type="reset"] {
+	width: 100px;
+	float: right;
+	margin-left: 10px;
 	cursor: pointer;
+	background-color: #ffffff;
 }
 
-.login_wrap input[type="button"]:active {
-	background: rgba(255, 255, 255, 0.2);
+div.admin_section_wrap input[type="button"]:hover,
+div.admin_section_wrap input[type="reset"]:hover {
+	color: rgb(248, 92, 15);
+	font-weight: bold;
 }
 
-.login_wrap input#searchAddr {
-	font-size: .8em;
-	width: 150px;
-}
-
-.login_wrap form input::placeholder {
-	font-family: Montserrat, sans-serif;
-	font-weight: 400;
-	color: rgb(237, 175, 175);
-	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.login_wrap .drop {
-	background: rgba(237, 175, 175, 0.3);
+.drop {
+	background: rgba(227, 223, 223, 0.968);
 	backdrop-filter: blur(10px);
-	border-radius: 20px;
+	border-radius: 10px;
 	border-left: 1px solid rgba(237, 175, 175, 0.3);
 	border-top: 1px solid rgba(237, 175, 175, 0.3);
 	box-shadow: 10px 10px 60px -8px rgba(237, 175, 175, 0.2);
@@ -171,83 +62,41 @@ body {
 	transition: all 0.2s ease;
 }
 
-.login_wrap .drop-1 {
-	height: 80px;
-	width: 80px;
-	top: -20px;
-	left: -40px;
+.drop-1 {
+	height: 100px;
+	width: 100px;
+	top: -30px;
+	left: -10px;
 	z-index: -1;
 }
 
-.login_wrap .drop-2 {
-	height: 80px;
-	width: 80px;
-	bottom: -30px;
-	right: -10px;
-}
-
-.login_wrap .drop-3 {
+.drop-2 {
 	height: 100px;
 	width: 100px;
+	bottom: -30px;
+	left: 80px;
+	z-index: -1;
+}
+
+.drop-3 {
+	height: 130px;
+	width: 130px;
 	bottom: 120px;
 	right: -50px;
 	z-index: -1;
 }
 
-.login_wrap .drop-4 {
-	height: 120px;
-	width: 120px;
-	top: -80px;
-	right: -80px;
-	z-index: 0;
+.drop-4 {
+	height: 150px;
+	width: 150px;
+	top: -40px;
+	right: -0px;
 }
 
-.login_wrap .drop-5 {
-	height: 60px;
-	width: 60px;
-	bottom: -20px;
-	left: -20px;
-}
-
-.login_wrap .go_create_account_form,
-.login_wrap .go_login_form,
-.login_wrap .find_password_form{
-	text-align: center;
-	color: rgb(237, 175, 175);
-}
-
-.login_wrap .go_create_account_form a,
-.login_wrap .go_login_form a,
-.login_wrap .find_password_form a{
-	color: rgb(237, 175, 175);
-	text-decoration: underline;
-}
-
-a,
-input:focus,
-select:focus,
-textarea:focus,
-button:focus {
-	outline: none;
-}
-
-.word {
-	text-align: center;
-	margin-top: 40px;
-	color: #000;
-}
-
-.close_btn{
-	font-size: 28px;
-	position: absolute;
-	top: 30px;
-	right: 30px;
-	z-index: 100;
-	color:rgb(237, 175, 175);
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.close_btn:hover{
-	text-shadow: 2px 2px 6px #00000040;
+.drop-5 {
+	height: 80px;
+	width: 80px;
+	bottom: 170px;
+	left: -40px;
+	z-index: -1;
 }

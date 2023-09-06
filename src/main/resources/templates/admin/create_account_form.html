@@ -7,7 +7,7 @@
 
 	<link rel="stylesheet" th:href="@{/css/common.css}">
 	<link rel="stylesheet" th:href="@{/css/admin/admin_header_sidebar.css}">
-	<link rel="stylesheet" th:href="@{/css/admin/create_account_form.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/modify_account_form.css}">
 
 
 
@@ -20,32 +20,35 @@
 <header th:replace="~{/admin/include/admin_header_sidebar.html::header}"></header>
 
 <section>
-	<div id="section_wrap">
-		<div class="container">
-			<form th:action="@{/admin/create_account_confirm}" name="create_account_form" method="post">
-				<p>CREATE ACCOUNT FORM</p>
-				<span>ID</span><br><input type="text" name="a_id" placeholder="INPUT ID"><br>
-				<span>PW</span><br><input type="password" name="a_pw" placeholder="INPUT PW"><br>
-				<span>EMAIL</span><br><input type="email" name="a_mail" placeholder="INPUT MAIL"><br>
-				<span>PHONE</span><br><input type="text" name="a_phone" placeholder="INPUT PHONE"><br><br>
+	<div class="admin_section_wrap">
+		<div class="section_body" style="width: 800px; margin: 0 auto;">
+			<h3 class="admin_mp_title">CREATE ADMIN ACCOUNT</h3>
+			<div class="container">
+				<form th:action="@{/admin/create_account_confirm}" name="create_account_form" method="post">
 
-				<input type="button" value="create account" onclick="createAccountForm();">&nbsp;&nbsp;
-				<input type="reset" value="reset">
-			</form>
+					<span>ID</span><br><input type="text" name="a_id" placeholder="INPUT ID"><br>
+					<span>PW</span><br><input type="password" name="a_pw" placeholder="INPUT PW"><br>
+					<span>EMAIL</span><br><input type="email" name="a_mail" placeholder="INPUT MAIL"><br>
+					<span>PHONE</span><br><input type="text" name="a_phone" placeholder="INPUT PHONE"><br><br>
+					<input type="reset" value="reset">
+					<input type="button" value="create" onclick="createAccountForm();">&nbsp;&nbsp;
+				</form>
 
-			<div class="drops">
-				<div class="drop drop-1"></div>
-				<div class="drop drop-2"></div>
-				<div class="drop drop-3"></div>
-				<div class="drop drop-4"></div>
-				<div class="drop drop-5"></div>
-			</div>
+				<div class="drops">
+					<div class="drop drop-1"></div>
+					<div class="drop drop-2"></div>
+					<div class="drop drop-3"></div>
+					<div class="drop drop-4"></div>
+					<div class="drop drop-5"></div>
+				</div>
 
-			<br>
-			<div class="go_login_form">
-				이미 계정이 있으신가요? <a th:href="@{/admin/admin_login_form}">로그인</a>
+				<br>
+				<div class="go_login_form" style="text-align: center">
+					이미 계정이 있으신가요? <a th:href="@{/admin/admin_login_form}">로그인</a>
+				</div>
 			</div>
 		</div>
+
 
 	</div>
 </section>
