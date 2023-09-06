@@ -30,8 +30,6 @@ public interface IYoutubeDaoMapper {
 
     int getTotalLikeCnt(String keyWord, String u_id);
 
-    List<YoutubeDto> selectYoutubeMainSearch(String keyword);
-
     List<YoutubeDto> selectMainYoutube();
 
     List<LikeDto> selectLikedYoutube(List<Integer> likeList);

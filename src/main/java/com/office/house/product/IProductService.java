@@ -12,4 +12,6 @@ public interface IProductService {
     public int productLikeUpdate(Map<String, String> msgMap);
 
     public int productLikeDelete(Map<String, String> msgMap);
+
+    public Map<String, Object> getMainProductsList();
 }

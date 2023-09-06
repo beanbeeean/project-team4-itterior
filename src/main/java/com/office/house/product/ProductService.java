@@ -80,6 +80,7 @@ public class ProductService implements IProductService{
         return iProductDaoMapper.searchLike(msgMap.get("no"));
     }
 
+    @Override
     public Map<String, Object> getMainProductsList() {
         log.info("getMainProductsList");
         Map<String, Object> map = new HashMap<>();

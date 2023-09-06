@@ -1,0 +1,396 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+        console.log("DOCUMENT READY!!");
+
+        // 이벤트 핸들러 초기화(등록)
+        ajax_MainBoardList();
+        ajax_MainProductList();
+        ajax_MainYoutubeList();
+    });
+
+    // 게시물 1개 재구성(좋아요 시)
+    function reconBoardTdForLike(boardDto, isLike){
+        for(let i = 0; i < $('a.like_board_btn').length; i++){
+            if($('a.like_board_btn').eq(i).data("b_no") == boardDto.b_no){
+                $('a.like_board_btn').eq(i).children().remove();
+
+                let appendTag = '';
+                console.log("isLike ::::: " + isLike);
+                if(isLike > 0) {
+                    appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
+                    appendTag += 'data-b_no="';
+                    appendTag += boardDto.b_no;
+                    appendTag += '">';
+                }else {
+                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
+                    appendTag += 'data-b_no="';
+                    appendTag += boardDto.b_no;
+                    appendTag += '">';
+                }
+                $('.board_items a.like_board_btn').eq(i).append(appendTag);
+
+                $('.board_items span.like_count').eq(i).text(boardDto.b_like);
+
+                break;
+            }
+        }
+    }
+
+    // 인테리어 상품 1개 재구성(좋아요 시)
+    function reconProductTdForLike(productDto, isLike){
+        for(let i = 0; i < $('a.like_product_btn').length; i++){
+            if($('a.like_product_btn').eq(i).data("p_no") == productDto.p_no){
+                $('a.like_product_btn').eq(i).children().remove();
+
+                let appendTag = '';
+
+                if(isLike > 0) {
+                    appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
+                    appendTag += 'data-p_no="';
+                    appendTag += productDto.p_no;
+                    appendTag += '">';
+                }else {
+                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
+                    appendTag += 'data-p_no="';
+                    appendTag += productDto.p_no;
+                    appendTag += '">';
+                }
+                $('.product_items a.like_product_btn').eq(i).append(appendTag);
+
+                $('.product_items span.like_count').eq(i).text(productDto.p_like);
+
+                break;
+            }
+        }
+    }
+
+    // 유튜브 1개 재구성(좋아요 시)
+    function reconYoutubeTdForLike(youtubeDto, isLike) {
+        for (let i = 0; i < $('a.like_youtube_btn').length; i++) {
+            if ($('a.like_youtube_btn').eq(i).data("y_no") == youtubeDto.y_no) {
+                $('a.like_youtube_btn').eq(i).children().remove();
+
+                let appendTag = '';
+
+                if (isLike > 0) {
+                    appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
+                    appendTag += 'data-y_no="';
+                    appendTag += youtubeDto.y_no;
+                    appendTag += '">';
+                } else {
+                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
+                    appendTag += 'data-y_no="';
+                    appendTag += youtubeDto.y_no;
+                    appendTag += '">';
+                }
+                $('a.like_youtube_btn').eq(i).append(appendTag);
+
+                $('.youtube_items span.like_count').eq(i).text(youtubeDto.y_like);
+
+                break;
+            }
+        }
+    }
+
+    // 게시물 리스트 출력
+    function addMainBoardListTr(boardDtos, isLikedDtos, u_id) {
+        console.log("addMainBoardListTr()");
+
+        let appendTag = '';
+        let cnt = 0;
+
+        for (let i = 0; i < 5; i++) {
+            appendTag += '<div class="board_items">';
+            appendTag += '<a class="today_board" href="/board/get_board?b_no=';
+            appendTag += boardDtos[cnt].b_no;
+            appendTag += '">';
+
+            appendTag += '<img class="board_img" src="/userBoardThumbnailImg/';
+            appendTag += boardDtos[cnt].u_id;
+            appendTag += "/";
+            appendTag += boardDtos[cnt].b_thumbnail;
+            appendTag += '"/>'
+
+            appendTag += '<p class="board_title">';
+            appendTag += boardDtos[cnt].b_title;
+            appendTag += '</p>';
+
+            appendTag += '<div class="like_hit_wrap">';
+
+            appendTag += '<a class="like_board_btn" href="#none" ';
+            appendTag += 'data-b_no="';
+            appendTag += boardDtos[cnt].b_no
+            appendTag += '">';
+
+            if (u_id != undefined && u_id != "please_login" && isLikedDtos.length > 0) {
+                for (let k = 0; k < isLikedDtos.length; k++) {
+                    if (isLikedDtos[k].l_content_no == boardDtos[cnt].b_no && isLikedDtos[k].u_id == u_id) {
+                        appendTag += '<img class="full_heart" src="/imgs/full_heart.png" data-b_no="';
+                        appendTag += boardDtos[cnt].b_no;
+                        appendTag += '">';
+                        break;
+                    } else if (isLikedDtos[k].l_content_no != boardDtos[cnt].b_no || isLikedDtos[k].u_id != u_id) {
+                        if (k == isLikedDtos.length - 1) {
+
+                            appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-b_no="';
+                            appendTag += boardDtos[cnt].b_no;
+                            appendTag += '">';
+                        }
+                        continue;
+                    }
+                }
+            } else {
+
+                appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-b_no="';
+                appendTag += boardDtos[cnt].b_no;
+                appendTag += '">';
+            }
+            appendTag += '</a>';
+
+            appendTag += '<span class="like_count">'
+            appendTag += boardDtos[cnt].b_like;
+            appendTag += '</span>';
+
+            appendTag += '<img class="hit" src="/imgs/hit.png">';
+
+            appendTag += '<span class="hit_count">'
+            appendTag += boardDtos[cnt].b_hit;
+            appendTag += '</span>';
+
+            appendTag += '</div>'
+            appendTag += '</a>';
+            appendTag += '</div>';
+
+            cnt++;
+
+        }
+        $('#section_wrap div.boards').append(appendTag);
+
+
+    }
+
+    // 상품 리스트 출력
+    function addMainProductsListTr(productDtos, isLikedDtos, u_id) {
+        console.log("addMainProductsListTr()");
+
+        let appendTag = '';
+        let cnt = 0;
+
+
+        for (let i = 0; i < 5; i++) {
+            let price = parseInt(productDtos[cnt].p_sales_price).toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+
+            appendTag += '<div class="product_items">';
+            appendTag += '<a class="today_product" href=';
+            appendTag += productDtos[cnt].p_link;
+            appendTag += '" target="parent"';
+            appendTag += 'data-p_no="';
+            appendTag += productDtos[cnt].p_no;
+            appendTag += '">';
+
+            appendTag += '<div class="product_img">';
+            appendTag += "<img src='";
+            appendTag += productDtos[cnt].p_img;
+            appendTag += "'/>";
+            appendTag += '</div>';
+
+            appendTag += ' <span class="product_brand">';
+            appendTag += productDtos[cnt].p_brand;
+            appendTag += '</span>';
+            appendTag += '<br>';
+
+            appendTag += '<p class="product_name">';
+            appendTag += productDtos[cnt].p_name;
+            appendTag += '</p>';
+            appendTag += '<br>';
+
+            appendTag += '<span class="product_sales_price">';
+            appendTag += price;
+            appendTag += '원</span>';
+            appendTag += '<span class="product_sales_price_tag">판매가';
+            appendTag += '</span>';
+            appendTag += '<br>';
+
+            appendTag += '<div class="like_hit_wrap">';
+
+            appendTag += '<a class="like_product_btn" href="#none" ';
+            appendTag += 'data-p_no="';
+            appendTag += productDtos[cnt].p_no
+            appendTag += '">';
+
+            if (u_id != undefined && u_id != "please_login" && isLikedDtos.length > 0) {
+                for (let k = 0; k < isLikedDtos.length; k++) {
+                    if (isLikedDtos[k].l_content_no == productDtos[cnt].p_no && isLikedDtos[k].u_id == u_id) {
+                        appendTag += '<img class="full_heart" src="/imgs/full_heart.png" data-p_no="';
+                        appendTag += productDtos[cnt].p_no;
+                        appendTag += '">';
+                        break;
+                    } else if (isLikedDtos[k].l_content_no != productDtos[cnt].p_no || isLikedDtos[k].u_id != u_id) {
+                        if (k == isLikedDtos.length - 1) {
+                            appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-p_no="';
+                            appendTag += productDtos[cnt].p_no;
+                            appendTag += '">';
+                        }
+                        continue;
+                    }
+                }
+            } else {
+                appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-p_no="';
+                appendTag += productDtos[cnt].p_no;
+                appendTag += '">';
+            }
+            appendTag += '</a>';
+
+            appendTag += '<span class="like_count">'
+            appendTag += productDtos[cnt].p_like;
+            appendTag += '</span>';
+
+            appendTag += '<img class="hit" src="/imgs/hit.png">';
+
+            appendTag += '<span>'
+            appendTag += productDtos[cnt].p_hit;
+            appendTag += '</span>';
+            appendTag += '</div>';
+
+            appendTag += '</div>'
+            appendTag += '</a>';
+            appendTag += '</div>';
+
+            cnt++;
+
+        }
+        $('#section_wrap div.products').append(appendTag);
+    }
+
+    // 유튜브 리스트 출력
+    function addMainVideosListTr(youtubeDtos, isLikedDtos, u_id) {
+        console.log("addMainVideosListTr()");
+
+        let appendTag = '';
+        let cnt = 0;
+
+        for (let i = 0; i < 4; i++) {
+            appendTag += '<div class="youtube_items">';
+            appendTag += '<iframe width:"500" height="230" src="https://www.youtube.com/embed/';
+            appendTag += youtubeDtos[cnt].y_id;
+            appendTag += '" title="youTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>';
+            appendTag += '</iframe>';
+
+            appendTag += '<div class="youtube_item_detail">';
+            appendTag += '<h3 class="youtube_title">'
+            appendTag += youtubeDtos[cnt].y_title
+            appendTag += '</h3>';
+            appendTag += '<div class="like_channel_wrap">';
+            appendTag += '<span class="youtube_channel">';
+            appendTag += youtubeDtos[cnt].y_channel
+            appendTag += '</span>';
+
+            appendTag += '<div class="like_hit_wrap">';
+
+            appendTag += '<a class="like_youtube_btn" href="#none" data-y_no="';
+            appendTag += youtubeDtos[cnt].y_no;
+            appendTag += '">';
+
+            if (u_id != undefined && u_id != "please_login" && isLikedDtos.length > 0) {
+                for (let k = 0; k < isLikedDtos.length; k++) {
+                    if (isLikedDtos[k].l_content_no == youtubeDtos[cnt].y_no && isLikedDtos[k].u_id == u_id) {
+                        appendTag += '<img class="full_heart" src="/imgs/full_heart.png" data-y_no="';
+                        appendTag += youtubeDtos[cnt].y_no;
+                        appendTag += '">';
+                        break;
+                    } else if (isLikedDtos[k].l_content_no != youtubeDtos[cnt].y_no || isLikedDtos[k].u_id != u_id) {
+                        if (k == isLikedDtos.length - 1) {
+                            appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-y_no="';
+                            appendTag += youtubeDtos[cnt].y_no;
+                            appendTag += '">';
+                        }
+                        continue;
+                    }
+                }
+            } else {
+                appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" data-y_no="';
+                appendTag += youtubeDtos[cnt].y_no;
+                appendTag += '">';
+            }
+            appendTag += '</a>';
+            appendTag += '</div>';
+            appendTag += '<span class="like_count">';
+            appendTag += youtubeDtos[cnt].y_like;
+            appendTag += '</span>';
+            appendTag += '</div>';
+            appendTag += '<p>';
+            appendTag += youtubeDtos[cnt].y_content;
+            appendTag += '</p>';
+            appendTag += '</div>';
+            appendTag += '</div>';
+
+            cnt++;
+        }
+
+        $('#section_wrap div.videos').append(appendTag);
+    }
+
+
+    // AJAX START
+    function ajax_MainBoardList() {
+        console.log('ajax_MainBoardList()');
+
+        $.ajax({
+            url: '/board/get_main_board_list',
+            method: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log('AJAX SUCCESS - ajax_MainBoardList()');
+
+                $('#section_wrap div.boards').empty();
+                addMainBoardListTr(data.boardDtos, data.isLikedDtos, data.u_id);
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_MainBoardList()');
+            }
+        });
+    }
+
+    function ajax_MainProductList() {
+        console.log('ajax_MainProductList()');
+
+        $.ajax({
+            url: '/product/get_main_product_list',
+            method: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log('AJAX SUCCESS - ajax_getProductList()');
+
+                $('#section_wrap div.products').empty();
+                addMainProductsListTr(data.productDtos, data.isLikedDtos, data.u_id);
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_getProductList()');
+
+            }
+        });
+    }
+
+    function ajax_MainYoutubeList() {
+        console.log('ajax_MainYoutubeList()');
+
+        $.ajax({
+            url: '/youtube/get_main_youtube_list',
+            method: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                console.log('AJAX SUCCESS - ajax_MainYoutubeList()');
+                $('#section_wrap div.videos').empty();
+                console.log("youtube : " + data.youtubeDtos, data.isLikedDtos, data.u_id)
+                addMainVideosListTr(data.youtubeDtos, data.isLikedDtos, data.u_id);
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_MainYoutubeList()');
+
+            }
+        });
+    }
+
+</script>

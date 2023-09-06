@@ -222,6 +222,7 @@ public class UserService implements IUserService {
         return map;
     }
 
+    @Override
     public Map<String, Object> getUserLikeProducts(int pageNum, int amount, String u_id) {
         log.info("[UserMemberService] getUserLikeProducts()");
         Map<String, Object> map = new HashMap<>();
