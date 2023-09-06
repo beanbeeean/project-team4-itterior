@@ -1,0 +1,144 @@
+#section_wrap {
+    margin: 30px 25px;
+}
+
+.board_word,
+.product_word,
+.youtube_word{
+    display: inline-block;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: rgb(237, 175, 175);
+    margin-bottom: 20px;
+}
+
+
+.board_wrap,
+.product_wrap,
+.youtube_wrap {
+    border-top: 1px solid #dadada;
+    padding-top: 20px;
+    margin-bottom: 50px;
+}
+
+
+.buttons {
+    /*margin-right: 25px;*/
+    float: right;
+}
+
+input[type="button"] {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.today_board {
+    margin-right: 10px;
+    text-align: center;
+    width: 19%;
+    display: inline-block;
+}
+
+
+.today_board img {
+    width: 100%;
+    height: 200px;
+}
+
+.today_board .board_title {
+    font-size: 1.1em;
+}
+
+.today_board .board_author {
+    float: right;
+    font-size: 0.9em;
+    color: #939393;
+}
+
+.today_product {
+    margin-right: 10px;
+    text-align: center;
+    width: 20%;
+    display: inline-block;
+    overflow:hidden;
+}
+
+.today_product img {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 10px;
+}
+
+.today_product img:hover {
+    transform:scale(1.1);
+    transition: transform .35s;
+}
+
+
+.today_product .product_brand {
+    font-size: 0.9em;
+    color: #dadada;
+    float: left;
+    font-weight: bold;
+}
+
+.today_product .product_name {
+    float: left;
+}
+
+.today_product .product_sales_price_tag {
+    float: left;
+    font-size: 1.2em;
+    color: rgb(237, 175, 175);
+    font-weight: bold;
+}
+
+.today_product .product_sales_price {
+    margin-left: 5px;
+    float: left;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.today_product .title {
+    padding: 5px 10px;
+}
+
+.videos {
+    text-align: center;
+}
+
+.video_item {
+    border: 1px solid #dadada;
+    border-radius: 7px;
+    margin-right: 20px;
+    padding: 20px;
+    padding-bottom: 30px;
+    text-align: center;
+    width: 20%;
+    display: inline-block;
+}
+
+.video_item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video_item img {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.video_item .youtube_title {
+    font-weight: bold;
+}
+
+.video_item .youtube_channel_name {
+    font-weight: bold;
+    color: #dadada;
+    font-size: 0.9em;
+    margin-top: 5px;
+}

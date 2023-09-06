@@ -13,7 +13,6 @@
     <link rel="stylesheet" th:href="@{/css/user/modal_login_form.css}">
 
     <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
-    <script th:src="@{/js/user/user_home.js}" type="text/javascript"></script>
     <script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
 </head>
 
@@ -28,34 +27,31 @@
             <div class="board_word">
                 오늘의 인기글
             </div>
+            <div class="buttons">
+                <input type="button" class="prev" value="이전">
+                <input type="button" class="next" value="다음">
+            </div>
             <div class="boards">
-                <div class="slide_item">
-                    <a class="today_board" th:href="@{#}">
-                        <img src="/imgs/empty_heart.png">
-                        <p class="board_title">title1</p>
-                    </a>
-                    <a class="today_board" th:href="@{#}">
-                        <img src="/imgs/defaultimage.PNG">
-                        <p class="board_title">title2</p>
-                    </a>
-                    <a class="today_board" th:href="@{#}">
-                        <img src="/imgs/full_heart.png">
-                        <p class="board_title">title3</p>
-
-                    </a>
-                    <a class="today_board" th:href="@{#}">
-                        <img src="/imgs/empty_heart.png">
-                        <p class="board_title">title4</p>
-                    </a>
-                    <a class="today_board" th:href="@{#}">
-                        <img src="/imgs/defaultimage.PNG">
-                        <p class="board_title">title5</p>
-                    </a>
-                </div>
-                <p class="controller">
-                    <span class="prev"><</span>
-                    <span class="next">></span>
-                </p>
+                <a class="today_board" th:href="@{#}">
+                    <img src="/imgs/defaultimage.png">
+                    <p class="board_title">title1</p>
+                </a>
+                <a class="today_board" th:href="@{#}">
+                    <img src="/imgs/defaultimage.png">
+                    <p class="board_title">title1</p>
+                </a>
+                <a class="today_board" th:href="@{#}">
+                    <img src="/imgs/defaultimage.png">
+                    <p class="board_title">title1</p>
+                </a>
+                <a class="today_board" th:href="@{#}">
+                    <img src="/imgs/defaultimage.png">
+                    <p class="board_title">title1</p>
+                </a>
+                <a class="today_board" th:href="@{#}">
+                    <img src="/imgs/defaultimage.png">
+                    <p class="board_title">title1</p>
+                </a>
             </div>
         </div>
 
@@ -109,6 +105,13 @@
                 인테리어가 어려울 땐?!
             </div>
             <div class="videos">
+                <a class="video_item" th:href="@{#}">
+                    <div class="youtube_img">
+                        <img src="/imgs/defaultimage.PNG">
+                    </div>
+                    <p class="youtube_title" href="#">TITLE</p>
+                    <p class="youtube_channel_name">channel</p>
+                </a>
                 <a class="video_item" th:href="@{#}">
                     <div class="youtube_img">
                         <img src="/imgs/defaultimage.PNG">
