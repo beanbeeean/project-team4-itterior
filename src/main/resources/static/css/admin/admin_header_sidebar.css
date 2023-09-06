@@ -1,0 +1,82 @@
+.admin_header {
+    height: 80px;
+    width: 100%;
+    background-color: rgb(90, 89, 92);
+    display: flex;
+    align-items: center;
+}
+
+.admin_header > h2 {
+    font-size: 30px;
+    padding-left: 30px;
+    color: #fff;
+}
+
+.admin_header > span {
+    padding-left: 20px;
+    padding-top: 10px;
+    color: rgba(169, 166, 166, 0.8);
+}
+
+section#section_wrap {
+    display: grid;
+    grid-template-columns: 300px auto;
+}
+
+.admin_side_bar {
+    height: 100vh;
+    background-color: rgba(227, 223, 223, 0.968);
+    display: inline-block;
+    padding: 0 30px;
+}
+
+h3.admin_welcome {
+    text-align: center;
+    padding: 50px 0;
+    font-size: 22px;
+}
+
+div.admin_manage_member {
+    border-top: 1px solid rgba(159, 158, 161, 0.721);
+    padding-top: 30px;
+    padding-left: 15px;
+}
+
+div.admin_manage_member > h4,
+div.admin_manage_content > h4,
+div.admin_manage_account > h4 {
+    margin-bottom: 15px;
+    font-size: 19px;
+}
+
+div.admin_manage_member > p,
+div.admin_manage_content > p,
+div.admin_manage_account > p {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+div.admin_manage_member a,
+div.admin_manage_content a,
+div.admin_manage_account a {
+    color: rgb(146, 144, 144);
+}
+
+div.admin_manage_content,
+div.admin_manage_account {
+    margin-top: 60px;
+    padding-left: 15px;
+}
+
+div.admin_side_bar a:hover {
+    color: rgb(248, 92, 15);
+}
+
+div.admin_side_bar a.active {
+    color: rgb(241, 73, 11);
+}
+
+div.admin_section_wrap {
+    padding: 80px 120px;
+}
+
