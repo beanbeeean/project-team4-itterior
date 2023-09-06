@@ -1,13 +1,15 @@
 <div class="side_bar" th:fragment="nav_left">
     <p><a th:href="@{/admin/admin_myPage}" th:text=${session.loginedAdminDto.a_id}></a></p>
     <ul>
-        <li><a id="profileLink" th:href="@{/admin/admin_modify_form}">정보 수정</a></li>
-        <div th:if="${session.loginedAdminDto.a_id == 'admin'}"><li><a th:href="@{/admin/admin_list}">관리자 목록</a></li></div>
+        <div th:if="${session.loginedAdminDto.a_id == 'admin'}">
+        <li><a th:href="@{/admin/admin_list}">관리자 목록</a></li></div>
         <li><a th:href="@{/admin/user_list}">사용자 목록</a></li>
         <li><a th:href="@{/admin/youtube_list}">유튜브 목록</a></li>
         <li><a th:href="@{/admin/youtube_channel_list}">유튜브 채널 목록</a></li>
         <li><a th:href="@{/admin/board_list}">게시판 목록</a></li>
         <li><a th:href="@{/admin/product_list}">상품 목록</a></li>
+        <p></p>
+        <li><a id="profileLink" th:href="@{/admin/admin_modify_form}">정보 수정</a></li>
         <li><a th:href="@{/admin/admin_delete_confirm}">회원탈퇴</a></li>
     </ul>
 </div>

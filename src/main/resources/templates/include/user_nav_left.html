@@ -1,3 +1,4 @@
+<script th:replace="~{/include/user_mypage_js.html::js}" type="text/javascript"></script>
 <div class="side_bar" th:fragment="nav_left">
     <img class="user_img" th:if="${session.loginedMemberDto.getU_img() == null}"
          th:src="@{/imgs/defaultimage.PNG}"><br>

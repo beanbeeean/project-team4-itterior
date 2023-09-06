@@ -28,4 +28,6 @@ public interface IYoutubeDaoMapper {
     int searchLike(String no);
 
     int getTotalLikeCnt(String keyWord, String u_id);
+
+    int isYoutube(String y_id);
 }

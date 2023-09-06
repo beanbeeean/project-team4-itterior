@@ -124,7 +124,7 @@
 
     <select id="youtubeList" resultType="com.office.house.youtube.YoutubeDto">
 
-        select * from tbl_youtube where y_channel like CONCAT('%',#{keyWord},'%') order by y_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+        select * from tbl_youtube where y_title like CONCAT('%',#{keyWord},'%') order by y_date desc LIMIT #{criteria.skip}, #{criteria.amount}
 
     </select>
 
@@ -134,7 +134,7 @@
 
     </select>
 
-    <update id="youtubeListModifyConfirm"  parameterType="com.office.house.youtube.YoutubeDto">
+    <update id="youtubeListModifyConfirm" >
 
         update tbl_youtube set y_state = #{y_state} where y_no = #{y_no}
 
@@ -156,7 +156,7 @@
 
     </select>
 
-    <update id="boardListModifyConfirm"  parameterType="com.office.house.board.BoardDto">
+    <update id="boardListModifyConfirm">
 
         update tbl_board set b_state = #{b_state} where b_no = #{b_no}
 
@@ -178,7 +178,7 @@
 
     </select>
 
-    <update id="productListModifyConfirm"  parameterType="com.office.house.product.ProductDto">
+    <update id="productListModifyConfirm" >
 
         update tbl_product set p_state = #{p_state} where p_no = #{p_no}
 

@@ -30,15 +30,17 @@
 						  enctype="multipart/form-data" style="height: 850px; top: -200px ">
 						<p>MODIFY BOARD</p>
 						<input type="hidden" name="b_no" th:value="${boardDto.b_no}">
-						&nbsp;<span>ID</span><br><input type="text" name="u_id" th:value="${boardDto.u_id}" placeholder="INPUT ID"><br>
-						&nbsp;<span>TITLE</span><br><input type="text" name="b_title" th:value="${boardDto.b_title}" placeholder="INPUT TITLE"><br>
-						<span>CONTENT</span><br><input type="text" name="b_content" th:value="${boardDto.b_content}" placeholder="INPUT CONTENT"><br>
-						<select class="form-control col-lg-2 required" name="b_state" >
-							<option th:value="0" th:text="미사용" th:selected="${boardDto.b_state} == 0"></option>
-							<option th:value="1" th:text="사용" th:selected="${boardDto.b_state} == 1"></option>
-						</select><br>
-						<input type="button" class="btn_create" value="modify" onclick="boardModifyForm()">&nbsp;&nbsp;
-						<input type="reset" value="reset">
+						&nbsp;<span>ID</span><br><input type="text" name="u_id" th:value="${boardDto.u_id}" placeholder="INPUT ID" readonly="readonly"
+														disabled="disabled"><br>
+						&nbsp;<span>TITLE</span><br><input type="text" name="b_title" th:value="${boardDto.b_title}" placeholder="INPUT TITLE" readonly="readonly"
+														   disabled="disabled"><br>
+						<span>CONTENT</span><br><input type="text" name="b_content" th:value="${boardDto.b_content}" placeholder="INPUT CONTENT" readonly="readonly"
+													   disabled="disabled"><br>
+						<span>LIKE</span><br><input type="text" name="b_like" th:value="${boardDto.b_like}" placeholder="INPUT CONTENT" readonly="readonly"
+													   disabled="disabled"><br>
+						<span>HIT</span><br><input type="text" name="b_hit" th:value="${boardDto.b_hit}" placeholder="INPUT CONTENT" readonly="readonly"
+													   disabled="disabled"><br>
+						<br>
 					</form>
 					<div class="drops">
 						<div class="drop drop-1"></div>

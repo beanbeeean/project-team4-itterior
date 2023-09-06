@@ -95,8 +95,12 @@ public class YoutubeService implements IYoutubeService{
                 youtubeDto.setY_img((String)jObj5.get("url"));
                 youtubeDto.setY_date((String)jObj3.get("publishTime"));
 
-                iYoutubeDaoMapper.insertNewYoutube(youtubeDto);
-
+                int isYoutube = -1;
+                isYoutube = iYoutubeDaoMapper.isYoutube(youtubeDto.getY_id());
+                System.out.println("isYoutube : "+isYoutube);
+                if(isYoutube < 1) {
+                    iYoutubeDaoMapper.insertNewYoutube(youtubeDto);
+                }
                 //https://www.youtube.com/embed/
 
             }
