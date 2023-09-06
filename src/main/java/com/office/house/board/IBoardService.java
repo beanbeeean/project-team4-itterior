@@ -15,4 +15,7 @@ public interface IBoardService {
     public int boardmodifyConfirm(BoardDto boardDto, int b_no);
 
     public Map<String, Object> deleteBoard(Map<String, Object> boardmap);
+
+    public Map<String, Object> getMainBoardList();
+
 }

@@ -2,6 +2,7 @@ package com.office.house.youtube;
 
 import com.office.house.admin.ChannelDto;
 import com.office.house.board.BoardDto;
+import com.office.house.like.LikeDto;
 import com.office.house.util.page.Criteria;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -30,4 +31,8 @@ public interface IYoutubeDaoMapper {
     int getTotalLikeCnt(String keyWord, String u_id);
 
     List<YoutubeDto> selectYoutubeMainSearch(String keyword);
+
+    List<YoutubeDto> selectMainYoutube();
+
+    List<LikeDto> selectLikedYoutube(List<Integer> likeList);
 }

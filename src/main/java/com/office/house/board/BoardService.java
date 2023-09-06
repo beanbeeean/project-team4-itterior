@@ -106,6 +106,7 @@ public class BoardService implements IBoardService {
         return map;
     }
 
+    @Override
     public Map<String, Object> getMainBoardList() {
         log.info("[UserMemberService] getMainBoardList()");
 

@@ -146,6 +146,7 @@
             tbl_board
         ORDER BY
             b_reg_date DESC
+        LIMIT 5
     </select>
 
 </mapper>

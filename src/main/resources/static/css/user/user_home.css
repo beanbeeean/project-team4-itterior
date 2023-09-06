@@ -77,7 +77,9 @@ input[type="button"] {
 .like_board_btn .empty_heart,
 .like_board_btn .full_heart,
 .like_product_btn .empty_heart,
-.like_product_btn .full_heart{
+.like_product_btn .full_heart,
+.like_youtube_btn .empty_heart,
+.like_youtube_btn .full_heart{
     width: 20px;
     height: 20px;
 }
@@ -163,49 +165,62 @@ input[type="button"] {
     height: 20px;
 }
 
-/*.videos {*/
-/*    text-align: center;*/
-/*}*/
+div.youtube_wrap {
+    width: 100%;
+}
 
-/*.video_item {*/
-/*    border: 1px solid #dadada;*/
-/*    border-radius: 7px;*/
-/*    margin-right: 20px;*/
-/*    padding: 20px;*/
-/*    padding-bottom: 30px;*/
-/*    text-align: center;*/
-/*    width: 20%;*/
-/*    display: inline-block;*/
-/*}*/
+div.videos {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
 
-/*.video_item:hover {*/
-/*    transform: scale(1.05);*/
-/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);*/
-/*    transition: transform 0.3s ease, box-shadow 0.3s ease;*/
-/*}*/
+div.videos iframe {
+    margin-right: 10px;
+}
 
-/*.video_item img {*/
-/*    width: 100%;*/
-/*    margin-bottom: 10px;*/
-/*}*/
+div.youtube_items {
+    padding: 20px;
+    width: 650px;
+    display: inherit;
+}
 
-/*.video_item .youtube_title {*/
-/*    font-weight: bold;*/
-/*}*/
+div.youtube_items h3 {
+    font-size: 1.3em;
+}
 
-/*.video_item .youtube_channel_name {*/
-/*    font-weight: bold;*/
-/*    color: #dadada;*/
-/*    font-size: 0.9em;*/
-/*    margin-top: 5px;*/
-/*}*/
+div.youtube_items iframe {
+    border-radius: 15px;
+}
 
-/*.video_item .heart {*/
-/*    margin-top: 5px;*/
-/*    width: 20px;*/
-/*    height: 20px;*/
-/*}*/
+div.youtube_items_detail {
+    margin: 0 auto;
+    padding: 10px;
+}
 
-/*.video_item .like_count {*/
-/*    vertical-align: 15px;*/
-/*}*/
+h3.youtube_title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+span.youtube_channel {
+    font-size: 18px;
+    color: #aeaeae;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+div.like_channel_wrap {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding-right: 10px;
+}
+
+.like_count {
+    line-height: 5px;
+    font-size: 18px;
+}

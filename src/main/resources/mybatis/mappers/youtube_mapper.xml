@@ -90,4 +90,29 @@
         ORDER BY y_like DESC
         LIMIT 5
     </select>
+
+
+    <select id="selectMainYoutube" resultType="com.office.house.youtube.YoutubeDto">
+        SELECT
+            *
+        FROM
+            tbl_youtube
+        ORDER BY
+            y_date DESC,
+            y_like DESC
+            LIMIT 4
+    </select>
+
+    <select id="selectLikedYoutube" parameterType="java.util.List" resultType="com.office.house.youtube.YoutubeDto">
+        SELECT
+            *
+        FROM
+            tbl_like
+        WHERE
+            l_type = 3 AND
+            l_content_no IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 </mapper>
