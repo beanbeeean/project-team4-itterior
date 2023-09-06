@@ -10,8 +10,8 @@
 
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/home.css}">
-    <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
-    <link rel="stylesheet" th:href="@{/css/admin/listPage.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/admin_header_sidebar.css}">
+    <link rel="stylesheet" th:href="@{/css/admin/user_list.css}">
 
     <script th:replace="~{/include/list_search_js.html::js}" type="text/javascript"></script>
     <script th:replace="~{/include/admin_list_js.html::js}" type="text/javascript"></script>
@@ -19,60 +19,55 @@
 </head>
 
 <body>
-<header th:replace="~{/include/header_nav_footer.html::header}"/>
+<header th:replace="~{/admin/include/admin_header_sidebar.html::header}"></header>
 
-<section>
-    <div class="section_wrap">
-        <div th:insert="~{/include/admin_nav_left.html::div}"/>
+<section id="section_wrap">
+    <div th:replace="~{/admin/include/admin_header_sidebar.html::sidebar}"></div>
+    <div class="admin_section_wrap">
+
         <div class="section_body">
-            <div id="section_wrap">
-                <div class="container">
-                    <div class="word">
-                        YOUTUBE LIST
+            <div class="container">
+                <h2 class="section_title">유튜브 목록 관리</h2>
+                <div class="search_wrap">
+                    <div class="search_area">
+                        <input class="form-control2" type="text" name="keyword" />
+                        <button class="form-control line btn-black" onclick="search();">
+                            검색
+                        </button>
                     </div>
-                    <div class="search_wrap">
-                        <div class="search_area">
-                            <input class="form-control2" type="text" name="keyword">
-                            <button class="form-control line btn-black" onclick="search();">검색</button>
-                        </div>
-                    </div>
-                    <div id="url" class="youtube_list">
-                        <table class="table table-board">
-                            <colgroup>
-                                <col width="15%">
-                                <col width="30%">
-                                <col width="40%">
-                                <col width="15%">
-                            </colgroup>
-                            <thead>
+                </div>
+                <div id="url" class="youtube_list">
+                    <table class="table table-board">
+                        <thead>
                             <tr>
-                                <th scope="col">채널</th>
-                                <th scope="col">제목</th>
-                                <th scope="col">내용</th>
-                                <th scope="col">상태</th>
+                                <th>채널</th>
+                                <th>제목</th>
+                                <th>내용</th>
+                                <th >상태</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
                             <tr th:each="youtubeDto : ${YoutubeDtos}">
                                 <td th:text="${youtubeDto.y_channel}"></td>
-                                <td><a th:href="@{/admin/youtube_list_detail?(no = ${youtubeDto.y_no})}" th:text="${#strings.abbreviate(youtubeDto.y_title,15)}"></a></td>
-                                <td th:text="${#strings.abbreviate(youtubeDto.y_content,20)}"></td>
+                                <td><a th:href="@{/admin/youtube_list_detail(no = ${youtubeDto.y_no})}" th:text="${#strings.abbreviate(youtubeDto.y_title,40)}"></a></td>
+                                <td th:text="${#strings.abbreviate(youtubeDto.y_content,40)}"></td>
                                 <td th:if="${youtubeDto.y_state == 0}"><button name="btn" th:onclick="init_state_event(1, [[${youtubeDto.y_no}]]);">삭제</button></td>
                                 <td th:if="${youtubeDto.y_state == 1}"><button name="btn" th:onclick="init_state_event(0, [[${youtubeDto.y_no}]]);">사용</button></td>
                             </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="page_wrap">
-                    <div class="page_number">
-                    </div>
+            </div>
+            <div class="page_wrap">
+                <div class="page_number">
+                    <a href="#none" data-pagenum="1" class="selectedPageNum">1</a
+                    ><a href="#none" data-pagenum="2">2</a>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
+
 
 </body>
 

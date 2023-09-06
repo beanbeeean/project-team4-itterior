@@ -6,7 +6,7 @@
 	<title th:replace="~{/include/title.html::title}"></title>
 
 	<link rel="stylesheet" th:href="@{/css/common.css}">
-	<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+	<link rel="stylesheet" th:href="@{/css/admin/admin_header_sidebar.css}">
 	<link rel="stylesheet" th:href="@{/css/admin/admin_login_form.css}">
 
 
@@ -16,10 +16,10 @@
 
 <body>
 
-	<header th:replace="~{/include/header_nav_footer.html::header}">
-	</header>
+<header th:replace="~{/admin/include/admin_header_sidebar.html::header}"></header>
 
 	<section>
+
 		<div id="section_wrap" class="login_wrap">
 			<div class="container">
 				<form th:action="@{/admin/admin_login_confirm}" name="admin_login_form" method="post">

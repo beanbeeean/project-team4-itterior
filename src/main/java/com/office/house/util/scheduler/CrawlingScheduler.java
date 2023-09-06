@@ -45,7 +45,7 @@ public class CrawlingScheduler {
 		ggumiCrawlingService.crawlingProducts("https://www.ggumim.co.kr/furniture/more/280/?sort_by=f.bookmark_count&sort_direction=desc&per_page=",6);
 	}
 
-	@Scheduled(cron = "0 10 1 * * *")
+	@Scheduled(cron = "0 0 1 * * *")
 	public void dongseoSchduler() {
 		System.out.println("동서 가구 스케줄링 실행");
 
