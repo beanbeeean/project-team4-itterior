@@ -6,7 +6,13 @@
 
     <select id="searchChannel" resultType="com.office.house.admin.ChannelDto">
 
-        SELECT * FROM tbl_youtube_channel
+        SELECT * FROM tbl_youtube_channel where yc_state = 1
+
+    </select>
+
+    <select id="isYoutube" resultType="integer">
+
+        SELECT count(*) FROM tbl_youtube where y_id = #{y_id}
 
     </select>
 

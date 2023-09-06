@@ -38,4 +38,6 @@ public interface IYoutubeDaoMapper {
 
     YoutubeDto selectYoutubeByNo(String no);
     List<YoutubeDto> selectYoutubeMainSearch(String keyword, String uId);
+
+    int isYoutube(String y_id);
 }

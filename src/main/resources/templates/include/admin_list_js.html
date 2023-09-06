@@ -1,0 +1,41 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+    function init_state_event(state, no) {
+        console.log('init_state_event() CALLED!!');
+
+        // 페이지 번호 클릭 시
+        $(document).on('click', 'button', function () {
+            if(state ==0) {
+                if(confirm("삭제하시겠습니까?")) {
+                    ajax_updateState(state, no);
+                }
+            } else {
+                if(confirm("사용하시겠습니까?")) {
+                    ajax_updateState(state, no);
+                }
+            }
+        });
+    }
+
+    function ajax_updateState(state, no) {
+        console.log("ajax_updateState()")
+        let url = $('#url').attr("class");
+
+        let msgDto = {
+            "state": state,
+            "no" : no
+        }
+        $.ajax({
+            url: '/admin/'+ url +'_modify_confirm',
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                location.reload();
+            },
+            error: function (data) {
+                console.log('AJAX ERROR - ajax_updateHitCount()');
+
+            }
+        });
+    }
+</script>

@@ -30,16 +30,14 @@
 						  enctype="multipart/form-data" style="height: 850px; top: -200px ">
 						<p>MODIFY YOUTUBE</p>
 						<input type="hidden" name="y_no" th:value="${youtubeDto.y_no}">
-						&nbsp;<span>CHANNEL</span><br><input type="text" name="y_channel" th:value="${youtubeDto.y_channel}" placeholder="INPUT CHANNEL"><br>
-						&nbsp;<span>TITLE</span><br><input type="text" name="y_title" th:value="${youtubeDto.y_title}" placeholder="INPUT TITLE"><br>
-						&nbsp;<span>CONTENT</span><br><input type="text" name="y_content" th:value="${youtubeDto.y_content}" placeholder="INPUT CONTENT"><br>
-						<span>IMG</span><br><input type="text" name="y_img" th:value="${youtubeDto.y_img}" placeholder="INPUT IMG"><br>
-						<select class="form-control col-lg-2 required" name="y_state" >
-							<option th:value="0" th:text="미사용" th:selected="${youtubeDto.y_state} == 0"></option>
-							<option th:value="1" th:text="사용" th:selected="${youtubeDto.y_state} == 1"></option>
-						</select><br>
-						<input type="button" class="btn_create" value="modify" onclick="yotubeModifyForm()">&nbsp;&nbsp;
-						<input type="reset" value="reset">
+						&nbsp;<span>CHANNEL</span><br><input type="text" name="y_channel" th:value="${youtubeDto.y_channel}" placeholder="INPUT CHANNEL" readonly="readonly"
+															 disabled="disabled"><br>
+						&nbsp;<span>TITLE</span><br><input type="text" name="y_title" th:value="${youtubeDto.y_title}" placeholder="INPUT TITLE" readonly="readonly"
+														   disabled="disabled"><br>
+						&nbsp;<span>CONTENT</span><br><input type="text" name="y_content" th:value="${youtubeDto.y_content}" placeholder="INPUT CONTENT" readonly="readonly"
+															 disabled="disabled"><br>
+						<span>IMG</span><br><input type="text" name="y_img" th:value="${youtubeDto.y_img}" placeholder="INPUT IMG" readonly="readonly"
+												   disabled="disabled"><br><br>
 					</form>
 					<div class="drops">
 						<div class="drop drop-1"></div>

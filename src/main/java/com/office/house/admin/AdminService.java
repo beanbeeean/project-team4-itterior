@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.List;
@@ -227,7 +228,7 @@ public class AdminService implements IAdminService{
         Criteria criteria = new Criteria(pageNum, amount);
         List<YoutubeDto> YoutubeDtos = iAdminDaoMapper.youtubeList(keyWord, criteria);
         String table = "tbl_youtube";
-        String column = "y_channel";
+        String column = "y_title";
 
         int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
@@ -247,11 +248,11 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public int youtubeListModifyConfirm(YoutubeDto youtubeDto) {
+    public int youtubeListModifyConfirm(@RequestBody Map<String, Object> msg) {
 
         log.info("[AdminService] youtubeListModifyConfirm()");
 
-        return iAdminDaoMapper.youtubeListModifyConfirm(youtubeDto);
+        return iAdminDaoMapper.youtubeListModifyConfirm((int)msg.get("state"),(int)msg.get("no"));
 
     }
 
@@ -287,11 +288,11 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public int boardListModifyConfirm(BoardDto boardDto) {
+    public int boardListModifyConfirm(Map<String, Object> msg) {
 
         log.info("[AdminService] boardListModifyConfirm()");
 
-        return iAdminDaoMapper.boardListModifyConfirm(boardDto);
+        return iAdminDaoMapper.boardListModifyConfirm((int)msg.get("state"),(int)msg.get("no"));
 
     }
 
@@ -327,14 +328,13 @@ public class AdminService implements IAdminService{
     }
 
     @Override
-    public int productListModifyConfirm(ProductDto productDto) {
+    public int productListModifyConfirm(Map<String, Object> msg) {
 
         log.info("[AdminService] productListModifyConfirm()");
 
-        return iAdminDaoMapper.productListModifyConfirm(productDto);
+        return iAdminDaoMapper.productListModifyConfirm((int)msg.get("state"),(int)msg.get("no"));
 
     }
-
     //  PRODUCT_LIST END
 
 

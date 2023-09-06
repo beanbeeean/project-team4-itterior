@@ -42,17 +42,18 @@ public interface IAdminService {
 
     YoutubeDto youtubeListDetail(int y_no);
 
-    int youtubeListModifyConfirm(YoutubeDto youtubeDto);
+    int youtubeListModifyConfirm(Map<String, Object> msg);
 
     Map<String, Object> boardList(String keyWord, int pageNum, int amount);
 
     BoardDto boardListDetail(int bNo);
 
-    int boardListModifyConfirm(BoardDto boardDto);
+    int boardListModifyConfirm(Map<String, Object> msg);
 
     Map<String, Object> productList(String keyWord, int pageNum, int amount);
 
     ProductDto productListDetail(int p_no);
 
-    int productListModifyConfirm(ProductDto productDto);
+    int productListModifyConfirm(Map<String, Object> msg);
+
 }

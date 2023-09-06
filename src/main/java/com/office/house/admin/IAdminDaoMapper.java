@@ -49,17 +49,18 @@ public interface IAdminDaoMapper {
 
     YoutubeDto youtubeListDetail(int y_no);
 
-    int youtubeListModifyConfirm(YoutubeDto youtubeDto);
+    int youtubeListModifyConfirm(int y_state,int y_no);
 
     List<BoardDto> boardList(String keyWord, Criteria criteria);
 
     BoardDto boardListDetail(int b_no);
 
-    int boardListModifyConfirm(BoardDto boardDto);
+    int boardListModifyConfirm(int b_state,int b_no);
 
     List<ProductDto> productList(String keyWord, Criteria criteria);
 
     ProductDto productListDetail(int p_no);
 
-    int productListModifyConfirm(ProductDto productDto);
+    int productListModifyConfirm(int p_state,int p_no);
+
 }

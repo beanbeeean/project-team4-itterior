@@ -13,7 +13,7 @@ public class YoutubeScheduler {
 	@Autowired
 	YoutubeService youtubeService;
 	
-	@Scheduled(cron = "0 5 2 * * *")
+	@Scheduled(cron = "0 16 18 * * *")
 	public void youtubeMethod() {
 		System.out.println("유튜브 스케줄링 실행");
 		youtubeService.youtube();

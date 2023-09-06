@@ -32,6 +32,9 @@ public class AdminController {
 
         String nextPage = "admin/admin_login_form";
         session.removeAttribute("loginedMemberDto");
+        if(session.getAttribute("loginedAdminDto")!=null){
+            nextPage = "admin/admin_myPage";
+        }
 
         return nextPage;
     }
@@ -146,11 +149,11 @@ public class AdminController {
 
         Map<String, Object> map = adminService.adminList(keyWord, pageNum, amount);
 
-        List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
+        List<AdminDto> AdminDtos = (List<AdminDto>) map.get("AdminDtos");
 
         PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
 
-        model.addAttribute("YoutubeDtos", YoutubeDtos);
+        model.addAttribute("AdminDtos", AdminDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);
         model.addAttribute("keyWord", keyWord);
 
@@ -352,13 +355,13 @@ public class AdminController {
     }
 
     @PostMapping("/youtube_list_modify_confirm")
-    public String youtubeListModifyConfirm(YoutubeDto youtubeDto){
+    public String youtubeListModifyConfirm(@RequestBody Map<String, Object> msgDto){
 
         log.info("[AdminController] youtubeListModifyConfirm()");
 
         int result = -1;
 
-        result = adminService.youtubeListModifyConfirm(youtubeDto);
+        result = adminService.youtubeListModifyConfirm(msgDto);
 
         return "redirect:/admin/youtube_list";
 
@@ -403,13 +406,13 @@ public class AdminController {
     }
 
     @PostMapping("/board_list_modify_confirm")
-    public String boardListModifyConfirm(BoardDto boardDto){
+    public String boardListModifyConfirm(@RequestBody Map<String, Object> msgDto){
 
         log.info("[AdminController] boardListModifyConfirm()");
 
         int result = -1;
 
-        result = adminService.boardListModifyConfirm(boardDto);
+        result = adminService.boardListModifyConfirm(msgDto);
 
         return "redirect:/admin/board_list";
 
@@ -454,13 +457,15 @@ public class AdminController {
     }
 
     @PostMapping("/product_list_modify_confirm")
-    public String productListModifyConfirm(ProductDto productDto){
+    public String productListModifyConfirm(@RequestBody Map<String, Object> msgDto){
 
         log.info("[AdminController] productListModifyConfirm()");
 
+        System.out.println(msgDto);
+
         int result = -1;
 
-        result = adminService.productListModifyConfirm(productDto);
+        result = adminService.productListModifyConfirm(msgDto);
 
         return "redirect:/admin/product_list";
 

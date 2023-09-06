@@ -12,7 +12,7 @@ public class YoutubeDto {
     private String y_content;
     private int y_like;
     private String y_img;
-    private String y_state;
+    private int y_state;
     private String y_date;
 
     private int cnt;
