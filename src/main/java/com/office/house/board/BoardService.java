@@ -106,5 +106,27 @@ public class BoardService implements IBoardService {
         return map;
     }
 
+    public Map<String, Object> getMainBoardList() {
+        log.info("[UserMemberService] getMainBoardList()");
+
+        Map<String, Object> map = new HashMap<>();
+        List<BoardDto> boardDtos = iBoardDaoMapper.selectMainBoardList();
+
+        List<Integer> likeList = new ArrayList<>();
+        for(BoardDto dto : boardDtos){
+            if(dto.getB_like() > 0){
+                likeList.add(dto.getB_no());
+            }
+        }
+        List<LikeDto> isLikedDtos = new ArrayList<>();
+        if(likeList.size() > 0){
+            isLikedDtos = iBoardDaoMapper.selectLikedBoard(likeList);
+        }
+
+        map.put("isLikedDtos", isLikedDtos);
+        map.put("boardDtos", boardDtos);
+
+        return map;
+    }
 
 }

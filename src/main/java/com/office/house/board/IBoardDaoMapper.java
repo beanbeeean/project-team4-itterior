@@ -34,4 +34,6 @@ public interface IBoardDaoMapper {
     BoardDto selectBoardByNo(String no);
 
     List<BoardDto> selectLikeBoardList (Map<String, Object> map);
+
+    List<BoardDto> selectMainBoardList();
 }

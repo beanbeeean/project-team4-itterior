@@ -128,4 +128,13 @@
         LIMIT #{skip}, #{amount}
     </select>
 
+    <select id="selectMainBoardList" resultType="com.office.house.board.BoardDto">
+        SELECT
+            *
+        FROM
+            tbl_board
+        ORDER BY
+            b_reg_date DESC
+    </select>
+
 </mapper>

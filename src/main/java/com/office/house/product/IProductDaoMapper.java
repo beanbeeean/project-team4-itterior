@@ -36,4 +36,6 @@ public interface IProductDaoMapper {
     List<ProductDto> selectLikeProducts(Map<String, Object> map);
 
     int selectLikeProductsCnt(int skip, int amount, String u_id);
+
+    List<ProductDto> selectMainProducts();
 }

@@ -167,4 +167,21 @@ public class BoardController {
 
     }
 
+    // 메인 화면에 뿌려지는 게시물
+    @GetMapping("/get_main_board_list")
+    @ResponseBody
+    public Map<String, Object> getMainBoardList(HttpSession session) {
+        log.info("[UserController] getMainBoardList()");
+
+        Map<String, Object> resultMap = boardService.getMainBoardList();
+
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        if (loginedMemberDto != null) {
+            resultMap.put("u_id", loginedMemberDto.getU_id());
+        } else {
+            resultMap.put("u_id", "please_login");
+        }
+        return resultMap;
+    }
+
 }

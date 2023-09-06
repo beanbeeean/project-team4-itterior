@@ -55,12 +55,25 @@ public class ProductController {
         return resultMap;
     }
 
-
     @PostMapping("/update_product_hit")
     @ResponseBody
     public Map<String, Object> updateProductHit(@RequestBody Map<String, String> msgMap){
         log.info("updateProductHit");
         Map<String, Object> resultMap = productService.updateProductHit(msgMap.get("no"));
+        return resultMap;
+    }
+
+    @GetMapping("/get_main_product_list")
+    @ResponseBody
+    public Map<String, Object>  getMainProductsList(HttpSession session){
+        log.info("getProducts");
+        Map<String, Object> resultMap = productService.getMainProductsList();
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        if(loginedMemberDto != null){
+            resultMap.put("u_id", loginedMemberDto.getU_id());
+        }else{
+            resultMap.put("u_id", "please_login");
+        }
         return resultMap;
     }
 }
