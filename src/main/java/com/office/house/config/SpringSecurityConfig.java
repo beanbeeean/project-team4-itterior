@@ -55,7 +55,7 @@ public class SpringSecurityConfig {
                 .securityMatcher("/admin/**")
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()      //HTTP 요청 인증 설정
-                        .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "", "/", "/product/**").permitAll()
+                        .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "", "/", "/product/**", "**").permitAll()
                         .anyRequest().authenticated()   //위에 있는 경로 외 요청은 전부 인증 필요
                 )
                 .formLogin(login -> login

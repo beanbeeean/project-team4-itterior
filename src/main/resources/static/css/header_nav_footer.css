@@ -14,28 +14,35 @@
 }
 
 
-.search-bar {
+.search_bar {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-grow: 1;
     margin: 0 20px;
+    position: relative;
 }
 
 .logo {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: bold;
     margin-right: 20px;
     color: #fff;
 }
 
-.search-bar input {
-    width: 35%;
-    padding: 10px;
+.search_bar input {
+    width: 500px;
+    padding: 15px 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
+.search_bar > svg {
+    position: absolute;
+    right: 330px;
+    cursor: pointer;
+}
 #user-actions {
     margin-right : 150px;
 }
@@ -51,6 +58,7 @@ nav {
     width: 100%;
     margin: 30px auto;
     text-align: center;
+    min-width: 1600px;
 }
 
 nav a {
@@ -67,5 +75,6 @@ nav img {
 footer {
     color: #333;
     text-align: center;
+    min-width: 1600px;
 }
 

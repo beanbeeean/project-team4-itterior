@@ -128,4 +128,15 @@
         LIMIT #{skip}, #{amount}
     </select>
 
+    <select id="selectBoardMainSearch" parameterType="String" resultType="com.office.house.board.BoardDto">
+        SELECT
+            *
+        FROM
+            tbl_board
+        WHERE
+            b_title like CONCAT('%',#{keyword},'%')
+        ORDER BY b_like DESC
+        LIMIT 6
+    </select>
+
 </mapper>

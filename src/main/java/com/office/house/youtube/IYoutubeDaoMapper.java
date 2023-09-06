@@ -25,4 +25,6 @@ public interface IYoutubeDaoMapper {
     void decreaseLike(String no);
 
     int searchLike(String no);
+
+    List<YoutubeDto> selectYoutubeMainSearch(String keyword);
 }

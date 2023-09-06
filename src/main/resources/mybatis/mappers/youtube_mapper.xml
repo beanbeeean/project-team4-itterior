@@ -62,4 +62,15 @@
         select y_like from tbl_youtube where y_no = #{no}
 
     </select>
+
+    <select id="selectYoutubeMainSearch" parameterType="String" resultType="com.office.house.youtube.YoutubeDto">
+        SELECT
+            *
+        FROM
+            tbl_youtube
+        WHERE
+            y_title like CONCAT('%',#{keyword},'%')
+        ORDER BY y_like DESC
+        LIMIT 5
+    </select>
 </mapper>
