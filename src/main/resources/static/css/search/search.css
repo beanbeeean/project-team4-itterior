@@ -233,3 +233,71 @@ a.like_board_btn {
     align-items: center;
 }
 
+
+div.result_youtube {
+    width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid #dadada;
+    min-width: 1200px;
+}
+
+div.result_youtube_area {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+div.youtube_item {
+    width: 530px;
+    padding: 20px;
+}
+
+div.youtube_item iframe {
+    border-radius: 15px;
+}
+
+div.youtube_item_detail {
+    margin: 0 auto;
+    padding: 10px;
+}
+
+h3.youtube_title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+span.youtube_channel {
+    font-size: 18px;
+    color: #aeaeae;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+div.like_channel_wrap {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding-right: 10px;
+}
+
+.empty_heart,
+.full_heart {
+    max-width: 30px;
+    min-width: 30px;
+    margin-right: 7px;
+}
+
+a.like_board_btn {
+    display: flex;
+    align-items: center;
+}
+
+.like_count {
+    line-height: 18px;
+    font-size: 18px;
+}
+

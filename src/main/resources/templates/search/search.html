@@ -90,6 +90,40 @@
                         </div>
                     </div>
                 </div>
+
+            </div>
+            <div class="result_youtube">
+                <div class="result_header">
+                    <h2 class="result_title">
+                        추천 유튜브
+                    </h2>
+                    <a class="go_btn" th:href="@{/youtube}">더보기</a>
+                </div>
+                <div class="result_youtube_area">
+                    <div class="youtube_item" th:each="youtubeDto : ${youtubeDtos}">
+                        <iframe
+                                width="530"
+                                height="260"
+                                th:src="'https://www.youtube.com/embed/'+${youtubeDto.y_id}"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen
+                        ></iframe>
+                        <div class="youtube_item_detail">
+                            <h3 class="youtube_title" th:text="${youtubeDto.y_title}"></h3>
+                            <div class="like_channel_wrap">
+                                <span class="youtube_channel" th:text="${youtubeDto.y_channel}"></span>
+                                <a class="like_board_btn" href="#none" th:name="${youtubeDto.y_no}">
+                                    <img th:if="${youtubeDto.cnt == 0}" src="/imgs/empty_heart.png" class="empty_heart" />
+                                    <img th:unless="${youtubeDto.cnt == 0}" src="/imgs/full_heart.png" class="full_heart" />
+                                </a>
+                                <span th:class="'like_count'+${youtubeDto.y_no}" th:text="${youtubeDto.y_like}"></span>
+                            </div>
+                            <p th:text="${youtubeDto.y_content}"></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

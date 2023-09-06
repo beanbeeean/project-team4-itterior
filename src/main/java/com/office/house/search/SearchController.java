@@ -2,6 +2,7 @@ package com.office.house.search;
 
 import com.office.house.board.BoardDto;
 import com.office.house.product.ProductDto;
+import com.office.house.youtube.YoutubeDto;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,9 +29,11 @@ public class SearchController {
 
         List<ProductDto> productDtos = (List<ProductDto>) resultMap.get("productDtos");
         List<BoardDto> boardDtos = (List<BoardDto>) resultMap.get("boardDtos");
+        List<YoutubeDto> youtubeDtos = (List<YoutubeDto>) resultMap.get("youtubeDtos");
 
         model.addAttribute("productDtos", productDtos);
         model.addAttribute("boardDtos", boardDtos);
+        model.addAttribute("youtubeDtos", youtubeDtos);
         model.addAttribute("keyword", keyword);
 
         return "search/search";
