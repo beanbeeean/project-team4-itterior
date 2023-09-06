@@ -1,29 +1,26 @@
 <script th:replace="~{/include/user_modify_js.html::js}" type="text/javascript"></script>
 
 <header th:fragment="header" class="on">
-
-    <div class="search-bar">
+    <script th:src="@{/js/user/main_search.js}" type="text/javascript"></script>
+    <div class="search_bar">
         <a class="logo" th:href="@{/}">It ! Terior</a>
-        <input type="text" placeholder="Search">
+        <input class="main_search_bar" type="text" placeholder="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 0 512 512" class="search_btn">
+            <path style="fill:#b9b9b9" d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/>
+        </svg>
     </div>
 
-    <div th:if="${session.loginedAdminDto == null}">
-        <div id="user-actions" th:if="${session.loginedMemberDto == null}">
-            <a th:href="@{/}">Home</a>&nbsp;&nbsp;
-            <!--<a th:href="@{/user/create_account_form}">Sign Up</a>&nbsp;&nbsp;-->
-            <!--<a th:href="@{/user/user_login_form}">Login</a>-->&nbsp;&nbsp;
-            <a href="none" class="show_modal">Login</a>
-        </div>
-        <!-- 여기는 login시에 이걸 nav에 넣을지 말지 고민해보아야 할 듯 -->
-        <div id="user-actions" th:unless="${session.loginedMemberDto == null}">
-            <a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a>님, 환영합니다!&nbsp;&nbsp;
-            <a th:href="@{/user/user_logout_confirm}">logout</a>&nbsp;&nbsp;
-        </div>
+    <div id="user-actions" th:if="${session.loginedMemberDto == null}">
+        <a th:href="@{/}">Home</a>&nbsp;&nbsp;
+        <!--<a th:href="@{/user/create_account_form}">Sign Up</a>&nbsp;&nbsp;-->
+        <!--<a th:href="@{/user/user_login_form}">Login</a>-->&nbsp;&nbsp;
+        <a href="none" class="show_modal">Login</a>
     </div>
-    <div id="user-actions" th:if="${session.loginedAdminDto != null}">
-        <!-- 여기는 login시에 이걸 nav에 넣을지 말지 고민해보아야 할 듯 -->
-        관리자&nbsp;<a th:href="@{/admin/}" th:text=${session.loginedAdminDto.a_id}></a>님, 환영합니다!&nbsp;&nbsp;
-        <a th:href="@{/admin/admin_logout_confirm}">logout</a>&nbsp;&nbsp;
+    <!-- 여기는 login시에 이걸 nav에 넣을지 말지 고민해보아야 할 듯 -->
+    <div id="user-actions" th:unless="${session.loginedMemberDto == null}">
+        <a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a>님, 환영합니다!&nbsp;&nbsp;
+        <a th:href="@{/user/user_logout_confirm}">logout</a>&nbsp;&nbsp;
+
     </div>
 </header>
 

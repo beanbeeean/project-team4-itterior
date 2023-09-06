@@ -22,7 +22,7 @@ public class CrawlingScheduler {
 	@Autowired
 	IkeaCrawlingService ikeaCrawlingService;
 	
-	@Scheduled(cron = "0 10 2 * * *")
+	@Scheduled(cron = "0 10 0 * * *")
 	public void gguimiSchduler() {
 		System.out.println("집꾸미기 스케줄링 실행");
 
@@ -45,7 +45,7 @@ public class CrawlingScheduler {
 		ggumiCrawlingService.crawlingProducts("https://www.ggumim.co.kr/furniture/more/280/?sort_by=f.bookmark_count&sort_direction=desc&per_page=",6);
 	}
 
-	@Scheduled(cron = "0 10 3 * * *")
+	@Scheduled(cron = "0 10 1 * * *")
 	public void dongseoSchduler() {
 		System.out.println("동서 가구 스케줄링 실행");
 
@@ -67,7 +67,7 @@ public class CrawlingScheduler {
 	}
 
 
-	@Scheduled(cron = "0 10 4 * * *")
+	@Scheduled(cron = "0 5 1 * * *")
 	public void ikeaSchduler() {
 		System.out.println("이케아 스케줄링 실행");
 
