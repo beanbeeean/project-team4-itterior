@@ -1,4 +1,4 @@
-$(document).on('click','div.search_bar > svg', function (e){
+$(document).on('click','div.search_bar_wrap > svg', function (e){
     console.log("클릭!")
     let mainKeyword = $('input.main_search_bar').val();
 

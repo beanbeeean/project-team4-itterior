@@ -184,8 +184,6 @@ public class BoardController {
         return resultMap;
     }
 
-
-
     @PostMapping("/board_like_update")
     @ResponseBody
     public int boardLikeUpdate(@RequestBody Map<String, String> msgMap){

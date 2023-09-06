@@ -2,7 +2,10 @@
 
     let sort = 0;
     let pageNum = 1;
-    let keyword = [[${keyword}]];
+    let keyword = "";
+    if([[${keyword}]] != null){
+        keyword = [[${keyword}]];
+    }
 
     $(document).ready(function () {
         console.log("DOCUMENT READY!!");
