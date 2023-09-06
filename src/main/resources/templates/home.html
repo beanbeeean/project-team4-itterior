@@ -27,9 +27,8 @@
             <div class="board_word">
                 오늘의 인기글
             </div>
-            <div class="buttons">
-                <input type="button" class="prev" value="이전">
-                <input type="button" class="next" value="다음">
+            <div class="more_contents">
+                <a th:href="@{/board/}">+ 더보기</a>
             </div>
             <div class="boards">
                 <a class="today_board" th:href="@{#}">
@@ -59,11 +58,32 @@
             <div class="product_word">
                 오늘의 가구
             </div>
-            <div class="buttons">
-                <input type="button" class="prev" value="이전">
-                <input type="button" class="next" value="다음">
+            <div class="more_contents">
+                <a th:href="@{/product/}">+ 더보기</a>
             </div>
             <div class="products">
+                <a class="today_product" th:href="@{#}">
+                    <div class="product_img">
+                        <img src="/imgs/defaultimage.PNG">
+                    </div>
+                    <span class="product_brand">Brand</span>
+                    <br>
+                    <p class="product_name">product name</p>
+                    <br>
+                    <span class="product_sales_price_tag">판매가</span>
+                    <span class="product_sales_price">10,000</span>
+                </a>
+                <a class="today_product" th:href="@{/product/}">
+                    <div class="product_img">
+                        <img src="/imgs/defaultimage.PNG">
+                    </div>
+                    <span class="product_brand">Brand</span>
+                    <br>
+                    <p class="product_name">product name</p>
+                    <br>
+                    <span class="product_sales_price_tag">판매가</span>
+                    <span class="product_sales_price">10,000</span>
+                </a>
                 <a class="today_product" th:href="@{#}">
                     <div class="product_img">
                         <img src="/imgs/defaultimage.PNG">
@@ -103,6 +123,9 @@
         <div class="youtube_wrap">
             <div class="youtube_word">
                 인테리어가 어려울 땐?!
+            </div>
+            <div class="more_contents">
+                <a th:href="@{/youtube/}">+ 더보기</a>
             </div>
             <div class="videos">
                 <a class="video_item" th:href="@{#}">

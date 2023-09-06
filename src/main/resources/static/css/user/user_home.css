@@ -22,7 +22,7 @@
 }
 
 
-.buttons {
+.more_contents {
     /*margin-right: 25px;*/
     float: right;
 }
@@ -60,7 +60,7 @@ input[type="button"] {
 .today_product {
     margin-right: 10px;
     text-align: center;
-    width: 20%;
+    width: 19%;
     display: inline-block;
     overflow:hidden;
 }
