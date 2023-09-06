@@ -38,4 +38,15 @@ public interface IBoardDaoMapper {
     List<BoardDto> selectBoardMainSearch(String keyword);
 
     List<BoardDto> selectMainBoardList();
+    List<BoardDto> selectBoardMainSearch(String keyword, String uId);
+
+    void increaseLike(String no);
+
+    void insertBoardLike(String type, String no, String u_id);
+
+    int searchLike(String no);
+
+    void decreaseLike(String no);
+
+    void deleteBoardLike(String type, String no, String u_id);
 }

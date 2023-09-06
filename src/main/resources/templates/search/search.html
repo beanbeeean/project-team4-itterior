@@ -12,6 +12,9 @@
     <link rel="stylesheet" th:href="@{/css/user/modal_login_form.css}">
     <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
     <script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/include/search_home_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/include/board_home_js.html::js}" type="text/javascript"></script>
+    <script th:replace="~{/product/product_home_js.html::js}" type="text/javascript"></script>
 </head>
 
 <body>
@@ -22,14 +25,15 @@
 <section>
     <div id="section_wrap">
         <div class="result_wrap">
+            <h2 class="result_text"></h2>
             <div class="result_product">
                 <div class="result_header">
                     <h2 class="result_title">
                         인테리어 상품
                     </h2>
-                    <a class="go_btn" th:href="@{/product(keyword=${keyword})}">더보기</a>
+                    <a class="go_btn" th:if="${productDtos.size() > 0}" th:href="@{/product(keyword=${keyword})}">더보기</a>
                 </div>
-                <div class="result_product_area" >
+                <div class="result_product_area" th:if="${productDtos.size() > 0}">
                     <div th:each="item : ${productDtos}">
                         <a class="product_item_wrap" th:href="${item.p_link}" target="parent">
                             <div class="product_container">
@@ -47,16 +51,21 @@
                             </div>
                         </div>
                         <div class="like_hit_wrap">
-                            <a class="like_product_btn" href="#none">
+                            <a class="like_product_btn" href="#none" th:name="${item.p_no}">
                                 <img class="empty_heart" th:src="@{/imgs/empty_heart.png}"/>
                             </a>
-                            <span class="like_count">1</span>
+                            <span th:class="'1_like_count'+${item.p_no}"  th:text="${item.p_like}"></span>
                             <div class="hit_area">
                                 <img class="hit_img" th:src="@{/imgs/hit.png}" />
-                                <span class="hit_count">0</span>
+                                <span class="hit_count" th:text="${item.p_hit}"></span>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="cannot_result" th:if="${productDtos.size() <= 0}">
+                    검색 결과가 없습니다.
+                    <br>
+                    <a th:href="@{/product}">인테리어 상품으로 이동</a>
                 </div>
             </div>
             <div class="result_board">
@@ -64,12 +73,12 @@
                     <h2 class="result_title">
                         커뮤니티 게시판
                     </h2>
-                    <a class="go_btn" th:href="@{/board}">더보기</a>
+                    <a class="go_btn" th:if="${boardDtos.size() > 0}" th:href="@{/board(keyword=${keyword})}">더보기</a>
                 </div>
-                <div class="result_board_area">
+                <div class="result_board_area" th:if="${boardDtos.size() > 0}">
                     <div class="board_item_wrap" th:each="item : ${boardDtos}">
                         <div class="board_item">
-                            <a class="title" th:href="@{/board(get_board=${item.b_no})}">
+                            <a class="title" th:href="@{/board/get_board(b_no=${item.b_no})}">
                                 <img class="board_img" th:src="'/userBoardThumbnailImg/'+${item.u_id}+'/'+${item.b_thumbnail}" />
                                 <p class="board_title" th:text="${item.b_title}"></p>
                                 <div class="board_user_info">
@@ -79,16 +88,21 @@
                             </a>
                         </div>
                         <div class="like_hit_wrap">
-                            <a class="like_board_btn" href="#none" data-b_no="14">
+                            <a class="like_board_btn" href="#none" th:name="${item.b_no}">
                                 <img class="empty_heart" th:src="@{/imgs/empty_heart.png}"/>
                             </a>
-                            <span class="like_count" th:text="${item.b_like}"></span>
+                            <span th:class="'2_like_count'+ ${item.b_no}" th:text="${item.b_like}"></span>
                             <div class="hit_area">
                                 <img class="hit_img" th:src="@{/imgs/hit.png}"/>
                                 <span class="hit_count" th:text="${item.b_hit}"></span>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="cannot_result" th:if="${boardDtos.size() <= 0}">
+                    검색 결과가 없습니다.
+                    <br>
+                    <a th:href="@{/board}">커뮤니티로 이동</a>
                 </div>
 
             </div>
@@ -97,9 +111,9 @@
                     <h2 class="result_title">
                         추천 유튜브
                     </h2>
-                    <a class="go_btn" th:href="@{/youtube}">더보기</a>
+                    <a class="go_btn" th:if="${youtubeDtos.size() > 0}" th:href="@{/youtube(keyWord=${keyword})}">더보기</a>
                 </div>
-                <div class="result_youtube_area">
+                <div class="result_youtube_area" th:if="${youtubeDtos.size() > 0}">
                     <div class="youtube_item" th:each="youtubeDto : ${youtubeDtos}">
                         <iframe
                                 width="530"
@@ -114,15 +128,20 @@
                             <h3 class="youtube_title" th:text="${youtubeDto.y_title}"></h3>
                             <div class="like_channel_wrap">
                                 <span class="youtube_channel" th:text="${youtubeDto.y_channel}"></span>
-                                <a class="like_board_btn" href="#none" th:name="${youtubeDto.y_no}">
+                                <a class="like_youtube_btn" href="#none" th:name="${youtubeDto.y_no}">
                                     <img th:if="${youtubeDto.cnt == 0}" src="/imgs/empty_heart.png" class="empty_heart" />
                                     <img th:unless="${youtubeDto.cnt == 0}" src="/imgs/full_heart.png" class="full_heart" />
                                 </a>
-                                <span th:class="'like_count'+${youtubeDto.y_no}" th:text="${youtubeDto.y_like}"></span>
+                                <span th:class="'3_like_count'+${youtubeDto.y_no}" th:text="${youtubeDto.y_like}"></span>
                             </div>
                             <p th:text="${youtubeDto.y_content}"></p>
                         </div>
                     </div>
+                </div>
+                <div class="cannot_result" th:if="${youtubeDtos.size() <= 0}">
+                    검색 결과가 없습니다.
+                    <br>
+                    <a th:href="@{/youtube}">추천 영상으로 이동</a>
                 </div>
             </div>
         </div>

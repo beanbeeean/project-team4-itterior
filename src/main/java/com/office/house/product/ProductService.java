@@ -46,33 +46,6 @@ public class ProductService implements IProductService{
         return map;
     }
 
-    @Override
-    public Map<String, Object> productLikeConfirm(Map<String, String> msgMap) {
-        log.info("productLikeConfirm");
-        Map<String, Object> map = new HashMap<>();
-        int result = -1;
-
-        if(msgMap.get("method").equals("like")){
-            result = iProductDaoMapper.insertLikeCount(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
-        }else{
-            result = iProductDaoMapper.deleteLikeCount(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
-        }
-
-        if(result > 0){
-            int likeCnt = iProductDaoMapper.selectLikeCount(msgMap.get("type"), msgMap.get("no"));
-            result = iProductDaoMapper.updateLikeCountForProduct(msgMap.get("no"),likeCnt);
-
-            ProductDto productDto = iProductDaoMapper.selectProductByNo(msgMap.get("no"));
-            int isLike = iProductDaoMapper.selectLikeCount(msgMap.get("type"), msgMap.get("no"));
-
-            map.put("productDto", productDto);
-            map.put("isLike", isLike);
-        }
-
-        map.put("result", result);
-        return map;
-    }
-
 
     @Override
     public Map<String, Object> updateProductHit(String no) {
@@ -85,6 +58,26 @@ public class ProductService implements IProductService{
             map.put("productDto", productDto);
         }
         return map;
+    }
+
+    @Override
+    public int productLikeUpdate(Map<String, String> msgMap) {
+        log.info("productLikeUpdate");
+
+        iProductDaoMapper.increaseLike(msgMap.get("no"));
+        iProductDaoMapper.insertProductLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        return iProductDaoMapper.searchLike(msgMap.get("no"));
+    }
+
+    @Override
+    public int productLikeDelete(Map<String, String> msgMap) {
+        log.info("productLikeUpdate");
+
+        iProductDaoMapper.decreaseLike(msgMap.get("no"));
+        iProductDaoMapper.deleteProductLike(msgMap.get("type"), msgMap.get("no"), msgMap.get("u_id"));
+
+        return iProductDaoMapper.searchLike(msgMap.get("no"));
     }
 
     public Map<String, Object> getMainProductsList() {

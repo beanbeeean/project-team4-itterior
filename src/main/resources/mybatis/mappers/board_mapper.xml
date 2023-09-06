@@ -133,6 +133,8 @@
             *
         FROM
             tbl_board
+        LEFT JOIN (SELECT COUNT(*) cnt, l_content_no FROM tbl_like WHERE l_type = 2 AND u_id = #{uId} GROUP BY l_content_no) a
+        ON l_content_no = b_no
         WHERE
             b_title like CONCAT('%',#{keyword},'%')
         ORDER BY b_like DESC
@@ -147,5 +149,36 @@
         ORDER BY
             b_reg_date DESC
     </select>
+
+
+    <update id="increaseLike">
+        update tbl_board set b_like = b_like + 1 where b_no = #{no}
+    </update>
+
+    <update id="decreaseLike" >
+
+        update tbl_board set b_like = b_like - 1 where b_no = #{no}
+
+    </update>
+
+    <select id="searchLike" resultType="Integer">
+
+        select b_like from tbl_board where b_no = #{no}
+
+    </select>
+
+
+    <insert id="insertBoardLike" >
+
+        insert tbl_like(l_type, l_content_no, u_id, l_reg_date, l_mod_date)
+        values (#{type}, #{no}, #{u_id}, now(), now())
+
+    </insert>
+
+    <delete id="deleteBoardLike">
+
+        delete from tbl_like where l_type = 2 and l_content_no = #{no}
+
+    </delete>
 
 </mapper>

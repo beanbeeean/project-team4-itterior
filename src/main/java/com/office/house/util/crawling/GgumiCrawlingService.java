@@ -56,16 +56,15 @@ public class GgumiCrawlingService implements ICrawlingService{
                     WebElement linkElement = noticeElement.findElement(By.cssSelector("div.item > a"));
                     String link = linkElement.getAttribute("href");
 
-                    ProductDto productDto = ProductDto.builder()
-                            .p_brand(brand)
-                            .p_name(name)
-                            .p_sales_price(salesPrice)
-                            .p_img(image)
-                            .p_link(link)
-                            .p_category(type)
-                            .build();
+                    ProductDto dto = new ProductDto();
+                    dto.setP_brand(brand);
+                    dto.setP_name(name);
+                    dto.setP_sales_price(salesPrice);
+                    dto.setP_img(image);
+                    dto.setP_link(link);
+                    dto.setP_category(type);
 
-                    productDtos.add(productDto);
+                    productDtos.add(dto);
                 }
 
             }

@@ -78,4 +78,19 @@ public class ProductController {
         }
         return resultMap;
     }
+
+    @PostMapping("/product_like_update")
+    @ResponseBody
+    public int productLikeUpdate(@RequestBody Map<String, String> msgMap){
+        log.info("productLikeUpdate");
+        return productService.productLikeUpdate(msgMap);
+    }
+
+    @PostMapping("/product_like_delete")
+    @ResponseBody
+    public int productLikeDelete(@RequestBody Map<String, String> msgMap){
+        log.info("productLikeDelete");
+        return productService.productLikeDelete(msgMap);
+    }
+
 }

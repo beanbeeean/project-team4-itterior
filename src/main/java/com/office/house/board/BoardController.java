@@ -27,11 +27,11 @@ public class BoardController {
     UploadFileService uploadFileService;
 
     @GetMapping({"/", ""})
-    public String home() {
+    public String home(@RequestParam(required = false, value = "keyword") String keyword, Model model) {
         log.info("[BoardController] home()");
 
         String nextPage = "board/home";
-
+        model.addAttribute("keyword", keyword);
         return nextPage;
     }
     @GetMapping("/board_write_form")
@@ -182,6 +182,22 @@ public class BoardController {
             resultMap.put("u_id", "please_login");
         }
         return resultMap;
+    }
+
+
+
+    @PostMapping("/board_like_update")
+    @ResponseBody
+    public int boardLikeUpdate(@RequestBody Map<String, String> msgMap){
+        log.info("boardLikeUpdate");
+        return boardService.boardLikeUpdate(msgMap);
+    }
+
+    @PostMapping("/board_like_delete")
+    @ResponseBody
+    public int boardLikeDelete(@RequestBody Map<String, String> msgMap){
+        log.info("boardLikeDelete");
+        return boardService.boardLikeDelete(msgMap);
     }
 
 }

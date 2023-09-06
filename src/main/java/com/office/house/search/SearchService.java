@@ -28,15 +28,15 @@ public class SearchService {
     @Autowired
     IYoutubeDaoMapper iYoutubeDaoMapper;
 
-    public Map<String, Object> mainSearch(String keyword) {
+    public Map<String, Object> mainSearch(String keyword, String uId) {
         log.info("mainSearch");
         Map<String, Object> map = new HashMap<>();
 
-        List<ProductDto> productDtos = iProductDaoMapper.selectProductMainSearch(keyword);
+        List<ProductDto> productDtos = iProductDaoMapper.selectProductMainSearch(keyword,uId);
 
-        List<BoardDto> boardDtos = iBoardDaoMapper.selectBoardMainSearch(keyword);
+        List<BoardDto> boardDtos = iBoardDaoMapper.selectBoardMainSearch(keyword,uId);
 
-        List<YoutubeDto> youtubeDtos = iYoutubeDaoMapper.selectYoutubeMainSearch(keyword);
+        List<YoutubeDto> youtubeDtos = iYoutubeDaoMapper.selectYoutubeMainSearch(keyword,uId);
 
         map.put("productDtos", productDtos);
 

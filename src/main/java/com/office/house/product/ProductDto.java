@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.ToString;
 
 @Data
-@Builder
-@ToString
 public class ProductDto {
     private int p_no;
     private String p_brand;
@@ -20,4 +18,6 @@ public class ProductDto {
     private int p_state;
     private String p_reg_date;
     private String p_mod_date;
+
+    private int cnt;
 }

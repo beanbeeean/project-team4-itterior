@@ -45,6 +45,7 @@
         SELECT *
         FROM db_backend_pjt.tbl_youtube
         where y_title like CONCAT('%',#{keyWord},'%') and y_no in (SELECT l_content_no FROM db_backend_pjt.tbl_like where l_type = 3 and u_id = #{u_id})
+        where y_title like CONCAT('%',#{keyWord},'%')
         order by y_date desc LIMIT #{criteria.skip}, #{criteria.amount}
 
     </select>
@@ -85,9 +86,11 @@
             *
         FROM
             tbl_youtube
+        LEFT JOIN (SELECT COUNT(*) cnt, l_content_no FROM tbl_like WHERE l_type = 3 AND u_id = #{uId} GROUP BY l_content_no) a
+        ON l_content_no = y_no
         WHERE
             y_title like CONCAT('%',#{keyword},'%')
         ORDER BY y_like DESC
-        LIMIT 5
+        LIMIT 4
     </select>
 </mapper>
