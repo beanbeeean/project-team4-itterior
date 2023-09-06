@@ -19,4 +19,7 @@ public interface IBoardService {
     public int boardLikeUpdate(Map<String, String> msgMap);
 
     public int boardLikeDelete(Map<String, String> msgMap);
+
+    public Map<String, Object> getMainBoardList();
+
 }

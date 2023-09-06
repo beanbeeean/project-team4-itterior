@@ -2,6 +2,8 @@ package com.office.house.youtube;
 
 import com.office.house.admin.ChannelDto;
 import com.office.house.board.BoardDto;
+import com.office.house.like.LikeDto;
+import com.office.house.product.ProductDto;
 import com.office.house.util.page.Criteria;
 import com.office.house.util.page.PageMakerDto;
 import io.netty.handler.codec.json.JsonObjectDecoder;
@@ -13,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,4 +171,33 @@ public class YoutubeService implements IYoutubeService{
         return iYoutubeDaoMapper.searchLike(msgMap.get("no"));
     }
 
+    public Map<String, Object> getMainYoutubeList() {
+        log.info("[YoutubeService] getMainYoutubeList");
+        Map<String, Object> map = new HashMap<>();
+
+        List<YoutubeDto> dtos = iYoutubeDaoMapper.selectMainYoutube();
+
+        List<Integer> likeList = new ArrayList<>();
+        for(YoutubeDto dto : dtos){
+            if(dto.getY_like() > 0){
+                likeList.add(dto.getY_no());
+            }
+        }
+
+        log.info("likeList: " + likeList);
+
+
+        List<LikeDto> isLikedDtos = new ArrayList<>();
+        if(likeList.size() > 0){
+            isLikedDtos = iYoutubeDaoMapper.selectLikedYoutube(likeList);
+        }
+
+        log.info(isLikedDtos);
+        if(isLikedDtos.get(0) == null){
+            isLikedDtos.clear();
+        }
+        map.put("isLikedDtos", isLikedDtos);
+        map.put("youtubeDtos", dtos);
+        return map;
+    }
 }

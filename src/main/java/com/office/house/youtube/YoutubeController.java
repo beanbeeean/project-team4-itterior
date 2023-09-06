@@ -71,4 +71,18 @@ public class YoutubeController {
         return youtubeService.youtubeLikeDelete(msgMap);
     }
 
+    @GetMapping("/get_main_youtube_list")
+    @ResponseBody
+    public Map<String, Object>  getMainYoutubeList(HttpSession session){
+        log.info("[YoutubeController] getMainYoutubeList()");
+        Map<String, Object> resultMap = youtubeService.getMainYoutubeList();
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        if(loginedMemberDto != null){
+            resultMap.put("u_id", loginedMemberDto.getU_id());
+        }else{
+            resultMap.put("u_id", "please_login");
+        }
+        return resultMap;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.office.house.board;
 
 import com.office.house.like.LikeDto;
 import com.office.house.user.UserDto;
+import com.office.house.youtube.YoutubeDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

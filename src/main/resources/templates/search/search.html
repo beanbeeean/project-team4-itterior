@@ -116,8 +116,8 @@
                 <div class="result_youtube_area" th:if="${youtubeDtos.size() > 0}">
                     <div class="youtube_item" th:each="youtubeDto : ${youtubeDtos}">
                         <iframe
-                                width="530"
-                                height="260"
+                                width="450"
+                                height="200"
                                 th:src="'https://www.youtube.com/embed/'+${youtubeDto.y_id}"
                                 title="YouTube video player"
                                 frameborder="0"

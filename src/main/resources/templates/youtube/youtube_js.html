@@ -101,6 +101,34 @@
         });
     }
 
+    // 인테리어 상품 1개 재구성(좋아요 시)
+    function reconYoutubeTdForLike(youtubeDto, isLike){
+        for(let i = 0; i < $('a.like_youtube_btn').length; i++){
+            if($('a.like_youtube_btn').eq(i).data("y_no") == youtubeDto.y_no){
+                $('a.like_youtube_btn').eq(i).children().remove();
+
+                let appendTag = '';
+
+                if(isLike > 0) {
+                    appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
+                    appendTag += 'data-y_no="';
+                    appendTag += youtubeDto.y_no;
+                    appendTag += '">';
+                }else {
+                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
+                    appendTag += 'data-y_no="';
+                    appendTag += youtubeDto.y_no;
+                    appendTag += '">';
+                }
+                $('a.like_youtube_btn').eq(i).append(appendTag);
+
+                $('span.like_count').eq(i).text(youtubeDto.y_like);
+
+                break;
+            }
+        }
+    }
+
 </script>
 
 

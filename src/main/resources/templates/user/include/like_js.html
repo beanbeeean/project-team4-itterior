@@ -7,13 +7,12 @@
         init_like_events();
     });
 
-
     function init_like_events(){
         // 인테리어 상품 좋아요 / 좋아요 취소
         $(document).on('click','a.like_product_btn',function (e){
             e.preventDefault();
             let p_no = $(this).data("p_no");
-            console.log("p_no ++++++" + p_no);
+            console.log("p_no : " + p_no);
             let loginedMemberDto = [[${session.loginedMemberDto}]];
             if(loginedMemberDto == null){
                 $('div.modal_wrap').css('display','block');
@@ -47,6 +46,26 @@
             }
         })
 
+        // 유튜브 좋아요 / 좋아요 취소
+        $(document).on('click','a.like_youtube_btn', function (e) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            let y_no = $(this).data("y_no");
+            console.log("y_no : " + y_no);
+
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null){
+                $('div.modal_wrap').css('display','block');
+            }else{
+                if($(this).find("img.full_heart").attr('class') == "full_heart"){
+                    ajax_updateLikeCount("cancel", 3, y_no, loginedMemberDto.u_id);
+                }else{
+                    ajax_updateLikeCount("like", 3, y_no, loginedMemberDto.u_id);
+                }
+
+            }
+        })
+
         // 마이 페이지 좋아요 취소
         $(document).on('click','a.user_like_board_btn', function (e) {
             e.preventDefault();
@@ -72,6 +91,20 @@
                 $('div.modal_wrap').css('display','block');
             }else{
                 ajax_decreaseLikeCount(1, p_no, loginedMemberDto.u_id);
+            }
+        })
+
+        // 유튜브 좋아요 취소
+        $(document).on('click','a.like_youtube_btn', function (e) {
+            e.preventDefault();
+            let y_no = $(this).data("y_no");
+            console.log("y_no : " + y_no);
+
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null){
+                $('div.modal_wrap').css('display','block');
+            }else{
+                ajax_decreaseLikeCount(3, y_no, loginedMemberDto.u_id);
             }
         })
     }
@@ -101,6 +134,7 @@
                         ajax_LikeBoardList(sort, pageNum, keyword)
                         break;
                     case 3:
+                        ajax_MainYoutubeList();
                         break;
                 }
 
@@ -139,6 +173,7 @@
                        reconBoardTdForLike(data.boardDto, data.isLike)
                        break;
                    case 3:
+                       reconYoutubeTdForLike(data.youtubeDto, data.isLike)
                        break;
                }
 
