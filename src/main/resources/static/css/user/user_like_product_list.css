@@ -1,5 +1,8 @@
 .section_body {
-    margin-left: 125px;
+    width: 1200px;
+    margin: 0 auto;
+    margin-left: 200px;
+    margin-top: 20px;
 }
 
 div.search_product_wrap{

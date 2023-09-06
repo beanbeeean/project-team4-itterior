@@ -1,9 +1,9 @@
 section {
-	width: 100%;
+	min-width: 1600px;
 }
 
 section #section_wrap {
-	/*width: 100%;*/
+	min-width: 1600px;
 }
 
 section #section_wrap .word {

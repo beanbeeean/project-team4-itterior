@@ -20,18 +20,10 @@
         <div th:insert="~{/include/user_nav_left.html::div}"/>
         <div class="section_body">
             <div class="detail_category">
-                <div class="select">
-                    <select>
-                        <option selected>정렬</option>
-                        <option>좋아요순</option>
-                        <option>조회순</option>
-                        <option>날짜순</option>
-                    </select>
-                </div>
                 <a class="write" th:href="@{/user/user_write_form}">글쓰기</a>
             </div>
             <div class="board_wrap">
-                <p th:text="'전체 '"></p>
+                <p th:text="'작성한 글 수 '"></p>
                 <table>
                     <tbody>
                     </tbody>

@@ -16,11 +16,14 @@ header {
 	height: 250vh;
 }
 
-.side_bar img.user_img,
-.section_body img.user_img {
+.side_bar img.user_img {
 	width: 150px;
 	height: 150px;
 	border-radius: 100px;
+}
+
+.side_bar img.user_img {
+	margin-top: 20px;
 }
 
 .side_bar p {
@@ -63,7 +66,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 20px;
-
+	margin-left: 30px;
 }
 
 .detail_category select {
@@ -117,6 +120,7 @@ header {
 	text-align: left;
 	font-size: 1.1em;
 	margin-bottom: 10px;
+	margin-left: 30px;
 }
 
 .board_wrap table {
@@ -244,7 +248,7 @@ section #section_wrap > div.page_wrap > div.page_number a.selectedPageNum {
 }
 div.search_board_wrap{
 	width: 600px;
-	margin: 20px auto 0;
+	margin: 100px auto 0;
 	display: flex;
 	justify-content: center;
 	position: relative;
