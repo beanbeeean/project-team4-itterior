@@ -172,3 +172,292 @@ span.hit_count {
     line-height: 18px;
     font-size: 18px;
 }
+
+#section_wrap {
+    margin: 30px 25px;
+}
+
+.board_word,
+.product_word,
+.youtube_word{
+    display: inline-block;
+    font-size: 1.3em;
+    font-weight: bold;
+    color: rgb(237, 175, 175);
+    margin-bottom: 20px;
+}
+
+
+.board_wrap,
+.product_wrap,
+.youtube_wrap {
+    border-top: 1px solid #dadada;
+    padding-top: 20px;
+    margin: 0 auto;
+}
+
+.boards,
+.products,
+.videos{
+    margin-bottom: 50px;
+}
+
+
+.more_contents {
+    /*margin-right: 25px;*/
+    float: right;
+}
+
+input[type="button"] {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.board_items {
+    margin-right: 10px;
+    text-align: center;
+    width: 19%;
+    display: inline-block;
+}
+
+.today_board > img {
+    width: 100%;
+    height: 200px;
+}
+
+.today_board .board_title {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+.today_board .heart,
+.today_board .hit {
+    width: 20px;
+    height: 20px;
+}
+
+.board_wrap span{
+    vertical-align: 5px;
+    margin-right: 5px;
+}
+
+.today_board .board_author {
+    float: right;
+    font-size: 0.9em;
+    color: #939393;
+}
+
+.like_board_btn .empty_heart,
+.like_board_btn .full_heart,
+.like_product_btn .empty_heart,
+.like_product_btn .full_heart,
+.like_youtube_btn .empty_heart,
+.like_youtube_btn .full_heart{
+    width: 20px;
+    height: 20px;
+}
+
+.hit {
+    width: 20px;
+    height: 20px;
+}
+
+.product_wrap span{
+    vertical-align: 5px;
+    margin-right: 5px;
+}
+
+.product_items {
+    margin-right: 10px;
+    text-align: center;
+    height: 400px;
+    width: 19%;
+    display: inline-block;
+}
+
+.product_img > img {
+    width: 100%;
+    height: 250px;
+    margin-bottom: 10px;
+}
+
+
+.today_product .product_img > img:hover {
+    transform:scale(1.1);
+    transition: transform .35s;
+}
+
+
+.today_product .product_brand {
+    font-size: 0.9em;
+    color: #dadada;
+    float: left;
+    font-weight: bold;
+}
+
+.today_product .product_name {
+
+    float: left;
+    text-align: left;
+    margin-bottom: 5px;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 텍스트 생략 부호(...) 표시 */
+}
+
+.today_product .product_sales_price_tag {
+    float: right;
+    font-size: 1.2em;
+    color: rgb(237, 175, 175);
+    font-weight: bold;
+}
+
+.today_product .product_sales_price {
+    margin-left: 5px;
+    float: right;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.today_product .title {
+    padding: 5px 10px;
+}
+
+.product_items .like_hit_wrap{
+    margin-top: 5px;
+    float: right;
+    padding-left: 100px;
+}
+
+.today_product .heart,
+.today_product .hit {
+    width: 20px;
+    height: 20px;
+}
+
+div.youtube_wrap {
+    width: 100%;
+}
+
+div.videos {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+div.videos iframe {
+    margin-right: 10px;
+
+}
+
+div.youtube_items {
+    padding: 20px;
+    width: 650px;
+    display: inherit;
+}
+
+div.youtube_items h3 {
+    font-size: 1.3em;
+}
+
+div.youtube_items iframe {
+    border-radius: 15px;
+}
+
+div.youtube_items_detail {
+    margin: 0 auto;
+    padding: 10px;
+}
+
+h3.youtube_title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+span.youtube_channel {
+    font-size: 18px;
+    color: #aeaeae;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+div.like_channel_wrap {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    padding-right: 10px;
+}
+
+.like_count {
+    line-height: 5px;
+    font-size: 18px;
+}
+
+section #section_wrap > div.page_wrap {
+    width: 98%;
+    margin: 30px auto 50px;
+    text-align: center;
+
+}
+
+section #section_wrap > div.page_wrap > div.page_number {
+    display: inline-block;
+}
+
+section #section_wrap > div.page_wrap > div.page_number a {
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0 3px;
+    color: #3c3c3c;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+section #section_wrap > div.page_wrap > div.page_number a:hover {
+    background-color: #e3e6e8;
+}
+
+section #section_wrap > div.page_wrap > div.page_number a.selectedPageNum {
+    color: #fff;
+    font-weight: bolder;
+    border: 1px solid #232f3d;
+    background-color: #232f3d;
+}
+
+div.search_youtube_wrap{
+    width: 800px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+div.search_youtube_wrap input[name="p_search"]{
+    width: 600px;
+    height: 30px;
+    line-height: 30px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin-right: 10px;
+    font-size: 18px;
+    border: 1px solid #dadada;
+}
+
+div.search_youtube_wrap svg.search_btn {
+    position: absolute;
+    top:16px;
+    right:100px;
+    cursor: pointer;
+}
