@@ -28,7 +28,7 @@
         <div th:insert="~{/include/user_nav_left.html::div}"/>
         <div class="section_body">
             <div class="container">
-                <form enctype="multipart/form-data" style="height: 850px; top: -200px ">
+                <form enctype="multipart/form-data">
                     <p>MY PAGE</p>
                     <input type="hidden" name="u_no" th:if="${session.loginedMemberDto != null}"
                            th:value="${session.loginedMemberDto.u_no}">
