@@ -80,7 +80,7 @@
 
             appendTag += c_reg_date;
 
-            appendTag += '<a class="recomment" onclick="showRereplyForm(' + i + ', \'' + commentDtos[i].u_id + '\', ' + commentDtos[i].c_no + ');">';
+            appendTag += '<a class="recomment" onclick="showRereplyForm(' + i + ', \'' + commentDtos[i].u_id + '\', ' + commentDtos[i].c_target_c_no + ');">';
             appendTag += '답글달기';
             appendTag += '</a>';
 
@@ -125,7 +125,7 @@
             }
 
             replyForm +=
-                `<input class="input_re_comment" type="text">
+                `<input class="input_re_comment" placeholder="댓글을 입력하세요" type="text" style="margin-left: 10px;">
                 <input type="button" value="입력" onclick="registRereply('${u_id}', ${c_no});">
                 </td>
             </tr>

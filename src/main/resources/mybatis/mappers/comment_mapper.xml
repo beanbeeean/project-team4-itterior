@@ -5,35 +5,73 @@
 <mapper namespace="com.office.house.comment.ICommentDaoMapper">
 
     <insert id="insertNewReply" parameterType="com.office.house.comment.CommentDto">
-        insert into tbl_comment (u_id, u_img, b_no, c_comment, c_reg_date, c_mod_date) values (#{u_id}, #{u_img}, #{b_no}, #{c_comment}, now(), now())
+        INSERT INTO
+            tbl_comment (u_id, u_img, b_no, c_comment, c_reg_date, c_mod_date)
+        VALUES
+            (#{u_id}, #{u_img}, #{b_no}, #{c_comment}, now(), now())
     </insert>
 
     <select id="getMaxCno" resultType="Integer">
-        select max(c_no) from tbl_comment
+        SELECT
+            max(c_no)
+        FROM
+            tbl_comment
     </select>
 
     <update id="updateTargetCno" parameterType="Integer">
-        update tbl_comment set c_target_c_no = #{c_no} where c_no = #{c_no}
+        UPDATE
+            tbl_comment
+        SET
+            c_target_c_no = #{c_no}
+        WHERE
+            c_no = #{c_no}
     </update>
 
     <select id="selectCommentList" parameterType="Integer" resultType="hashmap" >
-        select * from tbl_comment c join tbl_board b ON c.b_no = b.b_no where c.b_no = #{b_no} ORDER BY c.c_target_c_no desc, c.c_reg_date asc;
+        SELECT
+            *
+        FROM
+            tbl_comment c
+                JOIN tbl_board b
+                    on
+                        c.b_no = b.b_no
+        WHERE
+            c.b_no = #{b_no}
+        ORDER BY
+            c.c_target_c_no desc,
+            c.c_reg_date asc;
     </select>
 
     <insert id="insertRereply" parameterType="com.office.house.comment.CommentDto">
-        insert into tbl_comment (u_id, u_img, b_no, c_comment, c_target_u_id, c_target_c_no, c_reg_date, c_mod_date) values (#{u_id}, #{u_img}, #{b_no}, #{c_comment}, #{c_target_u_id}, #{c_target_c_no}, now(), now())
+        INSERT INTO
+            tbl_comment (u_id, u_img, b_no, c_comment, c_target_u_id, c_target_c_no, c_reg_date, c_mod_date)
+        VALUES
+            (#{u_id}, #{u_img}, #{b_no}, #{c_comment}, #{c_target_u_id}, #{c_target_c_no}, now(), now())
     </insert>
 
     <delete id="deleteComment" parameterType="hashmap">
-        delete from tbl_comment where c_no = #{c_no}
+        DELETE FROM
+                   tbl_comment
+               WHERE
+                   c_no = #{c_no}
     </delete>
 
     <update id="updateComment" parameterType="hashmap">
-        update tbl_comment set c_comment = #{commentDto.c_comment}, c_mod_date = now() where c_no = #{c_no}
+        UPDATE
+            tbl_comment
+        SET
+            c_comment = #{commentDto.c_comment}, c_mod_date = now()
+        WHERE
+            c_no = #{c_no}
     </update>
 
     <update id="updateUserImage" parameterType="com.office.house.user.UserDto">
-        update tbl_comment set u_img = #{u_img}, c_mod_date = now() where u_id = #{u_id}
+        UPDATE
+            tbl_comment
+        SET
+            u_img = #{u_img}, c_mod_date = now()
+        WHERE
+            u_id = #{u_id}
     </update>
 
 </mapper>
