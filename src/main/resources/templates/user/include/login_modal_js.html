@@ -29,6 +29,9 @@
         // 모달 닫기 버튼 클릭시
         $(document).on('click', 'div.modal_wrap div.close_btn', function(){
             cleanInputValue();
+            $('div.login_modal').css('display','block');
+            $('div.create_account_modal').css('display','none');
+            $('div.find_password_modal').css('display','none');
             $('div.modal_wrap').css('display', 'none');
         })
 
@@ -203,7 +206,7 @@
             success: function(data) {
                 let loginedMemberDto = "[[${session.loginedMemberDto}]]";
 
-                if(loginedMemberDto != null && loginedMemberDto != ""){
+                if(loginedMemberDto != null){
                     console.log('AJAX SUCCESS - ajax_userLogin()');
                     alert('로그인 성공했습니다.');
                     $('div.modal_wrap').css('display','none');
@@ -294,6 +297,11 @@
             }
         });
     }
+
+    function test(){
+
+    }
+
 
     // AJAX END
 

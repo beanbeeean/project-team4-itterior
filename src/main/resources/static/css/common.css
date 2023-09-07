@@ -9,6 +9,10 @@ a {
 	text-decoration: none;
 }
 
+.logo {
+	color: #fff;
+}
+
 li {
 	list-style: none;
 }

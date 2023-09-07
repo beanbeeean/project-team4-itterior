@@ -69,5 +69,13 @@
 
             location.href = url + '?pageNum=' + pageNum + '&keyWord=' + keyWord;
         });
+
+        $(document).on("change", ".sortSelect", function () {
+            sort = parseInt(this.value); // 선택한 값을 가져옴
+
+            let keyWord = [[${keyWord}]];
+
+            location.href = url + '?keyWord=' + keyWord + '&sort=' + sort;
+        });
     }
 </script>

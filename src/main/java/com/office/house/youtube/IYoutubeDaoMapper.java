@@ -14,9 +14,9 @@ public interface IYoutubeDaoMapper {
 
     void insertNewYoutube(YoutubeDto youtubeDto);
 
-    List<YoutubeDto> getYoutubes(String keyWord, Criteria criteria, String u_id);
+    List<YoutubeDto> getYoutubes(String keyWord, String sort, Criteria criteria, String u_id);
 
-    List<YoutubeDto> getLikeYoutubes(String keyWord, Criteria criteria, String u_id);
+    List<YoutubeDto> getLikeYoutubes(String keyWord, String sort, Criteria criteria, String u_id);
     int getTotalCnt(String keyWord);
     void insertYoutubeLike(String type, String no, String u_id);
 

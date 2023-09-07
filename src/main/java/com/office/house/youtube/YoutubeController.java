@@ -27,6 +27,7 @@ public class YoutubeController {
     @GetMapping({"/youtube_home","","/"})
     public String home(Model model, HttpSession session,
                                  @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                                 @RequestParam(value = "sort", required = false, defaultValue = "0") String sort,
                                  @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                                  @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_AMOUNT) int amount){
 
@@ -37,9 +38,9 @@ public class YoutubeController {
         UserDto userDto = (UserDto) session.getAttribute("loginedMemberDto");
         Map<String, Object> map;
         if(userDto != null){
-            map = youtubeService.getYoutubes(keyWord, pageNum, amount, userDto.getU_id());
+            map = youtubeService.getYoutubes(keyWord, sort, pageNum, amount, userDto.getU_id());
         } else {
-            map = youtubeService.getYoutubes(keyWord, pageNum, amount, "");
+            map = youtubeService.getYoutubes(keyWord, sort, pageNum, amount, "");
         }
 
         List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
@@ -49,6 +50,8 @@ public class YoutubeController {
         model.addAttribute("YoutubeDtos", YoutubeDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);
         model.addAttribute("keyWord", keyWord);
+        model.addAttribute("totalCnt", map.get("totalCnt"));
+        model.addAttribute("sort", sort);
 
         return nextPage;
     }
