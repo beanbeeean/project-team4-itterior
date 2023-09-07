@@ -5,27 +5,29 @@
 </header>
 
 <div th:fragment="sidebar" class="admin_side_bar">
+
     <div>
         <h3 class="admin_welcome" th:text="${session.loginedAdminDto.a_id} + ' 님, 환영합니다!'"></h3>
     </div>
     <div class="admin_manage_member">
         <h4>회원 관리</h4>
-        <p><a th:href="@{/admin/user_list}">사용자</a></p>
-        <p th:if="${session.loginedAdminDto.a_state == 2}"><a th:href="@{/admin/admin_list}">관리자</a></p>
+        <p><a class="admin_u" th:href="@{/admin/user_list}">사용자</a></p>
+        <p th:if="${session.loginedAdminDto.a_state == 2}"><a class="admin_a" th:href="@{/admin/admin_list}">관리자</a></p>
     </div>
 
     <div class="admin_manage_content">
         <h4>콘텐츠 관리</h4>
-        <p><a th:href="@{/admin/youtube_list}">유튜브 목록</a></p>
-        <p><a th:href="@{/admin/youtube_channel_list}">유튜브 채널 목록</a></p>
-        <p><a th:href="@{/admin/board_list}">게시판 목록</a></p>
-        <p><a th:href="@{/admin/product_list}">상품 목록</a></p>
+        <p><a class="admin_y" th:href="@{/admin/youtube_list}">유튜브 목록</a></p>
+        <p><a class="admin_yc" th:href="@{/admin/youtube_channel_list}">유튜브 채널 목록</a></p>
+        <p><a class="admin_b" th:href="@{/admin/board_list}">게시판 목록</a></p>
+        <p><a class="admin_p" th:href="@{/admin/product_list}">상품 목록</a></p>
     </div>
 
     <div class="admin_manage_account">
         <h4>계정 관리</h4>
-        <p><a th:href="@{/admin/admin_modify_form}">계정 수정</a></p>
+        <p><a class="admin_m" th:href="@{/admin/admin_modify_form}">계정 수정</a></p>
         <p><a th:href="@{/admin/admin_logout_confirm}">로그아웃</a></p>
         <p><a th:href="@{/admin/admin_delete_confirm}">계정 탈퇴</a></p>
     </div>
+    <script th:src="@{/js/admin/admin_side_bar.js}" type="text/javascript"></script>
 </div>
