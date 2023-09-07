@@ -83,6 +83,7 @@ div.product_item_list table {
 
 .product_container_wrap td{
     flex: 0 25%;
+    max-width: 200px;
 }
 
 .product_container_wrap > td{

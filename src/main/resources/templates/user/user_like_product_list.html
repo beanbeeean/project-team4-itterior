@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/home.css}">
     <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+    <link rel="stylesheet" th:href="@{/css/user/user_nav.css}">
     <link rel="stylesheet" th:href="@{/css/user/user_board_list.css}">
     <link rel="stylesheet" th:href="@{/css/user/user_like_product_list.css}">
 
@@ -17,9 +18,8 @@
 <body>
 <header th:replace="~{/include/header_nav_footer.html::header}"/>
 
-<section>
-    <div id="section_wrap">
-        <div th:insert="~{/include/user_nav_left.html::div}"/>
+<section id="section_wrap">
+    <div th:replace="~{/include/user_nav_left.html::nav_left}"/>
         <div class="section_body">
         <div class="word">
             <h3>좋아요 한 상품</h3>

@@ -1,56 +1,68 @@
-.on{
-    background-color: rgb(237, 175, 175);
-    color: #ffffff;
+header.user_header {
     width: 100%;
-    padding: 10px 0;
     min-width: 1600px;
+    background-color: #e8dcca;
+    position: relative;
+    padding: 20px 0;
+}
+
+a.logo {
+    padding-left: 30px;
+    font-size: 40px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+
+div.search_bar {
     text-align: center;
 }
 
-.active_menu {
-    color: rgb(122,122,220);
-}
-
-.logo {
+div.search_bar_wrap {
+    width: 380px;
     display: inline-block;
-    font-size: 30px;
-    font-weight: bold;
-    color: #fff;
-    padding-bottom: 10px;
-}
-
-.search_bar_wrap{
     position: relative;
-    width: 520px;
-    margin: 0 auto;
 }
 
-.search_bar_wrap svg {
+div.search_bar_wrap input.main_search_bar {
+    padding: 10px 20px;
+    width: 300px;
+    font-size: 25px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+}
+
+div.search_bar_wrap > svg.search_btn {
     position: absolute;
-    right: 0;
-    top: 13px;
+    right: 35px;
+    top: 15px;
     cursor: pointer;
 }
 
-.search_bar input {
-    width: 500px;
-    padding: 15px 20px 15px 15px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
+div.search_bar_wrap > svg.search_btn:hover path {
+    fill: rgb(160, 119, 98);
 }
 
+div.search_bar_wrap > svg.search_btn > path {
+    fill: #b9b9b9;
+}
 
-#user-actions {
+div#user-actions {
     text-align: right;
-    padding-right: 30px;
+    padding-right: 80px;
 }
 
-#user-actions a {
-    text-decoration: none;
-    color: #ffffff;
-    margin-right: 5px;
-    font-size: 22px;
+div#user-actions > a {
+    font-size: 25px;
+}
+
+div#user-actions > a:last-child {
+    margin-left: 20px;
+}
+
+div#user-actions > a:hover {
+    color: rgb(160, 119, 98);
+    font-weight: bold;
 }
 
 nav {

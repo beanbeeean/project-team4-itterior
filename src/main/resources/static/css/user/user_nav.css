@@ -1,0 +1,78 @@
+
+section#section_wrap {
+    display: grid;
+    grid-template-columns: 250px auto;
+}
+
+.user_side_bar {
+    height: 100vh;
+    background-color: #f9f3eb;
+    display: inline-block;
+    padding: 0 30px;
+    width: 250px;
+}
+
+.user_side_bar .user_area {
+    text-align: center;
+    padding-top: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.user_side_bar .user_img {
+    width: 150px;
+    height: 150px;
+    max-width: 150px;
+    min-width: 150px;
+    border-radius: 50%;
+}
+
+h3.user_welcome {
+    text-align: center;
+    padding: 20px 0 30px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+h3.user_welcome:hover {
+    color: rgb(248, 92, 15);
+}
+
+div.user_content,
+div.user_account {
+    border-top: 1px solid rgba(159, 158, 161, 0.721);
+    padding-top: 30px;
+}
+
+div.user_content > h4,
+div.user_account > h4 {
+    margin-bottom: 15px;
+    font-size: 19px;
+}
+
+div.user_content > p,
+div.user_account > p {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+div.user_content a,
+div.user_account a {
+    color: rgb(146, 144, 144);
+}
+
+div.user_account {
+    margin-top: 30px;
+}
+
+div.user_side_bar a:hover {
+    color: rgb(248, 92, 15);
+}
+
+div.user_side_bar a.active {
+    color: rgb(241, 73, 11);
+}
+
+div.user_section_wrap {
+    padding: 80px 150px;
+}

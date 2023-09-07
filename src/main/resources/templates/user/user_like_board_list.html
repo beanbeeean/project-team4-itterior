@@ -7,6 +7,7 @@
             integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
+    <link rel="stylesheet" th:href="@{/css/user/user_nav.css}">
     <link rel="stylesheet" th:href="@{/css/user/user_like_board_list.css}">
 
     <script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
@@ -17,9 +18,8 @@
 <body>
 <header th:replace="~{/include/header_nav_footer.html::header}"/>
 
-<section>
-    <div id="section_wrap">
-        <div th:insert="~{/include/user_nav_left.html::div}"/>
+<section id="section_wrap">
+    <div th:replace="~{/include/user_nav_left.html::nav_left}"/>
         <div class="section_body">
             <div class="search_board_wrap">
                 <input type="text" name="b_search" placeholder="게시물 제목을 입력해주세요.">

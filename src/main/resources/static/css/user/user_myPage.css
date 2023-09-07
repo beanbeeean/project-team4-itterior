@@ -1,0 +1,117 @@
+
+img.image-preview {
+    max-width: 150px;
+}
+div.user_section_wrap {
+    padding: 80px 150px 50px;
+    min-width: 1000px;
+}
+
+span.user_mp_tag {
+    font-size: 20px;
+    width: 50px;
+    padding-left: 10px;
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 0.9em;
+}
+
+div.container {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
+}
+
+div.container > h2 {
+    padding-left: 60px;
+}
+
+img.image-preview {
+    width: 300px;
+    max-width: 220px;
+    min-width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: block;
+}
+
+div.user_section_wrap form {
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+div.user_section_wrap form input {
+    width: 500px;
+    padding: 10px 20px;
+    border: 1px solid #dadada;
+    outline: none;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+div.user_section_wrap input[type="button"],
+div.user_section_wrap input[type="reset"] {
+    width: 100px;
+    float: right;
+    margin-left: 10px;
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+div.user_section_wrap input[type="button"]:hover,
+div.user_section_wrap input[type="reset"]:hover {
+    color: rgb(248, 92, 15);
+    font-weight: bold;
+}
+
+.drop {
+    background: #e8dcca;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border-left: 1px solid rgba(237, 175, 175, 0.3);
+    border-top: 1px solid rgba(237, 175, 175, 0.3);
+    box-shadow: 10px 10px 60px -8px rgba(237, 175, 175, 0.2);
+    position: absolute;
+    transition: all 0.2s ease;
+}
+
+.drop-1 {
+    height: 100px;
+    width: 100px;
+    top: -30px;
+    left: -10px;
+    z-index: -1;
+}
+
+.drop-2 {
+    height: 100px;
+    width: 100px;
+    bottom: -30px;
+    left: 80px;
+    z-index: -1;
+}
+
+.drop-3 {
+    height: 130px;
+    width: 130px;
+    bottom: 120px;
+    right: -50px;
+    z-index: -1;
+}
+
+.drop-4 {
+    height: 150px;
+    width: 150px;
+    top: -40px;
+    right: -0px;
+}
+
+.drop-5 {
+    height: 80px;
+    width: 80px;
+    bottom: 170px;
+    left: -40px;
+    z-index: -1;
+}
