@@ -49,7 +49,7 @@
                         <tbody>
                             <tr th:each="boardDto : ${BoardDtos}">
                                 <td th:text="${boardDto.u_id}"></td>
-                                <td><a th:href="@{/admin/board_list_detail?(no = ${boardDto.b_no})}" th:text="${#strings.abbreviate(boardDto.b_title,12)}"></a></td>
+                                <td><a th:href="@{/admin/board_list_detail?(no = ${boardDto.b_no})}" th:text="${#strings.abbreviate(boardDto.b_title,30)}"></a></td>
                                 <td style="text-align: center"  th:text="${boardDto.b_hit}"></td>
                                 <td style="text-align: center"  th:text="${boardDto.b_like}"></td>
                                 <td th:text="${boardDto.b_reg_date}"></td>
