@@ -137,6 +137,7 @@ public class YoutubeService implements IYoutubeService{
         int totalCnt = iYoutubeDaoMapper.getTotalCnt(keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
+        System.out.println("service totalCnt : " + totalCnt);
         map.put("totalCnt", totalCnt);
         map.put("YoutubeDtos", YoutubeDtos);
         map.put("pageMakerDto", pageMakerDto);

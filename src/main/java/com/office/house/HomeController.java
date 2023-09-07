@@ -30,6 +30,7 @@ public class HomeController {
 			session.setAttribute("loginedMemberDto", loginedMemberDto);
 			session.setMaxInactiveInterval(60 * 30);
 		}
+		session.removeAttribute("loginedAdminDto");
 
 		return "home";
 	}

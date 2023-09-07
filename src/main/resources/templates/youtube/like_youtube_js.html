@@ -1,0 +1,135 @@
+<script th:fragment="js" th:inline="javascript" type="text/javascript">
+
+    $(document).ready(function(){
+        console.log("DOCUMENT 222READY!!");
+
+        // 이벤트 핸들러 초기화(등록)
+        init_like_events();
+
+        search_events();
+    });
+    function search_events(){
+        $(document).on('click','div.search_youtube_wrap > svg.search_btn', function(e){
+            let keyWord = $('input[name="p_search"]').val();
+            location.href="/user/user_like_youtube_list?keyWord=" + keyWord;
+        })
+    }
+
+    function init_like_events(){
+
+
+        $(document).on('click','a.like_board_btn',function (e){
+            console.log("click");
+            let y_no = $(this).attr('name');
+            console.log(y_no);
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            if(loginedMemberDto == null) {
+                $('div.modal_wrap').css('display', 'block');
+            } else {
+                if($(this).find("img.full_heart").attr('class') == "full_heart") {
+                    $(this).html('<img src="/imgs/empty_heart.png" class="empty_heart" />');
+                    ajax_deleteLikeCount(3, y_no, loginedMemberDto.u_id, 0);
+                } else {-
+                    $(this).html('<img src="/imgs/full_heart.png" class="full_heart" />');
+                    ajax_updateLikeCount(3, y_no, loginedMemberDto.u_id);
+                }
+            }
+        })
+
+        $(document).on('click','a.like_youtube_btn',function (e){
+            console.log("click");
+            let y_no = $(this).attr('name');
+            let loginedMemberDto = [[${session.loginedMemberDto}]];
+            ajax_deleteLikeCount(3, y_no, loginedMemberDto.u_id, 1);
+        })
+
+    }
+
+   function ajax_updateLikeCount(type, no, u_id){
+       console.log('ajax_updateLikeCount() CALLED!!');
+
+       let msgDto = {
+           'type': type,
+           'no': no,
+           'u_id' : u_id
+       };
+
+       let str = '/youtube/youtube_like_update';
+       $.ajax({
+           url: str,
+           method: 'POST',
+           data: JSON.stringify(msgDto),
+           contentType: 'application/json; charset=utf-8',
+           success: function(data) {
+               console.log('AJAX SUCCESS - ajax_updateLikeCount()');
+               $(".like_count" + no).html(data);
+           },
+           error: function(data) {
+               console.log('AJAX ERROR - ajax_updateLikeCount()');
+
+           }
+       });
+   }
+    function ajax_deleteLikeCount(type, no, u_id, load){
+        console.log('ajax_updateLikeCount() CALLED!!');
+
+        let msgDto = {
+            'type': type,
+            'no': no,
+            'u_id' : u_id
+        };
+
+        let str = '/youtube/youtube_like_delete';
+        $.ajax({
+            url: str,
+            method: 'POST',
+            data: JSON.stringify(msgDto),
+            contentType: 'application/json; charset=utf-8',
+            success: function(data) {
+                console.log('AJAX SUCCESS - ajax_deleteLikeCount()');
+                if(load == 1){
+                    location.href="/user/user_like_youtube_list";
+                } else {
+                    $(".like_count" + no).html(data);
+                }
+            },
+            error: function(data) {
+                console.log('AJAX ERROR - ajax_deleteLikeCount()');
+
+            }
+        });
+    }
+
+    // 인테리어 상품 1개 재구성(좋아요 시)
+    function reconYoutubeTdForLike(youtubeDto, isLike){
+        for(let i = 0; i < $('a.like_youtube_btn').length; i++){
+            if($('a.like_youtube_btn').eq(i).data("y_no") == youtubeDto.y_no){
+                $('a.like_youtube_btn').eq(i).children().remove();
+
+                let appendTag = '';
+
+                if(isLike > 0) {
+                    appendTag += '<img class="full_heart" src="/imgs/full_heart.png" ';
+                    appendTag += 'data-y_no="';
+                    appendTag += youtubeDto.y_no;
+                    appendTag += '">';
+                }else {
+                    appendTag += '<img class="empty_heart" src="/imgs/empty_heart.png" ';
+                    appendTag += 'data-y_no="';
+                    appendTag += youtubeDto.y_no;
+                    appendTag += '">';
+                }
+                $('a.like_youtube_btn').eq(i).append(appendTag);
+
+                $('span.like_count').eq(i).text(youtubeDto.y_like);
+
+                break;
+            }
+        }
+    }
+
+</script>
+
+
+
+

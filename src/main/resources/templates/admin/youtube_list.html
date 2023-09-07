@@ -27,7 +27,7 @@
 
         <div class="section_body">
             <div class="container">
-                <h2 class="section_title">유튜브 목록 관리</h2>
+                <h2 class="section_title">유튜브 관리</h2>
                 <div class="search_wrap">
                     <div class="search_area">
                         <input class="form-control2" type="text" name="keyword" />
@@ -43,16 +43,16 @@
                                 <th>채널</th>
                                 <th>제목</th>
                                 <th>내용</th>
-                                <th >상태</th>
+                                <th>관리</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="youtubeDto : ${YoutubeDtos}">
                                 <td th:text="${youtubeDto.y_channel}"></td>
-                                <td><a th:href="@{/admin/youtube_list_detail(no = ${youtubeDto.y_no})}" th:text="${#strings.abbreviate(youtubeDto.y_title,40)}"></a></td>
-                                <td th:text="${#strings.abbreviate(youtubeDto.y_content,40)}"></td>
-                                <td th:if="${youtubeDto.y_state == 0}"><button name="btn" th:onclick="init_state_event(1, [[${youtubeDto.y_no}]]);">삭제</button></td>
-                                <td th:if="${youtubeDto.y_state == 1}"><button name="btn" th:onclick="init_state_event(0, [[${youtubeDto.y_no}]]);">사용</button></td>
+                                <td><a th:href="@{/admin/youtube_list_detail(no = ${youtubeDto.y_no})}" th:text="${#strings.abbreviate(youtubeDto.y_title,30)}"></a></td>
+                                <td th:text="${#strings.abbreviate(youtubeDto.y_content,30)}"></td>
+                                <td th:if="${youtubeDto.y_state == 0}"><button name="btn" th:onclick="init_state_event(1, [[${youtubeDto.y_no}]]);">숨김</button></td>
+                                <td th:if="${youtubeDto.y_state == 1}"><button name="btn" th:onclick="init_state_event(0, [[${youtubeDto.y_no}]]);">노출</button></td>
                             </tr>
                         </tbody>
                     </table>
