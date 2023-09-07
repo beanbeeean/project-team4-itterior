@@ -111,8 +111,8 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()      //HTTP 요청 인증 설정
                         .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "", "/",
-                                "/board", "/board/", "/board/get_board_list", "/board/get_main_board_list",
-                                "/youtube", "/youtube/", "/youtube/get_main_youtube_list",
+                                "/board", "/board/", "/board/get_board_list", "/board/get_main_board_list", "/board/get_board",
+                                "/youtube", "/youtube/", "/youtube/**",
                                 "/product", "/product/","/product/get_products", "/product/get_main_product_list",
                                 "/userUploadImg/**", "/user/create_account_form", "/userBoardUploadImg/**", "/userBoardThumbnailImg/**"
                         ).permitAll()
