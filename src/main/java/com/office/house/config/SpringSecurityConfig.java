@@ -131,10 +131,11 @@ public class SpringSecurityConfig {
                             session.setAttribute("loginedMemberDto", loginedMemberDto);
                             session.setMaxInactiveInterval(60 * 30);
                             response.sendRedirect("/");
+
                         })
                         .failureHandler((request, response, exception) -> {
                             log.info("failureHandler!!");
-                            response.sendRedirect("/user/user_login_form");
+                            response.sendError(500);
 
                         })
                         .permitAll())

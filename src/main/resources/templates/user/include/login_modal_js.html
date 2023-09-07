@@ -204,26 +204,19 @@
             processData: false,
             contentType: false,
             success: function(data) {
-                let loginedMemberDto = "[[${session.loginedMemberDto}]]";
-
-                if(loginedMemberDto != null){
-                    console.log('AJAX SUCCESS - ajax_userLogin()');
-                    alert('로그인 성공했습니다.');
-                    $('div.modal_wrap').css('display','none');
-                    if(type == 0) {
-                        location.reload();
-                    }
-                    else {
-                        location.href = "/";
-                    }
-                }else {
-                    alert('로그인 실패했습니다.');
+                console.log('AJAX SUCCESS - ajax_userLogin()');
+                alert('로그인 성공했습니다.');
+                $('div.modal_wrap').css('display','none');
+                if(type == 0) {
+                    location.reload();
                 }
-
+                else {
+                    location.href = "/";
+                }
             },
             error: function(data) {
                 console.log('AJAX ERROR - ajax_userLogin()');
-                alert('fail 로그인 실패했습니다.');
+                alert('로그인 실패했습니다. 아이디와 비밀번호를 확인하세요.');
 
             }
         });
