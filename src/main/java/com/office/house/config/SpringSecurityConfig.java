@@ -114,6 +114,7 @@ public class SpringSecurityConfig {
                                 "/board", "/board/", "/board/get_board_list", "/board/get_main_board_list",
                                 "/youtube", "/youtube/", "/youtube/get_main_youtube_list",
                                 "/product", "/product/","/product/get_products", "/product/get_main_product_list",
+                                "/search", "/search/", "/search/**",
                                 "/userUploadImg/**", "/userBoardUploadImg/**", "/userBoardThumbnailImg/**"
                         ).permitAll()
                         .anyRequest().authenticated()   //위에 있는 경로 외 요청은 전부 인증 필요

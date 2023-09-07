@@ -214,12 +214,9 @@ public class YoutubeService implements IYoutubeService{
             isLikedDtos = iYoutubeDaoMapper.selectLikedYoutube(likeList);
         }
 
-        log.info(isLikedDtos);
-        if(isLikedDtos.get(0) == null){
-            isLikedDtos.clear();
-        }
         map.put("isLikedDtos", isLikedDtos);
         map.put("youtubeDtos", dtos);
+
         return map;
     }
 }
