@@ -57,6 +57,14 @@ div.cannot_result > a:hover {
     border-bottom: 1px solid #989898;
 }
 
+div.result_product {
+    width: 1200px;
+    margin: 10px auto 0;
+    padding-top: 30px;
+    border-top: 1px solid #dadada;
+    min-width: 1200px;
+}
+
 div.result_product_area {
     display: grid;
     grid-template-columns: auto auto auto auto;
@@ -184,7 +192,6 @@ div.result_board {
     width: 1200px;
     margin: 10px auto 0;
     padding-top: 30px;
-    border-top: 1px solid #dadada;
     min-width: 1200px;
 }
 

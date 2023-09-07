@@ -11,16 +11,16 @@
     </div>
     <div class="admin_manage_member">
         <h4>회원 관리</h4>
-        <p><a class="admin_u" th:href="@{/admin/user_list}">사용자</a></p>
-        <p th:if="${session.loginedAdminDto.a_state == 2}"><a class="admin_a" th:href="@{/admin/admin_list}">관리자</a></p>
+        <p><a class="admin_u" th:href="@{/admin/user_list}">사용자 관리</a></p>
+        <p th:if="${session.loginedAdminDto.a_state == 2}"><a class="admin_a" th:href="@{/admin/admin_list}">관리자 관리</a></p>
     </div>
 
     <div class="admin_manage_content">
         <h4>콘텐츠 관리</h4>
-        <p><a class="admin_y" th:href="@{/admin/youtube_list}">유튜브 목록</a></p>
-        <p><a class="admin_yc" th:href="@{/admin/youtube_channel_list}">유튜브 채널 목록</a></p>
-        <p><a class="admin_b" th:href="@{/admin/board_list}">게시판 목록</a></p>
-        <p><a class="admin_p" th:href="@{/admin/product_list}">상품 목록</a></p>
+        <p><a class="admin_y" th:href="@{/admin/youtube_list}">유튜브 관리</a></p>
+        <p><a class="admin_yc" th:href="@{/admin/youtube_channel_list}">유튜브 채널 관리</a></p>
+        <p><a class="admin_b" th:href="@{/admin/board_list}">내집이야기 관리</a></p>
+        <p><a class="admin_p" th:href="@{/admin/product_list}">상품 관리</a></p>
     </div>
 
     <div class="admin_manage_account">

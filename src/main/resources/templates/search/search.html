@@ -26,6 +26,45 @@
     <div id="section_wrap">
         <div class="result_wrap">
             <h2 class="result_text"></h2>
+
+            <div class="result_board">
+                <div class="result_header">
+                    <h2 class="result_title">
+                        내 집 이야기
+                    </h2>
+                    <a class="go_btn" th:if="${boardDtos.size() > 0}" th:href="@{/board(keyword=${keyword})}">더보기</a>
+                </div>
+                <div class="result_board_area" th:if="${boardDtos.size() > 0}">
+                    <div class="board_item_wrap" th:each="item : ${boardDtos}">
+                        <div class="board_item">
+                            <a class="title" th:href="@{/board/get_board(b_no=${item.b_no})}">
+                                <img class="board_img" th:src="'/userBoardThumbnailImg/'+${item.u_id}+'/'+${item.b_thumbnail}" />
+                                <p class="board_title" th:text="${item.b_title}"></p>
+                                <div class="board_user_info">
+                                    <img class="profile_img" th:src="'/userUploadImg/'+${item.u_id}+'/'+${item.u_img}"/>
+                                    <span class="user_name" th:text="${item.u_id}"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="like_hit_wrap">
+                            <a class="like_board_btn" href="#none" th:name="${item.b_no}">
+                                <img class="empty_heart" th:src="@{/imgs/empty_heart.png}"/>
+                            </a>
+                            <span th:class="'2_like_count'+ ${item.b_no}" th:text="${item.b_like}"></span>
+                            <div class="hit_area">
+                                <img class="hit_img" th:src="@{/imgs/hit.png}"/>
+                                <span class="hit_count" th:text="${item.b_hit}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cannot_result" th:if="${boardDtos.size() <= 0}">
+                    검색 결과가 없습니다.
+                    <br>
+                    <a th:href="@{/board}">내 집 이야기로 이동</a>
+                </div>
+            </div>
+
             <div class="result_product">
                 <div class="result_header">
                     <h2 class="result_title">
@@ -68,44 +107,7 @@
                     <a th:href="@{/product}">인테리어 상품으로 이동</a>
                 </div>
             </div>
-            <div class="result_board">
-                <div class="result_header">
-                    <h2 class="result_title">
-                        커뮤니티 게시판
-                    </h2>
-                    <a class="go_btn" th:if="${boardDtos.size() > 0}" th:href="@{/board(keyword=${keyword})}">더보기</a>
-                </div>
-                <div class="result_board_area" th:if="${boardDtos.size() > 0}">
-                    <div class="board_item_wrap" th:each="item : ${boardDtos}">
-                        <div class="board_item">
-                            <a class="title" th:href="@{/board/get_board(b_no=${item.b_no})}">
-                                <img class="board_img" th:src="'/userBoardThumbnailImg/'+${item.u_id}+'/'+${item.b_thumbnail}" />
-                                <p class="board_title" th:text="${item.b_title}"></p>
-                                <div class="board_user_info">
-                                    <img class="profile_img" th:src="'/userUploadImg/'+${item.u_id}+'/'+${item.u_img}"/>
-                                    <span class="user_name" th:text="${item.u_id}"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="like_hit_wrap">
-                            <a class="like_board_btn" href="#none" th:name="${item.b_no}">
-                                <img class="empty_heart" th:src="@{/imgs/empty_heart.png}"/>
-                            </a>
-                            <span th:class="'2_like_count'+ ${item.b_no}" th:text="${item.b_like}"></span>
-                            <div class="hit_area">
-                                <img class="hit_img" th:src="@{/imgs/hit.png}"/>
-                                <span class="hit_count" th:text="${item.b_hit}"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="cannot_result" th:if="${boardDtos.size() <= 0}">
-                    검색 결과가 없습니다.
-                    <br>
-                    <a th:href="@{/board}">커뮤니티로 이동</a>
-                </div>
 
-            </div>
             <div class="result_youtube">
                 <div class="result_header">
                     <h2 class="result_title">

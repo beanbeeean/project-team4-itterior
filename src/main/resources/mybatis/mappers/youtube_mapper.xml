@@ -23,7 +23,7 @@
 
     <select id="getTotalCnt" resultType="Integer">
 
-        SELECT count(*) FROM tbl_youtube where y_channel like CONCAT('%',#{keyWord},'%')
+        SELECT count(*) FROM tbl_youtube where y_title like CONCAT('%',#{keyWord},'%')
 
     </select>
 

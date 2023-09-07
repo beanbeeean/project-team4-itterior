@@ -25,7 +25,7 @@
     <div class="admin_section_wrap">
         <div class="section_body">
             <div class="container">
-                <h2 class="section_title">상품 목록 관리</h2>
+                <h2 class="section_title">인테리어 관리</h2>
                 <div class="search_wrap">
                     <div class="search_area">
                         <input class="form-control2" type="text" name="keyword" />
@@ -44,7 +44,7 @@
                             <th style="width: 10%">카테고리</th>
                             <th style="width: 10%">좋아요</th>
                             <th style="width: 10%">조회수</th>
-                            <th style="width: 10%">상태</th>
+                            <th style="width: 10%">관리</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -55,8 +55,8 @@
                                 <td th:text="${productDto.p_category}"></td>
                                 <td th:text="${productDto.p_like}"></td>
                                 <td style="text-align: center" th:text="${productDto.p_hit}"></td>
-                                <td style="text-align: center" th:if="${productDto.p_state == 0 }"><button name="btn" th:onclick="init_state_event(1, [[${productDto.p_no}]]);">삭제</button></td>
-                                <td style="text-align: center" th:if="${productDto.p_state == 1 }"><button name="btn" th:onclick="init_state_event(0, [[${productDto.p_no}]]);">사용</button></td>
+                                <td style="text-align: center" th:if="${productDto.p_state == 0 }"><button name="btn" th:onclick="init_state_event(1, [[${productDto.p_no}]]);">숨김</button></td>
+                                <td style="text-align: center" th:if="${productDto.p_state == 1 }"><button name="btn" th:onclick="init_state_event(0, [[${productDto.p_no}]]);">노출</button></td>
                             </tr>
                         </tbody>
                     </table>
