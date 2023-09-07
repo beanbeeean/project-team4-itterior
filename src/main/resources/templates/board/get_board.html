@@ -46,7 +46,7 @@
             <p>댓글</p>
             <div class="user_input" th:if="${session.loginedMemberDto != null}">
                 <img th:if="${session.loginedMemberDto.getU_img() != null}"
-                     th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"/>
+                     th:src="@{'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}}"/>
                 <img th:unless="${session.loginedMemberDto.getU_img() != null}"
                      th:src="@{/imgs/defaultimage.PNG}">
                 <input class="input_comment" type="text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. :)">
