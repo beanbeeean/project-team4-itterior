@@ -16,8 +16,10 @@
 <body>
 <header th:replace="~{/include/header_nav_footer.html::header}"/>
 
+
 <section id="section_wrap">
     <div th:replace="~{/include/user_nav_left.html::nav_left}"/>
+    <div class="user_section_wrap">
         <div class="section_body">
             <div class="detail_category">
                 <a class="write" th:href="@{/user/user_write_form}">글쓰기</a>

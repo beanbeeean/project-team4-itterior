@@ -5,7 +5,7 @@ section#section_wrap {
 }
 
 .user_side_bar {
-    height: 100vh;
+    height: auto;
     background-color: #f9f3eb;
     display: inline-block;
     padding: 0 30px;
@@ -75,4 +75,5 @@ div.user_side_bar a.active {
 
 div.user_section_wrap {
     padding: 80px 150px;
+    min-height: 80vh;
 }

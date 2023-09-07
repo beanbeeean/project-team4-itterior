@@ -48,8 +48,12 @@ div.search_bar_wrap > svg.search_btn > path {
 }
 
 div#user-actions {
+    position: absolute;
     text-align: right;
     padding-right: 80px;
+    top: 35px;
+    right: 0px;
+
 }
 
 div#user-actions > a {

@@ -1,13 +1,12 @@
 .section_body {
     width: 1200px;
     margin: 0 auto;
-    margin-left: 200px;
     margin-top: 20px;
 }
 
 div.search_product_wrap{
     width: 800px;
-    margin: 20px auto 0;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     position: relative;

@@ -47,6 +47,7 @@ header {
 
 /**/
 .section_body{
+	width: 1000px;
 }
 
 .detail_category {
@@ -235,7 +236,7 @@ section #section_wrap > div.page_wrap > div.page_number a.selectedPageNum {
 }
 div.search_board_wrap{
 	width: 600px;
-	margin: 100px auto 0;
+	margin: 0 auto 20px;
 	display: flex;
 	justify-content: center;
 	position: relative;
