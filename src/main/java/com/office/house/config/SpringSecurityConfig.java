@@ -51,7 +51,7 @@ public class SpringSecurityConfig {
 
         http.csrf().disable()   //CSRF 보호 기능 비활성화
                 .cors().disable()   //CORS 설정 비활성화
-                //.securityMatcher("/admin/**")
+                .securityMatcher("/admin/**")
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()      //HTTP 요청 인증 설정
                         .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "", "/", "/product/**", "**",
