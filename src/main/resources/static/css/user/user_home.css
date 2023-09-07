@@ -25,6 +25,8 @@
 .products,
 .videos{
     margin-bottom: 50px;
+    display: flex;
+    justify-content: space-around;
 }
 
 
@@ -180,11 +182,9 @@ div.youtube_wrap {
 }
 
 div.videos {
-    width: 1600px;
     padding-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
 div.videos iframe {
@@ -195,7 +195,7 @@ div.youtube_items {
     margin: 0 auto;
     padding: 20px;
     width: 650px;
-    display: inherit;
+    display: flex;
 }
 
 div.youtube_items h3 {
