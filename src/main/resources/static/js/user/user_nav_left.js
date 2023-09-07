@@ -10,10 +10,10 @@ window.addEventListener("DOMContentLoaded", function () {
     const currentPageURL = getCurrentPageURL();
 
     // 각 링크에 대한 URL 설정
-    const productLink = "/user/user_list_product_list";
+    const productLink = "/user/user_like_product_list";
     const uBoardLink = "/user/user_board_list";
-    const youtubeLink = "/user/user_list_youtube_list";
-    const boardLink = "/user/user_list_board_list";
+    const youtubeLink = "/user/user_like_youtube_list";
+    const boardLink = "/user/user_like_board_list";
     const modifyLink = "/user/user_modify_form";
 
     switch (currentPageURL){
