@@ -8,7 +8,7 @@
     display: inline-block;
     font-size: 1.3em;
     font-weight: bold;
-    color: rgb(237, 175, 175);
+    color: #d3b489;
     margin-bottom: 20px;
 }
 
@@ -149,7 +149,7 @@ img.hit {
 .today_product .product_sales_price_tag {
     float: right;
     font-size: 1.2em;
-    color: rgb(237, 175, 175);
+    color: #d3b489;
     font-weight: bold;
 }
 
