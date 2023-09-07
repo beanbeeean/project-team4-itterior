@@ -6,15 +6,15 @@
         const form = document.board_write_form;
 
         if (form.b_title.value == '') {
-            alert('INPUT TITLE');
+            alert('제목을 입력해주세요.');
             form.b_title.focus();
 
         } else if (editor.getData() == undefined) {
-            alert('INPUT BODY');
+            alert('내용을 입력해주세요.');
             form.b_content.focus();
 
         } else if (editor.getData().trim() === '') {
-            alert('INPUT BODY');
+            alert('내용을 입력해주세요.');
             editor.editing.view.focus(); // 에디터에 포커스를 줄 때는 에디터의 내부 요소로 이동
 
         }  else {
@@ -56,14 +56,14 @@
                 let loginedMemberDto = [[${session.loginedMemberDto}]];
 
                 if (data >= 1) {
-                    alert('writePost success!!');
+                    alert('작성을 완료했습니다!!');
                     history.back();
                 }
 
             },
             error: function(data) {
                 console.log('AJAX ERROR - ajax_writePost()');
-                alert('writePost fail!!');
+                alert('작성을 실패했습니다!!');
 
             }
 

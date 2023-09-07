@@ -19,12 +19,11 @@
         </div>
     </div>
     <div id="user-actions" th:if="${session.loginedMemberDto == null}">
-        <a th:href="@{/}">Home</a>&nbsp;&nbsp;
         <a href="none" class="show_modal">Login</a>
     </div>
     <div id="user-actions" th:unless="${session.loginedMemberDto == null}">
         <a th:href="@{/user/user_myPage}" th:text=${session.loginedMemberDto.u_id}></a>님, 환영합니다!&nbsp;&nbsp;
-        <a th:href="@{/user/user_logout_confirm}">로그아웃</a>&nbsp;&nbsp;
+        <a th:href="@{/user/user_logout_confirm}">Logout</a>&nbsp;&nbsp;
 
     </div>
 </header>

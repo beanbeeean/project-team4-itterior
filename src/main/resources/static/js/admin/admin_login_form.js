@@ -3,11 +3,11 @@ function adminLoginForm() {
 	
 	let form = document.admin_login_form;
 	if (form.a_id.value == '') {
-		alert('INPUT ID');R
-		form.a_id.focus();F
+		alert('아이디를 입력해주세요.');
+		form.a_id.focus();
 		
 	} else if (form.a_pw.value == '') {
-		alert('INPUT PW');
+		alert('패스워드를 입력해주세요.');
 		form.a_pw.focus();
 		
 	} else {

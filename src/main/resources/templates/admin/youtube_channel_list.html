@@ -39,18 +39,18 @@
                     <table class="table table-board">
                         <thead>
                         <tr>
-                            <th>채널</th>
-                            <th>영상개수</th>
-                            <th>수정일</th>
-                            <th>상태</th>
-                            <th>수정</th>
+                            <th style="width: 40%" >채널</th>
+                            <th style="width: 10%">영상개수</th>
+                            <th style="width: 30%">수정일</th>
+                            <th style="width: 10%">상태</th>
+                            <th style="width: 10%">수정</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="channelDto : ${ChannelDtos}">
-                            <td th:text="${#strings.abbreviate(channelDto.yc_channel,15)}"></td>
-                            <td th:text="${channelDto.yc_bring_cnt}"></td>
-                            <td th:text="${channelDto.yc_reg_date}"></td>
+                            <td  th:text="${#strings.abbreviate(channelDto.yc_channel,15)}"></td>
+                            <td style="text-align: center"  th:text="${channelDto.yc_bring_cnt}"></td>
+                            <td style="text-align: center"  th:text="${channelDto.yc_reg_date}"></td>
                             <td th:if="${channelDto.yc_state == 0 }">삭제</td>
                             <td th:if="${channelDto.yc_state == 1 }">사용</td>
                             <td><a class="update" th:href="@{/admin/youtube_channel_list_detail(no = ${channelDto.yc_no})}">수정</a></td>

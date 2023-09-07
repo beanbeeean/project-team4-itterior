@@ -33,10 +33,7 @@ div.search_area > button.form-control:hover {
     color: rgb(248, 92, 15);
 }
 
-div.user_list > .table-board,
-div.admin_list > .table-board,
-div.youtube_channel_list > .table-board,
-div.product_list > .table-board{
+.table-board{
     width: 100%;
     border-collapse: collapse;
 }

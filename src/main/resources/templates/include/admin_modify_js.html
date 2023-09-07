@@ -6,15 +6,15 @@ function adminModifyForm() {
 	let form = document.admin_modify_form;
 
     if (form.a_pw.value==''){
-		alert('INPUT PW');
+        alert('패스워드를 입력해주세요');
 		form.a_pw.focus();
 
 	} else if (form.a_mail.value == '') {
-		alert('INPUT MAIL');
+        alert('메일을 입력해주세요');;
 		form.a_mail.focus();
 
 	} else if (form.a_phone.value == '') {
-		alert('INPUT PHONE');
+        alert('연락처를 입력해주세요');
 		form.a_phone.focus();
 
 	} else {
@@ -29,11 +29,11 @@ function adminListModifyForm() {
     let form = document.admin_modify_form;
 
     if (form.a_mail.value == '') {
-        alert('INPUT MAIL');
+        alert('메일을 입력해주세요');
         form.a_mail.focus();
 
     } else if (form.a_phone.value == '') {
-        alert('INPUT PHONE');
+        alert('연락처를 입력해주세요');
         form.a_phone.focus();
 
     }
@@ -47,11 +47,11 @@ function userListModifyForm() {
     let form = document.user_modify_form;
 
     if (form.u_mail.value == '') {
-        alert('INPUT MAIL');
+        alert('메일을 입력해주세요');
         form.a_mail.focus();
 
     } else if (form.u_phone.value == '') {
-        alert('INPUT PHONE');
+        alert('연락처룰 입력해주세요');
         form.a_phone.focus();
 
     }
@@ -66,11 +66,11 @@ function channelModifyForm() {
     let form = document.channel_modify_form;
 
     if (form.yc_channel.value == '') {
-        alert('INPUT CHANNEL');
+        alert('유튜브 채널명을 입력해주세요.');
         form.yc_channel.focus();
 
     } else if (form.yc_bring_cnt.value == '') {
-        alert('INPUT BRING CNT');
+        alert('가져올 영상 갯수를 입력해주세요.');
         form.yc_bring_cnt.focus();
 
     }  else {
@@ -95,15 +95,15 @@ function boardModifyForm() {
     let form = document.board_modify_form;
 
     if (form.u_id.value == '') {
-        alert('INPUT CHANNEL');
+        alert('유튜브 영상 주소를 입력해주세요.');
         form.yc_channel.focus();
 
     } else if (form.b_title.value == '') {
-        alert('INPUT BRING CNT');
+        alert('유튜브 영상 제목을 입력해주세요.');
         form.yc_bring_cnt.focus();
 
     } else if (form.b_content.value == '') {
-        alert('INPUT SHOW CNT');
+        alert('유튜브 사용 여부를');
         form.yc_show_cnt.focus();
 
     } else {
