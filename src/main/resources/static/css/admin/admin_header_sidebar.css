@@ -72,10 +72,6 @@ div.admin_side_bar a:hover {
     color: rgb(248, 92, 15);
 }
 
-div.admin_side_bar a.active {
-    color: rgb(241, 73, 11);
-}
-
 div.admin_section_wrap {
     padding: 80px 120px;
 }
