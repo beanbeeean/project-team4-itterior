@@ -19,9 +19,9 @@
 
     // 디테일 뷰 - 삭제 버튼 클릭 시
     $(document).on("click", "#section_wrap a.delete_btn", function () {
-            console.log("DELETE Click Handler!");
+        console.log("DELETE Click Handler!");
 
-            ajax_removeContent(boardDto.b_no);
+        ajax_removeContent(boardDto.b_no);
     });
 
     // 댓글 리스트 출력
@@ -54,7 +54,7 @@
             }
 
             if (commentDtos[i].u_img == null) {
-                appendTag += '<img src="/imgs/defaultimage.PNG">';
+                appendTag += '<img src="/imgs/defaultimage.png">';
             }
 
             appendTag += '<span class="user_id">';
@@ -84,7 +84,7 @@
             appendTag += '답글달기';
             appendTag += '</a>';
 
-            if ([[${session.loginedMemberDto.u_id}]] == commentDtos[i].u_id) {
+            if (loginedMemberDto.u_id == commentDtos[i].u_id) {
                 appendTag += '<a class="modifyComment" onclick="changeDisplay(' + i + ')">';
                 appendTag += '수정하기';
                 appendTag += '</a>';
@@ -118,10 +118,10 @@
             <input type="hidden" name="c_target_c_no" value="${c_no}">
             <input type="hidden" name="c_target_u_id" value="${u_id}">`;
 
-            if (loginedMemberDto.u_img!= null) {
+            if (loginedMemberDto.u_img != null) {
                 replyForm += ` <img src="/userUploadImg/${loginedMemberDto.u_id}/${loginedMemberDto.u_img}">`;
             } else {
-                replyForm += `<img src="/imgs/defaultimage.PNG">`;
+                replyForm += `<img src="/imgs/defaultimage.png">`;
             }
 
             replyForm +=

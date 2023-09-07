@@ -30,7 +30,7 @@
                 <span>&nbsp;|&nbsp;</span>
                 <span><a th:href="@{/board/board_modify_form(b_no=${boardDto.b_no})}">수정하기</a></span>
             </span>
-            <span class="modify_delete" th:unless="${session.loginedMemberDto != null} or ${session.loginedMemberDto.getU_id()} == ${boardAuthor}">
+            <span class="modify_delete" th:unless="${session.loginedMemberDto != null} and ${session.loginedMemberDto.getU_id()} == ${boardAuthor}">
             </span>
 
             <div class="content_area">
@@ -48,12 +48,12 @@
                 <img th:if="${session.loginedMemberDto.getU_img() != null}"
                      th:src="@{'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}}"/>
                 <img th:unless="${session.loginedMemberDto.getU_img() != null}"
-                     th:src="@{/imgs/defaultimage.PNG}">
+                     th:src="@{/imgs/defaultimage.png}">
                 <input class="input_comment" type="text" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. :)">
                 <input type="button" id="submitBtn" value="입력" onclick="registReply();">
             </div>
             <div class="user_input" th:unless="${session.loginedMemberDto != null}">
-                <img th:src="@{/imgs/defaultimage.PNG}"/>
+                <img th:src="@{/imgs/defaultimage.png}"/>
                 <input type="text" placeholder="로그인 후 이용가능한 서비스입니다. :)" readonly>
                 <input type="button" value="입력" disabled>
             </div>

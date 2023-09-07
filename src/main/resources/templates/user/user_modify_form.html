@@ -20,7 +20,7 @@
 		<div id="section_wrap">
 			<div class="side_bar">
 				<img class="user_img" th:if="${session.loginedMemberDto.getU_img() == null}"
-					 th:src="@{/imgs/defaultimage.PNG}"><br>
+					 th:src="@{/imgs/defaultimage.png}"><br>
 				<img class="user_img"
 					 th:unless="${session.loginedMemberDto.getU_img() == null}"
 					 th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"><br>
@@ -42,7 +42,7 @@
 					<input type="hidden" name="u_no" th:if="${session.loginedMemberDto != null}"
 						th:value="${session.loginedMemberDto.u_no}">
 
-					<img class="image-preview user_img" th:if="${session.loginedMemberDto.getU_img() == null}" th:src="@{/imgs/defaultimage.PNG}"><br>
+					<img class="image-preview user_img" th:if="${session.loginedMemberDto.getU_img() == null}" th:src="@{/imgs/defaultimage.png}"><br>
 					<img class="image-preview user_img" th:unless="${session.loginedMemberDto.getU_img() == null}" th:src="'/userUploadImg/'+${session.loginedMemberDto.getU_id()}+'/'+${session.loginedMemberDto.u_img}"><br>
 					<input type="file" name="file"  onchange="previewImage(this); "><br>
 
