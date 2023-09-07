@@ -11,7 +11,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     // 각 링크에 대한 URL 설정
     const boardLink = "/board";
-    const productLink = "/product/";
+    const productLink = "/product";
     const youtubeLink = "/youtube";
 
     // 현재 페이지와 각 링크의 URL을 비교하여 스타일 변경

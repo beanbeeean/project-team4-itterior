@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.office.house.board.BoardDto;
+import com.office.house.board.BoardService;
 import com.office.house.util.page.PageMakerDto;
 import com.office.house.util.upload.UploadFileService;
 import com.office.house.util.page.PageDefine;
@@ -33,6 +34,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    BoardService boardService;
 
     @Autowired
     YoutubeService youtubeService;
@@ -221,6 +225,24 @@ public class UserController {
         String nextPage = "user/user_write_form";
 
         return nextPage;
+    }
+
+    @PostMapping("/user_write_confirm")
+    @ResponseBody
+    public Object userWriteConfirm(BoardDto boardDto, HttpSession session , @RequestParam(value="file", required = false) MultipartFile file){
+        log.info("[UserController] userWriteConfirm()");
+
+        UserDto loginedMemberDto = (UserDto) session.getAttribute("loginedMemberDto");
+        boardDto.setU_id(loginedMemberDto.getU_id());
+        boardDto.setU_img(loginedMemberDto.getU_img());
+
+        String savedFileName = uploadFileService.uploadBoardThumbnail(loginedMemberDto.getU_id(), file);
+        boardDto.setB_thumbnail(savedFileName);
+
+        int result = boardService.boardWriteConfirm(boardDto);
+
+        return result;
+
     }
 
     // FIND PASSWORD
