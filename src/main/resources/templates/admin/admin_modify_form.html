@@ -31,14 +31,14 @@
 						method="post"
 						enctype="multipart/form-data"
 				>
-					<input type="hidden" name="a_no" value="10" />
+					<input type="hidden" name="a_no" th:value="${session.loginedAdminDto.a_no}" />
 
 					<span class="admin_mp_tag">ID</span>
 					<br />
 					<input
 							type="text"
 							name="a_id"
-							value="admin"
+							th:value="${session.loginedAdminDto.a_id}"
 							readonly="readonly"
 							disabled="disabled"
 					/><br />
@@ -48,14 +48,14 @@
 					<input
 							type="email"
 							name="a_mail"
-							value="c2"
+							th:value="${session.loginedAdminDto.a_mail}"
 							placeholder="INPUT MAIL"
 					/><br />
 					<span class="admin_mp_tag">PHONE</span><br />
 					<input
 							type="text"
 							name="a_phone"
-							value="c2"
+							th:value="${session.loginedAdminDto.a_phone}"
 							placeholder="INPUT PHONE"
 					/><br /><br />
 					<input type="reset" value="reset" />

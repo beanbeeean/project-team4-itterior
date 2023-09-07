@@ -230,7 +230,7 @@ public class AdminController {
     public String userListModifyConfirm(UserDto userDto){
 
         log.info("[AdminController] userModifyConfirm()");
-
+        System.out.println(userDto);
         int result = -1;
         result = adminService.userListModifyConfirm(userDto);
 

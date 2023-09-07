@@ -52,7 +52,7 @@
                             <td th:text="${UserDtos.u_mail}"></td>
                             <td th:text="${UserDtos.u_phone}"></td>
                             <td th:if="${UserDtos.u_state == 0 }" th:text="탈퇴"></td>
-                            <td th:if="${UserDtos.u_state == 1 }" th:text="정상"></td>
+                            <td th:if="${UserDtos.u_state == 1 }" th:text="가입"></td>
                             <td><a th:href="@{/admin/user_list_detail?(no = ${UserDtos.u_no})}">수정</a></td>
                         </tr>
                         </tbody>

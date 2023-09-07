@@ -112,8 +112,6 @@ public class AdminService implements IAdminService{
 
         log.info("[AdminService] adminModifyConfirm()");
 
-        adminDto.setA_pw(passwordEncoder.encode(adminDto.getA_pw()));
-
         return iAdminDaoMapper.adminListModifyConfirm(adminDto);
     }
     //  ADMIN_LIST END
@@ -155,8 +153,6 @@ public class AdminService implements IAdminService{
     public int userListModifyConfirm(UserDto userDto) {
 
         log.info("[AdminService] userListModifyConfirm()");
-
-        userDto.setU_pw(passwordEncoder.encode(userDto.getU_pw()));
 
         return iAdminDaoMapper.userListModifyConfirm(userDto);
     }

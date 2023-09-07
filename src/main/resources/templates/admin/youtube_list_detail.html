@@ -9,45 +9,75 @@
 			integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 
 	<link rel="stylesheet" th:href="@{/css/common.css}">
-	<link rel="stylesheet" th:href="@{/css/home.css}">
 	<link rel="stylesheet" th:href="@{/css/admin/admin_header_sidebar.css}">
-	<link rel="stylesheet" th:href="@{/css/admin/myPage.css}">
 	<link rel="stylesheet" th:href="@{/css/admin/modify_account_form.css}">
 
 	<script th:replace="~{/include/admin_modify_js.html::js}" type="text/javascript"></script>
+
 </head>
 
 <body>
 <header th:replace="~{/admin/include/admin_header_sidebar.html::header}"></header>
 
-<section>
+<section id="section_wrap">
 	<div th:replace="~{/admin/include/admin_header_sidebar.html::sidebar}"></div>
-	<div class="section_wrap">
-
+	<div class="admin_section_wrap">
 		<div class="section_body">
-			<div id="section_wrap">
-				<div class="container">
-					<form th:action="@{/admin/youtube_list_modify_confirm}" name="youtube_modify_form" method="post"
-						  enctype="multipart/form-data" style="height: 850px; top: -200px ">
-						<p>MODIFY YOUTUBE</p>
-						<input type="hidden" name="y_no" th:value="${youtubeDto.y_no}">
-						&nbsp;<span>CHANNEL</span><br><input type="text" name="y_channel" th:value="${youtubeDto.y_channel}" placeholder="INPUT CHANNEL" readonly="readonly"
-															 disabled="disabled"><br>
-						&nbsp;<span>TITLE</span><br><input type="text" name="y_title" th:value="${youtubeDto.y_title}" placeholder="INPUT TITLE" readonly="readonly"
-														   disabled="disabled"><br>
-						&nbsp;<span>CONTENT</span><br><input type="text" name="y_content" th:value="${youtubeDto.y_content}" placeholder="INPUT CONTENT" readonly="readonly"
-															 disabled="disabled"><br>
-						<span>IMG</span><br><input type="text" name="y_img" th:value="${youtubeDto.y_img}" placeholder="INPUT IMG" readonly="readonly"
-												   disabled="disabled"><br><br>
-					</form>
-					<div class="drops">
-						<div class="drop drop-1"></div>
-						<div class="drop drop-3"></div>
-						<div class="drop drop-4"></div>
-						<div class="drop drop-5"></div>
-					</div>
-				</div>
+			<h3 class="admin_mp_title">유튜브 정보</h3>
+			<div class="container">
+				<form
+						action="/admin/admin_modify_confirm"
+						name="admin_modify_form"
+						method="post"
+						enctype="multipart/form-data"
+				>
+					<input type="hidden" name="y_no" th:value="${youtubeDto.y_no}" />
 
+					<span class="admin_mp_tag">채널</span>
+					<br />
+					<input
+							type="text"
+							name="y_id"
+							th:value="${youtubeDto.y_channel}"
+							readonly="readonly"
+							disabled="disabled"
+					/><br />
+					<span class="admin_mp_tag">제목</span>
+					<br />
+					<input
+							type="text"
+							name="y_state"
+							th:value="${youtubeDto.y_title}"
+							readonly="readonly"
+							disabled="disabled"
+					/>
+					<br />
+					<span class="admin_mp_tag">내용</span><br />
+					<input
+							type="email"
+							name="y_mail"
+							th:value="${youtubeDto.y_content}"
+							placeholder="INPUT MAIL"
+							readonly="readonly"
+							disabled="disabled"
+					/><br />
+					<span class="admin_mp_tag">이미지</span><br />
+					<input
+							type="text"
+							name="y_phone"
+							th:value="${youtubeDto.y_img}"
+							placeholder="INPUT PHONE"
+							readonly="readonly"
+							disabled="disabled"
+					/><br /><br />
+				</form>
+				<div class="drops">
+					<div class="drop drop-1"></div>
+					<div class="drop drop-2"></div>
+					<div class="drop drop-3"></div>
+					<div class="drop drop-4"></div>
+					<div class="drop drop-5"></div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -56,5 +86,6 @@
 </body>
 
 </html>
+
 
 

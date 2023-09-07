@@ -36,6 +36,16 @@ div.admin_section_wrap form input {
 	font-size: 22px;
 }
 
+div.admin_section_wrap form select {
+	width: 541px;
+	padding: 10px 20px;
+	border: 1px solid #dadada;
+	outline: none;
+	border-radius: 15px;
+	margin-bottom: 20px;
+	font-size: 22px;
+}
+
 div.admin_section_wrap input[type="button"],
 div.admin_section_wrap input[type="reset"] {
 	width: 100px;
