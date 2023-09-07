@@ -266,7 +266,7 @@ public class UserController {
                                           @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
                                           @RequestParam(value = "sort", required = false, defaultValue = "0") String sort,
                                           @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
-                                          @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_AMOUNT) int amount) {
+                                          @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_LIKE_AMOUNT) int amount) {
 
         log.info("[UserController] showUserLikeYoutubeList()");
 
