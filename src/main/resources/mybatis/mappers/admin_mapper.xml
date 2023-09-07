@@ -146,7 +146,7 @@
 
     <select id="boardList" resultType="com.office.house.board.BoardDto">
 
-        select * from tbl_board where u_id like CONCAT('%',#{keyWord},'%') order by b_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
+        select * from tbl_board where b_title like CONCAT('%',#{keyWord},'%') order by b_reg_date desc LIMIT #{criteria.skip}, #{criteria.amount}
 
     </select>
 

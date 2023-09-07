@@ -79,9 +79,17 @@ input[type="button"] {
 .like_product_btn .empty_heart,
 .like_product_btn .full_heart,
 .like_youtube_btn .empty_heart,
-.like_youtube_btn .full_heart{
-    width: 20px;
-    height: 20px;
+.like_youtube_btn .full_heart {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+img.hit {
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+    vertical-align: -5px
 }
 
 .hit {
@@ -154,9 +162,10 @@ input[type="button"] {
 }
 
 .product_items .like_hit_wrap{
-    margin-top: 5px;
-    float: right;
+    margin-top: 10px;
+    justify-items: right;
     padding-left: 100px;
+    width: 100%;
 }
 
 .today_product .heart,
@@ -221,7 +230,8 @@ div.like_channel_wrap {
     padding-right: 10px;
 }
 
-.like_count {
+.like_count,
+.hit_count {
     line-height: 5px;
     font-size: 18px;
 }

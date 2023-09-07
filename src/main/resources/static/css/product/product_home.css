@@ -3,6 +3,10 @@ section {
     border-top: 1px solid #dadada;
 }
 
+#section_wrap {
+    min-width: 1600px;
+}
+
 div.search_product_wrap{
     width: 800px;
     margin: 20px auto 0;

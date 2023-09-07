@@ -51,10 +51,11 @@ public class SpringSecurityConfig {
 
         http.csrf().disable()   //CSRF 보호 기능 비활성화
                 .cors().disable()   //CORS 설정 비활성화
-                .securityMatcher("/admin/**")
+                //.securityMatcher("/admin/**")
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()      //HTTP 요청 인증 설정
-                        .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "", "/", "/product/**", "**").permitAll()
+                        .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "", "/", "/product/**", "**",
+                                "/admin/create_account_form").permitAll()
                         .anyRequest().authenticated()   //위에 있는 경로 외 요청은 전부 인증 필요
                 )
                 .formLogin(login -> login
@@ -88,7 +89,7 @@ public class SpringSecurityConfig {
                             HttpSession session = request.getSession();
                             session.removeAttribute("loginedAdminDto");   //세션 데이터 삭제
 
-                            response.sendRedirect("/");
+                            response.sendRedirect("/admin");
 
                         })
                 )

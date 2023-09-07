@@ -7,7 +7,7 @@
             integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
     <link rel="stylesheet" th:href="@{/css/common.css}">
     <link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
-    <link rel="stylesheet" th:href="@{/css/home.css}">
+<!--    <link rel="stylesheet" th:href="@{/css/home.css}">-->
     <link rel="stylesheet" th:href="@{/css/board/board_write_form.css}">
 
     <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
@@ -23,7 +23,6 @@
 <section>
     <div id="section_wrap">
         <div class="write_content">
-<!--            <form action="/board/board_write_confirm" method="post" name="board_write_form" enctype="multipart/form-data">-->
             <form name="board_write_form">
                 <input type="hidden" name="u_id" th:if="${session.loginedMemberDto != null}"
                        th:value="${session.loginedMemberDto.u_id}">
@@ -59,9 +58,12 @@
 <footer th:replace="~{/include/header_nav_footer.html::footer}"/>
 
 <style>
+    .ck.ck-toolbar.ck-toolbar_grouping {
+        width: 1417px;
+    }
     .ck-editor__editable {
         height: 600px;
-        /*width: 80%;*/
+        width: 1400px;
     }
 
     .ck-content {
