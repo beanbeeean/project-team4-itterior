@@ -381,6 +381,7 @@ div.youtube_items {
     padding: 20px;
     width: 650px;
     display: inherit;
+    height: 250px;
 }
 
 div.youtube_items h3 {
