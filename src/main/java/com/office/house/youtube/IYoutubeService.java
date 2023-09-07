@@ -8,7 +8,7 @@ public interface IYoutubeService {
     public void youtube();
     void bringYoutube(ChannelDto channelDto);
 
-    Map<String, Object> getYoutubes(String keyWord, int pageNum, int amount, String u_id);
+    Map<String, Object> getYoutubes(String keyWord, String sort, int pageNum, int amount, String u_id);
 
     int youtubeLikeUpdate(Map<String, String> msgMap);
 

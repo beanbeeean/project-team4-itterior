@@ -116,14 +116,25 @@ public class YoutubeService implements IYoutubeService{
     }
 
     @Override
-    public Map<String, Object> getYoutubes(String keyWord, int pageNum, int amount, String u_id) {
+    public Map<String, Object> getYoutubes(String keyWord, String sort, int pageNum, int amount, String u_id) {
 
         log.info("[YoutubeService] getYoutubes()");
 
         Map<String, Object> map = new HashMap<>();
 
         Criteria criteria = new Criteria(pageNum, amount);
-        List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getYoutubes(keyWord, criteria, u_id);
+
+        if(sort.equals("0")) {
+            sort = "y_date";
+        }
+        else if(sort.equals("1")) {
+            sort = "y_like";
+        }
+
+        System.out.println("sort:" + sort);
+
+        List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getYoutubes(keyWord, sort, criteria, u_id);
+        System.out.println("YoutubeDtos:" + YoutubeDtos);
 
         int totalCnt = iYoutubeDaoMapper.getTotalCnt(keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);

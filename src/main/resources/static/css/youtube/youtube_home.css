@@ -130,6 +130,22 @@ section #section_wrap > div.page_wrap > div.page_number a.selectedPageNum {
     background-color: #232f3d;
 }
 
+.detail_category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail_category select {
+    text-align: center;
+    margin-bottom: 30px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #eeeeee;
+    padding: 10px;
+}
+
 div.like_hit_wrap{
     margin-top: 10px;
     display: flex;
