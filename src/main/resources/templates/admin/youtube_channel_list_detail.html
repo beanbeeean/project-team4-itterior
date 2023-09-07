@@ -85,7 +85,7 @@
 	<div th:replace="~{/admin/include/admin_header_sidebar.html::sidebar}"></div>
 	<div class="admin_section_wrap">
 		<div class="section_body">
-			<h3 class="admin_mp_title">계정 수정</h3>
+			<h3 class="admin_mp_title">채널 수정</h3>
 			<div class="container">
 				<form
 						action="/admin/admin_modify_confirm"
@@ -110,20 +110,6 @@
 							name="a_mail"
 							th:value="${channelDto.yc_bring_cnt}"
 							placeholder="INPUT MAIL"
-					/><br />
-					<span class="admin_mp_tag">수정일</span><br />
-					<input
-							type="text"
-							name="a_phone"
-							th:value="${channelDto.yc_reg_date}"
-							placeholder="INPUT PHONE"
-					/><br />
-					<span class="admin_mp_tag">상태</span><br />
-					<input
-							type="text"
-							name="a_phone"
-							th:value="${channelDto.yc_state}"
-							placeholder="INPUT PHONE"
 					/><br />
 					<select name="a_state">
 						<option th:value="0" th:text="미승인" th:selected="${channelDto.yc_state} == 0"></option>
