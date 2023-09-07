@@ -43,7 +43,7 @@ input[type="button"] {
 .board_items {
     margin-right: 10px;
     text-align: center;
-    width: 19%;
+    width: 310px;
     display: inline-block;
 }
 
@@ -103,10 +103,11 @@ img.hit {
 }
 
 .product_items {
-    margin-right: 10px;
+    padding: 15px;
+    margin-right: 15px;
     text-align: center;
     height: 400px;
-    width: 19%;
+    width: 270px;
     display: inline-block;
 }
 
@@ -179,7 +180,7 @@ div.youtube_wrap {
 }
 
 div.videos {
-    width: 100%;
+    width: 1600px;
     padding-top: 20px;
     display: flex;
     flex-wrap: wrap;
