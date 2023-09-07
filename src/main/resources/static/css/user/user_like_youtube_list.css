@@ -1,7 +1,6 @@
 .section_body {
-    width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
-    margin-left: 200px;
 }
 
 .detail_category {
@@ -63,7 +62,7 @@ div.youtube_item_list {
 }
 
 div.youtube_item {
-    width: 1200px;
+    width: 1000px;
     padding: 20px;
     margin: 0 auto 30px;
 }

@@ -16,3 +16,38 @@ a {
 li {
 	list-style: none;
 }
+
+section#section_wrap div.page_wrap {
+	width: 98%;
+	margin: 30px auto 50px;
+	text-align: center;
+
+}
+
+section#section_wrap div.page_wrap div.page_number {
+	display: inline-block;
+}
+
+section#section_wrap div.page_wrap div.page_number a {
+	width: 46px;
+	height: 46px;
+	line-height: 46px;
+	text-decoration: none;
+	display: inline-block;
+	margin: 0 3px;
+	color: #3c3c3c;
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+
+section#section_wrap div.page_wrap  div.page_number a:hover {
+	background-color: #e3e6e8;
+}
+
+section#section_wrap div.page_wrap div.page_number a.selectedPageNum {
+	color: #fff;
+	font-weight: bolder;
+	border: 1px solid #232f3d;
+	background-color: #232f3d;
+}
+

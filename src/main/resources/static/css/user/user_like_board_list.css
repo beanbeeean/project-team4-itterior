@@ -3,12 +3,6 @@ header {
 	z-index: 1;
 }
 
-#section_wrap {
-	display: flex;
-	align-items: center; /* 세로 중앙 정렬 */
-	min-width: 1600px;
-}
-
 .side_bar {
 	text-align: center;
 	background-color: rgba(211, 211, 211, 0.59);
@@ -53,13 +47,6 @@ header {
 
 /**/
 .section_body{
-	position: absolute;
-	top : 50px;
-	left: 250px;
-	margin: 0 auto;
-	padding: 25px;
-	width: 80%;
-	min-width: 1300px;
 }
 
 .detail_category {
