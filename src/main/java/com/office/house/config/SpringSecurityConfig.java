@@ -112,7 +112,7 @@ public class SpringSecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()      //HTTP 요청 인증 설정
                         .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "/search/**",
                                 "", "/", "/product/**", "/youtube/**", "/board/**", "/comment/**", "/like/**",
-                                "/userUploadImg/**", "/userBoardUploadImg/**", "/userBoardThumbnailImg/**"
+                                "/userUploadImg/**", "/user/create_account_form", "/userBoardUploadImg/**", "/userBoardThumbnailImg/**"
                         ).permitAll()
                         .anyRequest().authenticated()   //위에 있는 경로 외 요청은 전부 인증 필요
                 )

@@ -31,11 +31,7 @@
 					<input type="button" value="login">
 					<input type="reset" value="reset">
 					<div class="go_create_account_form">
-						아직 회원이 아니신가요? <a href="#none" class="create_form_btn">회원가입</a>
-					</div>
-					<br>
-					<div class="find_password_form">
-						비밀번호를 잊으셨나요? <a href="#none" class="find_password_btn">비밀번호 찾기</a>
+						아직 회원이 아니신가요? <a th:href="@{/user/create_account_form}" class="create_form_btn">회원가입</a>
 					</div>
 				</form>
 				<div class="drops">
