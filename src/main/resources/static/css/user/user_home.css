@@ -190,6 +190,7 @@ div.videos iframe {
 }
 
 div.youtube_items {
+    margin: 0 auto;
     padding: 20px;
     width: 650px;
     display: inherit;

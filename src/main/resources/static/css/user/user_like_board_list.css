@@ -129,8 +129,8 @@ header {
 
 
 .board_wrap tbody img.board_img {
-	max-width: 330px;
-	min-width: 330px;
+	max-width: 100%;
+	min-width: 100%;
 	min-height: 220px;
 	max-height: 220px;
 }
