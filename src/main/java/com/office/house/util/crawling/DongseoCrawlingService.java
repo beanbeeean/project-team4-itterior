@@ -56,7 +56,7 @@ public class DongseoCrawlingService implements ICrawlingService{
                 break;
         }
 
-        System.out.println("----------" + elements.size());
+
 
         for (WebElement noticeElement : elements) {
             String brand = "동서가구";

@@ -24,7 +24,7 @@ public class CrawlingScheduler {
 	
 	@Scheduled(cron = "0 10 0 * * *")
 	public void gguimiSchduler() {
-		System.out.println("집꾸미기 스케줄링 실행");
+
 
 		// 테이블 1
 		ggumiCrawlingService.crawlingProducts("https://www.ggumim.co.kr/furniture/more/278_290/?sort_by=f.bookmark_count&sort_direction=desc&per_page=", 1);
@@ -47,7 +47,6 @@ public class CrawlingScheduler {
 
 	@Scheduled(cron = "0 0 1 * * *")
 	public void dongseoSchduler() {
-		System.out.println("동서 가구 스케줄링 실행");
 
 		// 테이블 1
 		dongseoCrawlingService.crawlingProducts("https://www.dongsuhfurniture.co.kr/goods/goods_list.php?cateCd=031003", 1);
@@ -69,7 +68,6 @@ public class CrawlingScheduler {
 
 	@Scheduled(cron = "0 5 1 * * *")
 	public void ikeaSchduler() {
-		System.out.println("이케아 스케줄링 실행");
 
 		// 테이블 1
 		ikeaCrawlingService.crawlingProducts("https://www.ikea.com/kr/ko/cat/tables-desks-fu004/?page=3", 1);
@@ -85,6 +83,7 @@ public class CrawlingScheduler {
 
 		// 침대 5
 		ikeaCrawlingService.crawlingProducts("https://www.ikea.com/kr/ko/cat/beds-bm003/?page=3", 5);
+
 
 		// 조명 6
 		ikeaCrawlingService.crawlingProducts("https://www.ikea.com/kr/ko/cat/lamps-li002/?page=3", 6);

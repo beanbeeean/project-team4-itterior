@@ -153,7 +153,7 @@ public class UserService implements IUserService {
 
     // 새 비밀번호 만들기
     private String createNewPassword() {
-        System.out.println("[UserMemberService] createNewPassword()");
+
         char[] chars = new char[] {
                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
                 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'
@@ -212,7 +212,7 @@ public class UserService implements IUserService {
         map.put("u_id",u_id);
         List<BoardDto> boardDtos = iBoardDaoMapper.selectLikeBoardList(map);
         int totalCnt = boardDtos.size();
-        System.out.println("totalCnt :::: " + totalCnt);
+
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
         map.put("totalCnt", totalCnt);

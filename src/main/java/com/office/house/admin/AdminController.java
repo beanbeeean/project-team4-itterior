@@ -179,7 +179,7 @@ public class AdminController {
 
         log.info("[AdminController] adminModifyConfirm()");
 
-        System.out.println(adminDto);
+
         int result = -1;
         result = adminService.adminListModifyConfirm(adminDto);
 
@@ -202,7 +202,7 @@ public class AdminController {
 
         List<UserDto> UserDtos = (List<UserDto>) map.get("UserDtos");
 
-        System.out.println(UserDtos);
+
 
         PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
 
@@ -230,7 +230,7 @@ public class AdminController {
     public String userListModifyConfirm(UserDto userDto){
 
         log.info("[AdminController] userModifyConfirm()");
-        System.out.println(userDto);
+
         int result = -1;
         result = adminService.userListModifyConfirm(userDto);
 
@@ -461,7 +461,7 @@ public class AdminController {
 
         log.info("[AdminController] productListModifyConfirm()");
 
-        System.out.println(msgDto);
+
 
         int result = -1;
 

@@ -32,7 +32,7 @@ public class SearchController {
             u_id = userDto.getU_id();
         }
 
-        System.out.println("USER ::: " + userDto);
+
 
         Map<String, Object> resultMap = searchService.mainSearch(keyword, u_id);
 

@@ -46,7 +46,7 @@ public class YoutubeController {
         List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
 
         PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
-        System.out.println("totalCnt : " + map.get("totalCnt"));
+
 
         model.addAttribute("YoutubeDtos", YoutubeDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);

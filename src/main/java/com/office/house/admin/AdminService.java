@@ -132,7 +132,7 @@ public class AdminService implements IAdminService{
 
         int totalCnt = iAdminDaoMapper.getTotalCnt(table, column, keyWord);
         
-        System.out.println(totalCnt + " " + keyWord);
+
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
         map.put("UserDtos", UserDtos);

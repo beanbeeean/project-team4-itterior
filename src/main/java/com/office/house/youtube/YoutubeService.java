@@ -59,7 +59,7 @@ public class YoutubeService implements IYoutubeService{
                     "&maxResults=" + channelDto.getYc_bring_cnt() +
                     "&key=" + key;
 
-            System.out.println(apiUrl);
+
 
             //https://www.googleapis.com/youtube/v3/search?part=snippet&q=아울%20디자인&maxResults=5&regionCode=kr&type=video,channel&order=date&&key=AIzaSyC7o2xkuXM_LxnN-jw-QsXOn-1eS-rwfvw
 
@@ -76,7 +76,7 @@ public class YoutubeService implements IYoutubeService{
             }
 
             JSONParser jsonParser = new JSONParser();
-            System.out.println(result);
+
             JSONObject jsonObj = (JSONObject) jsonParser.parse(String.valueOf(result));
 
             JSONArray array = (JSONArray)jsonObj.get("items");
@@ -100,7 +100,7 @@ public class YoutubeService implements IYoutubeService{
 
                 int isYoutube = -1;
                 isYoutube = iYoutubeDaoMapper.isYoutube(youtubeDto.getY_id());
-                System.out.println("isYoutube : "+isYoutube);
+
                 if(isYoutube < 1) {
                     iYoutubeDaoMapper.insertNewYoutube(youtubeDto);
                 }
@@ -132,12 +132,12 @@ public class YoutubeService implements IYoutubeService{
         }
 
         List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getYoutubes(keyWord, sort, criteria, u_id);
-        System.out.println("YoutubeDtos:" + YoutubeDtos);
+
 
         int totalCnt = iYoutubeDaoMapper.getTotalCnt(keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
-        System.out.println("service totalCnt : " + totalCnt);
+
         map.put("totalCnt", totalCnt);
         map.put("YoutubeDtos", YoutubeDtos);
         map.put("pageMakerDto", pageMakerDto);

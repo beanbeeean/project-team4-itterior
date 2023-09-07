@@ -10,7 +10,7 @@ import java.util.UUID;
 public class UploadFileService {
 
 	public String upload(String u_id, MultipartFile file) {
-		System.out.println("[UploadFileService] upload()");
+
 		
 		boolean result = false;
 		
@@ -37,12 +37,12 @@ public class UploadFileService {
 		}
 		
 		if (result) {
-			System.out.println("[UploadFileService] FILE UPLOAD SUCCESS!!");
+
 			
 			return uniqueName + fileExtension;
 			
 		} else {
-			System.out.println("[UploadFileService] FILE UPLOAD FAIL!!");
+
 			
 			return null;
 			
@@ -51,7 +51,7 @@ public class UploadFileService {
 	}
 
 	public String uploadBoard(String u_id, MultipartFile file) {
-		System.out.println("[UploadFileService] uploadBoard()");
+
 
 		boolean result = false;
 
@@ -78,12 +78,12 @@ public class UploadFileService {
 		}
 
 		if (result) {
-			System.out.println("[UploadFileService] FILE UPLOAD SUCCESS!!");
+
 
 			return uniqueName + fileExtension;
 
 		} else {
-			System.out.println("[UploadFileService] FILE UPLOAD FAIL!!");
+
 
 			return null;
 
@@ -92,7 +92,7 @@ public class UploadFileService {
 	}
 
 	public String uploadBoardThumbnail(String u_id, MultipartFile file) {
-		System.out.println("[UploadFileService] upload()");
+
 
 		boolean result = false;
 
@@ -119,12 +119,11 @@ public class UploadFileService {
 		}
 
 		if (result) {
-			System.out.println("[UploadFileService] FILE UPLOAD SUCCESS!!");
 
 			return uniqueName + fileExtension;
 
 		} else {
-			System.out.println("[UploadFileService] FILE UPLOAD FAIL!!");
+
 
 			return null;
 

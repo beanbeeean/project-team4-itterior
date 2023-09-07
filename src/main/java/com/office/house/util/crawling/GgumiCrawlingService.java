@@ -37,7 +37,7 @@ public class GgumiCrawlingService implements ICrawlingService{
                 driver.get(url+i);
 
                 List<WebElement> elements = driver.findElements(By.cssSelector("div.preact-furniture-list > div.item"));
-                System.out.println("----------" + elements.size());
+
 
                 for (WebElement noticeElement : elements) {
 
