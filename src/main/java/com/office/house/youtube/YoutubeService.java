@@ -124,14 +124,12 @@ public class YoutubeService implements IYoutubeService{
 
         Criteria criteria = new Criteria(pageNum, amount);
 
-        if(sort.equals("0")) {
-            sort = "y_date";
-        }
-        else if(sort.equals("1")) {
+        if(sort.equals("1")) {
             sort = "y_like";
         }
-
-        System.out.println("sort:" + sort);
+        else if(sort.equals("0")) {
+            sort = "y_date";
+        }
 
         List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getYoutubes(keyWord, sort, criteria, u_id);
         System.out.println("YoutubeDtos:" + YoutubeDtos);
@@ -139,6 +137,7 @@ public class YoutubeService implements IYoutubeService{
         int totalCnt = iYoutubeDaoMapper.getTotalCnt(keyWord);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
+        map.put("totalCnt", totalCnt);
         map.put("YoutubeDtos", YoutubeDtos);
         map.put("pageMakerDto", pageMakerDto);
 
@@ -146,18 +145,25 @@ public class YoutubeService implements IYoutubeService{
     }
 
     @Override
-    public Map<String, Object> getLikeYoutubes(String keyWord, int pageNum, int amount, String u_id) {
+    public Map<String, Object> getLikeYoutubes(String keyWord, String sort, int pageNum, int amount, String u_id) {
 
         log.info("[YoutubeService] getLikeYoutubes()");
 
         Map<String, Object> map = new HashMap<>();
-
         Criteria criteria = new Criteria(pageNum, amount);
-        List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getLikeYoutubes(keyWord, criteria, u_id);
+
+        if(sort.equals("1")) {
+            sort = "y_like";
+        }
+        else{
+            sort = "y_date";
+        }
+        List<YoutubeDto> YoutubeDtos = iYoutubeDaoMapper.getLikeYoutubes(keyWord, sort, criteria, u_id);
 
         int totalCnt = iYoutubeDaoMapper.getTotalLikeCnt(keyWord, u_id);
         PageMakerDto pageMakerDto = new PageMakerDto(criteria, totalCnt);
 
+        map.put("totalCnt", totalCnt);
         map.put("YoutubeDtos", YoutubeDtos);
         map.put("pageMakerDto", pageMakerDto);
 

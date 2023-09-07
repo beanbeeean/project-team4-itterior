@@ -194,7 +194,7 @@ span.hit_count {
 }
 
 #section_wrap {
-    margin: 30px 25px;
+    margin: 20px 25px;
 }
 
 .board_word,
@@ -480,4 +480,9 @@ div.search_youtube_wrap svg.search_btn {
     top:16px;
     right:100px;
     cursor: pointer;
+}
+
+.youtube_cnt {
+    text-align: left;
+    font-size: 1.1em;
 }

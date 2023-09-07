@@ -264,6 +264,7 @@ public class UserController {
     @GetMapping("user_like_youtube_list")
     public String showUserLikeYoutubeList(Model model, HttpSession session,
                                           @RequestParam(value = "keyWord", required = false, defaultValue = "") String keyWord,
+                                          @RequestParam(value = "sort", required = false, defaultValue = "0") String sort,
                                           @RequestParam(value = "pageNum", required = false, defaultValue = PageDefine.DEFAULT_PAGE_NUMBER) int pageNum,
                                           @RequestParam(value = "amount", required = false, defaultValue = PageDefine.DEFAULT_YOUTUBE_AMOUNT) int amount) {
 
@@ -272,7 +273,7 @@ public class UserController {
         String nextPage = "user/user_like_youtube_list";
 
         UserDto userDto = (UserDto) session.getAttribute("loginedMemberDto");
-        Map<String, Object> map = youtubeService.getLikeYoutubes(keyWord, pageNum, amount, userDto.getU_id());
+        Map<String, Object> map = youtubeService.getLikeYoutubes(keyWord, sort, pageNum, amount, userDto.getU_id());
 
         List<YoutubeDto> YoutubeDtos = (List<YoutubeDto>) map.get("YoutubeDtos");
         PageMakerDto pageMakerDto = (PageMakerDto) map.get("pageMakerDto");
@@ -280,6 +281,8 @@ public class UserController {
         model.addAttribute("YoutubeDtos", YoutubeDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);
         model.addAttribute("keyWord", keyWord);
+        model.addAttribute("totalCnt", map.get("totalCnt"));
+        model.addAttribute("sort", sort);
 
         return nextPage;
     }

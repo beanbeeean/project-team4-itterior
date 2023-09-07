@@ -50,6 +50,7 @@ public class YoutubeController {
         model.addAttribute("YoutubeDtos", YoutubeDtos);
         model.addAttribute("pageMakerDto", pageMakerDto);
         model.addAttribute("keyWord", keyWord);
+        model.addAttribute("totalCnt", map.get("totalCnt"));
         model.addAttribute("sort", sort);
 
         return nextPage;

@@ -22,7 +22,7 @@
 <nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
 
 <section>
-    <div id="url" class="youtube"/>
+    <div id="url" class="youtube"></div>
     <div id="section_wrap">
         <div class="search_youtube_wrap">
             <input type="text" name="p_search" placeholder="유튜브 영상 키워드를 검색해주세요.">
@@ -38,6 +38,8 @@
                 </select>
             </div>
         </div>
+
+        <p class="board_total">전체&nbsp<span class="youtube_cnt" th:text="${totalCnt}"></span></p>
 
         <div class="videos">
             <div class="youtube_items" th:each="YoutubeDto : ${YoutubeDtos}">
