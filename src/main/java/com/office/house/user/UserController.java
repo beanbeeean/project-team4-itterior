@@ -44,6 +44,13 @@ public class UserController {
     @Autowired
     UploadFileService uploadFileService;
 
+
+    @GetMapping("/create_account_form")
+    public String createAccountForm() {
+        log.info("createAccountForm()");
+        return "user/create_account_form";
+    }
+
     // create account confirm
     @ResponseBody
     @PostMapping("/create_account_confirm")
