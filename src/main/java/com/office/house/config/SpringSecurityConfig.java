@@ -110,8 +110,10 @@ public class SpringSecurityConfig {
                 .cors().disable()   //CORS 설정 비활성화
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()      //HTTP 요청 인증 설정
-                        .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "/search/**",
-                                "", "/", "/product/**", "/youtube/**", "/board/**", "/comment/**", "/like/**",
+                        .requestMatchers("/css/**", "/error/**", "/imgs/**", "/js/**", "", "/",
+                                "/board", "/board/", "/board/get_board_list", "/board/get_main_board_list",
+                                "/youtube", "/youtube/", "/youtube/get_main_youtube_list",
+                                "/product", "/product/","/product/get_products", "/product/get_main_product_list",
                                 "/userUploadImg/**", "/userBoardUploadImg/**", "/userBoardThumbnailImg/**"
                         ).permitAll()
                         .anyRequest().authenticated()   //위에 있는 경로 외 요청은 전부 인증 필요
