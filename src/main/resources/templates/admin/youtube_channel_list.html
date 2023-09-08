@@ -51,8 +51,8 @@
                             <td  th:text="${#strings.abbreviate(channelDto.yc_channel,15)}"></td>
                             <td style="text-align: center"  th:text="${channelDto.yc_bring_cnt}"></td>
                             <td style="text-align: center"  th:text="${channelDto.yc_reg_date}"></td>
-                            <td th:if="${channelDto.yc_state == 0 }">삭제</td>
-                            <td th:if="${channelDto.yc_state == 1 }">사용</td>
+                            <td th:if="${channelDto.yc_state == 0 }">숨김</td>
+                            <td th:if="${channelDto.yc_state == 1 }">노출</td>
                             <td><a class="update" th:href="@{/admin/youtube_channel_list_detail(no = ${channelDto.yc_no})}">수정</a></td>
                         </tr>
                         </tbody>
