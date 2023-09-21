@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title th:replace="~{/include/title.html::title}"></title>
+	<title th:replace="~{include/title.html::title}"></title>
 	<script th:fragment="jquery_cdn" src="https://code.jquery.com/jquery-3.7.0.js"
 			integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 
@@ -12,15 +12,15 @@
 	<link rel="stylesheet" th:href="@{/css/admin/admin_header_sidebar.css}">
 	<link rel="stylesheet" th:href="@{/css/admin/modify_account_form.css}">
 
-	<script th:replace="~{/include/admin_modify_js.html::js}" type="text/javascript"></script>
+	<script th:replace="~{include/admin_modify_js.html::js}" type="text/javascript"></script>
 
 </head>
 
 <body>
-<header th:replace="~{/admin/include/admin_header_sidebar.html::header}"></header>
+<header th:replace="~{admin/include/admin_header_sidebar.html::header}"></header>
 
 <section id="section_wrap">
-	<div th:replace="~{/admin/include/admin_header_sidebar.html::sidebar}"></div>
+	<div th:replace="~{admin/include/admin_header_sidebar.html::sidebar}"></div>
 	<div class="admin_section_wrap">
 		<div class="section_body">
 			<h3 class="admin_mp_title">계정 수정</h3>

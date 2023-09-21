@@ -4,23 +4,23 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title th:replace="~{/include/title.html::title}"></title>
+	<title th:replace="~{include/title.html::title}"></title>
 
 	<link rel="stylesheet" th:href="@{/css/common.css}">
 	<link rel="stylesheet" th:href="@{/css/product/product_home.css}">
 	<link rel="stylesheet" th:href="@{/css/header_nav_footer.css}">
 	<link rel="stylesheet" th:href="@{/css/user/modal_login_form.css}">
-	<script th:replace="~{/include/common_js.html::jquery_cdn}" type="text/javascript"></script>
-	<script th:replace="~{/user/include/login_modal_js.html::js}" type="text/javascript"></script>
-	<script th:replace="~{/product/product_home_js.html::js}" type="text/javascript"></script>
-	<script th:replace="~{/user/include/like_js.html::js}" type="text/javascript"></script>
+	<script th:replace="~{include/common_js.html::jquery_cdn}" type="text/javascript"></script>
+	<script th:replace="~{user/include/login_modal_js.html::js}" type="text/javascript"></script>
+	<script th:replace="~{product/product_home_js.html::js}" type="text/javascript"></script>
+	<script th:replace="~{user/include/like_js.html::js}" type="text/javascript"></script>
 	<script src="https://kit.fontawesome.com/14533f5127.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-<header th:replace="~{/include/header_nav_footer.html::header}"></header>
+<header th:replace="~{include/header_nav_footer.html::header}"></header>
 
-<nav th:replace="~{/include/header_nav_footer.html::nav}"></nav>
+<nav th:replace="~{include/header_nav_footer.html::nav}"></nav>
 
 <section>
 	<div id="section_wrap">
@@ -117,8 +117,8 @@
 	</div>
 </section>
 
-<div th:replace="~{/user/include/login_modal.html::modal}"></div>
-<footer th:replace="~{/include/header_nav_footer.html::footer}"></footer>
+<div th:replace="~{user/include/login_modal.html::modal}"></div>
+<footer th:replace="~{include/header_nav_footer.html::footer}"></footer>
 </body>
 
 </html>
